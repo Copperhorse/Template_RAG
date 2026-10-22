@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+data/
+.pytest_cache/
+dist/
+
+# Local assistant config, never published
+CLAUDE.md
+.claude/
+
+# Textbook page excerpts used locally for conversion checks; copyrighted, not redistributed
+evals/corpus/pdfs/math_eslii_ch3_excerpt.pdf
+evals/corpus/pdfs/scan_islp_pages.pdf

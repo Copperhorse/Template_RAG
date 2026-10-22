@@ -1,0 +1,2502 @@
+{
+ "meta": {
+  "label": "SSD paper, auto backend (Docling), json_mode schema, fuzzy evidence",
+  "golden": "evals/gold/ssd.jsonl",
+  "store": "/tmp/claude-1000/-home-copper-Git-Template-RAG/24d159d4-229a-4570-887a-d29472273e1a/scratchpad/ssd_store",
+  "chunks": 188,
+  "usable": 182,
+  "json_mode": "schema",
+  "policy": "balanced",
+  "k": 5
+ },
+ "records": [
+  {
+   "id": "ssd-q001",
+   "question": "Which organization produced the SSD paper and who are the equal-contribution authors?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Apple. Ruixiang Zhang, Richard He Bai and Huangjie Zheng contributed equally.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The organization that produced the SSD paper is Apple [S1]. The equal-contribution authors are Ruixiang Zhang, Richard He Bai, Huangjie Zheng, and Yizhe Zhang [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "1 Introduction",
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "B ATheoretical Viewof SSD: Full Analysis",
+    "4.1 ThePrecision-ExplorationConflict Hypothesis"
+   ],
+   "seconds": 11.2
+  },
+  {
+   "id": "ssd-q002",
+   "question": "Where is the SSD code released?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "https://github.com/apple/ml-ssd",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The SSD code is released at https://github.com/apple/ml-ssd [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "6 Conclusion",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 2.0
+  },
+  {
+   "id": "ssd-q003",
+   "question": "What is simple self-distillation (SSD) in one sentence?",
+   "kind": "definition",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Sample solutions from the model itself with chosen temperature and truncation settings, then fine-tune the model on those raw, unverified samples with standard supervised fine-tuning.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Simple self-distillation (SSD) is an embarrassingly simple method where solutions are sampled from the base model with specific temperature and truncation settings, and then the model is fine-tuned on these raw, unverified samples using standard supervised fine-tuning (SFT) [S2, S5].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2,
+    5
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "6 Conclusion",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)"
+   ],
+   "seconds": 3.2
+  },
+  {
+   "id": "ssd-q004",
+   "question": "What is SSD's headline result on LiveCodeBench v6?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Qwen3-30B-Instruct improves from 42.4% to 55.3% pass@1 (+12.9pp, +30.4% relative).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD yields large gains on LiveCodeBench [S1], and it yields substantial LiveCodeBench v6 gains across six models spanning three families and multiple scales, including both instruct and thinking variants [S2]. Specifically, SSD improves Qwen3-30B-Instruct from 42.4% to 55.3% pass@1 on LiveCodeBench v6 [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    3
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "1 Introduction",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q005",
+   "question": "What does SSD not require? List everything the paper rules out.",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No human-labeled solutions, no reference answers, no teacher model, no reward model, no verifier, no execution environment, and no reinforcement learning.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "SSD does not require learning from correctness labels, reward signals, or verification outcomes [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": 0.0,
+   "sources": [
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "B.3 HowSSDReshapes Locks andForks",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD",
+    "B.1 Notation andSetup"
+   ],
+   "seconds": 2.1
+  },
+  {
+   "id": "ssd-q006",
+   "question": "How much does hard-problem pass@5 improve for Qwen3-30B-Instruct on LCB v6?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "From 31.1% to 54.1%.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 4,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For Qwen3-30B-Instruct on LCB v6, the hard-problem pass@5 improves by +23.0pp, while the pass@1 improves by +15.3pp [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "1 Introduction",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.3
+  },
+  {
+   "id": "ssd-q007",
+   "question": "What are 'fork' and 'lock' positions?",
+   "kind": "definition",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "A fork is a position where probability is spread over several plausible tokens leading to meaningfully different continuations; a lock is a sharply peaked position where few tokens hold most of the mass but a long distractor tail remains.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "'Lock' positions are where the distribution is sharply peaked, with very few tokens carrying most of the mass and a long distractor tail carrying the rest [S1]. 'Fork' positions are where the distribution is spread across multiple plausible tokens that can lead to meaningfully different downstream continuations [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "4.1 ThePrecision-ExplorationConflict Hypothesis",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "B.3 HowSSDReshapes Locks andForks",
+    "B.3 HowSSDReshapes Locks andForks",
+    "4 WhySSDWorks"
+   ],
+   "seconds": 3.6
+  },
+  {
+   "id": "ssd-q008",
+   "question": "What is the precision-exploration conflict?",
+   "kind": "definition",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Locks need low temperature (precision) and forks need high temperature (exploration), so any single global decoding temperature is a compromise: what helps forks lets distractors resurface at locks.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The precision-exploration conflict is the tension arising because certain positions in code generation demand precision (locks), where the distribution is sharply peaked and requires committing to the dominant token while suppressing the tail, and other positions demand exploration (forks), where the distribution is spread across multiple plausible tokens that can lead to different downstream continuations, requiring the model to spread mass across viable alternatives to avoid missing good paths [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD",
+    "1 Introduction",
+    "4.1 ThePrecision-ExplorationConflict Hypothesis",
+    "B.3 HowSSDReshapes Locks andForks",
+    "4 WhySSDWorks"
+   ],
+   "seconds": 6.0
+  },
+  {
+   "id": "ssd-q009",
+   "question": "What are the paper's three contributions?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "(1) SSD substantially improves code generation using only the model's own unverified outputs; (2) identifying the precision-exploration conflict as the key mechanism; (3) supporting that mechanism with controlled simulation, real-model analysis, and theory.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The paper's three contributions are: First, showing that SSD can substantially improve code generation models' performance using only their own unverified outputs, without any external teacher, verifier, reward model, or labeled solutions [S2]. Second, identifying the precision-exploration conflict and arguing that it is the key mechanism behind SSD [S2]. Third, supporting this mechanism with aligned evidence from controlled simulation, real-model analysis, and theory [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 0.6666666666666666,
+   "sources": [
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "1 Introduction",
+    "4 WhySSDWorks",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "5 RelatedWork"
+   ],
+   "seconds": 4.2
+  },
+  {
+   "id": "ssd-q010",
+   "question": "How many samples per prompt does SSD need, and are they filtered for correctness?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "One sample per prompt (N=1) suffices; samples are not verified in any way (no execution, test cases or correctness filtering).",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "In practice, N=1 (a single sample per prompt) is sufficient for SSD [S2]. The solutions are not verified in any way, meaning no execution, no test cases, and no filtering by correctness are applied [S2], and the retained samples are the raw, unverified SSD training targets [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "ssd-q011",
+   "question": "Which six models were evaluated?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Llama-3.1-8B-Instruct, Qwen3-4B-Instruct-2507, Qwen3-4B-Thinking-2507, Qwen3-30B-A3B-Instruct-2507, Qwen3-30B-A3B-Thinking-2507, and GPT-OSS-20B.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The six models evaluated are Llama-3.1-8B-Instruct, Qwen3-4B-Instruct-2507, Qwen3-4B-Thinking-2507, Qwen3-30BA3B-Instruct-2507, Qwen3-30B-A3B-Thinking-2507, and GPT-OSS-20B [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "3.1 Experimental Setup",
+    "6 Conclusion",
+    "C.1 Full Experimental Setup",
+    "C.1 Full Experimental Setup"
+   ],
+   "seconds": 5.9
+  },
+  {
+   "id": "ssd-q012",
+   "question": "What are the active parameter counts of the MoE models?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Qwen3-30B models: 30B total / 3B active. GPT-OSS-20B: 21B total / 3.6B active.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The active parameter counts for the MoE models are 3B for Qwen3-30B-Instruct and Qwen3-30B-Thinking, and 3.6B for GPT-OSS-20B [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "B.2 Understanding theSSDObjective and Its LearningSignal"
+   ],
+   "seconds": 4.5
+  },
+  {
+   "id": "ssd-q013",
+   "question": "What prompt data is SSD trained on, and how many problems?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "The seed subset of the rSTARcoder dataset, used only as unlabeled competitive-programming prompts; exact de-duplication yields about 10,168 unique problems (~10K).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD is trained on competitive-programming prompts synthesized from the seed subset of the rSTARcoder dataset (Liu et al., 2025), which results in approximately 10,168 unique problems [S1], or approximately 10K unique competitive programming problems [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses"
+   ],
+   "seconds": 4.4
+  },
+  {
+   "id": "ssd-q014",
+   "question": "What filtering is applied to SSD's generated samples?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Only a minimal degeneracy filter that removes empty responses and single-line stubs; no correctness signal at all.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD applies only a minimal degeneracy filter to remove clearly unusable outputs, such as empty responses and single-line stubs, and no correctness verification is applied; the retained samples are the raw, unverified SSD training targets [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "B.1 Notation andSetup",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "A DecodingPipeline: FromNotation to Implementation",
+    "5 RelatedWork"
+   ],
+   "seconds": 2.7
+  },
+  {
+   "id": "ssd-q015",
+   "question": "What are SSD's fine-tuning hyperparameters?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Megatron-LM on 8xB200 GPUs (EP=8 for MoE); AdamW (beta1 0.9, beta2 0.95, weight decay 0.1); cosine LR from 5e-6 to 1e-6; global batch 32; sequence length 65,536; 2,500 iterations for instruct and 300 for thinking models, with 250/50 warmup iterations.",
+   "evidence_status": [
+    "fuzzy-usable",
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 2,
+   "answer": "SSD samples from the base model with training-time decoding temperature Ttrain, fine-tunes on its own raw outputs, and then decodes at evaluation time with Teval [S5].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    5
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.4 HowSSDHyperparameters Interact",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "B.1 Notation andSetup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "ssd-q016",
+   "question": "How large are LCB v6 and LCB v5 and what periods do they cover?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "LCB v6: 131 problems, February–May 2025. LCB v5: 374 problems, August 2024–February 2025.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "LiveCodeBench v6 has 131 problems and covers the period from February to May 2025 [S1]. LiveCodeBench v5 has 374 problems and covers the period from August 2024 to February 2025 [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 4.4
+  },
+  {
+   "id": "ssd-q017",
+   "question": "How many samples per problem are used to estimate pass@k?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "10 independent samples per problem.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "10 independent samples per problem are used to estimate pass@k [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "3.1 Experimental Setup",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD",
+    "C.1 Full Experimental Setup"
+   ],
+   "seconds": 1.9
+  },
+  {
+   "id": "ssd-q018",
+   "question": "What LCB v6 pass@1 gain does each model get from SSD?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Llama-3.1-8B +3.5pp, Qwen3-4B-Instruct +7.5pp, Qwen3-4B-Thinking +3.3pp, Qwen3-30B-Instruct +12.9pp, Qwen3-30B-Thinking +2.1pp, GPT-OSS-20B +5.3pp.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD improves Qwen3-30B-Instruct's pass@1 on LiveCodeBench v6 from 42.4% to 55.3%, which is a gain of +12.9pp [S1, S2].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S2]",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 0.16666666666666666,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 4.7
+  },
+  {
+   "id": "ssd-q019",
+   "question": "How do Qwen3-30B-Instruct's SSD gains break down by difficulty on LCB v6?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "pass@1: easy +6.5, medium +14.2, hard +15.3. pass@5: easy +6.6, medium +19.6, hard +23.0.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "For Qwen3-30B-Instruct on LCB v6, the pass@1 improvement is +6.5pp on easy problems, +14.2pp on medium problems, and +15.3pp on hard problems [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation"
+   ],
+   "seconds": 3.5
+  },
+  {
+   "id": "ssd-q020",
+   "question": "What is Qwen3-30B-Instruct's SSD result on LCB v5?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "pass@1 45.8% to 54.3% (+8.5pp); pass@5 gains +12.0pp.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Qwen3-30B-Instruct's result on LiveCodeBench v5 for PASS@1 is 45.8 [S2].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S2]",
+   "citations": [
+    2
+   ],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.25,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "C.3 Out-of-DomainTransfer"
+   ],
+   "seconds": 4.1
+  },
+  {
+   "id": "ssd-q021",
+   "question": "What evidence does the paper give that SSD doesn't collapse diversity?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Pass@5 gains exceed pass@1 gains for every Qwen model on LCB v6 (e.g., +18.1 vs +12.9 for Qwen3-30B-Instruct), and even more so on hard problems (+23.0 vs +15.3).",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The paper provides evidence that SSD does not collapse diversity through several observations. First, the gains in pass@5 are often larger than those in pass@1, which indicates that SSD preserves and even improves generation diversity [S1]. Furthermore, in the real-model analysis, the higher entropy after truncation persists even when the two models place similar probability mass in their top 20 tokens, which provides more viable alternatives for evaluation time exploration [S4]. Additionally, SSD relaxes the conflict asymmetrically, allowing forks to retain more usable alternatives near the top of the distribution, while locks become safer, which means higher-temperature decoding becomes newly effective after training [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    4
+   ],
+   "n_verified": 5,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis",
+    "4 WhySSDWorks"
+   ],
+   "seconds": 6.1
+  },
+  {
+   "id": "ssd-q022",
+   "question": "In Table 2, what is Qwen3-30B-Thinking's LCB v6 hard pass@1 before and after SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "41.5% before, 46.7% after (+5.2).",
+   "evidence_status": [
+    "fuzzy-usable",
+    "absent"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "Qwen3-30B-Thinking's LCB v6 hard pass@1 before SSD was 41.5 and after SSD it is 59.7 [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.3333333333333333,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard"
+   ],
+   "seconds": 5.0
+  },
+  {
+   "id": "ssd-q023",
+   "question": "In Table 2, what is Llama-3.1-8B-Instruct's LCB v6 hard pass@1 before and after SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "0.0% before, 1.6% after.",
+   "evidence_status": [
+    "fuzzy-usable",
+    "absent"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "Llama-3.1-8B-Instruct's LCB v6 hard pass@1 before SSD was 0.0, and after SSD it was 0.8 [S4].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S4]",
+   "citations": [
+    4
+   ],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q024",
+   "question": "How much does temperature tuning alone help the base Qwen3-30B-Instruct?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Very little: pass@1 ranges only from 41.3% to 43.5% across evaluated temperatures (2.2pp spread); other models span 1.5–3.0pp.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Temperature tuning yields only modest gains on the base model, as the pass@1 for Qwen3-30B-Instruct ranges from 41.3% to 43.5% across the evaluated temperatures, which is a spread of only 2.2 pp [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.8,
+   "item_recall": null,
+   "sources": [
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.1 Experimental Setup",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.3 Global DecodingPoliciesCannotMatchSSD"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "ssd-q025",
+   "question": "By how much does SSD beat the best decode-tuned base model for each model?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "pass@1: +11.8 (Qwen3-30B-Instruct), +5.8 (Qwen3-4B-Instruct), +2.2 (Qwen3-4B-Thinking), +1.1 (Qwen3-30B-Thinking). For Qwen3-30B-Instruct hard problems: +13.3 pass@1 and +19.4 pass@5.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "SSD outperforms the best-tuned base model by the following amounts for pass@1: +11.8 pp for Qwen3-30B-Instruct, +5.8 pp for Qwen3-4B-Instruct, +2.2 pp for Qwen3-4B-Thinking, and +1.1 pp for Qwen3-30B-Thinking [S1]. For hard problems, the advantage is larger: SSD exceeds the best-tuned base model by +13.3 pp on hard pass@1 and +19.4 pp on hard pass@5 for Qwen3-30B-Instruct [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 6.2
+  },
+  {
+   "id": "ssd-q026",
+   "question": "What is effective temperature T_eff and what does it predict?",
+   "kind": "definition",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "T_eff = T_train x T_eval. Without truncation it governs performance (R^2 = 0.75) with a quadratic peak near T_eff ≈ 1.2.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 2,
+   "answer": "Effective temperature $T_{eff}$ is defined as $T_{eff} = T_{train}T_{eval}$ when inside a fixed retained support, and this is the cleanest local formal version of the effective-temperature picture in the experiments [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "B.3 HowSSDReshapes Locks andForks",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.4 HowSSDHyperparameters Interact",
+    "B.3 HowSSDReshapes Locks andForks",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "ssd-q027",
+   "question": "What was the best truncated configuration in the Section 3.4 hyperparameter sweep?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "T_train = 2.0, T_eval = 1.1, training-time top-k = 10, reaching 49.7% pass@1 (+7.3pp).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The best observed setting among the truncated runs used Ttrain=2.0, Teval=1.1, and training-time top-k=10, which achieved 49.7% pass@1 (+7.3 pp), surpassing all no-truncation results [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "3.4 HowSSDHyperparameters Interact",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.4 HowSSDHyperparameters Interact"
+   ],
+   "seconds": 3.0
+  },
+  {
+   "id": "ssd-q028",
+   "question": "How does training-time truncation change the optimal effective temperature?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "The optimal T_eff generally shifts higher with more stringent truncation, and truncated runs stay above baseline over a wider T_eff range.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "When a nontrivial training-time truncation configuration ρtrain is used during SSD data generation, the optimal effective temperature (Teff) generally shifts towards a higher temperature with more stringent truncation [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "3.4 HowSSDHyperparameters Interact",
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "B.3 HowSSDReshapes Locks andForks",
+    "3.4 HowSSDHyperparameters Interact",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses"
+   ],
+   "seconds": 2.4
+  },
+  {
+   "id": "ssd-q029",
+   "question": "Why can't a single evaluation temperature fix the precision-exploration conflict?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Temperature scales the whole distribution: lowering it protects locks but starves forks; raising it helps forks but lets the lock distractor tail regain mass.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "A single evaluation temperature cannot fix the precision-exploration conflict because different contexts demand contradictory things: locks require precision (committing to the dominant token and suppressing the tail), while forks require exploration (spreading mass across viable alternatives to avoid missing good paths) [S3]. Lowering the temperature sharpens the peak at a lock by suppressing distractors but starves a fork of diversity, whereas raising the temperature helps the fork but destabilizes locks as the distractor tail regains mass [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 5,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "4 WhySSDWorks",
+    "B.3 HowSSDReshapes Locks andForks",
+    "4.1 ThePrecision-ExplorationConflict Hypothesis",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis"
+   ],
+   "seconds": 6.1
+  },
+  {
+   "id": "ssd-q030",
+   "question": "How is the toy simulation structured?",
+   "kind": "mechanism",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "A finite-state machine with vocabulary 16; the root branches into two symmetric paths, each through one fork state then three lock states to PASS; any wrong token leads to FAIL.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The toy simulation is structured as a finite-state machine with a vocabulary of V = 16 [S2]. The root state branches into two symmetric successful paths, each path consisting of one fork state followed by L=3 lock states before reaching PASS [S2, S5]. At non-root states, tok0 is the unique correct continuation, and all other tokens lead to FAIL [S2]. At the root, tok0 and tok1 enter the two successful paths, but tok2 is the highest-probability token and immediately fails [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2,
+    5
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "C Experimental Details andAdditional Analyses",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis"
+   ],
+   "seconds": 6.4
+  },
+  {
+   "id": "ssd-q031",
+   "question": "According to the paper, why are training and decoding complementary in SSD?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Training makes locks safer but doesn't solve the fork; decode-only tuning can't clean up locks. Gains come only when training makes locks robust and decoding uses the freed room to explore forks.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Training and decoding are complementary in SSD because training makes the locks less fragile, and decoding uses the extra room created by training to explore the fork. Specifically, training changes the distribution so the locks are safer, and decoding then utilizes that extra room to explore the fork [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis",
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "Thegaindepends on evaluation-time truncation. Figure 15b shows",
+    "B ATheoretical Viewof SSD: Full Analysis",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD"
+   ],
+   "seconds": 4.6
+  },
+  {
+   "id": "ssd-q032",
+   "question": "What did the real-model analysis of Qwen3-30B-Instruct show?",
+   "kind": "list",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "After SSD, cumulative mass rises faster over top ranks (cleaner head, weaker tail); as T_eval rises more tokens survive truncation and post-truncation entropy rises much more; this persists even at similar top-20 mass. The base model's surviving set stays near a singleton.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The real-model analysis of Qwen3-30B-Instruct showed that relative to the base model, the SSD version reaches decoding with a cleaner head and a weaker distractor tail [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis",
+    "3.1 Experimental Setup",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis",
+    "C.1 Full Experimental Setup",
+    "C.3 Out-of-DomainTransfer"
+   ],
+   "seconds": 3.7
+  },
+  {
+   "id": "ssd-q033",
+   "question": "What are the three terms of the SSD loss decomposition (Equation 4)?",
+   "kind": "mechanism",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "-log KeptMass (support compression, via rho_train); (1-T) times the Rényi entropy H_{1/T} of the model restricted to the retained set (within-support reshaping, via T_train); and T times KL(q || tempered model on S) (alignment to the base model).",
+   "evidence_status": [
+    "absent",
+    "fuzzy-usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 3,
+   "answer": "The three terms of the SSD loss decomposition are: the first term drives support compression, the second reshapes the head within that set, and the third keeps that reshaping aligned with the base model on that same set [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 0.0,
+   "sources": [
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "4.3 ATheoretical Viewof SSD",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "4.3 ATheoretical Viewof SSD"
+   ],
+   "seconds": 4.0
+  },
+  {
+   "id": "ssd-q034",
+   "question": "How can SSD lower total entropy yet preserve exploration?",
+   "kind": "mechanism",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Entropy splits into gate, head and tail terms: SSD lowers gate and tail by concentrating mass on the retained set, while the conditional head stays broad at forks for T_eval to diversify.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 4,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD can lower total entropy while preserving exploration because total entropy measures uncertainty over the full vocabulary, whereas evaluation-time temperature acts on the conditional distribution inside the retained support [S2]. SSD achieves this by concentrating probability mass onto the retained support and suppressing diffuse outside-support mass, which lowers the gate and tail contributions to total entropy [S3, S5]. Simultaneously, it can preserve or increase conditional head entropy at contexts where several plausible continuations survive truncation, allowing evaluation-time temperature to act on this conditional distribution to support exploration [S1, S5].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    3,
+    5
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "4.3 ATheoretical Viewof SSD"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q035",
+   "question": "What happens when SSD trains on near-gibberish data?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "With T_train = 2.0 and no truncation, ~62% of samples have no extractable code, yet the model still reaches 48.1% pass@1 and 64.0% pass@5 (+5.7 / +10.5pp), with hard gains of +7.3 / +13.8pp.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "When SSD trains on near-gibberish data, the resulting fine-tuned model still improves substantially, even though the synthesized outputs devolve into gibberish [S1]. For instance, at Ttrain=2.0 without truncation, about 62% of the outputs contain no extractable code [S2], and the resulting student model still surpasses the base-model pass@1/pass@5 [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.14285714285714285,
+   "item_recall": null,
+   "sources": [
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "Thegaindepends on evaluation-time truncation. Figure 15b shows",
+    "B.3 HowSSDReshapes Locks andForks"
+   ],
+   "seconds": 4.7
+  },
+  {
+   "id": "ssd-q036",
+   "question": "Why are the stress-test gains smaller than the headline setting?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Without training-time truncation, distractor tails aren't suppressed during training and must be cleaned up by evaluation-time truncation, so gains are smaller and more fragile.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The gains in the stress test setting are smaller than those of the headline truncated setting because, in the stress test, the distractor tails are not suppressed during training and must instead be cleaned up at evaluation time by top-k/top-p truncation [S2]. This results in gains that are real but smaller and more fragile [S2], and the gains remain smaller than those of the headline truncated setting [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Thegaindepends on evaluation-time truncation. Figure 15b shows",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "ssd-q037",
+   "question": "In the high-temperature stress test, how many checkpoint/temperature configurations beat the baseline, and what was the training loss?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "62 of 100 configurations exceed the 42.4% baseline; final training loss rose to 11.29.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "62 checkpoint/temperature configurations exceeded the 42.4% frozen-base pass@1 baseline [S1]. The final training loss in this stress test was 11.29 [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    3
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.6666666666666666,
+   "item_recall": null,
+   "sources": [
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "B.1 Notation andSetup"
+   ],
+   "seconds": 4.6
+  },
+  {
+   "id": "ssd-q038",
+   "question": "In what evaluation-temperature range does the stress-test model work?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Roughly T_eval in [0.6, 1.1]; it falls below baseline at T_eval = 1.3 and drops further at 1.5.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The stress-test model performs competitively in the evaluation-temperature range roughly between [0.6, 1.1] [S1]. Furthermore, the optimum for the model sits inside a contiguous late-training ridge around Teval in the range of [0.8, 1.1] [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    4
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "B.3 HowSSDReshapes Locks andForks"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "ssd-q039",
+   "question": "In what order does vLLM apply decoding operations in this paper?",
+   "kind": "mechanism",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Temperature scaling, then top-k, then top-p, then sampling via the Gumbel-max trick (vLLM v0.11.0).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The vLLM decoding pipeline applies four steps in sequence: (1) temperature scaling, which divides all logits by T; (2) top-k filtering, which keeps the k largest tempered logits and sets the rest to -∞; (3) top-p filtering, which further prunes from the bottom of the surviving set until the cumulative mass reaches the chosen top-p threshold; and (4) Gumbel-max sampling [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "A DecodingPipeline: FromNotation to Implementation",
+    "B.1 Notation andSetup",
+    "A DecodingPipeline: FromNotation to Implementation",
+    "B.1 Notation andSetup",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q040",
+   "question": "When does vLLM switch to greedy decoding?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "When temperature is below 10^-5.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Temperatures below 10-5 trigger greedy (argmax) decoding, which bypasses all subsequent steps [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "A DecodingPipeline: FromNotation to Implementation",
+    "B.1 Notation andSetup",
+    "B.1 Notation andSetup",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses"
+   ],
+   "seconds": 2.3
+  },
+  {
+   "id": "ssd-q041",
+   "question": "What generation and evaluation decoding settings are used for Qwen3-30B-Instruct with SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Generation: T_train 1.6, top-k 20, top-p 0.8. Evaluation: T_eval 0.9, top-k 20, top-p 0.8.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The sources mention sweeping temperature extensively to probe the strongest decode-only performance achievable by the base model when comparing SSD to the base model [S1]. For Qwen3-30B-Instruct, full sweeps over training-time and evaluation-time decoding configurations were performed [S3]. In one regime, a search was run with only temperature scaling where Ttrain was in {0.5, 0.7, 1.0, 1.5, 2.0} and Teval was in [0.6, 1.5], with no training-time truncation [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    3,
+    4
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.4 HowSSDHyperparameters Interact",
+    "1 Introduction"
+   ],
+   "seconds": 7.6
+  },
+  {
+   "id": "ssd-q042",
+   "question": "What decoding settings were used for the base Qwen3-30B-Instruct baseline?",
+   "kind": "table",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "T 0.7, top-k 20, top-p 0.8 (Table 4).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The model-specific baseline decoding settings used for the frozen-model comparisons are detailed in Table 4 [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "C.1 Full Experimental Setup",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "C.1 Full Experimental Setup",
+    "3.3 Global DecodingPoliciesCannotMatchSSD"
+   ],
+   "seconds": 3.1
+  },
+  {
+   "id": "ssd-q043",
+   "question": "How are thinking models prompted differently from instruct models?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Instruct models get a system message asking for a Python solution in a markdown block; thinking models get the same task presentation but no explicit chain-of-thought instruction, relying on their native template.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For instruct models, each problem is wrapped in a system message requesting a Python solution inside a markdown code block, followed by the problem statement as the user turn. For thinking models, the task presentation is kept the same, but an explicit chain-of-thought instruction is not added; instead, the model's native template is relied upon to trigger its built-in reasoning behavior [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 4.7
+  },
+  {
+   "id": "ssd-q044",
+   "question": "Which out-of-domain benchmarks were used?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "AIME ('24 and '25) for math, HumanEval (Python and Shell) for general code generation, CruxEval for code understanding, and MMLU for general knowledge.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The out-of-domain benchmarks used include AIME to probe mathematical reasoning, HumanEval (Chen et al., 2021) to probe general code generation in Python and Shell, CruxEval to probe code understanding, and MMLU (Hendrycks et al., 2021b) to probe general knowledge [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "C.3 Out-of-DomainTransfer",
+    "C.3 Out-of-DomainTransfer",
+    "C.3 Out-of-DomainTransfer",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.1
+  },
+  {
+   "id": "ssd-q045",
+   "question": "Does SSD hurt out-of-domain performance for the 30B models?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No: Qwen3-30B-Instruct stays within about ±2pp on all benchmarks, Qwen3-30B-Thinking shows only small shifts, and both keep MMLU within 0.3pp.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "No, SSD does not substantially damage the out-of-domain performance for the 30B models; they remain broadly stable under programming-only SSD training [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "C.3 Out-of-DomainTransfer",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "C.3 Out-of-DomainTransfer",
+    "C.3 Out-of-DomainTransfer",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.0
+  },
+  {
+   "id": "ssd-q046",
+   "question": "Why does Llama-3.1-8B-Instruct's AIME score collapse after SSD?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "It often outputs a code block instead of a final numerical answer, giving near-zero accuracy (AIME '24 4.7 to 0.3).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Llama-3.1-8B-Instruct exhibits the sharpest tradeoff, which includes losing ground on AIME while improving on HumanEval and CruxEval [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "C.3 Out-of-DomainTransfer",
+    "C.3 Out-of-DomainTransfer",
+    "3.1 Experimental Setup",
+    "C.3 Out-of-DomainTransfer",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard"
+   ],
+   "seconds": 3.8
+  },
+  {
+   "id": "ssd-q047",
+   "question": "How does Qwen3-4B-Instruct's HumanEval Shell score change with SSD?",
+   "kind": "table",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Drops from 47.5 to 31.7.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The HumanEval Shell score for Qwen3-4B-Instruct is 25.3 [S1].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S1]",
+   "citations": [
+    1
+   ],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "C.3 Out-of-DomainTransfer",
+    "C.3 Out-of-DomainTransfer",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard"
+   ],
+   "seconds": 3.4
+  },
+  {
+   "id": "ssd-q048",
+   "question": "In the toy, what does the SSD student look like at lock, fork and root states?",
+   "kind": "list",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Lock: 2-token support, correct token 94.8%. Fork: 5-token support, tok1 34.4%, correct tok0 16.9%, three near-tied at ~16%. Root: 4 tokens survive, fail token still 40.6%.",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 3,
+   "n_quotes": 3,
+   "answer": "At lock states, the training time support compression collapses the student's lock to a 2-token support, where the correct token absorbs 94.8% of the mass, with only a single runner-up at 5.2% [S1, S5]. For fork states, the student yields a flatter plateau that allocates more mass to the correct lower-ranked continuation, while the teacher has a descending four-token nucleus [S5]. At root states, the FAIL token (tok2) dominates [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    5
+   ],
+   "n_verified": 7,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.25,
+   "item_recall": null,
+   "sources": [
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "4.1 ThePrecision-ExplorationConflict Hypothesis",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses"
+   ],
+   "seconds": 9.2
+  },
+  {
+   "id": "ssd-q049",
+   "question": "How does the toy's optimal success probability change after SSD?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Teacher: 8.32% at T = 0.639. Student: 13.77% at T = 2.091, a +5.4pp gain with the optimal temperature shifting about 3x higher.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The global optimum shifts upward after SSD. The student's advantage grows with temperature, moving from comparable at low temperature (5.5% vs 6.4%) to substantially better at high temperature (13.8% vs 0.3%) [S2]. Furthermore, the student reaches a success probability of 13.77% at T=2.091, which is a gain of +5.4 pp compared to the teacher's best probability of 8.32% at T=0.639, with the optimal temperature shifting roughly 3× upward [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2,
+    3
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis",
+    "4.2 HowSSDReshapes aModel: ToySimulation andReal-Model Analysis"
+   ],
+   "seconds": 4.9
+  },
+  {
+   "id": "ssd-q050",
+   "question": "Is the toy student's advantage sensitive to the top-p threshold?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No: across top-p from 0.65 to 0.90 the student stays ahead, with gaps from +1.4pp (0.90) to +5.4pp (0.80).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Yes, the toy student's advantage is sensitive to the top-p threshold, as repeating the grid search across top-p values from 0.65 to 0.90 leaves the student ahead, with the gaps in advantage ranging from +1.4 pp (at top-p=0.90) to +5.4 pp (at top-p=0.80) [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "B.1 Notation andSetup",
+    "C.4 ToySimulation: Full Specification andAdditional Analyses"
+   ],
+   "seconds": 3.4
+  },
+  {
+   "id": "ssd-q051",
+   "question": "According to Table 1, which property does on-policy self-distillation lack that SSD has?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No Privileged Info: on-policy self-distillation uses privileged information, SSD does not.",
+   "evidence_status": [
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "Table 1 is not provided in the sources, so it is not possible to determine which property on-policy self-distillation lacks that SSD has based on the provided text.",
+   "refused": false,
+   "grounded": false,
+   "reason": "the answer cites no source",
+   "citations": [],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "5 RelatedWork",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "B.2 Understanding theSSDObjective and Its LearningSignal",
+    "4.3 ATheoretical Viewof SSD"
+   ],
+   "seconds": 3.4
+  },
+  {
+   "id": "ssd-q052",
+   "question": "According to Table 1, how does GRPO compare with SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "GRPO lacks a dense signal and requires a verifier; SSD has a dense signal and needs no verifier. Both need no teacher and no privileged info.",
+   "evidence_status": [
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "Table 1 is not provided in the sources, so it is not possible to compare GRPO with SSD based on the given information.",
+   "refused": false,
+   "grounded": false,
+   "reason": "the answer cites no source",
+   "citations": [],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 3.5
+  },
+  {
+   "id": "ssd-q053",
+   "question": "How does SSD differ from STaR and ReST-EM?",
+   "kind": "comparison",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "STaR and ReST-EM turn self-generated outputs into supervision via correctness-based filtering or external feedback; SSD trains directly on raw, unverified outputs.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD differs from STaR and ReSTEM in that it trains directly on raw, unverified model outputs, whereas related self-training approaches like STaR and ReSTEM convert self-generated outputs into supervision through correctness-based filtering or external feedback [S1]. Furthermore, SSD's mechanism involves training on temperature-shifted, truncated self-samples, which induces support compression and within-support reshaping, unlike methods that rely on external feedback or internal critique [S2, S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    4
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "5 RelatedWork",
+    "4.3 ATheoretical Viewof SSD",
+    "B.1 Notation andSetup",
+    "5 RelatedWork",
+    "B.3 HowSSDReshapes Locks andForks"
+   ],
+   "seconds": 5.5
+  },
+  {
+   "id": "ssd-q054",
+   "question": "How does SSD differ from unsupervised RLVR / entropy-minimization methods?",
+   "kind": "comparison",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "It is not RL and does not directly minimize a scalar entropy objective; it reshapes distributions context-dependently (support compression plus within-support reshaping), suppressing tails while preserving or increasing useful head entropy at forks.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "SSD differs from unsupervised RLVR or entropy-minimization methods in both its method and mechanism. Specifically, SSD is not a reinforcement learning procedure that directly optimizes a scalar entropy objective or uniformly drives policy entropy downward [S1]. Instead, SSD's training involves fine-tuning on temperature-shifted, truncated self-samples, which reshapes the token distribution in a context-dependent manner by suppressing diffuse tail mass while preserving, and even increasing, useful entropy within the retained head at fork-like contexts [S1]. This makes SSD better understood as support compression plus within-support reshaping, rather than direct Shannon-entropy minimization [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "5 RelatedWork",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "1 Introduction",
+    "4.3 ATheoretical Viewof SSD",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration"
+   ],
+   "seconds": 7.2
+  },
+  {
+   "id": "ssd-q055",
+   "question": "Section 3.4's best sweep result is 49.7% pass@1, but the headline is 55.3%. Why the difference?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "The sweep runs used fewer training steps than the main experiments (Appendix C.2) and a different configuration; the 55.3% headline uses the Table 3 setting (T_train 1.6, top-k 20, top-p 0.8, T_eval 0.9) with full training.",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 3,
+   "answer": "The best observed setting among the truncated runs reached 49.7% pass@1, which is above all no-truncation results [S2]. The headline result of 55.3% pass@1 is not explicitly mentioned in the provided sources, but the sources indicate that truncation raises the performance ceiling [S2, S4].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S4]",
+   "citations": [
+    2,
+    4
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.25,
+   "item_recall": null,
+   "sources": [
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.4 HowSSDHyperparameters Interact",
+    "Thegaindepends on evaluation-time truncation. Figure 15b shows",
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.3 Global DecodingPoliciesCannotMatchSSD"
+   ],
+   "seconds": 3.6
+  },
+  {
+   "id": "ssd-q056",
+   "question": "Table 2's caption says SSD improves every evaluated model. Does every cell improve?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No. Overall pass@1 improves for every model on both v6 and v5, but some cells drop: GPT-OSS-20B LCB v5 pass@5 falls 83.4 to 82.1 (hard 70.5 to 68.2) and v6 medium pass@1 80.8 to 80.0; Llama v6 easy pass@5 76.7 to 73.3; Qwen3-30B-Thinking v5 easy pass@1 98.6 to 98.4.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 3,
+   "answer": "The caption for Table 2 states that SSD improves every evaluated model [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    4
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "3.3 Global DecodingPoliciesCannotMatchSSD"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "ssd-q057",
+   "question": "Does the 'pass@5 gain exceeds pass@1 gain' pattern hold for the non-Qwen models?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No. The paper states it only for Qwen models. On LCB v6, GPT-OSS-20B gains +1.9 pass@5 vs +5.3 pass@1, and Llama-3.1-8B +1.0 vs +3.5.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 3,
+   "answer": "Yes, the pattern where the 'pass@5 gain exceeds pass@1 gain' holds for non-Qwen models. For example, for Qwen3-4B-Instruct, the pass@5 gain (+15.8pp) is larger than the pass@1 gain (+7.5pp) [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses"
+   ],
+   "seconds": 5.7
+  },
+  {
+   "id": "ssd-q058",
+   "question": "What effective temperature does the headline Qwen3-30B-Instruct configuration use, and is that consistent with the paper's account of truncation?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Derived: T_eff = 1.6 x 0.9 = 1.44, above the ~1.2 no-truncation peak; consistent with the claim that the optimal T_eff shifts higher with truncation (headline uses top-k 20 / top-p 0.8).",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 2,
+   "n_quotes": 3,
+   "answer": "Without truncation, performance for Qwen3-30B-Instruct is largely organized by the effective temperature Teff = TtrainTeval [S1, S4]. The broad peak near Teff ≈ 1.2 is consistent with the composition analysis developed in Sections B.3 and 3.4 [S1]. When truncation is used, the best observed setting for Qwen3-30B-Instruct reached 49.7% pass@1 with Ttrain=2.0, Teval=1.1, and training-time top-k=10 [S3].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S3]",
+   "citations": [
+    1,
+    3,
+    4
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.2,
+   "item_recall": null,
+   "sources": [
+    "C.2 HowSSDHyperparameters Interact: Full Sweeps",
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.4 HowSSDHyperparameters Interact",
+    "3.4 HowSSDHyperparameters Interact",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.2
+  },
+  {
+   "id": "ssd-q059",
+   "question": "How much of Qwen3-30B-Instruct's SSD gain could decode-only tuning recover?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Derived: about 1.1pp. SSD beats the default-settings base by +12.9pp but the best-tuned base by +11.8pp.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Temperature tuning yields only modest gains on the base model, with Qwen3-30B-Instruct's pass@1 ranging from 41.3% to 43.5% across evaluated temperatures, a spread of only 2.2 pp [S1]. SSD still outperforms the best-tuned base model, and the advantage for Qwen3-30B-Instruct on hard pass@1 is +13.3 pp, and on hard pass@5 is +19.4 pp, both of which are larger than the corresponding all-problem margins [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "3.1 Experimental Setup",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD"
+   ],
+   "seconds": 6.6
+  },
+  {
+   "id": "ssd-q060",
+   "question": "Is the base-model pass@5 baseline used in the stress test the same as in Table 2?",
+   "kind": "multi-hop",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Yes: 53.5% pass@5 for base Qwen3-30B-Instruct on LCB v6 in both.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "The base-model baselines used in the stress test (S1) are not explicitly stated to be the same as those in Table 2. However, S1 mentions that dashed lines mark the 42.4% and 53.5% base-model baselines, while S4 specifies that frozen base-model baselines are evaluated with model-specific baseline decoding settings in Table 4.",
+   "refused": false,
+   "grounded": false,
+   "reason": "the answer cites no source",
+   "citations": [],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": false,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses",
+    "3.3 Global DecodingPoliciesCannotMatchSSD",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q061",
+   "question": "How does SSD perform when sampling more than one solution per prompt (N > 1)?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "The paper only says N=1 already suffices; it reports no results for N > 1.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 4,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The provided sources do not explicitly state how SSD performs when sampling more than one solution per prompt (N > 1).",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "3.1 Experimental Setup",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "C.1 Full Experimental Setup",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "C.5 High-TemperatureCaseStudy: Full Details andAdditional Analyses"
+   ],
+   "seconds": 2.7
+  },
+  {
+   "id": "ssd-q062",
+   "question": "How many GPU-hours does SSD fine-tuning take?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "The paper gives the hardware (8xB200) and iteration counts (2,500 instruct / 300 thinking) but no wall-clock time or GPU-hours.",
+   "evidence_status": [
+    "fuzzy-usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The provided sources do not state the number of GPU-hours required for SSD fine-tuning.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "2 EmbarrassinglySimpleSelf-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "B.5 WhyDecode-OnlyTuningCannotMatchSSD"
+   ],
+   "seconds": 3.4
+  },
+  {
+   "id": "ssd-q063",
+   "question": "How does SSD affect GPT-OSS-20B at low or medium reasoning effort?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "Only the high reasoning-effort setting of GPT-OSS-20B is evaluated.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD provides a gain of +5.3pp for GPT-OSS-20B [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup"
+   ],
+   "seconds": 3.2
+  },
+  {
+   "id": "ssd-q064",
+   "question": "What is the formal proof that SSD sharpens locks while preserving forks?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "The main text states the asymmetry (support compression dominates at locks; within-support reshaping at forks) and defers the formalization to Appendix B.3, which is not in this corpus.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The lock/fork asymmetry arises because the same global objective acts on different retained-support geometries [S2]. At a lock, only one or a few tokens survive truncation, so support compression dominates, which makes the surviving head relatively insensitive to evaluation-time temperature [S3]. At a fork, several plausible continuations survive, so within-support reshaping has room to flatten and preserve the head without reopening the discarded tail [S3].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S2]",
+   "citations": [
+    2,
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "B ATheoretical Viewof SSD: Full Analysis",
+    "B.3 HowSSDReshapes Locks andForks",
+    "4.3 ATheoretical Viewof SSD",
+    "B.4 Why SSDCan Lower Total EntropyWhile Preserving Conditional Head Entropy for Exploration",
+    "4.1 ThePrecision-ExplorationConflict Hypothesis"
+   ],
+   "seconds": 2.4
+  },
+  {
+   "id": "ssd-q065",
+   "question": "What were the base-model decode-tuning results for GPT-OSS-20B and Llama?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "Section 3.3 reports best-tuned-base margins only for the four Qwen models; Figure 2 shows 30B-Instruct, 4B-Instruct and 4B-Thinking. No numbers are given for GPT-OSS-20B or Llama.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 5,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For Llama-3.1-8B-Instruct, the generation settings were T=0.9, top-k=none, and top-p=0.8 [S3]. In the full experimental setup, the evaluation results for Llama-3.1-8B-Instruct showed a Generation - Ttrain of 0.8, Generation - top-k of 20, Generation - top-p of 0.8, Evaluation - Teval of 0.7, Evaluation - top-k of 20, and Evaluation - top-p of 0.8 [S1].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S3]",
+   "citations": [
+    1,
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "C.1 Full Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.3 Global DecodingPoliciesCannotMatchSSD"
+   ],
+   "seconds": 4.9
+  },
+  {
+   "id": "ssd-q066",
+   "question": "How does SSD perform on SWE-bench?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Not evaluated; code results are LiveCodeBench v5/v6 plus HumanEval and CruxEval transfer.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "SSD shows various performance metrics across different LiveCodeBench scenarios. For instance, on LiveCodeBench v6 02/2025 05/2025 - PASS@1 - EASY, SSD achieved a score of 55.3 [S1], 68.2 [S2], and 74.4 [S4]. On LiveCodeBench v6 02/2025 05/2025 - PASS@5 - - ALL, SSD achieved a score of 99.9 [S1], 100.0 [S2], 100.0 [S4], and 100.0 [S5].",
+   "refused": false,
+   "grounded": false,
+   "reason": "Unsupported sentence in answer (6 of 8 words not in the source)",
+   "citations": [
+    1,
+    2,
+    4,
+    5
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 12.7
+  },
+  {
+   "id": "ssd-q067",
+   "question": "Does SSD help models larger than 30B, such as 70B?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Not tested; the largest models evaluated are 30B.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not contain information about whether SSD helps models larger than 30B, such as 70B.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "1 Introduction",
+    "C.3 Out-of-DomainTransfer"
+   ],
+   "seconds": 2.4
+  },
+  {
+   "id": "ssd-q068",
+   "question": "What is SSD's pass@1 compared head-to-head against GRPO on LiveCodeBench?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "No numeric comparison; Table 1 compares only training properties.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not contain information comparing SSD's pass@1 against GRPO on LiveCodeBench.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.1 Experimental Setup"
+   ],
+   "seconds": 5.1
+  },
+  {
+   "id": "ssd-q069",
+   "question": "Does applying SSD repeatedly (multiple rounds) keep improving the model?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Iterated SSD is not studied.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not explicitly state whether applying SSD repeatedly (multiple rounds) keeps improving the model.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "4.4 ASurprisingCase: BadData, GoodResults",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "4.1 ThePrecision-ExplorationConflict Hypothesis"
+   ],
+   "seconds": 3.4
+  },
+  {
+   "id": "ssd-q070",
+   "question": "Does SSD trained on math prompts improve math benchmarks?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Not tested; SSD is trained only on competitive-programming prompts.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not state whether SSD trained on math prompts improves math benchmarks. Source S1 mentions evaluating transfer on benchmarks for math reasoning, but it does not detail the results of that evaluation.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "C.3 Out-of-DomainTransfer",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "3.1 Experimental Setup",
+    "3.2 SSD ImprovesCodeGenerationAcross theBoard",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation"
+   ],
+   "seconds": 3.5
+  }
+ ]
+}

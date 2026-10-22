@@ -1,0 +1,74 @@
+[
+ {
+  "damage": "one word inserted",
+  "kind": "slip",
+  "n": 55,
+  "median_score": 88.33333333333333,
+  "max_score": 95.59748427672956,
+  "strict_accepts": 0.8,
+  "loose_accepts": 0.9818181818181818
+ },
+ {
+  "damage": "two words swapped",
+  "kind": "slip",
+  "n": 33,
+  "median_score": 92.45283018867924,
+  "max_score": 98.59154929577466,
+  "strict_accepts": 0.9696969696969697,
+  "loose_accepts": 1.0
+ },
+ {
+  "damage": "last 25% cut off",
+  "kind": "slip",
+  "n": 50,
+  "median_score": 100.0,
+  "max_score": 100.0,
+  "strict_accepts": 1.0,
+  "loose_accepts": 1.0
+ },
+ {
+  "damage": "one word dropped",
+  "kind": "slip",
+  "n": 46,
+  "median_score": 89.28571428571429,
+  "max_score": 100.0,
+  "strict_accepts": 0.717391304347826,
+  "loose_accepts": 0.8695652173913043
+ },
+ {
+  "damage": "one word replaced",
+  "kind": "slip",
+  "n": 55,
+  "median_score": 87.27272727272728,
+  "max_score": 96.7741935483871,
+  "strict_accepts": 0.7090909090909091,
+  "loose_accepts": 0.8909090909090909
+ },
+ {
+  "damage": "30% of words replaced",
+  "kind": "fabrication",
+  "n": 50,
+  "median_score": 72.97297297297297,
+  "max_score": 92.72727272727272,
+  "strict_accepts": 0.1,
+  "loose_accepts": 0.24
+ },
+ {
+  "damage": "50% of words replaced",
+  "kind": "fabrication",
+  "n": 54,
+  "median_score": 58.88888888888889,
+  "max_score": 85.71428571428572,
+  "strict_accepts": 0.018518518518518517,
+  "loose_accepts": 0.07407407407407407
+ },
+ {
+  "damage": "text of another chunk",
+  "kind": "fabrication",
+  "n": 55,
+  "median_score": 44.89795918367348,
+  "max_score": 57.14285714285714,
+  "strict_accepts": 0.0,
+  "loose_accepts": 0.0
+ }
+]

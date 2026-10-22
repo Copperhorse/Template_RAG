@@ -1,0 +1,5849 @@
+{
+ "counts": {
+  "tune": 70,
+  "heldout": 149,
+  "neg": 59,
+  "by_kind": {
+   "far": 15,
+   "legacy": 15,
+   "near": 14,
+   "premise": 15
+  }
+ },
+ "reports": [
+  {
+   "signal": "rerank top-1 (jina-reranker-v3.5)",
+   "auc": 0.9642442535407476,
+   "auc_lo": 0.9431932512963392,
+   "auc_hi": 0.981812553207956,
+   "auc_by_kind": {
+    "legacy": 0.9512937595129376,
+    "far": 0.9933028919330289,
+    "near": 0.9719504240052185,
+    "premise": 0.9409436834094368
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": 0.18265901505947113,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 12,
+      "n": 149,
+      "rate": 0.08053691275167785,
+      "lo": 0.046668384856479436,
+      "hi": 0.13549144597491725
+     },
+     "unanswerable_refused": {
+      "k": 44,
+      "n": 59,
+      "rate": 0.7457627118644068,
+      "lo": 0.6220361301768266,
+      "hi": 0.8394416170479418
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": 0.21142178773880005,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 14,
+      "n": 149,
+      "rate": 0.09395973154362416,
+      "lo": 0.05679565212994229,
+      "hi": 0.15153506411484974
+     },
+     "unanswerable_refused": {
+      "k": 49,
+      "n": 59,
+      "rate": 0.8305084745762712,
+      "lo": 0.7153653834518579,
+      "hi": 0.9052426214366236
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": 0.30372190475463867,
+     "tune_refused": {
+      "k": 6,
+      "n": 70,
+      "rate": 0.08571428571428572,
+      "lo": 0.03987612654032836,
+      "hi": 0.17465876977827793
+     },
+     "heldout_refused": {
+      "k": 30,
+      "n": 149,
+      "rate": 0.20134228187919462,
+      "lo": 0.14483273362908414,
+      "hi": 0.2728650659228703
+     },
+     "unanswerable_refused": {
+      "k": 57,
+      "n": 59,
+      "rate": 0.9661016949152542,
+      "lo": 0.8845621301839242,
+      "hi": 0.9906542869664985
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": 0.3332669138908386,
+     "tune_refused": {
+      "k": 13,
+      "n": 70,
+      "rate": 0.18571428571428572,
+      "lo": 0.11187194691822094,
+      "hi": 0.29225797442692864
+     },
+     "heldout_refused": {
+      "k": 36,
+      "n": 149,
+      "rate": 0.24161073825503357,
+      "lo": 0.17993117418282853,
+      "hi": 0.31627928160931185
+     },
+     "unanswerable_refused": {
+      "k": 58,
+      "n": 59,
+      "rate": 0.9830508474576272,
+      "lo": 0.9100406253761469,
+      "hi": 0.9970018433070186
+     }
+    }
+   ],
+   "pos_median": 0.44269099831581116,
+   "neg_median": 0.0785435363650322
+  },
+  {
+   "signal": "rerank mean top-3 (jina-reranker-v3.5)",
+   "auc": 0.9617676650414054,
+   "auc_lo": 0.934060831205015,
+   "auc_hi": 0.984598715269716,
+   "auc_by_kind": {
+    "legacy": 0.9531202435312024,
+    "far": 1.0,
+    "near": 0.9739073711676451,
+    "premise": 0.9208523592085236
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": 0.14220610509316126,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 18,
+      "n": 149,
+      "rate": 0.12080536912751678,
+      "lo": 0.07779663227338414,
+      "hi": 0.18287585479819846
+     },
+     "unanswerable_refused": {
+      "k": 52,
+      "n": 59,
+      "rate": 0.8813559322033898,
+      "lo": 0.7747612422658494,
+      "hi": 0.94132491722086
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": 0.15560874777535597,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 24,
+      "n": 149,
+      "rate": 0.1610738255033557,
+      "lo": 0.11069458715061514,
+      "hi": 0.22849055616115338
+     },
+     "unanswerable_refused": {
+      "k": 56,
+      "n": 59,
+      "rate": 0.9491525423728814,
+      "lo": 0.8608327667771333,
+      "hi": 0.9825575988405467
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": 0.16302384001513323,
+     "tune_refused": {
+      "k": 6,
+      "n": 70,
+      "rate": 0.08571428571428572,
+      "lo": 0.03987612654032836,
+      "hi": 0.17465876977827793
+     },
+     "heldout_refused": {
+      "k": 30,
+      "n": 149,
+      "rate": 0.20134228187919462,
+      "lo": 0.14483273362908414,
+      "hi": 0.2728650659228703
+     },
+     "unanswerable_refused": {
+      "k": 56,
+      "n": 59,
+      "rate": 0.9491525423728814,
+      "lo": 0.8608327667771333,
+      "hi": 0.9825575988405467
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": 0.20207326114177704,
+     "tune_refused": {
+      "k": 13,
+      "n": 70,
+      "rate": 0.18571428571428572,
+      "lo": 0.11187194691822094,
+      "hi": 0.29225797442692864
+     },
+     "heldout_refused": {
+      "k": 57,
+      "n": 149,
+      "rate": 0.3825503355704698,
+      "lo": 0.3083944782946589,
+      "hi": 0.46261027433813223
+     },
+     "unanswerable_refused": {
+      "k": 57,
+      "n": 59,
+      "rate": 0.9661016949152542,
+      "lo": 0.8845621301839242,
+      "hi": 0.9906542869664985
+     }
+    }
+   ],
+   "pos_median": 0.24079894026120505,
+   "neg_median": 0.028440145930896204
+  },
+  {
+   "signal": "dense cosine top-1",
+   "auc": 0.9180403993498956,
+   "auc_lo": 0.8688955963160746,
+   "auc_hi": 0.9593684699326678,
+   "auc_by_kind": {
+    "legacy": 0.9312024353120244,
+    "far": 0.9996955859969558,
+    "near": 0.9487932159165036,
+    "premise": 0.7945205479452054
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": 0.6957793831825256,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 0,
+      "n": 149,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.025134518351024853
+     },
+     "unanswerable_refused": {
+      "k": 30,
+      "n": 59,
+      "rate": 0.5084745762711864,
+      "lo": 0.3843492802145344,
+      "hi": 0.6315637455518369
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": 0.7176068425178528,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 6,
+      "n": 149,
+      "rate": 0.040268456375838924,
+      "lo": 0.01858366455493629,
+      "hi": 0.08506351003627448
+     },
+     "unanswerable_refused": {
+      "k": 42,
+      "n": 59,
+      "rate": 0.711864406779661,
+      "lo": 0.5861891170174913,
+      "hi": 0.8116365271417918
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": 0.7252262830734253,
+     "tune_refused": {
+      "k": 6,
+      "n": 70,
+      "rate": 0.08571428571428572,
+      "lo": 0.03987612654032836,
+      "hi": 0.17465876977827793
+     },
+     "heldout_refused": {
+      "k": 11,
+      "n": 149,
+      "rate": 0.0738255033557047,
+      "lo": 0.041719901872892914,
+      "hi": 0.12735448625180612
+     },
+     "unanswerable_refused": {
+      "k": 46,
+      "n": 59,
+      "rate": 0.7796610169491526,
+      "lo": 0.6586705755334912,
+      "hi": 0.8664592747567625
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": 0.7389199733734131,
+     "tune_refused": {
+      "k": 13,
+      "n": 70,
+      "rate": 0.18571428571428572,
+      "lo": 0.11187194691822094,
+      "hi": 0.29225797442692864
+     },
+     "heldout_refused": {
+      "k": 31,
+      "n": 149,
+      "rate": 0.2080536912751678,
+      "lo": 0.15062130950665814,
+      "hi": 0.28016193275199397
+     },
+     "unanswerable_refused": {
+      "k": 50,
+      "n": 59,
+      "rate": 0.847457627118644,
+      "lo": 0.7348177673118977,
+      "hi": 0.9176162891093264
+     }
+    }
+   ],
+   "pos_median": 0.769649863243103,
+   "neg_median": 0.6950685977935791
+  },
+  {
+   "signal": "RRF top score",
+   "auc": 0.7309805742589582,
+   "auc_lo": 0.654128937388747,
+   "auc_hi": 0.8055491061063386,
+   "auc_by_kind": {
+    "legacy": 0.7832572298325723,
+    "far": 0.8904109589041096,
+    "near": 0.687866927592955,
+    "premise": 0.5595129375951293
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": 0.03036576949620428,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 26,
+      "n": 149,
+      "rate": 0.174496644295302,
+      "lo": 0.12195321718076815,
+      "hi": 0.24340281154439572
+     },
+     "unanswerable_refused": {
+      "k": 24,
+      "n": 59,
+      "rate": 0.4067796610169492,
+      "lo": 0.29088843022555855,
+      "hi": 0.534068286344357
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": 0.03131881575727918,
+     "tune_refused": {
+      "k": 2,
+      "n": 70,
+      "rate": 0.02857142857142857,
+      "lo": 0.007870446893806289,
+      "hi": 0.09832443512391814
+     },
+     "heldout_refused": {
+      "k": 36,
+      "n": 149,
+      "rate": 0.24161073825503357,
+      "lo": 0.17993117418282853,
+      "hi": 0.31627928160931185
+     },
+     "unanswerable_refused": {
+      "k": 33,
+      "n": 59,
+      "rate": 0.559322033898305,
+      "lo": 0.4328913027042265,
+      "hi": 0.6784998776603726
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": 0.031754032258064516,
+     "tune_refused": {
+      "k": 5,
+      "n": 70,
+      "rate": 0.07142857142857142,
+      "lo": 0.030893761510293508,
+      "hi": 0.1565561312330923
+     },
+     "heldout_refused": {
+      "k": 49,
+      "n": 149,
+      "rate": 0.3288590604026846,
+      "lo": 0.258555227600372,
+      "hi": 0.40776598337883796
+     },
+     "unanswerable_refused": {
+      "k": 36,
+      "n": 59,
+      "rate": 0.6101694915254238,
+      "lo": 0.4826610956186712,
+      "hi": 0.724208239344156
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": 0.032018442622950824,
+     "tune_refused": {
+      "k": 10,
+      "n": 70,
+      "rate": 0.14285714285714285,
+      "lo": 0.07948856360443703,
+      "hi": 0.24338634701505113
+     },
+     "heldout_refused": {
+      "k": 64,
+      "n": 149,
+      "rate": 0.42953020134228187,
+      "lo": 0.3528033430514483,
+      "hi": 0.5097995085282263
+     },
+     "unanswerable_refused": {
+      "k": 40,
+      "n": 59,
+      "rate": 0.6779661016949152,
+      "lo": 0.5510476493903221,
+      "hi": 0.7831258917034755
+     }
+    }
+   ],
+   "pos_median": 0.032266458495966696,
+   "neg_median": 0.030834914611005692
+  },
+  {
+   "signal": "question-term coverage (top 5)",
+   "auc": 0.6931739029486882,
+   "auc_lo": 0.6213141397724634,
+   "auc_hi": 0.7730438820524728,
+   "auc_by_kind": {
+    "legacy": 0.6633181126331811,
+    "far": 0.921765601217656,
+    "near": 0.6355185909980431,
+    "premise": 0.5482496194824962
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": 0.25,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 9,
+      "n": 149,
+      "rate": 0.06040268456375839,
+      "lo": 0.03209985985173762,
+      "hi": 0.1108036428595661
+     },
+     "unanswerable_refused": {
+      "k": 8,
+      "n": 59,
+      "rate": 0.13559322033898305,
+      "lo": 0.07034090749685569,
+      "hi": 0.24539898454917758
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": 0.5,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 38,
+      "n": 149,
+      "rate": 0.2550335570469799,
+      "lo": 0.19181305585221678,
+      "hi": 0.33056828535331895
+     },
+     "unanswerable_refused": {
+      "k": 26,
+      "n": 59,
+      "rate": 0.4406779661016949,
+      "lo": 0.3215001223396273,
+      "hi": 0.5671086972957734
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": 0.5,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 38,
+      "n": 149,
+      "rate": 0.2550335570469799,
+      "lo": 0.19181305585221678,
+      "hi": 0.33056828535331895
+     },
+     "unanswerable_refused": {
+      "k": 26,
+      "n": 59,
+      "rate": 0.4406779661016949,
+      "lo": 0.3215001223396273,
+      "hi": 0.5671086972957734
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": 0.6666666666666667,
+     "tune_refused": {
+      "k": 12,
+      "n": 70,
+      "rate": 0.17142857142857143,
+      "lo": 0.10087625712010548,
+      "hi": 0.2761686606498236
+     },
+     "heldout_refused": {
+      "k": 90,
+      "n": 149,
+      "rate": 0.6040268456375839,
+      "lo": 0.5238333775445665,
+      "hi": 0.6789909844092472
+     },
+     "unanswerable_refused": {
+      "k": 43,
+      "n": 59,
+      "rate": 0.7288135593220338,
+      "lo": 0.6040199456171089,
+      "hi": 0.8256317500749166
+     }
+    }
+   ],
+   "pos_median": 0.6666666666666667,
+   "neg_median": 0.5
+  },
+  {
+   "signal": "rerank top-1 (ms-marco-MiniLM-L-6-v2)",
+   "auc": 0.8622397647240926,
+   "auc_lo": 0.8063617367076852,
+   "auc_hi": 0.9168794984908288,
+   "auc_by_kind": {
+    "legacy": 0.852054794520548,
+    "far": 0.995738203957382,
+    "near": 0.9060665362035225,
+    "premise": 0.6980213089802131
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": -6.1546831130981445,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 13,
+      "n": 149,
+      "rate": 0.087248322147651,
+      "lo": 0.05169617135888847,
+      "hi": 0.14354910217920588
+     },
+     "unanswerable_refused": {
+      "k": 32,
+      "n": 59,
+      "rate": 0.5423728813559322,
+      "lo": 0.4165761502342809,
+      "hi": 0.6629889785975757
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": -2.847362518310547,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 44,
+      "n": 149,
+      "rate": 0.2953020134228188,
+      "lo": 0.22794229315414566,
+      "hi": 0.3729517042915759
+     },
+     "unanswerable_refused": {
+      "k": 47,
+      "n": 59,
+      "rate": 0.7966101694915254,
+      "lo": 0.6773174503671768,
+      "hi": 0.8796384514558193
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": -2.6364476680755615,
+     "tune_refused": {
+      "k": 6,
+      "n": 70,
+      "rate": 0.08571428571428572,
+      "lo": 0.03987612654032836,
+      "hi": 0.17465876977827793
+     },
+     "heldout_refused": {
+      "k": 45,
+      "n": 149,
+      "rate": 0.30201342281879195,
+      "lo": 0.2340297785937904,
+      "hi": 0.37994966155862886
+     },
+     "unanswerable_refused": {
+      "k": 49,
+      "n": 59,
+      "rate": 0.8305084745762712,
+      "lo": 0.7153653834518579,
+      "hi": 0.9052426214366236
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": -1.5782413482666016,
+     "tune_refused": {
+      "k": 13,
+      "n": 70,
+      "rate": 0.18571428571428572,
+      "lo": 0.11187194691822094,
+      "hi": 0.29225797442692864
+     },
+     "heldout_refused": {
+      "k": 74,
+      "n": 149,
+      "rate": 0.4966442953020134,
+      "lo": 0.41746103138640367,
+      "hi": 0.5759962472602477
+     },
+     "unanswerable_refused": {
+      "k": 49,
+      "n": 59,
+      "rate": 0.8305084745762712,
+      "lo": 0.7153653834518579,
+      "hi": 0.9052426214366236
+     }
+    }
+   ],
+   "pos_median": -0.33018437027931213,
+   "neg_median": -7.162930965423584
+  },
+  {
+   "signal": "rerank mean top-3 (ms-marco-MiniLM-L-6-v2)",
+   "auc": 0.8396408946675954,
+   "auc_lo": 0.7770296416686016,
+   "auc_hi": 0.9024843278384026,
+   "auc_by_kind": {
+    "legacy": 0.8170471841704718,
+    "far": 0.9951293759512938,
+    "near": 0.9119373776908023,
+    "premise": 0.639269406392694
+   },
+   "points": [
+    {
+     "keep_target": 0.99,
+     "threshold": -7.389362653096517,
+     "tune_refused": {
+      "k": 0,
+      "n": 70,
+      "rate": 0.0,
+      "lo": 0.0,
+      "hi": 0.05202487486728348
+     },
+     "heldout_refused": {
+      "k": 10,
+      "n": 149,
+      "rate": 0.06711409395973154,
+      "lo": 0.03685994200127166,
+      "hi": 0.11912900341672975
+     },
+     "unanswerable_refused": {
+      "k": 32,
+      "n": 59,
+      "rate": 0.5423728813559322,
+      "lo": 0.4165761502342809,
+      "hi": 0.6629889785975757
+     }
+    },
+    {
+     "keep_target": 0.95,
+     "threshold": -5.324203093846639,
+     "tune_refused": {
+      "k": 3,
+      "n": 70,
+      "rate": 0.04285714285714286,
+      "lo": 0.014681274851143573,
+      "hi": 0.11859861074180134
+     },
+     "heldout_refused": {
+      "k": 30,
+      "n": 149,
+      "rate": 0.20134228187919462,
+      "lo": 0.14483273362908414,
+      "hi": 0.2728650659228703
+     },
+     "unanswerable_refused": {
+      "k": 40,
+      "n": 59,
+      "rate": 0.6779661016949152,
+      "lo": 0.5510476493903221,
+      "hi": 0.7831258917034755
+     }
+    },
+    {
+     "keep_target": 0.9,
+     "threshold": -4.28557546933492,
+     "tune_refused": {
+      "k": 6,
+      "n": 70,
+      "rate": 0.08571428571428572,
+      "lo": 0.03987612654032836,
+      "hi": 0.17465876977827793
+     },
+     "heldout_refused": {
+      "k": 45,
+      "n": 149,
+      "rate": 0.30201342281879195,
+      "lo": 0.2340297785937904,
+      "hi": 0.37994966155862886
+     },
+     "unanswerable_refused": {
+      "k": 45,
+      "n": 59,
+      "rate": 0.7627118644067796,
+      "lo": 0.6402486613269721,
+      "hi": 0.8530551374305387
+     }
+    },
+    {
+     "keep_target": 0.8,
+     "threshold": -3.59576678276062,
+     "tune_refused": {
+      "k": 13,
+      "n": 70,
+      "rate": 0.18571428571428572,
+      "lo": 0.11187194691822094,
+      "hi": 0.29225797442692864
+     },
+     "heldout_refused": {
+      "k": 53,
+      "n": 149,
+      "rate": 0.35570469798657717,
+      "lo": 0.2833482425162708,
+      "hi": 0.43531473928972964
+     },
+     "unanswerable_refused": {
+      "k": 49,
+      "n": 59,
+      "rate": 0.8305084745762712,
+      "lo": 0.7153653834518579,
+      "hi": 0.9052426214366236
+     }
+    }
+   ],
+   "pos_median": -2.2688966194788613,
+   "neg_median": -8.084866523742676
+  }
+ ],
+ "per_query": {
+  "jina-reranker-v3.5": {
+   "tune": [
+    {
+     "id": "d01",
+     "kind": "",
+     "rerank top-1": 0.3189774453639984,
+     "rerank mean top-3": 0.2621814360221227,
+     "dense cosine top-1": 0.7762067317962646,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d02",
+     "kind": "",
+     "rerank top-1": 0.35582032799720764,
+     "rerank mean top-3": 0.20633095285544792,
+     "dense cosine top-1": 0.7669750452041626,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d03",
+     "kind": "",
+     "rerank top-1": 0.41768398880958557,
+     "rerank mean top-3": 0.3726818561553955,
+     "dense cosine top-1": 0.7882497906684875,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d04",
+     "kind": "",
+     "rerank top-1": 0.39593327045440674,
+     "rerank mean top-3": 0.2825595512986183,
+     "dense cosine top-1": 0.81110680103302,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d05",
+     "kind": "",
+     "rerank top-1": 0.35212185978889465,
+     "rerank mean top-3": 0.16302384001513323,
+     "dense cosine top-1": 0.7606508731842041,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d06",
+     "kind": "",
+     "rerank top-1": 0.6460698246955872,
+     "rerank mean top-3": 0.37562520802021027,
+     "dense cosine top-1": 0.7926719188690186,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "d07",
+     "kind": "",
+     "rerank top-1": 0.20547622442245483,
+     "rerank mean top-3": 0.20207326114177704,
+     "dense cosine top-1": 0.7484900951385498,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d08",
+     "kind": "",
+     "rerank top-1": 0.7255474328994751,
+     "rerank mean top-3": 0.3975859930117925,
+     "dense cosine top-1": 0.8080254793167114,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d09",
+     "kind": "",
+     "rerank top-1": 0.3913939297199249,
+     "rerank mean top-3": 0.29193220535914105,
+     "dense cosine top-1": 0.7116498351097107,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d10",
+     "kind": "",
+     "rerank top-1": 0.34782078862190247,
+     "rerank mean top-3": 0.27460962037245434,
+     "dense cosine top-1": 0.8172823786735535,
+     "RRF top score": 0.03076923076923077,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d11",
+     "kind": "",
+     "rerank top-1": 0.18265901505947113,
+     "rerank mean top-3": 0.14220610509316126,
+     "dense cosine top-1": 0.6957793831825256,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "d12",
+     "kind": "",
+     "rerank top-1": 0.3691156208515167,
+     "rerank mean top-3": 0.2570512592792511,
+     "dense cosine top-1": 0.7629130482673645,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d13",
+     "kind": "",
+     "rerank top-1": 0.6168175339698792,
+     "rerank mean top-3": 0.21144872125781453,
+     "dense cosine top-1": 0.7851836681365967,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d14",
+     "kind": "",
+     "rerank top-1": 0.5548995137214661,
+     "rerank mean top-3": 0.3977046658595403,
+     "dense cosine top-1": 0.7539876699447632,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d15",
+     "kind": "",
+     "rerank top-1": 0.5101967453956604,
+     "rerank mean top-3": 0.2935597399870555,
+     "dense cosine top-1": 0.81061190366745,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d16",
+     "kind": "",
+     "rerank top-1": 0.4863552153110504,
+     "rerank mean top-3": 0.1763415093034079,
+     "dense cosine top-1": 0.7269172668457031,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "d17",
+     "kind": "",
+     "rerank top-1": 0.43585678935050964,
+     "rerank mean top-3": 0.2847412129243215,
+     "dense cosine top-1": 0.7775958776473999,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d18",
+     "kind": "",
+     "rerank top-1": 0.30372190475463867,
+     "rerank mean top-3": 0.15107238292694092,
+     "dense cosine top-1": 0.7252041101455688,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d19",
+     "kind": "",
+     "rerank top-1": 0.5742253065109253,
+     "rerank mean top-3": 0.2744900907079379,
+     "dense cosine top-1": 0.770735502243042,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d20",
+     "kind": "",
+     "rerank top-1": 0.3607843220233917,
+     "rerank mean top-3": 0.3442864616711934,
+     "dense cosine top-1": 0.7252262830734253,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d21",
+     "kind": "",
+     "rerank top-1": 0.37903499603271484,
+     "rerank mean top-3": 0.28190597395102185,
+     "dense cosine top-1": 0.7322241067886353,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d22",
+     "kind": "",
+     "rerank top-1": 0.21142178773880005,
+     "rerank mean top-3": 0.17276051143805185,
+     "dense cosine top-1": 0.7308281064033508,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d23",
+     "kind": "",
+     "rerank top-1": 0.528913676738739,
+     "rerank mean top-3": 0.2393443031857411,
+     "dense cosine top-1": 0.7176068425178528,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d24",
+     "kind": "",
+     "rerank top-1": 0.4958828389644623,
+     "rerank mean top-3": 0.2968863770365715,
+     "dense cosine top-1": 0.7422685623168945,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d25",
+     "kind": "",
+     "rerank top-1": 0.5228795409202576,
+     "rerank mean top-3": 0.1552766269693772,
+     "dense cosine top-1": 0.7389405965805054,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d26",
+     "kind": "",
+     "rerank top-1": 0.35265955328941345,
+     "rerank mean top-3": 0.27725671728452045,
+     "dense cosine top-1": 0.7597299218177795,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d27",
+     "kind": "",
+     "rerank top-1": 0.48101097345352173,
+     "rerank mean top-3": 0.34060361981391907,
+     "dense cosine top-1": 0.7803305983543396,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d28",
+     "kind": "",
+     "rerank top-1": 0.24085886776447296,
+     "rerank mean top-3": 0.2103408177693685,
+     "dense cosine top-1": 0.7630550265312195,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "d29",
+     "kind": "",
+     "rerank top-1": 0.4741392135620117,
+     "rerank mean top-3": 0.23735082894563675,
+     "dense cosine top-1": 0.7696647644042969,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "d30",
+     "kind": "",
+     "rerank top-1": 0.4533378779888153,
+     "rerank mean top-3": 0.2479233592748642,
+     "dense cosine top-1": 0.7401052713394165,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "d31",
+     "kind": "",
+     "rerank top-1": 0.3711722195148468,
+     "rerank mean top-3": 0.18846910912543535,
+     "dense cosine top-1": 0.747416615486145,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "d32",
+     "kind": "",
+     "rerank top-1": 0.5610128045082092,
+     "rerank mean top-3": 0.4282534221808116,
+     "dense cosine top-1": 0.7777234315872192,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "d33",
+     "kind": "",
+     "rerank top-1": 0.2723201513290405,
+     "rerank mean top-3": 0.16128847499688467,
+     "dense cosine top-1": 0.7298755645751953,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d34",
+     "kind": "",
+     "rerank top-1": 0.49299219250679016,
+     "rerank mean top-3": 0.3723921875158946,
+     "dense cosine top-1": 0.7633604407310486,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "d35",
+     "kind": "",
+     "rerank top-1": 0.48247668147087097,
+     "rerank mean top-3": 0.2157949861139059,
+     "dense cosine top-1": 0.8308982849121094,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c01",
+     "kind": "",
+     "rerank top-1": 0.5359700918197632,
+     "rerank mean top-3": 0.32006774346033734,
+     "dense cosine top-1": 0.828304648399353,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c02",
+     "kind": "",
+     "rerank top-1": 0.36668136715888977,
+     "rerank mean top-3": 0.2860558480024338,
+     "dense cosine top-1": 0.7687251567840576,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c03",
+     "kind": "",
+     "rerank top-1": 0.6103948950767517,
+     "rerank mean top-3": 0.265533031274875,
+     "dense cosine top-1": 0.7475643754005432,
+     "RRF top score": 0.03036576949620428,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c04",
+     "kind": "",
+     "rerank top-1": 0.36959969997406006,
+     "rerank mean top-3": 0.29467133184274036,
+     "dense cosine top-1": 0.7757986783981323,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c05",
+     "kind": "",
+     "rerank top-1": 0.3300034701824188,
+     "rerank mean top-3": 0.2144652158021927,
+     "dense cosine top-1": 0.78191077709198,
+     "RRF top score": 0.03149801587301587,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c06",
+     "kind": "",
+     "rerank top-1": 0.5196278691291809,
+     "rerank mean top-3": 0.182877880288288,
+     "dense cosine top-1": 0.8330597877502441,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "c07",
+     "kind": "",
+     "rerank top-1": 0.5361064672470093,
+     "rerank mean top-3": 0.24923605471849442,
+     "dense cosine top-1": 0.789862871170044,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c08",
+     "kind": "",
+     "rerank top-1": 0.3969423174858093,
+     "rerank mean top-3": 0.19770476346214613,
+     "dense cosine top-1": 0.766551673412323,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c09",
+     "kind": "",
+     "rerank top-1": 0.34825804829597473,
+     "rerank mean top-3": 0.15757481823675334,
+     "dense cosine top-1": 0.7128408551216125,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "c10",
+     "kind": "",
+     "rerank top-1": 0.34401318430900574,
+     "rerank mean top-3": 0.24846248577038446,
+     "dense cosine top-1": 0.7389199733734131,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c11",
+     "kind": "",
+     "rerank top-1": 0.454462468624115,
+     "rerank mean top-3": 0.3005574544270833,
+     "dense cosine top-1": 0.7932549118995667,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c12",
+     "kind": "",
+     "rerank top-1": 0.4149678349494934,
+     "rerank mean top-3": 0.2843257486820221,
+     "dense cosine top-1": 0.7592652440071106,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c13",
+     "kind": "",
+     "rerank top-1": 0.575485348701477,
+     "rerank mean top-3": 0.2707531178991,
+     "dense cosine top-1": 0.7840018272399902,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c14",
+     "kind": "",
+     "rerank top-1": 0.5050086975097656,
+     "rerank mean top-3": 0.31138475239276886,
+     "dense cosine top-1": 0.7828729152679443,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c15",
+     "kind": "",
+     "rerank top-1": 0.6833625435829163,
+     "rerank mean top-3": 0.2597914518167575,
+     "dense cosine top-1": 0.8430944681167603,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c16",
+     "kind": "",
+     "rerank top-1": 0.46797439455986023,
+     "rerank mean top-3": 0.15560874777535597,
+     "dense cosine top-1": 0.8004769086837769,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c17",
+     "kind": "",
+     "rerank top-1": 0.5549768805503845,
+     "rerank mean top-3": 0.30148794253667194,
+     "dense cosine top-1": 0.7984976172447205,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c18",
+     "kind": "",
+     "rerank top-1": 0.37934014201164246,
+     "rerank mean top-3": 0.3501664300759633,
+     "dense cosine top-1": 0.7634770274162292,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c19",
+     "kind": "",
+     "rerank top-1": 0.6895474791526794,
+     "rerank mean top-3": 0.34432202329238254,
+     "dense cosine top-1": 0.8335217237472534,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "c20",
+     "kind": "",
+     "rerank top-1": 0.47756996750831604,
+     "rerank mean top-3": 0.21438420563936234,
+     "dense cosine top-1": 0.804932713508606,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c21",
+     "kind": "",
+     "rerank top-1": 0.30902084708213806,
+     "rerank mean top-3": 0.2781466593345006,
+     "dense cosine top-1": 0.7575086355209351,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c22",
+     "kind": "",
+     "rerank top-1": 0.5266363024711609,
+     "rerank mean top-3": 0.20556232562133422,
+     "dense cosine top-1": 0.7519338130950928,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c23",
+     "kind": "",
+     "rerank top-1": 0.5472168922424316,
+     "rerank mean top-3": 0.2313252817839384,
+     "dense cosine top-1": 0.8482423424720764,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c24",
+     "kind": "",
+     "rerank top-1": 0.1877623349428177,
+     "rerank mean top-3": 0.18144027888774872,
+     "dense cosine top-1": 0.7574117183685303,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c25",
+     "kind": "",
+     "rerank top-1": 0.3332669138908386,
+     "rerank mean top-3": 0.2081604301929474,
+     "dense cosine top-1": 0.7317538857460022,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c26",
+     "kind": "",
+     "rerank top-1": 0.6231132745742798,
+     "rerank mean top-3": 0.3810798029104869,
+     "dense cosine top-1": 0.76381915807724,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "c27",
+     "kind": "",
+     "rerank top-1": 0.40062594413757324,
+     "rerank mean top-3": 0.2203601710498333,
+     "dense cosine top-1": 0.7179371118545532,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "c28",
+     "kind": "",
+     "rerank top-1": 0.311614066362381,
+     "rerank mean top-3": 0.2158306191364924,
+     "dense cosine top-1": 0.7897754907608032,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c29",
+     "kind": "",
+     "rerank top-1": 0.6693379282951355,
+     "rerank mean top-3": 0.2474556197412312,
+     "dense cosine top-1": 0.8124426603317261,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c30",
+     "kind": "",
+     "rerank top-1": 0.49433907866477966,
+     "rerank mean top-3": 0.31054310500621796,
+     "dense cosine top-1": 0.8202526569366455,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "c31",
+     "kind": "",
+     "rerank top-1": 0.4478106200695038,
+     "rerank mean top-3": 0.34759803613026935,
+     "dense cosine top-1": 0.8032858371734619,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "c32",
+     "kind": "",
+     "rerank top-1": 0.3212774097919464,
+     "rerank mean top-3": 0.21263333658377329,
+     "dense cosine top-1": 0.7369275689125061,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c33",
+     "kind": "",
+     "rerank top-1": 0.5058472156524658,
+     "rerank mean top-3": 0.4398437440395355,
+     "dense cosine top-1": 0.7949105501174927,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c34",
+     "kind": "",
+     "rerank top-1": 0.3307301998138428,
+     "rerank mean top-3": 0.2728663931290309,
+     "dense cosine top-1": 0.7765563726425171,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c35",
+     "kind": "",
+     "rerank top-1": 0.42312851548194885,
+     "rerank mean top-3": 0.3085172524054845,
+     "dense cosine top-1": 0.7763340473175049,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8
+    }
+   ],
+   "heldout": [
+    {
+     "id": "s001",
+     "kind": "",
+     "rerank top-1": 0.5225911736488342,
+     "rerank mean top-3": 0.21446550885836282,
+     "dense cosine top-1": 0.7642215490341187,
+     "RRF top score": 0.030679156908665108,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s002",
+     "kind": "",
+     "rerank top-1": 0.268412321805954,
+     "rerank mean top-3": 0.24079894026120505,
+     "dense cosine top-1": 0.7874652743339539,
+     "RRF top score": 0.030886196246139225,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s003",
+     "kind": "",
+     "rerank top-1": 0.29634350538253784,
+     "rerank mean top-3": 0.16572251667579016,
+     "dense cosine top-1": 0.749875545501709,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s004",
+     "kind": "",
+     "rerank top-1": 0.5032894611358643,
+     "rerank mean top-3": 0.1582612432539463,
+     "dense cosine top-1": 0.7763566970825195,
+     "RRF top score": 0.03047794966520434,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s005",
+     "kind": "",
+     "rerank top-1": 0.5686249136924744,
+     "rerank mean top-3": 0.2822219456235568,
+     "dense cosine top-1": 0.8182821869850159,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s006",
+     "kind": "",
+     "rerank top-1": 0.32390645146369934,
+     "rerank mean top-3": 0.16388947144150734,
+     "dense cosine top-1": 0.7582477927207947,
+     "RRF top score": 0.030117753623188408,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s007",
+     "kind": "",
+     "rerank top-1": 0.470114529132843,
+     "rerank mean top-3": 0.22526644666989645,
+     "dense cosine top-1": 0.769649863243103,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s008",
+     "kind": "",
+     "rerank top-1": 0.41974565386772156,
+     "rerank mean top-3": 0.2233127305905024,
+     "dense cosine top-1": 0.8267985582351685,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s009",
+     "kind": "",
+     "rerank top-1": 0.35780149698257446,
+     "rerank mean top-3": 0.3085002551476161,
+     "dense cosine top-1": 0.7841823101043701,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s010",
+     "kind": "",
+     "rerank top-1": 0.45527970790863037,
+     "rerank mean top-3": 0.24081584066152573,
+     "dense cosine top-1": 0.7616524696350098,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s011",
+     "kind": "",
+     "rerank top-1": 0.3958306908607483,
+     "rerank mean top-3": 0.21002767235040665,
+     "dense cosine top-1": 0.7257051467895508,
+     "RRF top score": 0.030679156908665108,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s012",
+     "kind": "",
+     "rerank top-1": 0.44289687275886536,
+     "rerank mean top-3": 0.3708425462245941,
+     "dense cosine top-1": 0.7621822357177734,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8888888888888888
+    },
+    {
+     "id": "s013",
+     "kind": "",
+     "rerank top-1": 0.5932408571243286,
+     "rerank mean top-3": 0.48213863372802734,
+     "dense cosine top-1": 0.7574812173843384,
+     "RRF top score": 0.02804284323271665,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s014",
+     "kind": "",
+     "rerank top-1": 0.4328257441520691,
+     "rerank mean top-3": 0.3117465327183406,
+     "dense cosine top-1": 0.7897167205810547,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s015",
+     "kind": "",
+     "rerank top-1": 0.30785050988197327,
+     "rerank mean top-3": 0.23326019942760468,
+     "dense cosine top-1": 0.7645531892776489,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s016",
+     "kind": "",
+     "rerank top-1": 0.4924025237560272,
+     "rerank mean top-3": 0.20776847874124846,
+     "dense cosine top-1": 0.7350174188613892,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s017",
+     "kind": "",
+     "rerank top-1": 0.5802081823348999,
+     "rerank mean top-3": 0.24983859807252884,
+     "dense cosine top-1": 0.8432703018188477,
+     "RRF top score": 0.031099324975891997,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s018",
+     "kind": "",
+     "rerank top-1": 0.3205699622631073,
+     "rerank mean top-3": 0.2116413414478302,
+     "dense cosine top-1": 0.7507414221763611,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s019",
+     "kind": "",
+     "rerank top-1": 0.2561371624469757,
+     "rerank mean top-3": 0.15506752332051596,
+     "dense cosine top-1": 0.733528733253479,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s020",
+     "kind": "",
+     "rerank top-1": 0.45775106549263,
+     "rerank mean top-3": 0.33298946420351666,
+     "dense cosine top-1": 0.7942888140678406,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s021",
+     "kind": "",
+     "rerank top-1": 0.23961329460144043,
+     "rerank mean top-3": 0.1367126852273941,
+     "dense cosine top-1": 0.7440159320831299,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s022",
+     "kind": "",
+     "rerank top-1": 0.5000734925270081,
+     "rerank mean top-3": 0.2655756125847499,
+     "dense cosine top-1": 0.7590079307556152,
+     "RRF top score": 0.028693528693528692,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s023",
+     "kind": "",
+     "rerank top-1": 0.5153825283050537,
+     "rerank mean top-3": 0.36960692207018536,
+     "dense cosine top-1": 0.8493658900260925,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s024",
+     "kind": "",
+     "rerank top-1": 0.497618168592453,
+     "rerank mean top-3": 0.2595020681619644,
+     "dense cosine top-1": 0.7903724312782288,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s025",
+     "kind": "",
+     "rerank top-1": 0.5241715312004089,
+     "rerank mean top-3": 0.2861576626698176,
+     "dense cosine top-1": 0.7818601131439209,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s026",
+     "kind": "",
+     "rerank top-1": 0.44269099831581116,
+     "rerank mean top-3": 0.2352132424712181,
+     "dense cosine top-1": 0.7087036967277527,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s027",
+     "kind": "",
+     "rerank top-1": 0.6836095452308655,
+     "rerank mean top-3": 0.25536581749717396,
+     "dense cosine top-1": 0.7466122508049011,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s028",
+     "kind": "",
+     "rerank top-1": 0.2782744765281677,
+     "rerank mean top-3": 0.1912877211968104,
+     "dense cosine top-1": 0.7706551551818848,
+     "RRF top score": 0.028629032258064516,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s029",
+     "kind": "",
+     "rerank top-1": 0.37168461084365845,
+     "rerank mean top-3": 0.2786222944657008,
+     "dense cosine top-1": 0.817082405090332,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s030",
+     "kind": "",
+     "rerank top-1": 0.5769811868667603,
+     "rerank mean top-3": 0.1876510907895863,
+     "dense cosine top-1": 0.7779668569564819,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s031",
+     "kind": "",
+     "rerank top-1": 0.2318175733089447,
+     "rerank mean top-3": 0.19385386010011038,
+     "dense cosine top-1": 0.7382504940032959,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s032",
+     "kind": "",
+     "rerank top-1": 0.40300458669662476,
+     "rerank mean top-3": 0.34270763397216797,
+     "dense cosine top-1": 0.7744149565696716,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.7
+    },
+    {
+     "id": "s033",
+     "kind": "",
+     "rerank top-1": 0.36373370885849,
+     "rerank mean top-3": 0.15359108770887056,
+     "dense cosine top-1": 0.7466120719909668,
+     "RRF top score": 0.02889344262295082,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s034",
+     "kind": "",
+     "rerank top-1": 0.48937875032424927,
+     "rerank mean top-3": 0.28303254147370654,
+     "dense cosine top-1": 0.7757083177566528,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s035",
+     "kind": "",
+     "rerank top-1": 0.21333062648773193,
+     "rerank mean top-3": 0.19108505050341287,
+     "dense cosine top-1": 0.7143927812576294,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s036",
+     "kind": "",
+     "rerank top-1": 0.14673222601413727,
+     "rerank mean top-3": 0.1286555454134941,
+     "dense cosine top-1": 0.7187092304229736,
+     "RRF top score": 0.02900988017658188,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "s037",
+     "kind": "",
+     "rerank top-1": 0.38265731930732727,
+     "rerank mean top-3": 0.16877060507734618,
+     "dense cosine top-1": 0.7572901248931885,
+     "RRF top score": 0.03149801587301587,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s038",
+     "kind": "",
+     "rerank top-1": 0.5705651640892029,
+     "rerank mean top-3": 0.3085791791478793,
+     "dense cosine top-1": 0.7864909768104553,
+     "RRF top score": 0.0315136476426799,
+     "question-term coverage (top 5)": 0.4444444444444444
+    },
+    {
+     "id": "s039",
+     "kind": "",
+     "rerank top-1": 0.4047465920448303,
+     "rerank mean top-3": 0.27860687176386517,
+     "dense cosine top-1": 0.8100161552429199,
+     "RRF top score": 0.029906956136464335,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s040",
+     "kind": "",
+     "rerank top-1": 0.17902372777462006,
+     "rerank mean top-3": 0.1207156628370285,
+     "dense cosine top-1": 0.7063591480255127,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s041",
+     "kind": "",
+     "rerank top-1": 0.5553715229034424,
+     "rerank mean top-3": 0.23763243108987808,
+     "dense cosine top-1": 0.8007495403289795,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s042",
+     "kind": "",
+     "rerank top-1": 0.16585350036621094,
+     "rerank mean top-3": 0.13776219636201859,
+     "dense cosine top-1": 0.7360266447067261,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s043",
+     "kind": "",
+     "rerank top-1": 0.5144225358963013,
+     "rerank mean top-3": 0.31638211011886597,
+     "dense cosine top-1": 0.8330527544021606,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s044",
+     "kind": "",
+     "rerank top-1": 0.45868155360221863,
+     "rerank mean top-3": 0.1616851141055425,
+     "dense cosine top-1": 0.7887958288192749,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s045",
+     "kind": "",
+     "rerank top-1": 0.44832858443260193,
+     "rerank mean top-3": 0.26408470173676807,
+     "dense cosine top-1": 0.7463399767875671,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s046",
+     "kind": "",
+     "rerank top-1": 0.42570844292640686,
+     "rerank mean top-3": 0.21765534579753876,
+     "dense cosine top-1": 0.7749652862548828,
+     "RRF top score": 0.029513888888888888,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s047",
+     "kind": "",
+     "rerank top-1": 0.3593654930591583,
+     "rerank mean top-3": 0.22913243373235068,
+     "dense cosine top-1": 0.7656524181365967,
+     "RRF top score": 0.03007688828584351,
+     "question-term coverage (top 5)": 0.19999999999999996
+    },
+    {
+     "id": "s048",
+     "kind": "",
+     "rerank top-1": 0.25903090834617615,
+     "rerank mean top-3": 0.2202769716580709,
+     "dense cosine top-1": 0.7409777641296387,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s049",
+     "kind": "",
+     "rerank top-1": 0.588736891746521,
+     "rerank mean top-3": 0.41202211380004883,
+     "dense cosine top-1": 0.8338321447372437,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s050",
+     "kind": "",
+     "rerank top-1": 0.09557030349969864,
+     "rerank mean top-3": 0.07579593484600385,
+     "dense cosine top-1": 0.7227840423583984,
+     "RRF top score": 0.02900988017658188,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s051",
+     "kind": "",
+     "rerank top-1": 0.5943243503570557,
+     "rerank mean top-3": 0.372699240843455,
+     "dense cosine top-1": 0.7298434972763062,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s052",
+     "kind": "",
+     "rerank top-1": 0.6917372941970825,
+     "rerank mean top-3": 0.3493761916955312,
+     "dense cosine top-1": 0.7743610143661499,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s053",
+     "kind": "",
+     "rerank top-1": 0.20308659970760345,
+     "rerank mean top-3": 0.15605282286802927,
+     "dense cosine top-1": 0.7738072872161865,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s054",
+     "kind": "",
+     "rerank top-1": 0.5064990520477295,
+     "rerank mean top-3": 0.20456081628799438,
+     "dense cosine top-1": 0.7929551601409912,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s055",
+     "kind": "",
+     "rerank top-1": 0.3387661278247833,
+     "rerank mean top-3": 0.1280230445166429,
+     "dense cosine top-1": 0.7342342138290405,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s056",
+     "kind": "",
+     "rerank top-1": 0.4891488254070282,
+     "rerank mean top-3": 0.19634140034516653,
+     "dense cosine top-1": 0.7511960864067078,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s057",
+     "kind": "",
+     "rerank top-1": 0.17352080345153809,
+     "rerank mean top-3": 0.09652089451750119,
+     "dense cosine top-1": 0.7303817868232727,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s058",
+     "kind": "",
+     "rerank top-1": 0.5503337383270264,
+     "rerank mean top-3": 0.23193747736513615,
+     "dense cosine top-1": 0.7443946003913879,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s059",
+     "kind": "",
+     "rerank top-1": 0.47692012786865234,
+     "rerank mean top-3": 0.23571092883745828,
+     "dense cosine top-1": 0.7295409440994263,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s060",
+     "kind": "",
+     "rerank top-1": 0.40235766768455505,
+     "rerank mean top-3": 0.3486371437708537,
+     "dense cosine top-1": 0.7559401392936707,
+     "RRF top score": 0.029709507042253523,
+     "question-term coverage (top 5)": 0.625
+    },
+    {
+     "id": "s061",
+     "kind": "",
+     "rerank top-1": 0.4558578431606293,
+     "rerank mean top-3": 0.2819229910771052,
+     "dense cosine top-1": 0.7625802755355835,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s062",
+     "kind": "",
+     "rerank top-1": 0.48182791471481323,
+     "rerank mean top-3": 0.2810336152712504,
+     "dense cosine top-1": 0.7808192372322083,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s063",
+     "kind": "",
+     "rerank top-1": 0.6313245892524719,
+     "rerank mean top-3": 0.32594962418079376,
+     "dense cosine top-1": 0.8496655225753784,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s064",
+     "kind": "",
+     "rerank top-1": 0.6136597990989685,
+     "rerank mean top-3": 0.2586137689650059,
+     "dense cosine top-1": 0.8253394961357117,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s065",
+     "kind": "",
+     "rerank top-1": 0.36114370822906494,
+     "rerank mean top-3": 0.10026378246645133,
+     "dense cosine top-1": 0.7331986427307129,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s066",
+     "kind": "",
+     "rerank top-1": 0.44066759943962097,
+     "rerank mean top-3": 0.18736297885576883,
+     "dense cosine top-1": 0.8071285486221313,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s067",
+     "kind": "",
+     "rerank top-1": 0.37953588366508484,
+     "rerank mean top-3": 0.1848956843217214,
+     "dense cosine top-1": 0.7585097551345825,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "s068",
+     "kind": "",
+     "rerank top-1": 0.5196756720542908,
+     "rerank mean top-3": 0.22777644793192545,
+     "dense cosine top-1": 0.7721413373947144,
+     "RRF top score": 0.029850746268656716,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "s069",
+     "kind": "",
+     "rerank top-1": 0.5124064087867737,
+     "rerank mean top-3": 0.3885079820950826,
+     "dense cosine top-1": 0.8172667026519775,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s070",
+     "kind": "",
+     "rerank top-1": 0.4341752231121063,
+     "rerank mean top-3": 0.369558443625768,
+     "dense cosine top-1": 0.8353277444839478,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "s071",
+     "kind": "",
+     "rerank top-1": 0.3593674302101135,
+     "rerank mean top-3": 0.30871901909510296,
+     "dense cosine top-1": 0.8137669563293457,
+     "RRF top score": 0.03057889822595705,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s072",
+     "kind": "",
+     "rerank top-1": 0.33897966146469116,
+     "rerank mean top-3": 0.1985629896322886,
+     "dense cosine top-1": 0.7330169081687927,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s073",
+     "kind": "",
+     "rerank top-1": 0.52864670753479,
+     "rerank mean top-3": 0.2771940305829048,
+     "dense cosine top-1": 0.8101993799209595,
+     "RRF top score": 0.027637721755368813,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "s074",
+     "kind": "",
+     "rerank top-1": 0.34314048290252686,
+     "rerank mean top-3": 0.18163670847813287,
+     "dense cosine top-1": 0.7422446012496948,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s075",
+     "kind": "",
+     "rerank top-1": 0.3729187548160553,
+     "rerank mean top-3": 0.23379130164782205,
+     "dense cosine top-1": 0.8218508958816528,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s076",
+     "kind": "",
+     "rerank top-1": 0.3396185040473938,
+     "rerank mean top-3": 0.24255563815434775,
+     "dense cosine top-1": 0.7986680269241333,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s077",
+     "kind": "",
+     "rerank top-1": 0.5844804048538208,
+     "rerank mean top-3": 0.2168123455097278,
+     "dense cosine top-1": 0.7659287452697754,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s078",
+     "kind": "",
+     "rerank top-1": 0.5812969207763672,
+     "rerank mean top-3": 0.2712125616768996,
+     "dense cosine top-1": 0.8020539283752441,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.1428571428571429
+    },
+    {
+     "id": "s079",
+     "kind": "",
+     "rerank top-1": 0.47284379601478577,
+     "rerank mean top-3": 0.17705719685181975,
+     "dense cosine top-1": 0.7673898339271545,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s080",
+     "kind": "",
+     "rerank top-1": 0.3777611255645752,
+     "rerank mean top-3": 0.2956807216008504,
+     "dense cosine top-1": 0.7784975171089172,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s081",
+     "kind": "",
+     "rerank top-1": 0.5234853625297546,
+     "rerank mean top-3": 0.46345696846644086,
+     "dense cosine top-1": 0.7994117140769958,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s082",
+     "kind": "",
+     "rerank top-1": 0.2590717375278473,
+     "rerank mean top-3": 0.12879563495516777,
+     "dense cosine top-1": 0.7663893103599548,
+     "RRF top score": 0.031746031746031744,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s083",
+     "kind": "",
+     "rerank top-1": 0.38092106580734253,
+     "rerank mean top-3": 0.19412034625808397,
+     "dense cosine top-1": 0.7286610007286072,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s084",
+     "kind": "",
+     "rerank top-1": 0.5222568511962891,
+     "rerank mean top-3": 0.15563908382318914,
+     "dense cosine top-1": 0.8220124244689941,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s085",
+     "kind": "",
+     "rerank top-1": 0.4608529210090637,
+     "rerank mean top-3": 0.31506895025571185,
+     "dense cosine top-1": 0.7444909811019897,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "s086",
+     "kind": "",
+     "rerank top-1": 0.6970939040184021,
+     "rerank mean top-3": 0.4697199861208598,
+     "dense cosine top-1": 0.8378942608833313,
+     "RRF top score": 0.03128054740957967,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s087",
+     "kind": "",
+     "rerank top-1": 0.24665436148643494,
+     "rerank mean top-3": 0.14299390402932963,
+     "dense cosine top-1": 0.7359271049499512,
+     "RRF top score": 0.03028233151183971,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s088",
+     "kind": "",
+     "rerank top-1": 0.6338188052177429,
+     "rerank mean top-3": 0.3037354176243146,
+     "dense cosine top-1": 0.8191901445388794,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s089",
+     "kind": "",
+     "rerank top-1": 0.3050425052642822,
+     "rerank mean top-3": 0.2959491014480591,
+     "dense cosine top-1": 0.7928649187088013,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "s090",
+     "kind": "",
+     "rerank top-1": 0.4199041724205017,
+     "rerank mean top-3": 0.3194035490353902,
+     "dense cosine top-1": 0.7757154703140259,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s091",
+     "kind": "",
+     "rerank top-1": 0.5694043040275574,
+     "rerank mean top-3": 0.22097083879634738,
+     "dense cosine top-1": 0.7543547749519348,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s092",
+     "kind": "",
+     "rerank top-1": 0.35335710644721985,
+     "rerank mean top-3": 0.18677864720424017,
+     "dense cosine top-1": 0.7414425611495972,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s093",
+     "kind": "",
+     "rerank top-1": 0.4540688991546631,
+     "rerank mean top-3": 0.20075350254774094,
+     "dense cosine top-1": 0.8019498586654663,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s094",
+     "kind": "",
+     "rerank top-1": 0.3715471923351288,
+     "rerank mean top-3": 0.15260521260400614,
+     "dense cosine top-1": 0.7159743905067444,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s095",
+     "kind": "",
+     "rerank top-1": 0.3546099364757538,
+     "rerank mean top-3": 0.20157957325379053,
+     "dense cosine top-1": 0.7197237014770508,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4444444444444444
+    },
+    {
+     "id": "s096",
+     "kind": "",
+     "rerank top-1": 0.4346466064453125,
+     "rerank mean top-3": 0.18253362675507864,
+     "dense cosine top-1": 0.7859418392181396,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4444444444444444
+    },
+    {
+     "id": "s097",
+     "kind": "",
+     "rerank top-1": 0.5159576535224915,
+     "rerank mean top-3": 0.33149559795856476,
+     "dense cosine top-1": 0.8056396842002869,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s098",
+     "kind": "",
+     "rerank top-1": 0.5834771394729614,
+     "rerank mean top-3": 0.4022970547278722,
+     "dense cosine top-1": 0.7439596652984619,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s099",
+     "kind": "",
+     "rerank top-1": 0.6589829325675964,
+     "rerank mean top-3": 0.31159288187821704,
+     "dense cosine top-1": 0.8006677627563477,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s100",
+     "kind": "",
+     "rerank top-1": 0.5751373767852783,
+     "rerank mean top-3": 0.2778028796116511,
+     "dense cosine top-1": 0.796074390411377,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s101",
+     "kind": "",
+     "rerank top-1": 0.7001709938049316,
+     "rerank mean top-3": 0.290784303098917,
+     "dense cosine top-1": 0.8226356506347656,
+     "RRF top score": 0.029083245521601686,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s102",
+     "kind": "",
+     "rerank top-1": 0.4827749729156494,
+     "rerank mean top-3": 0.2585894676546256,
+     "dense cosine top-1": 0.7672911882400513,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s103",
+     "kind": "",
+     "rerank top-1": 0.4629463851451874,
+     "rerank mean top-3": 0.2724349747101466,
+     "dense cosine top-1": 0.7848277688026428,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s104",
+     "kind": "",
+     "rerank top-1": 0.26073354482650757,
+     "rerank mean top-3": 0.11175177122155826,
+     "dense cosine top-1": 0.7339805364608765,
+     "RRF top score": 0.028531243721117136,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s105",
+     "kind": "",
+     "rerank top-1": 0.6723203063011169,
+     "rerank mean top-3": 0.31195036073525745,
+     "dense cosine top-1": 0.8479939699172974,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s106",
+     "kind": "",
+     "rerank top-1": 0.5844700932502747,
+     "rerank mean top-3": 0.31291504204273224,
+     "dense cosine top-1": 0.7468937635421753,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s107",
+     "kind": "",
+     "rerank top-1": 0.2721378803253174,
+     "rerank mean top-3": 0.2200747678677241,
+     "dense cosine top-1": 0.7433806657791138,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s108",
+     "kind": "",
+     "rerank top-1": 0.4645758867263794,
+     "rerank mean top-3": 0.173801955456535,
+     "dense cosine top-1": 0.7571444511413574,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s109",
+     "kind": "",
+     "rerank top-1": 0.5146719217300415,
+     "rerank mean top-3": 0.26385116080443066,
+     "dense cosine top-1": 0.7617491483688354,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.2857142857142857
+    },
+    {
+     "id": "s110",
+     "kind": "",
+     "rerank top-1": 0.5334990620613098,
+     "rerank mean top-3": 0.24287510166565576,
+     "dense cosine top-1": 0.7746170163154602,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s111",
+     "kind": "",
+     "rerank top-1": 0.22653013467788696,
+     "rerank mean top-3": 0.20645530025164285,
+     "dense cosine top-1": 0.7822771668434143,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s112",
+     "kind": "",
+     "rerank top-1": 0.46294236183166504,
+     "rerank mean top-3": 0.14712800287331143,
+     "dense cosine top-1": 0.7500727772712708,
+     "RRF top score": 0.025098039215686277,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s113",
+     "kind": "",
+     "rerank top-1": 0.3177270293235779,
+     "rerank mean top-3": 0.23236216604709625,
+     "dense cosine top-1": 0.7773649096488953,
+     "RRF top score": 0.029827662395050816,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s114",
+     "kind": "",
+     "rerank top-1": 0.23775169253349304,
+     "rerank mean top-3": 0.13946925848722458,
+     "dense cosine top-1": 0.7536072731018066,
+     "RRF top score": 0.030776515151515152,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s115",
+     "kind": "",
+     "rerank top-1": 0.6439288258552551,
+     "rerank mean top-3": 0.27253306408723194,
+     "dense cosine top-1": 0.7628991603851318,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s116",
+     "kind": "",
+     "rerank top-1": 0.14666442573070526,
+     "rerank mean top-3": 0.12163993716239929,
+     "dense cosine top-1": 0.7211384773254395,
+     "RRF top score": 0.031024531024531024,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s117",
+     "kind": "",
+     "rerank top-1": 0.1817847192287445,
+     "rerank mean top-3": 0.15780807534853616,
+     "dense cosine top-1": 0.7077780365943909,
+     "RRF top score": 0.0315136476426799,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s118",
+     "kind": "",
+     "rerank top-1": 0.3804517388343811,
+     "rerank mean top-3": 0.12391801550984383,
+     "dense cosine top-1": 0.7316880226135254,
+     "RRF top score": 0.03125,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s119",
+     "kind": "",
+     "rerank top-1": 0.4033147394657135,
+     "rerank mean top-3": 0.15234962146981465,
+     "dense cosine top-1": 0.7786948680877686,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s120",
+     "kind": "",
+     "rerank top-1": 0.39360570907592773,
+     "rerank mean top-3": 0.35526424646377563,
+     "dense cosine top-1": 0.7382262945175171,
+     "RRF top score": 0.027972027972027972,
+     "question-term coverage (top 5)": 0.19999999999999996
+    },
+    {
+     "id": "s121",
+     "kind": "",
+     "rerank top-1": 0.5567066073417664,
+     "rerank mean top-3": 0.30759940296411514,
+     "dense cosine top-1": 0.7776482105255127,
+     "RRF top score": 0.029051670471052088,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s122",
+     "kind": "",
+     "rerank top-1": 0.258882999420166,
+     "rerank mean top-3": 0.20206106205781302,
+     "dense cosine top-1": 0.7217578291893005,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.16666666666666663
+    },
+    {
+     "id": "s123",
+     "kind": "",
+     "rerank top-1": 0.34210148453712463,
+     "rerank mean top-3": 0.12485550281902154,
+     "dense cosine top-1": 0.7837294340133667,
+     "RRF top score": 0.03028233151183971,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s124",
+     "kind": "",
+     "rerank top-1": 0.11063237488269806,
+     "rerank mean top-3": 0.06879194205005963,
+     "dense cosine top-1": 0.7340986728668213,
+     "RRF top score": 0.025326537113730486,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "s125",
+     "kind": "",
+     "rerank top-1": 0.6206623911857605,
+     "rerank mean top-3": 0.23777983213464418,
+     "dense cosine top-1": 0.7074247598648071,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s126",
+     "kind": "",
+     "rerank top-1": 0.3994840681552887,
+     "rerank mean top-3": 0.19194111973047256,
+     "dense cosine top-1": 0.7784714698791504,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s127",
+     "kind": "",
+     "rerank top-1": 0.3229694664478302,
+     "rerank mean top-3": 0.18930075814326605,
+     "dense cosine top-1": 0.7631797194480896,
+     "RRF top score": 0.02832415420928403,
+     "question-term coverage (top 5)": 0.375
+    },
+    {
+     "id": "s128",
+     "kind": "",
+     "rerank top-1": 0.019697604700922966,
+     "rerank mean top-3": 0.006800054262081782,
+     "dense cosine top-1": 0.73526531457901,
+     "RRF top score": 0.029850746268656716,
+     "question-term coverage (top 5)": 0.19999999999999996
+    },
+    {
+     "id": "s129",
+     "kind": "",
+     "rerank top-1": 0.4807666838169098,
+     "rerank mean top-3": 0.22433114548524222,
+     "dense cosine top-1": 0.7351981401443481,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s130",
+     "kind": "",
+     "rerank top-1": 0.6242337226867676,
+     "rerank mean top-3": 0.3734832952419917,
+     "dense cosine top-1": 0.8181229829788208,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s131",
+     "kind": "",
+     "rerank top-1": 0.6100724339485168,
+     "rerank mean top-3": 0.2978274201353391,
+     "dense cosine top-1": 0.7997976541519165,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s132",
+     "kind": "",
+     "rerank top-1": 0.4266636073589325,
+     "rerank mean top-3": 0.2534838020801544,
+     "dense cosine top-1": 0.7895265817642212,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s133",
+     "kind": "",
+     "rerank top-1": 0.18156932294368744,
+     "rerank mean top-3": 0.16952412823836008,
+     "dense cosine top-1": 0.7528349161148071,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s134",
+     "kind": "",
+     "rerank top-1": 0.14528341591358185,
+     "rerank mean top-3": 0.12322234114011128,
+     "dense cosine top-1": 0.806670069694519,
+     "RRF top score": 0.031746031746031744,
+     "question-term coverage (top 5)": 0.625
+    },
+    {
+     "id": "s135",
+     "kind": "",
+     "rerank top-1": 0.44414636492729187,
+     "rerank mean top-3": 0.24573837220668793,
+     "dense cosine top-1": 0.742832362651825,
+     "RRF top score": 0.03149801587301587,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s136",
+     "kind": "",
+     "rerank top-1": 0.298607736825943,
+     "rerank mean top-3": 0.19706670194864273,
+     "dense cosine top-1": 0.7919842004776001,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s137",
+     "kind": "",
+     "rerank top-1": 0.5474789142608643,
+     "rerank mean top-3": 0.24938314159711203,
+     "dense cosine top-1": 0.7847224473953247,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s138",
+     "kind": "",
+     "rerank top-1": 0.3803875148296356,
+     "rerank mean top-3": 0.24090038736661276,
+     "dense cosine top-1": 0.7796515226364136,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "s139",
+     "kind": "",
+     "rerank top-1": 0.5025109648704529,
+     "rerank mean top-3": 0.1569689648846785,
+     "dense cosine top-1": 0.7730265855789185,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s140",
+     "kind": "",
+     "rerank top-1": 0.4620189368724823,
+     "rerank mean top-3": 0.33243178327878314,
+     "dense cosine top-1": 0.7542662024497986,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.625
+    },
+    {
+     "id": "s141",
+     "kind": "",
+     "rerank top-1": 0.5464437007904053,
+     "rerank mean top-3": 0.28715862333774567,
+     "dense cosine top-1": 0.7945908308029175,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s142",
+     "kind": "",
+     "rerank top-1": 0.4573866128921509,
+     "rerank mean top-3": 0.1847917754203081,
+     "dense cosine top-1": 0.8253273963928223,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s143",
+     "kind": "",
+     "rerank top-1": 0.49190959334373474,
+     "rerank mean top-3": 0.3009575655062993,
+     "dense cosine top-1": 0.7520914077758789,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s144",
+     "kind": "",
+     "rerank top-1": 0.6566731333732605,
+     "rerank mean top-3": 0.3111484820644061,
+     "dense cosine top-1": 0.8126111030578613,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s145",
+     "kind": "",
+     "rerank top-1": 0.17551422119140625,
+     "rerank mean top-3": 0.1337444707751274,
+     "dense cosine top-1": 0.7261516451835632,
+     "RRF top score": 0.02921395544346364,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s146",
+     "kind": "",
+     "rerank top-1": 0.3865780234336853,
+     "rerank mean top-3": 0.19134332984685898,
+     "dense cosine top-1": 0.7526785135269165,
+     "RRF top score": 0.02938045560996381,
+     "question-term coverage (top 5)": 0.1428571428571429
+    },
+    {
+     "id": "s147",
+     "kind": "",
+     "rerank top-1": 0.20994865894317627,
+     "rerank mean top-3": 0.18114825586477915,
+     "dense cosine top-1": 0.8097370266914368,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "s148",
+     "kind": "",
+     "rerank top-1": 0.450804203748703,
+     "rerank mean top-3": 0.3271569162607193,
+     "dense cosine top-1": 0.8034540414810181,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s149",
+     "kind": "",
+     "rerank top-1": 0.39815792441368103,
+     "rerank mean top-3": 0.32428834835688275,
+     "dense cosine top-1": 0.8071736097335815,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.33333333333333337
+    }
+   ],
+   "neg": [
+    {
+     "id": "u01",
+     "kind": "legacy",
+     "rerank top-1": 0.031847499310970306,
+     "rerank mean top-3": 0.02601024943093459,
+     "dense cosine top-1": 0.6844693422317505,
+     "RRF top score": 0.030621785881252923,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "u02",
+     "kind": "legacy",
+     "rerank top-1": 0.03873502463102341,
+     "rerank mean top-3": 0.01780008648832639,
+     "dense cosine top-1": 0.7152501344680786,
+     "RRF top score": 0.030834914611005692,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "u03",
+     "kind": "legacy",
+     "rerank top-1": 0.05514135584235191,
+     "rerank mean top-3": -0.014123643438021341,
+     "dense cosine top-1": 0.6246119737625122,
+     "RRF top score": 0.027252906976744186,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "u04",
+     "kind": "legacy",
+     "rerank top-1": 0.26295509934425354,
+     "rerank mean top-3": 0.21764180064201355,
+     "dense cosine top-1": 0.7230732440948486,
+     "RRF top score": 0.02649122807017544,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "u05",
+     "kind": "legacy",
+     "rerank top-1": 0.10783136636018753,
+     "rerank mean top-3": 0.06213178485631943,
+     "dense cosine top-1": 0.7457342743873596,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "u06",
+     "kind": "legacy",
+     "rerank top-1": 0.030341874808073044,
+     "rerank mean top-3": -0.01852566748857498,
+     "dense cosine top-1": 0.6570537686347961,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "u07",
+     "kind": "legacy",
+     "rerank top-1": 0.30261775851249695,
+     "rerank mean top-3": 0.14918470341945067,
+     "dense cosine top-1": 0.7205098867416382,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "u08",
+     "kind": "legacy",
+     "rerank top-1": 0.06637395918369293,
+     "rerank mean top-3": 0.05435774599512418,
+     "dense cosine top-1": 0.7106848955154419,
+     "RRF top score": 0.029273504273504274,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "u09",
+     "kind": "legacy",
+     "rerank top-1": -0.07395938038825989,
+     "rerank mean top-3": -0.08371381958325703,
+     "dense cosine top-1": 0.6722749471664429,
+     "RRF top score": 0.028371628371628373,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "u10",
+     "kind": "legacy",
+     "rerank top-1": 0.26995542645454407,
+     "rerank mean top-3": 0.10296493178854386,
+     "dense cosine top-1": 0.7431275844573975,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "u11",
+     "kind": "legacy",
+     "rerank top-1": -0.0316786989569664,
+     "rerank mean top-3": -0.05629791816075643,
+     "dense cosine top-1": 0.6523890495300293,
+     "RRF top score": 0.026334026334026334,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "u12",
+     "kind": "legacy",
+     "rerank top-1": 0.1898408979177475,
+     "rerank mean top-3": 0.1442589983344078,
+     "dense cosine top-1": 0.7525248527526855,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "u13",
+     "kind": "legacy",
+     "rerank top-1": 0.2812948226928711,
+     "rerank mean top-3": 0.12849468489487967,
+     "dense cosine top-1": 0.7095446586608887,
+     "RRF top score": 0.031009615384615385,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "u14",
+     "kind": "legacy",
+     "rerank top-1": 0.06945180147886276,
+     "rerank mean top-3": 0.05799673870205879,
+     "dense cosine top-1": 0.6685448288917542,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "u15",
+     "kind": "legacy",
+     "rerank top-1": 0.17160595953464508,
+     "rerank mean top-3": 0.08024396809438865,
+     "dense cosine top-1": 0.6781461238861084,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "n01",
+     "kind": "far",
+     "rerank top-1": -0.01404578983783722,
+     "rerank mean top-3": -0.08400205274422963,
+     "dense cosine top-1": 0.6482095718383789,
+     "RRF top score": 0.0304147465437788,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n02",
+     "kind": "far",
+     "rerank top-1": -0.12091357260942459,
+     "rerank mean top-3": -0.12918716917435327,
+     "dense cosine top-1": 0.5667689442634583,
+     "RRF top score": 0.01639344262295082,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n03",
+     "kind": "far",
+     "rerank top-1": 0.07922450453042984,
+     "rerank mean top-3": -0.0024436997870604196,
+     "dense cosine top-1": 0.6461976170539856,
+     "RRF top score": 0.028594771241830064,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n04",
+     "kind": "far",
+     "rerank top-1": -0.09088043123483658,
+     "rerank mean top-3": -0.11403574049472809,
+     "dense cosine top-1": 0.5853298902511597,
+     "RRF top score": 0.02564102564102564,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n05",
+     "kind": "far",
+     "rerank top-1": 0.042819906026124954,
+     "rerank mean top-3": -0.035371811439593635,
+     "dense cosine top-1": 0.7025433778762817,
+     "RRF top score": 0.023157894736842106,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n06",
+     "kind": "far",
+     "rerank top-1": -0.03830703720450401,
+     "rerank mean top-3": -0.06851879134774208,
+     "dense cosine top-1": 0.596346378326416,
+     "RRF top score": 0.0277569392348087,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n07",
+     "kind": "far",
+     "rerank top-1": 0.00533919595181942,
+     "rerank mean top-3": -0.04557161219418049,
+     "dense cosine top-1": 0.6066716909408569,
+     "RRF top score": 0.01639344262295082,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "n08",
+     "kind": "far",
+     "rerank top-1": 0.2163020223379135,
+     "rerank mean top-3": 0.00602371742328008,
+     "dense cosine top-1": 0.6130767464637756,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n09",
+     "kind": "far",
+     "rerank top-1": -0.056461941450834274,
+     "rerank mean top-3": -0.10534979775547981,
+     "dense cosine top-1": 0.6067700386047363,
+     "RRF top score": 0.029206349206349208,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n10",
+     "kind": "far",
+     "rerank top-1": -0.02233833260834217,
+     "rerank mean top-3": -0.04177427850663662,
+     "dense cosine top-1": 0.6550676226615906,
+     "RRF top score": 0.02938045560996381,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n11",
+     "kind": "far",
+     "rerank top-1": -0.03200363367795944,
+     "rerank mean top-3": -0.07060067107280095,
+     "dense cosine top-1": 0.5828992128372192,
+     "RRF top score": 0.029709507042253523,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n12",
+     "kind": "far",
+     "rerank top-1": -0.10368924587965012,
+     "rerank mean top-3": -0.11098474512497584,
+     "dense cosine top-1": 0.6348037719726562,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n13",
+     "kind": "far",
+     "rerank top-1": 0.028250250965356827,
+     "rerank mean top-3": -0.059183852126200996,
+     "dense cosine top-1": 0.6065950393676758,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n14",
+     "kind": "far",
+     "rerank top-1": -0.022233769297599792,
+     "rerank mean top-3": -0.058445610105991364,
+     "dense cosine top-1": 0.6274411082267761,
+     "RRF top score": 0.030776515151515152,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n15",
+     "kind": "far",
+     "rerank top-1": -0.10767412185668945,
+     "rerank mean top-3": -0.1263412336508433,
+     "dense cosine top-1": 0.5898311138153076,
+     "RRF top score": 0.024934585193166076,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n16",
+     "kind": "near",
+     "rerank top-1": 0.16676275432109833,
+     "rerank mean top-3": 0.14013533542553583,
+     "dense cosine top-1": 0.7098008990287781,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n17",
+     "kind": "near",
+     "rerank top-1": 0.06997919082641602,
+     "rerank mean top-3": 0.005313244337836902,
+     "dense cosine top-1": 0.722228467464447,
+     "RRF top score": 0.030158730158730156,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n18",
+     "kind": "near",
+     "rerank top-1": 0.01611195132136345,
+     "rerank mean top-3": -0.004128379592051108,
+     "dense cosine top-1": 0.6802618503570557,
+     "RRF top score": 0.02921395544346364,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n19",
+     "kind": "near",
+     "rerank top-1": 0.11634043604135513,
+     "rerank mean top-3": 0.0769166424870491,
+     "dense cosine top-1": 0.6923471689224243,
+     "RRF top score": 0.02886002886002886,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n20",
+     "kind": "near",
+     "rerank top-1": 0.2266440987586975,
+     "rerank mean top-3": 0.11955148229996364,
+     "dense cosine top-1": 0.6562132835388184,
+     "RRF top score": 0.02862400327131466,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "n21",
+     "kind": "near",
+     "rerank top-1": 0.1326656937599182,
+     "rerank mean top-3": 0.05258526482308904,
+     "dense cosine top-1": 0.7452921271324158,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "n22",
+     "kind": "near",
+     "rerank top-1": 0.05119314789772034,
+     "rerank mean top-3": 0.027247647754848003,
+     "dense cosine top-1": 0.705829918384552,
+     "RRF top score": 0.030798389007344232,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n23",
+     "kind": "near",
+     "rerank top-1": 0.1995658129453659,
+     "rerank mean top-3": 0.14525006214777628,
+     "dense cosine top-1": 0.7142361402511597,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n24",
+     "kind": "near",
+     "rerank top-1": 0.11949039995670319,
+     "rerank mean top-3": 0.08022185911734898,
+     "dense cosine top-1": 0.725419282913208,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "n25",
+     "kind": "near",
+     "rerank top-1": 0.2396397888660431,
+     "rerank mean top-3": 0.1398347889383634,
+     "dense cosine top-1": 0.7096297740936279,
+     "RRF top score": 0.030017921146953404,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "n26",
+     "kind": "near",
+     "rerank top-1": -0.03160635754466057,
+     "rerank mean top-3": -0.036947677532831825,
+     "dense cosine top-1": 0.6839821934700012,
+     "RRF top score": 0.029551337359792925,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n27",
+     "kind": "near",
+     "rerank top-1": 0.1035444512963295,
+     "rerank mean top-3": 0.04240237424770991,
+     "dense cosine top-1": 0.6848530769348145,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n28",
+     "kind": "near",
+     "rerank top-1": 0.16554082930088043,
+     "rerank mean top-3": 0.08938057720661163,
+     "dense cosine top-1": 0.7382908463478088,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "n29",
+     "kind": "near",
+     "rerank top-1": 0.13905061781406403,
+     "rerank mean top-3": 0.11845742414395015,
+     "dense cosine top-1": 0.709874153137207,
+     "RRF top score": 0.030886196246139225,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n30",
+     "kind": "premise",
+     "rerank top-1": 0.05144805461168289,
+     "rerank mean top-3": -0.017809618264436722,
+     "dense cosine top-1": 0.7378321886062622,
+     "RRF top score": 0.029513888888888888,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "n31",
+     "kind": "premise",
+     "rerank top-1": 0.1080472320318222,
+     "rerank mean top-3": 0.07157556836803754,
+     "dense cosine top-1": 0.6950685977935791,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n32",
+     "kind": "premise",
+     "rerank top-1": 0.1851961612701416,
+     "rerank mean top-3": 0.1403884788354238,
+     "dense cosine top-1": 0.6856160163879395,
+     "RRF top score": 0.030776515151515152,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n33",
+     "kind": "premise",
+     "rerank top-1": 0.014347238466143608,
+     "rerank mean top-3": -0.02375526415805022,
+     "dense cosine top-1": 0.7083867788314819,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "n34",
+     "kind": "premise",
+     "rerank top-1": 0.0785435363650322,
+     "rerank mean top-3": 0.028028728479209047,
+     "dense cosine top-1": 0.6728304624557495,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n35",
+     "kind": "premise",
+     "rerank top-1": 0.16821666061878204,
+     "rerank mean top-3": 0.12564795960982642,
+     "dense cosine top-1": 0.7089357376098633,
+     "RRF top score": 0.03007688828584351,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "n36",
+     "kind": "premise",
+     "rerank top-1": 0.3704538941383362,
+     "rerank mean top-3": 0.2436598539352417,
+     "dense cosine top-1": 0.7696235179901123,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "n37",
+     "kind": "premise",
+     "rerank top-1": 0.0826675221323967,
+     "rerank mean top-3": 0.051788996905088425,
+     "dense cosine top-1": 0.7248901128768921,
+     "RRF top score": 0.031009615384615385,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "n38",
+     "kind": "premise",
+     "rerank top-1": 0.14014287292957306,
+     "rerank mean top-3": 0.12629872808853784,
+     "dense cosine top-1": 0.7423274517059326,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "n39",
+     "kind": "premise",
+     "rerank top-1": 0.1920435130596161,
+     "rerank mean top-3": 0.1381052111585935,
+     "dense cosine top-1": 0.7154849767684937,
+     "RRF top score": 0.029211087420042643,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "n40",
+     "kind": "premise",
+     "rerank top-1": 0.20295624434947968,
+     "rerank mean top-3": 0.13424307107925415,
+     "dense cosine top-1": 0.7705248594284058,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "n41",
+     "kind": "premise",
+     "rerank top-1": 0.07701155543327332,
+     "rerank mean top-3": 0.028440145930896204,
+     "dense cosine top-1": 0.7293308973312378,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n42",
+     "kind": "premise",
+     "rerank top-1": 0.054324157536029816,
+     "rerank mean top-3": 0.023544832908858854,
+     "dense cosine top-1": 0.6756937503814697,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n43",
+     "kind": "premise",
+     "rerank top-1": 0.3081986606121063,
+     "rerank mean top-3": 0.1463223397731781,
+     "dense cosine top-1": 0.8544806241989136,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "n44",
+     "kind": "premise",
+     "rerank top-1": 0.24849677085876465,
+     "rerank mean top-3": 0.18203210830688477,
+     "dense cosine top-1": 0.7613610625267029,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    }
+   ]
+  },
+  "ms-marco-MiniLM-L-6-v2": {
+   "tune": [
+    {
+     "id": "d01",
+     "kind": "",
+     "rerank top-1": 1.9233700037002563,
+     "rerank mean top-3": 0.5405277709166209,
+     "dense cosine top-1": 0.7762067317962646,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d02",
+     "kind": "",
+     "rerank top-1": 4.144891262054443,
+     "rerank mean top-3": 1.5929255684216816,
+     "dense cosine top-1": 0.7669750452041626,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d03",
+     "kind": "",
+     "rerank top-1": 1.9824225902557373,
+     "rerank mean top-3": 1.5855366786321003,
+     "dense cosine top-1": 0.7882497906684875,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d04",
+     "kind": "",
+     "rerank top-1": -2.767210006713867,
+     "rerank mean top-3": -4.12936798731486,
+     "dense cosine top-1": 0.81110680103302,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d05",
+     "kind": "",
+     "rerank top-1": 1.4907071590423584,
+     "rerank mean top-3": -3.3323376178741455,
+     "dense cosine top-1": 0.7606508731842041,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d06",
+     "kind": "",
+     "rerank top-1": 1.6902484893798828,
+     "rerank mean top-3": -0.7980262041091919,
+     "dense cosine top-1": 0.7926719188690186,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "d07",
+     "kind": "",
+     "rerank top-1": 1.2337781190872192,
+     "rerank mean top-3": -1.739793022473653,
+     "dense cosine top-1": 0.7484900951385498,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d08",
+     "kind": "",
+     "rerank top-1": 7.0907464027404785,
+     "rerank mean top-3": 5.983163992563884,
+     "dense cosine top-1": 0.8080254793167114,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d09",
+     "kind": "",
+     "rerank top-1": -1.5782413482666016,
+     "rerank mean top-3": -3.236124038696289,
+     "dense cosine top-1": 0.7116498351097107,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d10",
+     "kind": "",
+     "rerank top-1": 1.7815580368041992,
+     "rerank mean top-3": 1.443928837776184,
+     "dense cosine top-1": 0.8172823786735535,
+     "RRF top score": 0.03076923076923077,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d11",
+     "kind": "",
+     "rerank top-1": -2.0093517303466797,
+     "rerank mean top-3": -3.9527676900227866,
+     "dense cosine top-1": 0.6957793831825256,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "d12",
+     "kind": "",
+     "rerank top-1": -1.569154977798462,
+     "rerank mean top-3": -3.59576678276062,
+     "dense cosine top-1": 0.7629130482673645,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d13",
+     "kind": "",
+     "rerank top-1": 5.473781585693359,
+     "rerank mean top-3": 2.995141565799713,
+     "dense cosine top-1": 0.7851836681365967,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d14",
+     "kind": "",
+     "rerank top-1": 4.000048637390137,
+     "rerank mean top-3": 2.9140835404396057,
+     "dense cosine top-1": 0.7539876699447632,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d15",
+     "kind": "",
+     "rerank top-1": 5.277170181274414,
+     "rerank mean top-3": 2.454256216684977,
+     "dense cosine top-1": 0.81061190366745,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d16",
+     "kind": "",
+     "rerank top-1": -6.1546831130981445,
+     "rerank mean top-3": -7.389362653096517,
+     "dense cosine top-1": 0.7269172668457031,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "d17",
+     "kind": "",
+     "rerank top-1": 3.004243850708008,
+     "rerank mean top-3": -2.06445042292277,
+     "dense cosine top-1": 0.7775958776473999,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d18",
+     "kind": "",
+     "rerank top-1": -1.1931915283203125,
+     "rerank mean top-3": -2.795090436935425,
+     "dense cosine top-1": 0.7252041101455688,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "d19",
+     "kind": "",
+     "rerank top-1": -1.808823585510254,
+     "rerank mean top-3": -3.9815803368886313,
+     "dense cosine top-1": 0.770735502243042,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "d20",
+     "kind": "",
+     "rerank top-1": 0.25616079568862915,
+     "rerank mean top-3": -2.1716468135515847,
+     "dense cosine top-1": 0.7252262830734253,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d21",
+     "kind": "",
+     "rerank top-1": 2.3928985595703125,
+     "rerank mean top-3": -0.025214393933614094,
+     "dense cosine top-1": 0.7322241067886353,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "d22",
+     "kind": "",
+     "rerank top-1": -2.847362518310547,
+     "rerank mean top-3": -3.613255739212036,
+     "dense cosine top-1": 0.7308281064033508,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d23",
+     "kind": "",
+     "rerank top-1": 1.7359907627105713,
+     "rerank mean top-3": -3.3999210198720298,
+     "dense cosine top-1": 0.7176068425178528,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d24",
+     "kind": "",
+     "rerank top-1": -0.1287984400987625,
+     "rerank mean top-3": -0.9596313486496607,
+     "dense cosine top-1": 0.7422685623168945,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d25",
+     "kind": "",
+     "rerank top-1": 4.0598063468933105,
+     "rerank mean top-3": -4.329725424448649,
+     "dense cosine top-1": 0.7389405965805054,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d26",
+     "kind": "",
+     "rerank top-1": 0.740777850151062,
+     "rerank mean top-3": -1.9306858777999878,
+     "dense cosine top-1": 0.7597299218177795,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d27",
+     "kind": "",
+     "rerank top-1": 2.170928716659546,
+     "rerank mean top-3": 1.8645555973052979,
+     "dense cosine top-1": 0.7803305983543396,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d28",
+     "kind": "",
+     "rerank top-1": -3.922794818878174,
+     "rerank mean top-3": -4.940041700998942,
+     "dense cosine top-1": 0.7630550265312195,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "d29",
+     "kind": "",
+     "rerank top-1": -0.41333359479904175,
+     "rerank mean top-3": -2.7682920893033347,
+     "dense cosine top-1": 0.7696647644042969,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "d30",
+     "kind": "",
+     "rerank top-1": 0.6742132902145386,
+     "rerank mean top-3": -1.5511774619420369,
+     "dense cosine top-1": 0.7401052713394165,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "d31",
+     "kind": "",
+     "rerank top-1": 0.5620078444480896,
+     "rerank mean top-3": -1.6641152898470561,
+     "dense cosine top-1": 0.747416615486145,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "d32",
+     "kind": "",
+     "rerank top-1": 1.5537523031234741,
+     "rerank mean top-3": 0.909705231587092,
+     "dense cosine top-1": 0.7777234315872192,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "d33",
+     "kind": "",
+     "rerank top-1": -1.1421234607696533,
+     "rerank mean top-3": -2.2688966194788613,
+     "dense cosine top-1": 0.7298755645751953,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "d34",
+     "kind": "",
+     "rerank top-1": -2.6516098976135254,
+     "rerank mean top-3": -3.6124358971913657,
+     "dense cosine top-1": 0.7633604407310486,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "d35",
+     "kind": "",
+     "rerank top-1": -1.9482243061065674,
+     "rerank mean top-3": -5.324203093846639,
+     "dense cosine top-1": 0.8308982849121094,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c01",
+     "kind": "",
+     "rerank top-1": 5.647477149963379,
+     "rerank mean top-3": 4.314413944880168,
+     "dense cosine top-1": 0.828304648399353,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c02",
+     "kind": "",
+     "rerank top-1": 3.1884331703186035,
+     "rerank mean top-3": -1.249406099319458,
+     "dense cosine top-1": 0.7687251567840576,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c03",
+     "kind": "",
+     "rerank top-1": -1.7512245178222656,
+     "rerank mean top-3": -2.4584545294443765,
+     "dense cosine top-1": 0.7475643754005432,
+     "RRF top score": 0.03036576949620428,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c04",
+     "kind": "",
+     "rerank top-1": 1.4299709796905518,
+     "rerank mean top-3": -0.29771025975545246,
+     "dense cosine top-1": 0.7757986783981323,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c05",
+     "kind": "",
+     "rerank top-1": 0.014704633504152298,
+     "rerank mean top-3": -0.42353199298183125,
+     "dense cosine top-1": 0.78191077709198,
+     "RRF top score": 0.03149801587301587,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "c06",
+     "kind": "",
+     "rerank top-1": -0.4472827911376953,
+     "rerank mean top-3": -1.9933520952860515,
+     "dense cosine top-1": 0.8330597877502441,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c07",
+     "kind": "",
+     "rerank top-1": 4.629427433013916,
+     "rerank mean top-3": 1.1810754934946697,
+     "dense cosine top-1": 0.789862871170044,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c08",
+     "kind": "",
+     "rerank top-1": -5.283787727355957,
+     "rerank mean top-3": -6.0698591868082685,
+     "dense cosine top-1": 0.766551673412323,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c09",
+     "kind": "",
+     "rerank top-1": 0.24150143563747406,
+     "rerank mean top-3": -6.887780313690503,
+     "dense cosine top-1": 0.7128408551216125,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "c10",
+     "kind": "",
+     "rerank top-1": 3.552504062652588,
+     "rerank mean top-3": 1.6797069509824116,
+     "dense cosine top-1": 0.7389199733734131,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "c11",
+     "kind": "",
+     "rerank top-1": 1.309086799621582,
+     "rerank mean top-3": -2.330470085144043,
+     "dense cosine top-1": 0.7932549118995667,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c12",
+     "kind": "",
+     "rerank top-1": 1.7441612482070923,
+     "rerank mean top-3": 0.7749868830045065,
+     "dense cosine top-1": 0.7592652440071106,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c13",
+     "kind": "",
+     "rerank top-1": 5.79436731338501,
+     "rerank mean top-3": 3.4556541442871094,
+     "dense cosine top-1": 0.7840018272399902,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c14",
+     "kind": "",
+     "rerank top-1": 5.292613983154297,
+     "rerank mean top-3": 3.6941071351369223,
+     "dense cosine top-1": 0.7828729152679443,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c15",
+     "kind": "",
+     "rerank top-1": 6.358606338500977,
+     "rerank mean top-3": 0.32723816235860187,
+     "dense cosine top-1": 0.8430944681167603,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c16",
+     "kind": "",
+     "rerank top-1": 4.174517631530762,
+     "rerank mean top-3": -1.4731475512186687,
+     "dense cosine top-1": 0.8004769086837769,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c17",
+     "kind": "",
+     "rerank top-1": 5.843954086303711,
+     "rerank mean top-3": 3.613887627919515,
+     "dense cosine top-1": 0.7984976172447205,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c18",
+     "kind": "",
+     "rerank top-1": 4.512567043304443,
+     "rerank mean top-3": 3.5196797053019204,
+     "dense cosine top-1": 0.7634770274162292,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c19",
+     "kind": "",
+     "rerank top-1": 7.677495002746582,
+     "rerank mean top-3": 3.9393440783023834,
+     "dense cosine top-1": 0.8335217237472534,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "c20",
+     "kind": "",
+     "rerank top-1": 6.9920220375061035,
+     "rerank mean top-3": 6.270346005757649,
+     "dense cosine top-1": 0.804932713508606,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c21",
+     "kind": "",
+     "rerank top-1": 2.4008572101593018,
+     "rerank mean top-3": 1.2260646869738896,
+     "dense cosine top-1": 0.7575086355209351,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c22",
+     "kind": "",
+     "rerank top-1": -2.410301923751831,
+     "rerank mean top-3": -2.4660975138346353,
+     "dense cosine top-1": 0.7519338130950928,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c23",
+     "kind": "",
+     "rerank top-1": 3.1519813537597656,
+     "rerank mean top-3": -4.181955496470134,
+     "dense cosine top-1": 0.8482423424720764,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c24",
+     "kind": "",
+     "rerank top-1": -2.374417781829834,
+     "rerank mean top-3": -3.2724777857462564,
+     "dense cosine top-1": 0.7574117183685303,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c25",
+     "kind": "",
+     "rerank top-1": 0.835758626461029,
+     "rerank mean top-3": -0.2659022311369578,
+     "dense cosine top-1": 0.7317538857460022,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "c26",
+     "kind": "",
+     "rerank top-1": 3.6804933547973633,
+     "rerank mean top-3": 3.318327267964681,
+     "dense cosine top-1": 0.76381915807724,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "c27",
+     "kind": "",
+     "rerank top-1": 0.13185767829418182,
+     "rerank mean top-3": -2.5100793689489365,
+     "dense cosine top-1": 0.7179371118545532,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "c28",
+     "kind": "",
+     "rerank top-1": 4.53765344619751,
+     "rerank mean top-3": 3.15348211924235,
+     "dense cosine top-1": 0.7897754907608032,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "c29",
+     "kind": "",
+     "rerank top-1": 6.071147918701172,
+     "rerank mean top-3": 1.0502750476201375,
+     "dense cosine top-1": 0.8124426603317261,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c30",
+     "kind": "",
+     "rerank top-1": 4.65125036239624,
+     "rerank mean top-3": 3.6003395716349282,
+     "dense cosine top-1": 0.8202526569366455,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "c31",
+     "kind": "",
+     "rerank top-1": -0.2813850939273834,
+     "rerank mean top-3": -1.921867420276006,
+     "dense cosine top-1": 0.8032858371734619,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "c32",
+     "kind": "",
+     "rerank top-1": -2.6364476680755615,
+     "rerank mean top-3": -4.28557546933492,
+     "dense cosine top-1": 0.7369275689125061,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c33",
+     "kind": "",
+     "rerank top-1": 4.446786880493164,
+     "rerank mean top-3": 3.734729528427124,
+     "dense cosine top-1": 0.7949105501174927,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "c34",
+     "kind": "",
+     "rerank top-1": 3.5671157836914062,
+     "rerank mean top-3": 2.361897518237432,
+     "dense cosine top-1": 0.7765563726425171,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "c35",
+     "kind": "",
+     "rerank top-1": 2.5523650646209717,
+     "rerank mean top-3": -0.1969830592473348,
+     "dense cosine top-1": 0.7763340473175049,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8
+    }
+   ],
+   "heldout": [
+    {
+     "id": "s001",
+     "kind": "",
+     "rerank top-1": -4.134178638458252,
+     "rerank mean top-3": -5.281261126200358,
+     "dense cosine top-1": 0.7642215490341187,
+     "RRF top score": 0.030679156908665108,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s002",
+     "kind": "",
+     "rerank top-1": -1.6640729904174805,
+     "rerank mean top-3": -2.7220821380615234,
+     "dense cosine top-1": 0.7874652743339539,
+     "RRF top score": 0.030886196246139225,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s003",
+     "kind": "",
+     "rerank top-1": -5.5169782638549805,
+     "rerank mean top-3": -6.060532569885254,
+     "dense cosine top-1": 0.749875545501709,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s004",
+     "kind": "",
+     "rerank top-1": -4.553097248077393,
+     "rerank mean top-3": -6.194633801778157,
+     "dense cosine top-1": 0.7763566970825195,
+     "RRF top score": 0.03047794966520434,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s005",
+     "kind": "",
+     "rerank top-1": 0.5064197778701782,
+     "rerank mean top-3": -2.3704815159241357,
+     "dense cosine top-1": 0.8182821869850159,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s006",
+     "kind": "",
+     "rerank top-1": -4.197302341461182,
+     "rerank mean top-3": -4.651357650756836,
+     "dense cosine top-1": 0.7582477927207947,
+     "RRF top score": 0.030117753623188408,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s007",
+     "kind": "",
+     "rerank top-1": -1.622117280960083,
+     "rerank mean top-3": -2.5141143004099527,
+     "dense cosine top-1": 0.769649863243103,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s008",
+     "kind": "",
+     "rerank top-1": -3.4802660942077637,
+     "rerank mean top-3": -4.919056256612142,
+     "dense cosine top-1": 0.8267985582351685,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s009",
+     "kind": "",
+     "rerank top-1": 0.9406054615974426,
+     "rerank mean top-3": 0.07744737962881725,
+     "dense cosine top-1": 0.7841823101043701,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s010",
+     "kind": "",
+     "rerank top-1": 2.017636775970459,
+     "rerank mean top-3": -0.1691626583536466,
+     "dense cosine top-1": 0.7616524696350098,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s011",
+     "kind": "",
+     "rerank top-1": -4.304255485534668,
+     "rerank mean top-3": -5.848880132039388,
+     "dense cosine top-1": 0.7257051467895508,
+     "RRF top score": 0.03128054740957967,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s012",
+     "kind": "",
+     "rerank top-1": 0.7531136274337769,
+     "rerank mean top-3": -0.30223459005355835,
+     "dense cosine top-1": 0.7621822357177734,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7777777777777778
+    },
+    {
+     "id": "s013",
+     "kind": "",
+     "rerank top-1": -3.7677817344665527,
+     "rerank mean top-3": -5.095924695332845,
+     "dense cosine top-1": 0.7574812173843384,
+     "RRF top score": 0.029910714285714284,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s014",
+     "kind": "",
+     "rerank top-1": 2.455918312072754,
+     "rerank mean top-3": 1.0947070320447285,
+     "dense cosine top-1": 0.7897167205810547,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s015",
+     "kind": "",
+     "rerank top-1": -4.403456211090088,
+     "rerank mean top-3": -5.406184037526448,
+     "dense cosine top-1": 0.7645531892776489,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s016",
+     "kind": "",
+     "rerank top-1": -0.8405404686927795,
+     "rerank mean top-3": -2.4368436535199485,
+     "dense cosine top-1": 0.7350174188613892,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s017",
+     "kind": "",
+     "rerank top-1": -0.33018437027931213,
+     "rerank mean top-3": -0.5240037341912588,
+     "dense cosine top-1": 0.8432703018188477,
+     "RRF top score": 0.031099324975891997,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s018",
+     "kind": "",
+     "rerank top-1": -0.12314117699861526,
+     "rerank mean top-3": -0.5159930015603701,
+     "dense cosine top-1": 0.7507414221763611,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s019",
+     "kind": "",
+     "rerank top-1": -1.8871257305145264,
+     "rerank mean top-3": -3.2105038166046143,
+     "dense cosine top-1": 0.733528733253479,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s020",
+     "kind": "",
+     "rerank top-1": -1.1418890953063965,
+     "rerank mean top-3": -1.5787753264109294,
+     "dense cosine top-1": 0.7942888140678406,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s021",
+     "kind": "",
+     "rerank top-1": -6.467101097106934,
+     "rerank mean top-3": -6.75779914855957,
+     "dense cosine top-1": 0.7440159320831299,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s022",
+     "kind": "",
+     "rerank top-1": 1.0978758335113525,
+     "rerank mean top-3": -0.36263113220532733,
+     "dense cosine top-1": 0.7590079307556152,
+     "RRF top score": 0.028693528693528692,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s023",
+     "kind": "",
+     "rerank top-1": 2.5267136096954346,
+     "rerank mean top-3": 1.0173524121443431,
+     "dense cosine top-1": 0.8493658900260925,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s024",
+     "kind": "",
+     "rerank top-1": -1.8100371360778809,
+     "rerank mean top-3": -3.310981829961141,
+     "dense cosine top-1": 0.7903724312782288,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s025",
+     "kind": "",
+     "rerank top-1": -3.9315378665924072,
+     "rerank mean top-3": -4.734318653742473,
+     "dense cosine top-1": 0.7818601131439209,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s026",
+     "kind": "",
+     "rerank top-1": -3.4372527599334717,
+     "rerank mean top-3": -3.811084032058716,
+     "dense cosine top-1": 0.7087036967277527,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s027",
+     "kind": "",
+     "rerank top-1": -2.306924343109131,
+     "rerank mean top-3": -5.249873638153076,
+     "dense cosine top-1": 0.7466122508049011,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s028",
+     "kind": "",
+     "rerank top-1": -0.8307445049285889,
+     "rerank mean top-3": -1.4908111095428467,
+     "dense cosine top-1": 0.7706551551818848,
+     "RRF top score": 0.028629032258064516,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s029",
+     "kind": "",
+     "rerank top-1": 0.29470813274383545,
+     "rerank mean top-3": -0.8549080689748129,
+     "dense cosine top-1": 0.817082405090332,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s030",
+     "kind": "",
+     "rerank top-1": -1.6195135116577148,
+     "rerank mean top-3": -2.6627464294433594,
+     "dense cosine top-1": 0.7779668569564819,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s031",
+     "kind": "",
+     "rerank top-1": -3.0350823402404785,
+     "rerank mean top-3": -3.790584166844686,
+     "dense cosine top-1": 0.7382504940032959,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s032",
+     "kind": "",
+     "rerank top-1": -2.128727674484253,
+     "rerank mean top-3": -2.278197447458903,
+     "dense cosine top-1": 0.7744149565696716,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s033",
+     "kind": "",
+     "rerank top-1": -2.116448402404785,
+     "rerank mean top-3": -3.1414997577667236,
+     "dense cosine top-1": 0.7466120719909668,
+     "RRF top score": 0.02889344262295082,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s034",
+     "kind": "",
+     "rerank top-1": -1.9047627449035645,
+     "rerank mean top-3": -2.673332691192627,
+     "dense cosine top-1": 0.7757083177566528,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s035",
+     "kind": "",
+     "rerank top-1": -9.86050796508789,
+     "rerank mean top-3": -10.411872863769531,
+     "dense cosine top-1": 0.7143927812576294,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s036",
+     "kind": "",
+     "rerank top-1": -7.714382171630859,
+     "rerank mean top-3": -8.268518765767416,
+     "dense cosine top-1": 0.7187092304229736,
+     "RRF top score": 0.02900988017658188,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s037",
+     "kind": "",
+     "rerank top-1": -1.999212622642517,
+     "rerank mean top-3": -3.4984666109085083,
+     "dense cosine top-1": 0.7572901248931885,
+     "RRF top score": 0.03149801587301587,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s038",
+     "kind": "",
+     "rerank top-1": 2.8021883964538574,
+     "rerank mean top-3": 0.36422895391782123,
+     "dense cosine top-1": 0.7864909768104553,
+     "RRF top score": 0.0315136476426799,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s039",
+     "kind": "",
+     "rerank top-1": -2.649089813232422,
+     "rerank mean top-3": -2.9648244380950928,
+     "dense cosine top-1": 0.8100161552429199,
+     "RRF top score": 0.029906956136464335,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s040",
+     "kind": "",
+     "rerank top-1": -6.269574165344238,
+     "rerank mean top-3": -6.9613752365112305,
+     "dense cosine top-1": 0.7063591480255127,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s041",
+     "kind": "",
+     "rerank top-1": 4.021909713745117,
+     "rerank mean top-3": 0.5355745106935501,
+     "dense cosine top-1": 0.8007495403289795,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s042",
+     "kind": "",
+     "rerank top-1": -8.78950309753418,
+     "rerank mean top-3": -9.847752888997396,
+     "dense cosine top-1": 0.7360266447067261,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s043",
+     "kind": "",
+     "rerank top-1": 2.30765962600708,
+     "rerank mean top-3": 0.6124110023180643,
+     "dense cosine top-1": 0.8330527544021606,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s044",
+     "kind": "",
+     "rerank top-1": 0.34539204835891724,
+     "rerank mean top-3": -1.8237836162249248,
+     "dense cosine top-1": 0.7887958288192749,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s045",
+     "kind": "",
+     "rerank top-1": -3.2238855361938477,
+     "rerank mean top-3": -4.042501290639241,
+     "dense cosine top-1": 0.7463399767875671,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s046",
+     "kind": "",
+     "rerank top-1": -1.7133028507232666,
+     "rerank mean top-3": -3.46301277478536,
+     "dense cosine top-1": 0.7749652862548828,
+     "RRF top score": 0.029513888888888888,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s047",
+     "kind": "",
+     "rerank top-1": -2.0348880290985107,
+     "rerank mean top-3": -3.8442461490631104,
+     "dense cosine top-1": 0.7656524181365967,
+     "RRF top score": 0.03007688828584351,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s048",
+     "kind": "",
+     "rerank top-1": -6.024418354034424,
+     "rerank mean top-3": -6.684985637664795,
+     "dense cosine top-1": 0.7409777641296387,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s049",
+     "kind": "",
+     "rerank top-1": 3.051619529724121,
+     "rerank mean top-3": 1.4328898787498474,
+     "dense cosine top-1": 0.8338321447372437,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s050",
+     "kind": "",
+     "rerank top-1": -4.378574848175049,
+     "rerank mean top-3": -5.022993087768555,
+     "dense cosine top-1": 0.7227840423583984,
+     "RRF top score": 0.02900988017658188,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s051",
+     "kind": "",
+     "rerank top-1": 0.2494022101163864,
+     "rerank mean top-3": -1.0820334206024806,
+     "dense cosine top-1": 0.7298434972763062,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s052",
+     "kind": "",
+     "rerank top-1": 3.825191020965576,
+     "rerank mean top-3": 1.8541209697723389,
+     "dense cosine top-1": 0.7743610143661499,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s053",
+     "kind": "",
+     "rerank top-1": -0.7842950820922852,
+     "rerank mean top-3": -2.352555990219116,
+     "dense cosine top-1": 0.7738072872161865,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s054",
+     "kind": "",
+     "rerank top-1": 1.3936578035354614,
+     "rerank mean top-3": -2.2207812070846558,
+     "dense cosine top-1": 0.7929551601409912,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s055",
+     "kind": "",
+     "rerank top-1": -3.818035125732422,
+     "rerank mean top-3": -7.190698305765788,
+     "dense cosine top-1": 0.7342342138290405,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s056",
+     "kind": "",
+     "rerank top-1": 4.1746416091918945,
+     "rerank mean top-3": -2.9199291865030923,
+     "dense cosine top-1": 0.7511960864067078,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s057",
+     "kind": "",
+     "rerank top-1": -4.89320182800293,
+     "rerank mean top-3": -5.717466354370117,
+     "dense cosine top-1": 0.7303817868232727,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s058",
+     "kind": "",
+     "rerank top-1": 0.5336114168167114,
+     "rerank mean top-3": -1.4908594687779744,
+     "dense cosine top-1": 0.7443946003913879,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s059",
+     "kind": "",
+     "rerank top-1": 0.7878955602645874,
+     "rerank mean top-3": -3.5651881297429404,
+     "dense cosine top-1": 0.7295409440994263,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s060",
+     "kind": "",
+     "rerank top-1": -4.433006286621094,
+     "rerank mean top-3": -4.803234100341797,
+     "dense cosine top-1": 0.7559401392936707,
+     "RRF top score": 0.029709507042253523,
+     "question-term coverage (top 5)": 0.625
+    },
+    {
+     "id": "s061",
+     "kind": "",
+     "rerank top-1": 2.9782190322875977,
+     "rerank mean top-3": 0.2916982074578603,
+     "dense cosine top-1": 0.7625802755355835,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s062",
+     "kind": "",
+     "rerank top-1": 3.676517963409424,
+     "rerank mean top-3": -3.110961596171061,
+     "dense cosine top-1": 0.7808192372322083,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s063",
+     "kind": "",
+     "rerank top-1": -2.274585008621216,
+     "rerank mean top-3": -3.029400904973348,
+     "dense cosine top-1": 0.8496655225753784,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s064",
+     "kind": "",
+     "rerank top-1": -0.9087897539138794,
+     "rerank mean top-3": -4.832294344902039,
+     "dense cosine top-1": 0.8253394961357117,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s065",
+     "kind": "",
+     "rerank top-1": -0.13342371582984924,
+     "rerank mean top-3": -1.0084456702073414,
+     "dense cosine top-1": 0.7331986427307129,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s066",
+     "kind": "",
+     "rerank top-1": 3.9217214584350586,
+     "rerank mean top-3": -3.2384020487467446,
+     "dense cosine top-1": 0.8071285486221313,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s067",
+     "kind": "",
+     "rerank top-1": -2.381758689880371,
+     "rerank mean top-3": -2.9076098601023355,
+     "dense cosine top-1": 0.7585097551345825,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "s068",
+     "kind": "",
+     "rerank top-1": -3.0392906665802,
+     "rerank mean top-3": -3.3346983591715493,
+     "dense cosine top-1": 0.7721413373947144,
+     "RRF top score": 0.029850746268656716,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s069",
+     "kind": "",
+     "rerank top-1": -1.9338972568511963,
+     "rerank mean top-3": -2.178706248601278,
+     "dense cosine top-1": 0.8172667026519775,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s070",
+     "kind": "",
+     "rerank top-1": 1.9427040815353394,
+     "rerank mean top-3": 1.2751949826876323,
+     "dense cosine top-1": 0.8353277444839478,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "s071",
+     "kind": "",
+     "rerank top-1": 0.3650553822517395,
+     "rerank mean top-3": 0.23869654536247253,
+     "dense cosine top-1": 0.8137669563293457,
+     "RRF top score": 0.03057889822595705,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s072",
+     "kind": "",
+     "rerank top-1": 2.7684926986694336,
+     "rerank mean top-3": -1.407610813776652,
+     "dense cosine top-1": 0.7330169081687927,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s073",
+     "kind": "",
+     "rerank top-1": -2.435596227645874,
+     "rerank mean top-3": -2.6664793491363525,
+     "dense cosine top-1": 0.8101993799209595,
+     "RRF top score": 0.027637721755368813,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s074",
+     "kind": "",
+     "rerank top-1": -4.195514678955078,
+     "rerank mean top-3": -4.396421432495117,
+     "dense cosine top-1": 0.7422446012496948,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s075",
+     "kind": "",
+     "rerank top-1": 1.656643033027649,
+     "rerank mean top-3": 0.42176784078280133,
+     "dense cosine top-1": 0.8218508958816528,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s076",
+     "kind": "",
+     "rerank top-1": 0.8738111853599548,
+     "rerank mean top-3": -0.6838581363360087,
+     "dense cosine top-1": 0.7986680269241333,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s077",
+     "kind": "",
+     "rerank top-1": 6.429249286651611,
+     "rerank mean top-3": 4.135554393132527,
+     "dense cosine top-1": 0.7659287452697754,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s078",
+     "kind": "",
+     "rerank top-1": -1.8011493682861328,
+     "rerank mean top-3": -2.7360008557637534,
+     "dense cosine top-1": 0.8020539283752441,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "s079",
+     "kind": "",
+     "rerank top-1": 3.680704355239868,
+     "rerank mean top-3": -0.3985749085744222,
+     "dense cosine top-1": 0.7673898339271545,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s080",
+     "kind": "",
+     "rerank top-1": 2.038295269012451,
+     "rerank mean top-3": 1.9887238343556721,
+     "dense cosine top-1": 0.7784975171089172,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s081",
+     "kind": "",
+     "rerank top-1": 4.030180931091309,
+     "rerank mean top-3": 3.1773507595062256,
+     "dense cosine top-1": 0.7994117140769958,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s082",
+     "kind": "",
+     "rerank top-1": -0.6870917677879333,
+     "rerank mean top-3": -1.0297898650169373,
+     "dense cosine top-1": 0.7663893103599548,
+     "RRF top score": 0.031746031746031744,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s083",
+     "kind": "",
+     "rerank top-1": -1.5452721118927002,
+     "rerank mean top-3": -1.9583371480305989,
+     "dense cosine top-1": 0.7286610007286072,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s084",
+     "kind": "",
+     "rerank top-1": -9.027177810668945,
+     "rerank mean top-3": -9.834476788838705,
+     "dense cosine top-1": 0.8220124244689941,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s085",
+     "kind": "",
+     "rerank top-1": -1.5989288091659546,
+     "rerank mean top-3": -6.23290232817332,
+     "dense cosine top-1": 0.7444909811019897,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s086",
+     "kind": "",
+     "rerank top-1": 0.9873247742652893,
+     "rerank mean top-3": -1.022419035434723,
+     "dense cosine top-1": 0.8378942608833313,
+     "RRF top score": 0.03128054740957967,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s087",
+     "kind": "",
+     "rerank top-1": -1.7832064628601074,
+     "rerank mean top-3": -3.9416287740071616,
+     "dense cosine top-1": 0.7359271049499512,
+     "RRF top score": 0.03028233151183971,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s088",
+     "kind": "",
+     "rerank top-1": -4.047313690185547,
+     "rerank mean top-3": -4.74995756149292,
+     "dense cosine top-1": 0.8191901445388794,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "s089",
+     "kind": "",
+     "rerank top-1": -0.6176468133926392,
+     "rerank mean top-3": -0.8538935979207357,
+     "dense cosine top-1": 0.7928649187088013,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s090",
+     "kind": "",
+     "rerank top-1": 1.099415898323059,
+     "rerank mean top-3": -1.060129165649414,
+     "dense cosine top-1": 0.7757154703140259,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s091",
+     "kind": "",
+     "rerank top-1": -5.0357561111450195,
+     "rerank mean top-3": -7.413588841756185,
+     "dense cosine top-1": 0.7543547749519348,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s092",
+     "kind": "",
+     "rerank top-1": 1.2730576992034912,
+     "rerank mean top-3": -0.5181951920191447,
+     "dense cosine top-1": 0.7414425611495972,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s093",
+     "kind": "",
+     "rerank top-1": 0.7907222509384155,
+     "rerank mean top-3": -0.9029887517293295,
+     "dense cosine top-1": 0.8019498586654663,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s094",
+     "kind": "",
+     "rerank top-1": -5.671567916870117,
+     "rerank mean top-3": -6.893413543701172,
+     "dense cosine top-1": 0.7159743905067444,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s095",
+     "kind": "",
+     "rerank top-1": 2.902897357940674,
+     "rerank mean top-3": 1.5083444118499756,
+     "dense cosine top-1": 0.7197237014770508,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4444444444444444
+    },
+    {
+     "id": "s096",
+     "kind": "",
+     "rerank top-1": 0.3883299231529236,
+     "rerank mean top-3": -2.78495059410731,
+     "dense cosine top-1": 0.7859418392181396,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.4444444444444444
+    },
+    {
+     "id": "s097",
+     "kind": "",
+     "rerank top-1": 2.9238007068634033,
+     "rerank mean top-3": 1.7091660499572754,
+     "dense cosine top-1": 0.8056396842002869,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8333333333333334
+    },
+    {
+     "id": "s098",
+     "kind": "",
+     "rerank top-1": 3.910557985305786,
+     "rerank mean top-3": 0.8785923222700754,
+     "dense cosine top-1": 0.7439596652984619,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s099",
+     "kind": "",
+     "rerank top-1": 0.7842463850975037,
+     "rerank mean top-3": -0.5221870541572571,
+     "dense cosine top-1": 0.8006677627563477,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s100",
+     "kind": "",
+     "rerank top-1": 0.24670657515525818,
+     "rerank mean top-3": -1.4481642544269562,
+     "dense cosine top-1": 0.796074390411377,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7777777777777778
+    },
+    {
+     "id": "s101",
+     "kind": "",
+     "rerank top-1": -1.8717600107192993,
+     "rerank mean top-3": -2.828719973564148,
+     "dense cosine top-1": 0.8226356506347656,
+     "RRF top score": 0.029083245521601686,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s102",
+     "kind": "",
+     "rerank top-1": 4.224847316741943,
+     "rerank mean top-3": 3.2553797562917075,
+     "dense cosine top-1": 0.7672911882400513,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s103",
+     "kind": "",
+     "rerank top-1": 2.046435832977295,
+     "rerank mean top-3": 1.6026695171991985,
+     "dense cosine top-1": 0.7848277688026428,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s104",
+     "kind": "",
+     "rerank top-1": -7.881924152374268,
+     "rerank mean top-3": -8.115874449412027,
+     "dense cosine top-1": 0.7339805364608765,
+     "RRF top score": 0.029437229437229435,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s105",
+     "kind": "",
+     "rerank top-1": 6.302107810974121,
+     "rerank mean top-3": 1.5749551852544148,
+     "dense cosine top-1": 0.8479939699172974,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s106",
+     "kind": "",
+     "rerank top-1": 2.723294734954834,
+     "rerank mean top-3": 0.5173317392667135,
+     "dense cosine top-1": 0.7468937635421753,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s107",
+     "kind": "",
+     "rerank top-1": -1.281255841255188,
+     "rerank mean top-3": -2.067023237546285,
+     "dense cosine top-1": 0.7433806657791138,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s108",
+     "kind": "",
+     "rerank top-1": -4.556664943695068,
+     "rerank mean top-3": -5.57740052541097,
+     "dense cosine top-1": 0.7571444511413574,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s109",
+     "kind": "",
+     "rerank top-1": -2.0024917125701904,
+     "rerank mean top-3": -3.917028029759725,
+     "dense cosine top-1": 0.7617491483688354,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.2857142857142857
+    },
+    {
+     "id": "s110",
+     "kind": "",
+     "rerank top-1": 0.8395569324493408,
+     "rerank mean top-3": 0.5567256212234497,
+     "dense cosine top-1": 0.7746170163154602,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s111",
+     "kind": "",
+     "rerank top-1": -4.162962913513184,
+     "rerank mean top-3": -4.524999777475993,
+     "dense cosine top-1": 0.7822771668434143,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s112",
+     "kind": "",
+     "rerank top-1": -0.48511552810668945,
+     "rerank mean top-3": -2.218465566635132,
+     "dense cosine top-1": 0.7500727772712708,
+     "RRF top score": 0.025098039215686277,
+     "question-term coverage (top 5)": 0.375
+    },
+    {
+     "id": "s113",
+     "kind": "",
+     "rerank top-1": -1.7962721586227417,
+     "rerank mean top-3": -2.8479217290878296,
+     "dense cosine top-1": 0.7773649096488953,
+     "RRF top score": 0.029827662395050816,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s114",
+     "kind": "",
+     "rerank top-1": -6.177289009094238,
+     "rerank mean top-3": -6.9667277336120605,
+     "dense cosine top-1": 0.7536072731018066,
+     "RRF top score": 0.030776515151515152,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s115",
+     "kind": "",
+     "rerank top-1": 4.4850053787231445,
+     "rerank mean top-3": 3.4306196371714273,
+     "dense cosine top-1": 0.7628991603851318,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s116",
+     "kind": "",
+     "rerank top-1": -6.223730564117432,
+     "rerank mean top-3": -6.423822402954102,
+     "dense cosine top-1": 0.7211384773254395,
+     "RRF top score": 0.031024531024531024,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s117",
+     "kind": "",
+     "rerank top-1": -2.3436150550842285,
+     "rerank mean top-3": -2.741639773050944,
+     "dense cosine top-1": 0.7077780365943909,
+     "RRF top score": 0.0315136476426799,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s118",
+     "kind": "",
+     "rerank top-1": -3.808485507965088,
+     "rerank mean top-3": -5.822741667429606,
+     "dense cosine top-1": 0.7316880226135254,
+     "RRF top score": 0.03125,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s119",
+     "kind": "",
+     "rerank top-1": -1.463463544845581,
+     "rerank mean top-3": -3.5917967160542807,
+     "dense cosine top-1": 0.7786948680877686,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "s120",
+     "kind": "",
+     "rerank top-1": -1.957826852798462,
+     "rerank mean top-3": -5.805017868677775,
+     "dense cosine top-1": 0.7382262945175171,
+     "RRF top score": 0.028991596638655463,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s121",
+     "kind": "",
+     "rerank top-1": -1.904853105545044,
+     "rerank mean top-3": -2.5132058461507163,
+     "dense cosine top-1": 0.7776482105255127,
+     "RRF top score": 0.029051670471052088,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s122",
+     "kind": "",
+     "rerank top-1": -5.809595584869385,
+     "rerank mean top-3": -7.273350238800049,
+     "dense cosine top-1": 0.7217578291893005,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s123",
+     "kind": "",
+     "rerank top-1": -7.386099815368652,
+     "rerank mean top-3": -8.377534866333008,
+     "dense cosine top-1": 0.7837294340133667,
+     "RRF top score": 0.03028233151183971,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s124",
+     "kind": "",
+     "rerank top-1": -4.7293500900268555,
+     "rerank mean top-3": -5.873242060343425,
+     "dense cosine top-1": 0.7340986728668213,
+     "RRF top score": 0.027402402402402402,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s125",
+     "kind": "",
+     "rerank top-1": 1.8576449155807495,
+     "rerank mean top-3": -5.995821992556254,
+     "dense cosine top-1": 0.7074247598648071,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s126",
+     "kind": "",
+     "rerank top-1": 4.141037464141846,
+     "rerank mean top-3": 1.287584404150645,
+     "dense cosine top-1": 0.7784714698791504,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s127",
+     "kind": "",
+     "rerank top-1": -8.111409187316895,
+     "rerank mean top-3": -8.531820933024088,
+     "dense cosine top-1": 0.7631797194480896,
+     "RRF top score": 0.0293236301369863,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s128",
+     "kind": "",
+     "rerank top-1": -7.309232711791992,
+     "rerank mean top-3": -7.858971913655599,
+     "dense cosine top-1": 0.73526531457901,
+     "RRF top score": 0.029850746268656716,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s129",
+     "kind": "",
+     "rerank top-1": -4.184589862823486,
+     "rerank mean top-3": -4.836774826049805,
+     "dense cosine top-1": 0.7351981401443481,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "s130",
+     "kind": "",
+     "rerank top-1": 4.629734039306641,
+     "rerank mean top-3": 3.0412888129552207,
+     "dense cosine top-1": 0.8181229829788208,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s131",
+     "kind": "",
+     "rerank top-1": 0.6556290984153748,
+     "rerank mean top-3": -0.40977369745572406,
+     "dense cosine top-1": 0.7997976541519165,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s132",
+     "kind": "",
+     "rerank top-1": -0.6446674466133118,
+     "rerank mean top-3": -1.436726987361908,
+     "dense cosine top-1": 0.7895265817642212,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s133",
+     "kind": "",
+     "rerank top-1": 4.913625717163086,
+     "rerank mean top-3": 1.0108611676841974,
+     "dense cosine top-1": 0.7528349161148071,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s134",
+     "kind": "",
+     "rerank top-1": -1.9383485317230225,
+     "rerank mean top-3": -2.783329725265503,
+     "dense cosine top-1": 0.806670069694519,
+     "RRF top score": 0.031746031746031744,
+     "question-term coverage (top 5)": 0.625
+    },
+    {
+     "id": "s135",
+     "kind": "",
+     "rerank top-1": -0.4487421214580536,
+     "rerank mean top-3": -1.093427449464798,
+     "dense cosine top-1": 0.742832362651825,
+     "RRF top score": 0.03149801587301587,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "s136",
+     "kind": "",
+     "rerank top-1": -0.8510696291923523,
+     "rerank mean top-3": -4.580698947111766,
+     "dense cosine top-1": 0.7919842004776001,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s137",
+     "kind": "",
+     "rerank top-1": -0.8723457455635071,
+     "rerank mean top-3": -1.9806504448254902,
+     "dense cosine top-1": 0.7847224473953247,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "s138",
+     "kind": "",
+     "rerank top-1": -2.3023555278778076,
+     "rerank mean top-3": -3.5841874281565347,
+     "dense cosine top-1": 0.7796515226364136,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "s139",
+     "kind": "",
+     "rerank top-1": 1.375596523284912,
+     "rerank mean top-3": -4.711941242218018,
+     "dense cosine top-1": 0.7730265855789185,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s140",
+     "kind": "",
+     "rerank top-1": -3.8241755962371826,
+     "rerank mean top-3": -4.051705280939738,
+     "dense cosine top-1": 0.7542662024497986,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "s141",
+     "kind": "",
+     "rerank top-1": -1.6869665384292603,
+     "rerank mean top-3": -1.8948055505752563,
+     "dense cosine top-1": 0.7945908308029175,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s142",
+     "kind": "",
+     "rerank top-1": 0.5379087924957275,
+     "rerank mean top-3": -0.7712170282999674,
+     "dense cosine top-1": 0.8253273963928223,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "s143",
+     "kind": "",
+     "rerank top-1": -4.6217451095581055,
+     "rerank mean top-3": -5.489889780680339,
+     "dense cosine top-1": 0.7520914077758789,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.4444444444444444
+    },
+    {
+     "id": "s144",
+     "kind": "",
+     "rerank top-1": 5.320987224578857,
+     "rerank mean top-3": 3.4509739875793457,
+     "dense cosine top-1": 0.8126111030578613,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8571428571428572
+    },
+    {
+     "id": "s145",
+     "kind": "",
+     "rerank top-1": -8.622041702270508,
+     "rerank mean top-3": -9.224980990091959,
+     "dense cosine top-1": 0.7261516451835632,
+     "RRF top score": 0.02921395544346364,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "s146",
+     "kind": "",
+     "rerank top-1": -2.8888442516326904,
+     "rerank mean top-3": -4.177372694015503,
+     "dense cosine top-1": 0.7526785135269165,
+     "RRF top score": 0.02938045560996381,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "s147",
+     "kind": "",
+     "rerank top-1": -1.0010751485824585,
+     "rerank mean top-3": -2.161234180132548,
+     "dense cosine top-1": 0.8097370266914368,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "s148",
+     "kind": "",
+     "rerank top-1": 3.7489864826202393,
+     "rerank mean top-3": 3.521850109100342,
+     "dense cosine top-1": 0.8034540414810181,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "s149",
+     "kind": "",
+     "rerank top-1": -2.3722996711730957,
+     "rerank mean top-3": -3.565754016240438,
+     "dense cosine top-1": 0.8071736097335815,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.33333333333333337
+    }
+   ],
+   "neg": [
+    {
+     "id": "u01",
+     "kind": "legacy",
+     "rerank top-1": -6.953909397125244,
+     "rerank mean top-3": -7.672642230987549,
+     "dense cosine top-1": 0.6844693422317505,
+     "RRF top score": 0.030621785881252923,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "u02",
+     "kind": "legacy",
+     "rerank top-1": -5.618658065795898,
+     "rerank mean top-3": -6.872575759887695,
+     "dense cosine top-1": 0.7152501344680786,
+     "RRF top score": 0.030834914611005692,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "u03",
+     "kind": "legacy",
+     "rerank top-1": -10.824658393859863,
+     "rerank mean top-3": -10.999736785888672,
+     "dense cosine top-1": 0.6246119737625122,
+     "RRF top score": 0.027252906976744186,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "u04",
+     "kind": "legacy",
+     "rerank top-1": -5.161043643951416,
+     "rerank mean top-3": -5.524690310160319,
+     "dense cosine top-1": 0.7230732440948486,
+     "RRF top score": 0.02649122807017544,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "u05",
+     "kind": "legacy",
+     "rerank top-1": -4.822695255279541,
+     "rerank mean top-3": -5.264519691467285,
+     "dense cosine top-1": 0.7457342743873596,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "u06",
+     "kind": "legacy",
+     "rerank top-1": -7.19769287109375,
+     "rerank mean top-3": -8.149886131286621,
+     "dense cosine top-1": 0.6570537686347961,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "u07",
+     "kind": "legacy",
+     "rerank top-1": -4.457210063934326,
+     "rerank mean top-3": -4.912384668986003,
+     "dense cosine top-1": 0.7205098867416382,
+     "RRF top score": 0.031754032258064516,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "u08",
+     "kind": "legacy",
+     "rerank top-1": -6.862866401672363,
+     "rerank mean top-3": -8.679681777954102,
+     "dense cosine top-1": 0.7106848955154419,
+     "RRF top score": 0.029273504273504274,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "u09",
+     "kind": "legacy",
+     "rerank top-1": -9.163620948791504,
+     "rerank mean top-3": -10.030577659606934,
+     "dense cosine top-1": 0.6722749471664429,
+     "RRF top score": 0.028371628371628373,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "u10",
+     "kind": "legacy",
+     "rerank top-1": -3.3329250812530518,
+     "rerank mean top-3": -4.108813524246216,
+     "dense cosine top-1": 0.7431275844573975,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "u11",
+     "kind": "legacy",
+     "rerank top-1": -10.659501075744629,
+     "rerank mean top-3": -11.018492698669434,
+     "dense cosine top-1": 0.6523890495300293,
+     "RRF top score": 0.026334026334026334,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "u12",
+     "kind": "legacy",
+     "rerank top-1": 1.4118998050689697,
+     "rerank mean top-3": -0.32125820716222125,
+     "dense cosine top-1": 0.7525248527526855,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "u13",
+     "kind": "legacy",
+     "rerank top-1": -4.296424865722656,
+     "rerank mean top-3": -5.641788323720296,
+     "dense cosine top-1": 0.7095446586608887,
+     "RRF top score": 0.031009615384615385,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "u14",
+     "kind": "legacy",
+     "rerank top-1": 0.04848886653780937,
+     "rerank mean top-3": -0.40598926569024724,
+     "dense cosine top-1": 0.6685448288917542,
+     "RRF top score": 0.03225806451612903,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "u15",
+     "kind": "legacy",
+     "rerank top-1": -3.450613498687744,
+     "rerank mean top-3": -3.8294031620025635,
+     "dense cosine top-1": 0.6781461238861084,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n01",
+     "kind": "far",
+     "rerank top-1": -11.09139633178711,
+     "rerank mean top-3": -11.13320255279541,
+     "dense cosine top-1": 0.6482095718383789,
+     "RRF top score": 0.0304147465437788,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n02",
+     "kind": "far",
+     "rerank top-1": -11.057417869567871,
+     "rerank mean top-3": -11.090106964111328,
+     "dense cosine top-1": 0.5667689442634583,
+     "RRF top score": 0.01639344262295082,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n03",
+     "kind": "far",
+     "rerank top-1": -8.93363094329834,
+     "rerank mean top-3": -9.401429494222006,
+     "dense cosine top-1": 0.6461976170539856,
+     "RRF top score": 0.028594771241830064,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n04",
+     "kind": "far",
+     "rerank top-1": -11.285120964050293,
+     "rerank mean top-3": -11.308934529622396,
+     "dense cosine top-1": 0.5853298902511597,
+     "RRF top score": 0.02564102564102564,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n05",
+     "kind": "far",
+     "rerank top-1": -9.778497695922852,
+     "rerank mean top-3": -10.33316961924235,
+     "dense cosine top-1": 0.7025433778762817,
+     "RRF top score": 0.0260840108401084,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n06",
+     "kind": "far",
+     "rerank top-1": -10.691384315490723,
+     "rerank mean top-3": -10.928581873575846,
+     "dense cosine top-1": 0.596346378326416,
+     "RRF top score": 0.0277569392348087,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n07",
+     "kind": "far",
+     "rerank top-1": -11.10345458984375,
+     "rerank mean top-3": -11.128532409667969,
+     "dense cosine top-1": 0.6066716909408569,
+     "RRF top score": 0.023513328776486674,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "n08",
+     "kind": "far",
+     "rerank top-1": -10.761739730834961,
+     "rerank mean top-3": -10.87100601196289,
+     "dense cosine top-1": 0.6130767464637756,
+     "RRF top score": 0.03200204813108039,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n09",
+     "kind": "far",
+     "rerank top-1": -11.145095825195312,
+     "rerank mean top-3": -11.1505708694458,
+     "dense cosine top-1": 0.6067700386047363,
+     "RRF top score": 0.029206349206349208,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n10",
+     "kind": "far",
+     "rerank top-1": -7.162930965423584,
+     "rerank mean top-3": -8.018172105153402,
+     "dense cosine top-1": 0.6550676226615906,
+     "RRF top score": 0.02938045560996381,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n11",
+     "kind": "far",
+     "rerank top-1": -11.109964370727539,
+     "rerank mean top-3": -11.168877601623535,
+     "dense cosine top-1": 0.5828992128372192,
+     "RRF top score": 0.029709507042253523,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n12",
+     "kind": "far",
+     "rerank top-1": -9.757926940917969,
+     "rerank mean top-3": -9.848608016967773,
+     "dense cosine top-1": 0.6348037719726562,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n13",
+     "kind": "far",
+     "rerank top-1": -10.940305709838867,
+     "rerank mean top-3": -10.996546427408854,
+     "dense cosine top-1": 0.6065950393676758,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n14",
+     "kind": "far",
+     "rerank top-1": -9.662909507751465,
+     "rerank mean top-3": -9.775944391886393,
+     "dense cosine top-1": 0.6274411082267761,
+     "RRF top score": 0.030776515151515152,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n15",
+     "kind": "far",
+     "rerank top-1": -10.969797134399414,
+     "rerank mean top-3": -10.997113863627115,
+     "dense cosine top-1": 0.5898311138153076,
+     "RRF top score": 0.024934585193166076,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n16",
+     "kind": "near",
+     "rerank top-1": -9.036202430725098,
+     "rerank mean top-3": -9.476373990376791,
+     "dense cosine top-1": 0.7098008990287781,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "n17",
+     "kind": "near",
+     "rerank top-1": -5.03090763092041,
+     "rerank mean top-3": -5.886486848195394,
+     "dense cosine top-1": 0.722228467464447,
+     "RRF top score": 0.030158730158730156,
+     "question-term coverage (top 5)": 0.16666666666666663
+    },
+    {
+     "id": "n18",
+     "kind": "near",
+     "rerank top-1": -9.591619491577148,
+     "rerank mean top-3": -9.986931800842285,
+     "dense cosine top-1": 0.6802618503570557,
+     "RRF top score": 0.03055037313432836,
+     "question-term coverage (top 5)": 0.0
+    },
+    {
+     "id": "n19",
+     "kind": "near",
+     "rerank top-1": -8.163309097290039,
+     "rerank mean top-3": -8.413885752360025,
+     "dense cosine top-1": 0.6923471689224243,
+     "RRF top score": 0.029631255487269532,
+     "question-term coverage (top 5)": 0.4
+    },
+    {
+     "id": "n20",
+     "kind": "near",
+     "rerank top-1": -8.597724914550781,
+     "rerank mean top-3": -9.32484245300293,
+     "dense cosine top-1": 0.6562132835388184,
+     "RRF top score": 0.02862400327131466,
+     "question-term coverage (top 5)": 0.33333333333333337
+    },
+    {
+     "id": "n21",
+     "kind": "near",
+     "rerank top-1": -2.7595319747924805,
+     "rerank mean top-3": -3.7522056102752686,
+     "dense cosine top-1": 0.7452921271324158,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "n22",
+     "kind": "near",
+     "rerank top-1": -8.926755905151367,
+     "rerank mean top-3": -9.794993082682291,
+     "dense cosine top-1": 0.705829918384552,
+     "RRF top score": 0.030798389007344232,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n23",
+     "kind": "near",
+     "rerank top-1": -4.857161045074463,
+     "rerank mean top-3": -5.644484043121338,
+     "dense cosine top-1": 0.7142361402511597,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n24",
+     "kind": "near",
+     "rerank top-1": -1.3157508373260498,
+     "rerank mean top-3": -4.276520172754924,
+     "dense cosine top-1": 0.725419282913208,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "n25",
+     "kind": "near",
+     "rerank top-1": -7.551769256591797,
+     "rerank mean top-3": -8.084866523742676,
+     "dense cosine top-1": 0.7096297740936279,
+     "RRF top score": 0.030017921146953404,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n26",
+     "kind": "near",
+     "rerank top-1": -3.5523838996887207,
+     "rerank mean top-3": -6.4079508781433105,
+     "dense cosine top-1": 0.6839821934700012,
+     "RRF top score": 0.029551337359792925,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n27",
+     "kind": "near",
+     "rerank top-1": -7.999823570251465,
+     "rerank mean top-3": -8.288599967956543,
+     "dense cosine top-1": 0.6848530769348145,
+     "RRF top score": 0.03131881575727918,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n28",
+     "kind": "near",
+     "rerank top-1": -3.6999378204345703,
+     "rerank mean top-3": -4.633713245391846,
+     "dense cosine top-1": 0.7382908463478088,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n29",
+     "kind": "near",
+     "rerank top-1": -9.529243469238281,
+     "rerank mean top-3": -9.807007471720377,
+     "dense cosine top-1": 0.709874153137207,
+     "RRF top score": 0.030886196246139225,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n30",
+     "kind": "premise",
+     "rerank top-1": -3.9826087951660156,
+     "rerank mean top-3": -4.784859816233317,
+     "dense cosine top-1": 0.7378321886062622,
+     "RRF top score": 0.029513888888888888,
+     "question-term coverage (top 5)": 0.4285714285714286
+    },
+    {
+     "id": "n31",
+     "kind": "premise",
+     "rerank top-1": -0.4099174737930298,
+     "rerank mean top-3": -1.2299272219340007,
+     "dense cosine top-1": 0.6950685977935791,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.6666666666666667
+    },
+    {
+     "id": "n32",
+     "kind": "premise",
+     "rerank top-1": -4.99442195892334,
+     "rerank mean top-3": -5.556314150492351,
+     "dense cosine top-1": 0.6856160163879395,
+     "RRF top score": 0.030776515151515152,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "n33",
+     "kind": "premise",
+     "rerank top-1": -4.793049335479736,
+     "rerank mean top-3": -6.454410235087077,
+     "dense cosine top-1": 0.7083867788314819,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.7142857142857143
+    },
+    {
+     "id": "n34",
+     "kind": "premise",
+     "rerank top-1": -10.283060073852539,
+     "rerank mean top-3": -10.508822123209635,
+     "dense cosine top-1": 0.6728304624557495,
+     "RRF top score": 0.03252247488101534,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n35",
+     "kind": "premise",
+     "rerank top-1": -9.230063438415527,
+     "rerank mean top-3": -9.688774108886719,
+     "dense cosine top-1": 0.7089357376098633,
+     "RRF top score": 0.03007688828584351,
+     "question-term coverage (top 5)": 0.6
+    },
+    {
+     "id": "n36",
+     "kind": "premise",
+     "rerank top-1": 4.543574810028076,
+     "rerank mean top-3": 2.0726455450057983,
+     "dense cosine top-1": 0.7696235179901123,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.75
+    },
+    {
+     "id": "n37",
+     "kind": "premise",
+     "rerank top-1": -0.6710463166236877,
+     "rerank mean top-3": -2.180187483628591,
+     "dense cosine top-1": 0.7248901128768921,
+     "RRF top score": 0.031009615384615385,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "n38",
+     "kind": "premise",
+     "rerank top-1": 0.6462534070014954,
+     "rerank mean top-3": -0.37855587402979535,
+     "dense cosine top-1": 0.7423274517059326,
+     "RRF top score": 0.03177805800756621,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "n39",
+     "kind": "premise",
+     "rerank top-1": -4.55659818649292,
+     "rerank mean top-3": -4.952282587687175,
+     "dense cosine top-1": 0.7154849767684937,
+     "RRF top score": 0.03128054740957967,
+     "question-term coverage (top 5)": 0.8
+    },
+    {
+     "id": "n40",
+     "kind": "premise",
+     "rerank top-1": -2.7977406978607178,
+     "rerank mean top-3": -3.207339604695638,
+     "dense cosine top-1": 0.7705248594284058,
+     "RRF top score": 0.031544957774465976,
+     "question-term coverage (top 5)": 0.5714285714285714
+    },
+    {
+     "id": "n41",
+     "kind": "premise",
+     "rerank top-1": -1.4313126802444458,
+     "rerank mean top-3": -2.304865002632141,
+     "dense cosine top-1": 0.7293308973312378,
+     "RRF top score": 0.032018442622950824,
+     "question-term coverage (top 5)": 0.5
+    },
+    {
+     "id": "n42",
+     "kind": "premise",
+     "rerank top-1": -10.457672119140625,
+     "rerank mean top-3": -10.68745485941569,
+     "dense cosine top-1": 0.6756937503814697,
+     "RRF top score": 0.032266458495966696,
+     "question-term coverage (top 5)": 0.25
+    },
+    {
+     "id": "n43",
+     "kind": "premise",
+     "rerank top-1": 0.08749310672283173,
+     "rerank mean top-3": -0.49980996549129486,
+     "dense cosine top-1": 0.8544806241989136,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 1.0
+    },
+    {
+     "id": "n44",
+     "kind": "premise",
+     "rerank top-1": -0.9605761170387268,
+     "rerank mean top-3": -2.189713259538015,
+     "dense cosine top-1": 0.7613610625267029,
+     "RRF top score": 0.03278688524590164,
+     "question-term coverage (top 5)": 0.8
+    }
+   ]
+  }
+ }
+}

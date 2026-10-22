@@ -1,0 +1,13 @@
+Open RAG Benchmark (vectara/open_ragbench, pdf/arxiv, CC-BY-NC-4.0) - frozen before any run, 2026-10-18T02:26:32+05:00
+Slice: 80 positive + 40 hard-negative papers chosen by sha256('orb-slice-v1|'+id); 606 queries; slice.json sha256 1dc4f354c11758a40667fd3a274c4a414d6cea3e52f30b897f5c04ce8aa6bc47
+Pipeline: production defaults (backend auto, hybrid RRF + jina-reranker-v3.5, document routing margin 0.10), retrieval only, k=10, one run per variant.
+Variants: full, no_routing, rrf (no reranker), bm25.
+Metrics: doc-level recall@1/3/5/10 and MRR@10; section-level proxy (chunk from the gold paper, >=15 words, >=60% of its words in the gold section; 80% as sensitivity). Thresholds fixed here.
+Nothing is tuned on this slice. Scripts sha256:
+b65b32573bdce1e2248efecf146816fb05ff691636914b70eab8c4f7e1f66132  evals/external/open_ragbench/evaluate.py
+1b5f70568f2ec49293dd9c55a7cd57e9e7061509d214e63104e79ff4be9b2bd8  evals/external/open_ragbench/fetch.py
+7adfff296e05499f95499852c893d16f6ebbbd24831478d2a3413948266bc24e  evals/external/open_ragbench/ingest.py
+299e8ed44c4702e7f2ec16b6f2a8daa8ad08a0748a033c2f3b43762428ad05f4  evals/external/open_ragbench/select.py
+
+Addendum 2026-10-18T06:18:45+05:00, before any retrieval run: ingestion finished (119 papers stored, 17,096 chunks). 2411.18627v2 (a positive paper, 10 queries) was refused as a near-duplicate of 2410.20267v2, so its 10 queries are excluded: 596 queries are scored. evaluate.py sha256 changed to:
+58245785d45d398798a8c99fdbae7e65cf9cf6b71916c39c1bc9261f292da5cc  evals/external/open_ragbench/evaluate.py

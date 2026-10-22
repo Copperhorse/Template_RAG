@@ -1,0 +1,439 @@
+{
+ "rows": [
+  {
+   "name": "clean",
+   "expect": "accept",
+   "describe": "answer and quote copied from the gold snippet",
+   "n": 70,
+   "flagged": 0,
+   "flag_rate": 0.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "quote_retyped",
+   "expect": "accept",
+   "describe": "the real quote, lower-cased with punctuation and spacing dropped",
+   "n": 70,
+   "flagged": 0,
+   "flag_rate": 0.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "fabricated_quote",
+   "expect": "flag",
+   "describe": "quote replaced by text from an unrelated chunk",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "quote_from_wrong_source",
+   "expect": "flag",
+   "describe": "real text, but taken from source 2 while citing source 1",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "no_quotes",
+   "expect": "flag",
+   "describe": "answer cites [S1] but gives no quotes",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "no_citation",
+   "expect": "flag",
+   "describe": "good quote, but the answer cites nothing",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    }
+   }
+  },
+  {
+   "name": "nonexistent_citation",
+   "expect": "flag",
+   "describe": "answer cites [S9]",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    }
+   }
+  },
+  {
+   "name": "wrong_number",
+   "expect": "flag",
+   "describe": "a number in the answer changed (+7)",
+   "n": 15,
+   "flagged": 14,
+   "flag_rate": 0.9333333333333333,
+   "by_policy": {
+    "strict": {
+     "n": 15,
+     "flagged": 14,
+     "flag_rate": 0.9333333333333333
+    },
+    "tolerant": {
+     "n": 15,
+     "flagged": 14,
+     "flag_rate": 0.9333333333333333
+    },
+    "balanced": {
+     "n": 15,
+     "flagged": 14,
+     "flag_rate": 0.9333333333333333
+    },
+    "lenient": {
+     "n": 15,
+     "flagged": 14,
+     "flag_rate": 0.9333333333333333
+    }
+   }
+  },
+  {
+   "name": "invented_identifier",
+   "expect": "flag",
+   "describe": "answer adds a `backticked` name that exists nowhere",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 68,
+     "flag_rate": 0.9714285714285714
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 68,
+     "flag_rate": 0.9714285714285714
+    }
+   }
+  },
+  {
+   "name": "answer_from_other_source",
+   "expect": "flag",
+   "describe": "answer is text from an unrelated chunk, with a real quote for the right one",
+   "n": 70,
+   "flagged": 70,
+   "flag_rate": 1.0,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 70,
+     "flag_rate": 1.0
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 66,
+     "flag_rate": 0.9428571428571428
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 66,
+     "flag_rate": 0.9428571428571428
+    }
+   }
+  },
+  {
+   "name": "paraphrased_quote",
+   "expect": "info",
+   "describe": "the real quote with its longest word replaced by 'banana' (fuzzy match tolerance)",
+   "n": 70,
+   "flagged": 49,
+   "flag_rate": 0.7,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 49,
+     "flag_rate": 0.7
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 22,
+     "flag_rate": 0.3142857142857143
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 22,
+     "flag_rate": 0.3142857142857143
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "negation",
+   "expect": "info",
+   "describe": "the answer asserts the opposite (is -> is not); the quote is unchanged",
+   "n": 5,
+   "flagged": 0,
+   "flag_rate": 0.0,
+   "by_policy": {
+    "strict": {
+     "n": 5,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "tolerant": {
+     "n": 5,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "balanced": {
+     "n": 5,
+     "flagged": 0,
+     "flag_rate": 0.0
+    },
+    "lenient": {
+     "n": 5,
+     "flagged": 0,
+     "flag_rate": 0.0
+    }
+   }
+  },
+  {
+   "name": "fluent_unsupported_claim",
+   "expect": "info",
+   "describe": "a plausible extra sentence with no numbers or names",
+   "n": 70,
+   "flagged": 34,
+   "flag_rate": 0.4857142857142857,
+   "by_policy": {
+    "strict": {
+     "n": 70,
+     "flagged": 34,
+     "flag_rate": 0.4857142857142857
+    },
+    "tolerant": {
+     "n": 70,
+     "flagged": 34,
+     "flag_rate": 0.4857142857142857
+    },
+    "balanced": {
+     "n": 70,
+     "flagged": 34,
+     "flag_rate": 0.4857142857142857
+    },
+    "lenient": {
+     "n": 70,
+     "flagged": 34,
+     "flag_rate": 0.4857142857142857
+    }
+   }
+  }
+ ],
+ "examples": {
+  "clean": [],
+  "quote_retyped": [],
+  "fabricated_quote": [
+   "[lenient] d01: accepted | answer='single-use, 30-second ticket. [S1]'",
+   "[lenient] d02: accepted | answer='PBKDF2-SHA256 (260 000 iterations). [S1]'",
+   "[lenient] d03: accepted | answer='The same user re-uploading identical bytes gets 409 before any conversion work. [S1]'",
+   "[lenient] d04: accepted | answer='QP_MAX_UPLOAD_MB 50 Upload size limit. [S1]'"
+  ],
+  "quote_from_wrong_source": [
+   "[lenient] d01: accepted | answer='single-use, 30-second ticket. [S1]'",
+   "[lenient] d02: accepted | answer='PBKDF2-SHA256 (260 000 iterations). [S1]'",
+   "[lenient] d03: accepted | answer='The same user re-uploading identical bytes gets 409 before any conversion work. [S1]'",
+   "[lenient] d04: accepted | answer='QP_MAX_UPLOAD_MB 50 Upload size limit. [S1]'"
+  ],
+  "no_quotes": [
+   "[lenient] d01: accepted | answer='single-use, 30-second ticket. [S1]'",
+   "[lenient] d02: accepted | answer='PBKDF2-SHA256 (260 000 iterations). [S1]'",
+   "[lenient] d03: accepted | answer='The same user re-uploading identical bytes gets 409 before any conversion work. [S1]'",
+   "[lenient] d04: accepted | answer='QP_MAX_UPLOAD_MB 50 Upload size limit. [S1]'"
+  ],
+  "no_citation": [],
+  "nonexistent_citation": [],
+  "wrong_number": [
+   "[strict] d22: accepted | answer='SimHash (k = 10) misses lightly edited documents (about 10 % changed text). [S1]'",
+   "[tolerant] d22: accepted | answer='SimHash (k = 10) misses lightly edited documents (about 10 % changed text). [S1]'",
+   "[balanced] d22: accepted | answer='SimHash (k = 10) misses lightly edited documents (about 10 % changed text). [S1]'",
+   "[lenient] d22: accepted | answer='SimHash (k = 10) misses lightly edited documents (about 10 % changed text). [S1]'"
+  ],
+  "invented_identifier": [
+   "[balanced] d12: accepted | answer='sw.js must never cache /api/ (responses are per user). It also calls `legacy_sync_worker`.'",
+   "[balanced] d30: accepted | answer='auth-fetch.js wraps fetch to add Authorization: Bearer <qp_token>. It also calls `legacy_s'",
+   "[lenient] d12: accepted | answer='sw.js must never cache /api/ (responses are per user). It also calls `legacy_sync_worker`.'",
+   "[lenient] d30: accepted | answer='auth-fetch.js wraps fetch to add Authorization: Bearer <qp_token>. It also calls `legacy_s'"
+  ],
+  "answer_from_other_source": [
+   "[balanced] d15: accepted | answer='row is written; the API retries at start-up and after any delete. To audit or repair: [S1]'",
+   "[balanced] d20: accepted | answer='audio, and the Qwen3-ASR weights if you use voice input (a Qwen3-ASR-0.6B/ folder in the r'",
+   "[balanced] c15: accepted | answer='The code defines `__init__` [S1].'",
+   "[balanced] c18: accepted | answer='The code defines `continued` [S1].'"
+  ],
+  "paraphrased_quote": [],
+  "negation": [],
+  "fluent_unsupported_claim": []
+ }
+}

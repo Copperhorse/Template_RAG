@@ -1,0 +1,494 @@
+[
+ {
+  "pdf": "code_mcp_handbook.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.6,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 22276,
+   "output_tokens": 22983,
+   "numeric_checks": 1.0,
+   "fused_numeric": 0,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.0,
+   "word_recall": 0.9903,
+   "run6_recall": 0.9338,
+   "order_gap": 0.0565,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 41,
+   "ragged_tables": 3,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "3 of 41 table(s) have rows with differing cell counts"
+  ],
+  "examples": {}
+ },
+ {
+  "pdf": "code_mcp_handbook.pdf",
+  "backend": "docling",
+  "seconds": 0.3,
+  "verdict": "bad",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 22276,
+   "output_tokens": 21676,
+   "numeric_checks": 1.0,
+   "fused_numeric": 0,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.0089,
+   "word_recall": 0.9716,
+   "run6_recall": 0.9134,
+   "order_gap": 0.0582,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 41,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 72
+  },
+  "warnings": [
+   "72 code block(s) collapsed onto one line"
+  ],
+  "examples": {
+   "dropped": [
+    "32"
+   ]
+  }
+ },
+ {
+  "pdf": "math_eslii_ch3_excerpt.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.3,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 14451,
+   "output_tokens": 13742,
+   "numeric_checks": 0.0,
+   "fused_numeric": 12,
+   "novel_numeric": 11,
+   "dropped_numeric_ratio": 0.1296,
+   "word_recall": 0.9238,
+   "run6_recall": 0.8064,
+   "order_gap": 0.1174,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 11,
+   "leftover_tags": 0,
+   "tables": 3,
+   "ragged_tables": 1,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "11 replacement character(s), 0 leftover HTML tag(s)",
+   "1 of 3 table(s) have rows with differing cell counts"
+  ],
+  "examples": {
+   "fused": [
+    "oot or square; - basis expansions, such as X2 = X12, X3= X 13, leading to a polynomial representation; - numeric or “dum",
+    "ct of G by a set of level-dependent constants, since in �5j=1Xjβj,oneoftheXjsisone,andtheothersarezero. - interactions bet",
+    "st squares coefficient of x has the form where x¯ =^� ixi/N,and1=x0,thevectorofNones.Wecanviewthe estimate (3.27) as the res",
+    "e are in fact also the multiple regression coefficients. > 1The inner-product notation is suggestive of generalizations of",
+    "te quantiles for testing significance at the p = 0.05 and 0.01 levels. The difference between t and the standard normal be"
+   ],
+   "novel": [
+    "6 8 Number of Directions 1.8 1.8 1.6 1.6 1.4 1.4 CV Error 1.21.0 CV Error 1.21.0 0.8 0.8 0.6 0.6 1.8 1.8 1.6 1.6 1.4 1.4 CV",
+    "ctive set at each step. The length are measured in units of L11 arc length. Least Angle Regression Lasso 0 5 10 15 0 5 10 1",
+    "ffect of G by a set of level-dependent constants, since in �5j=1Xjβj,oneoftheXjsisone,andtheothersarezero. - interactions",
+    "30 t100 normal 2.0 2.2 2.4 2.6 2.8 3.0 Z Tail Probabilities 0.010.020.030.040.050.06 <!-- End of picture text --> FIGURE 3.3. The tail probabil",
+    "s Considering X to be fixed, this is a linear function c^T 0yoftheresponse vector y. If we assume that the linear model is correct, aT"
+   ],
+   "dropped": [
+    "2xt",
+    "2n",
+    "0.03",
+    "0.04",
+    "0.06",
+    "05",
+    "1.96",
+    "1.645"
+   ]
+  }
+ },
+ {
+  "pdf": "math_eslii_ch3_excerpt.pdf",
+  "backend": "docling",
+  "seconds": 0.2,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 14451,
+   "output_tokens": 14957,
+   "numeric_checks": 0.0,
+   "fused_numeric": 8,
+   "novel_numeric": 2,
+   "dropped_numeric_ratio": 0.2315,
+   "word_recall": 0.9433,
+   "run6_recall": 0.8136,
+   "order_gap": 0.1297,
+   "spaced_letter_runs": 15,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 4,
+   "ragged_tables": 1,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "15 run(s) of spaced-out single letters (garbled formula text)",
+   "1 of 4 table(s) have rows with differing cell counts"
+  ],
+  "examples": {
+   "fused": [
+    "^ { T } y ,$$ where ˆ yi = ˆ f(xi). The matrix H = X(XT X)-1XT appearing in equation (3.7) is sometimes called the \"hat\" m",
+    "by Andrew Ng.] - 42 2. Overview of Supervised Learning ## 3Linear Methods for Regression ## 3.1 Introduction A linear regre",
+    "ere are in fact also the multiple regression coefficients. 1The inner-product notation is suggestive of generalizations of",
+    "frac { d _ { 1 } ^ { 2 } } { N } ,$$ and in fact z1 = Xv1 = u1d1. The derived variable z1 is called the first principal comp",
+    "step length at the beginning of each step (Exercise 3.25). 2The L1 arc-length of a differentiable curve β(s) for s ∈ [0, S]"
+   ],
+   "novel": [
+    "ffect of G by a set of level-dependent constants, since in ∑5j=1 Xjβj, one of the Xjs is one, and the others are zero. - i",
+    "ach xij gets replaced by xij - ¯xj. We estimate β0 by ¯ y = 1N ∑N1 yi. The remaining coefficients get estimated by a ridge"
+   ],
+   "dropped": [
+    "43",
+    "2xt",
+    "2n",
+    "0.03",
+    "0.04",
+    "0.06",
+    "48",
+    "2.0"
+   ],
+   "spaced_letters": [
+    "l e f t h e r s u m e s",
+    "a s t a t i s t a l p o i f w e r",
+    "h i s c r i t i o n i s"
+   ]
+  }
+ },
+ {
+  "pdf": "scan_islp_pages.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.0,
+  "verdict": "not-run",
+  "reason": "the PDF has no text layer (a scan)",
+  "metrics": {},
+  "warnings": [],
+  "examples": {}
+ },
+ {
+  "pdf": "scan_islp_pages.pdf",
+  "backend": "docling",
+  "seconds": 0.0,
+  "verdict": "not-run",
+  "reason": "the PDF has no text layer (a scan)",
+  "metrics": {},
+  "warnings": [],
+  "examples": {}
+ },
+ {
+  "pdf": "statute_banking_ordinance.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.3,
+  "verdict": "bad",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 58590,
+   "output_tokens": 58972,
+   "numeric_checks": 1.0,
+   "fused_numeric": 5,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.029,
+   "word_recall": 0.9974,
+   "run6_recall": 0.9411,
+   "order_gap": 0.0563,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 45,
+   "ragged_tables": 23,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "5 numeric token(s) fused from two words of the PDF, e.g. '3provided' (a footnote marker or label glued to a value)",
+   "23 of 45 table(s) have rows with differing cell counts"
+  ],
+  "examples": {
+   "fused": [
+    "ction 42 of the Companies Ordinance 1984(XLVII of 1984):^2 3Provided further that the State Bank may, subject to such conditions",
+    "nk, be liable to a penalty of an amount which may extend to 2twenty thousand rupees and, where the default is a continuing one,",
+    "Government on any inspection made under this section. (7) 2Omitted > 3 40A. Responsibility of State Bank — (1) Without prejud",
+    "an, Extra, Part-I, dated 24-9-1988, Page 825 to 831. 60 > 143AA. Special provisions. —(1) Where the State Bank has called f",
+    ",^1 15A,15B, 15C, 20,^1 25A, 27, 35, 41, 41A, 41B, 41C, 42, 243A, 43AA, 43B, 43C, 43D, 43E, 43F, 47, and 58 or by reason of"
+   ],
+   "dropped": [
+    "7.1",
+    "1985.2",
+    "1of",
+    "510",
+    "115a",
+    "125a",
+    "428",
+    "541"
+   ]
+  }
+ },
+ {
+  "pdf": "statute_banking_ordinance.pdf",
+  "backend": "docling",
+  "seconds": 0.2,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 58590,
+   "output_tokens": 59108,
+   "numeric_checks": 1.0,
+   "fused_numeric": 1,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.0528,
+   "word_recall": 0.9973,
+   "run6_recall": 0.9487,
+   "order_gap": 0.0486,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 36,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "1 numeric token(s) fused from two words of the PDF, e.g. '1981page' (a footnote marker or label glued to a value)"
+  ],
+  "examples": {
+   "fused": [
+    "tte of Pakistan, Extraordinary, Part III dated December 19, 1981Page 446 and ERRATA in Gazette of Pakistan, Extraordinary, Part"
+   ],
+   "dropped": [
+    "101972",
+    "7.1",
+    "1985.2",
+    "315",
+    "1of",
+    "510",
+    "1or",
+    "1in"
+   ]
+  }
+ },
+ {
+  "pdf": "tables_llm_reference.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.1,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 11456,
+   "output_tokens": 11487,
+   "numeric_checks": 1.0,
+   "fused_numeric": 0,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.0,
+   "word_recall": 0.9969,
+   "run6_recall": 0.9444,
+   "order_gap": 0.0526,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 31,
+   "ragged_tables": 1,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "1 of 31 table(s) have rows with differing cell counts"
+  ],
+  "examples": {}
+ },
+ {
+  "pdf": "tables_llm_reference.pdf",
+  "backend": "docling",
+  "seconds": 0.1,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 11456,
+   "output_tokens": 11764,
+   "numeric_checks": 1.0,
+   "fused_numeric": 1,
+   "novel_numeric": 3,
+   "dropped_numeric_ratio": 0.0,
+   "word_recall": 0.9973,
+   "run6_recall": 0.9348,
+   "order_gap": 0.0625,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 31,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "1 numeric token(s) fused from two words of the PDF, e.g. 'v32' (a footnote marker or label glued to a value)"
+  ],
+  "examples": {
+   "fused": [
+    "https://huggingface.co/docs/transformers/model_doc/deepseek_v32) - [Kimi Linear and KDA, arXiv 2510.26692](https://arxiv.or"
+   ],
+   "novel": [
+    "scalable-ai.eecs.berkeley.edu/assets/lecture_slides/lecture_15.pdf) - [Reasoning RL in 2026, Turing Post](https://www.turi",
+    "v1",
+    "om/grpo-in-production-the-failure-modes-nobody-writes-about-5d59c3fc9c3b) - [Agent-RL algorithm list, arXiv 2606.12384](https://arxi"
+   ]
+  }
+ },
+ {
+  "pdf": "ProtectionEconomicReformsAct-1992.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.0,
+  "verdict": "ok",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 1163,
+   "output_tokens": 1164,
+   "numeric_checks": 1.0,
+   "fused_numeric": 0,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.0,
+   "word_recall": 1.0,
+   "run6_recall": 0.9637,
+   "order_gap": 0.0363,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 0,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [],
+  "examples": {}
+ },
+ {
+  "pdf": "ProtectionEconomicReformsAct-1992.pdf",
+  "backend": "docling",
+  "seconds": 0.0,
+  "verdict": "ok",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 1163,
+   "output_tokens": 1163,
+   "numeric_checks": 1.0,
+   "fused_numeric": 0,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.0,
+   "word_recall": 1.0,
+   "run6_recall": 0.9853,
+   "order_gap": 0.0147,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 0,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [],
+  "examples": {}
+ },
+ {
+  "pdf": "2510.04871v1.pdf",
+  "backend": "pymupdf4llm",
+  "seconds": 0.2,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 8222,
+   "output_tokens": 8174,
+   "numeric_checks": 1.0,
+   "fused_numeric": 1,
+   "novel_numeric": 4,
+   "dropped_numeric_ratio": 0.0093,
+   "word_recall": 0.9415,
+   "run6_recall": 0.7755,
+   "order_gap": 0.166,
+   "spaced_letter_runs": 0,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 7,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 0
+  },
+  "warnings": [
+   "1 numeric token(s) fused from two words of the PDF, e.g. '15m' (a footnote marker or label glued to a value)"
+  ],
+  "examples": {
+   "fused": [
+    "ocess, removing the need for the extra forward pass. Over- 15M on Sudoku and 19M on Maze 8 Recursive Reasoning with Tiny"
+   ],
+   "novel": [
+    "xt --> Cross-entropy loss: Reverse Embedding Add & Norm MLP 4x Add & Norm Self-Attention 个 Input (x) Prediction (y) Latent",
+    "any way, and it made the approach more complicated. Back- 11 Recursive Reasoning with Tiny Networks ## Algorithms with",
+    "returnz ``` ``` defdeeprecursion(x,z,n=6,T=3): #recursingT−1timestoimprovez(nogradientsneeded) withtorch.nograd(): forjinrange(T−1): z=",
+    "rny,z ``` ``` defdeeprecursion(x,y,z,n=6,T=3): #recursingT−1timestoimproveyandz(nogradientsneeded) withtorch.nograd(): forjinrange(T−1): y,"
+   ],
+   "dropped": [
+    "2510.04871",
+    "3d"
+   ]
+  }
+ },
+ {
+  "pdf": "2510.04871v1.pdf",
+  "backend": "docling",
+  "seconds": 0.1,
+  "verdict": "warn",
+  "reason": "",
+  "metrics": {
+   "reference_tokens": 8222,
+   "output_tokens": 8036,
+   "numeric_checks": 1.0,
+   "fused_numeric": 1,
+   "novel_numeric": 0,
+   "dropped_numeric_ratio": 0.014,
+   "word_recall": 0.9455,
+   "run6_recall": 0.8101,
+   "order_gap": 0.1354,
+   "spaced_letter_runs": 1,
+   "replacement_chars": 0,
+   "leftover_tags": 0,
+   "tables": 5,
+   "ragged_tables": 0,
+   "unbalanced_fences": 0,
+   "flattened_code_blocks": 4
+  },
+  "warnings": [
+   "1 numeric token(s) fused from two words of the PDF, e.g. '94309440' (a footnote marker or label glued to a value)",
+   "1 run(s) of spaced-out single letters (garbled formula text)",
+   "4 code block(s) collapsed onto one line"
+  ],
+  "examples": {
+   "fused": [
+    "Conference on Computer Vision and Pattern Recognition, pp. 94309440, 2024. Brock, A., Donahue, J., and Simonyan, K. Large scal"
+   ],
+   "dropped": [
+    "2510.04871",
+    "9430",
+    "9440"
+   ],
+   "spaced_letters": [
+    "f o r w a r d p a s s o f H R M i s d o n e a s f l o w s"
+   ]
+  }
+ }
+]

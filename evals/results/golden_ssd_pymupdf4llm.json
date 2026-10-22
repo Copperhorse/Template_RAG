@@ -1,0 +1,2499 @@
+{
+ "meta": {
+  "label": "SSD paper, pymupdf4llm, json_mode schema, fuzzy evidence",
+  "golden": "evals/gold/ssd.jsonl",
+  "store": "/tmp/claude-1000/-home-copper-Git-Template-RAG/24d159d4-229a-4570-887a-d29472273e1a/scratchpad/ssd_store_p4",
+  "chunks": 98,
+  "usable": 85,
+  "json_mode": "schema",
+  "policy": "balanced",
+  "k": 5
+ },
+ "records": [
+  {
+   "id": "ssd-q001",
+   "question": "Which organization produced the SSD paper and who are the equal-contribution authors?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Apple. Ruixiang Zhang, Richard He Bai and Huangjie Zheng contributed equally.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The correspondence for the paper is Ruixiang Zhang, Richard He Bai, Huangjie Zheng, and Yizhe Zhang [S1]. The contribution is noted as equal contribution [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 11.3
+  },
+  {
+   "id": "ssd-q002",
+   "question": "Where is the SSD code released?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "https://github.com/apple/ml-ssd",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The SSD code is released at https://github.com/apple/ml-ssd [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 3.6
+  },
+  {
+   "id": "ssd-q003",
+   "question": "What is simple self-distillation (SSD) in one sentence?",
+   "kind": "definition",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Sample solutions from the model itself with chosen temperature and truncation settings, then fine-tune the model on those raw, unverified samples with standard supervised fine-tuning.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "Simple self-distillation (SSD) involves writing the raw outputs from sampling a base model as a simple self-distillation dataset D_ SSD, which is then used to fine-tune the model on D_ SSD with standard supervised fine-tuning (SFT) [S1].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S1]",
+   "citations": [
+    1
+   ],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.3 A Theoretical View of SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis"
+   ],
+   "seconds": 4.8
+  },
+  {
+   "id": "ssd-q004",
+   "question": "What is SSD's headline result on LiveCodeBench v6?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Qwen3-30B-Instruct improves from 42.4% to 55.3% pass@1 (+12.9pp, +30.4% relative).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD yields large gains on LiveCodeBench [S1], and Figure 1 shows that it yields substantial LiveCodeBench v6 gains across six models spanning three families and multiple scales, with both instruct and thinking variants [S3]. Specifically, SSD improves Qwen3-30B-Instruct from 42.4% to 55.3% pass@1 on LiveCodeBench v6 [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    3,
+    4
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 6.4
+  },
+  {
+   "id": "ssd-q005",
+   "question": "What does SSD not require? List everything the paper rules out.",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No human-labeled solutions, no reference answers, no teacher model, no reward model, no verifier, no execution environment, and no reinforcement learning.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD does not require human-labeled solutions, reference answers, a teacher model, a reward model, a verifier, an execution environment, or reinforcement learning [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 4.1
+  },
+  {
+   "id": "ssd-q006",
+   "question": "How much does hard-problem pass@5 improve for Qwen3-30B-Instruct on LCB v6?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "From 31.1% to 54.1%.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 5,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For Qwen3-30B-Instruct on LCB v6, the hard-problem pass@5 improves by +23.0pp [S3, S2].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S2, S3]",
+   "citations": [
+    2,
+    3
+   ],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction"
+   ],
+   "seconds": 4.5
+  },
+  {
+   "id": "ssd-q007",
+   "question": "What are 'fork' and 'lock' positions?",
+   "kind": "definition",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "A fork is a position where probability is spread over several plausible tokens leading to meaningfully different continuations; a lock is a sharply peaked position where few tokens hold most of the mass but a long distractor tail remains.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "'Lock' positions are where the distribution is sharply peaked, with very few tokens carrying most of the mass and a long distractor tail carrying the rest [S1]. 'Fork' positions are where the distribution is spread across multiple plausible tokens that can lead to meaningfully different downstream continuations [S1], and code interleaves fork positions where several continuations are genuinely plausible and may correspond to different solution approaches [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    4
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis"
+   ],
+   "seconds": 7.2
+  },
+  {
+   "id": "ssd-q008",
+   "question": "What is the precision-exploration conflict?",
+   "kind": "definition",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Locks need low temperature (precision) and forks need high temperature (exploration), so any single global decoding temperature is a compromise: what helps forks lets distractors resurface at locks.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The precision-exploration conflict is the dilemma where a single evaluation temperature cannot satisfy both exploration at forks and precision at locks [S5]. Forks are positions where the distribution is spread across multiple plausible tokens that can lead to meaningfully different downstream continuations, demanding exploration [S4]. Locks are positions where the distribution is sharply peaked, with very few tokens carrying most of the mass and a long distractor tail carrying the rest, demanding precision [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    4,
+    5
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works"
+   ],
+   "seconds": 6.1
+  },
+  {
+   "id": "ssd-q009",
+   "question": "What are the paper's three contributions?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "(1) SSD substantially improves code generation using only the model's own unverified outputs; (2) identifying the precision-exploration conflict as the key mechanism; (3) supporting that mechanism with controlled simulation, real-model analysis, and theory.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The paper's three contributions are: First, showing that SSD can substantially improve code generation models’ performance using only their own unverified outputs, without any external teacher, verifier, reward model, or labeled solutions [S1]. Second, identifying the _precision-exploration conflict_ and arguing that it is the key mechanism behind SSD [S1]. Third, supporting this mechanism with aligned evidence from controlled simulation, real-model analysis, and theory [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 0.6666666666666666,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works"
+   ],
+   "seconds": 5.3
+  },
+  {
+   "id": "ssd-q010",
+   "question": "How many samples per prompt does SSD need, and are they filtered for correctness?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "One sample per prompt (N=1) suffices; samples are not verified in any way (no execution, test cases or correctness filtering).",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "SSD can use $N=1$ sample per prompt, as a single sample per prompt is stated to suffice in practice [S1]. The solutions are not verified in any way, meaning no execution, no test cases, and no filtering by correctness are applied [S1, S2, S3, S5]. In the data synthesis process, for each prompt, exactly one solution is sampled from the frozen base model [S2, S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    3,
+    5
+   ],
+   "n_verified": 5,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 7.7
+  },
+  {
+   "id": "ssd-q011",
+   "question": "Which six models were evaluated?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Llama-3.1-8B-Instruct, Qwen3-4B-Instruct-2507, Qwen3-4B-Thinking-2507, Qwen3-30B-A3B-Instruct-2507, Qwen3-30B-A3B-Thinking-2507, and GPT-OSS-20B.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The six models evaluated are Llama-3.1-8B-Instruct (dense, 8B), Qwen3-4B-Instruct-2507 (dense, 4B), Qwen3-4B-Thinking-2507 (dense, 4B), Qwen3-30BA3B-Instruct-2507 (MoE, 30B total / 3B active), Qwen3-30B-A3B-Thinking-2507 (MoE, 30B / 3B active), and GPT-OSS-20B (MoE, 21B total / 3.6B active) [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 8.4
+  },
+  {
+   "id": "ssd-q012",
+   "question": "What are the active parameter counts of the MoE models?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Qwen3-30B models: 30B total / 3B active. GPT-OSS-20B: 21B total / 3.6B active.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The active parameter counts for the MoE models are 3B for Qwen3-30BA3B-Instruct-2507 and Qwen3-30B-A3B-Thinking-2507, and 3.6B for GPT-OSS-20B [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 5.9
+  },
+  {
+   "id": "ssd-q013",
+   "question": "What prompt data is SSD trained on, and how many problems?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "The seed subset of the rSTARcoder dataset, used only as unlabeled competitive-programming prompts; exact de-duplication yields about 10,168 unique problems (~10K).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD training data is synthesized from the seed subset of the rSTARcoder dataset (Liu et al., 2025), which is used as a pool of unlabeled competitive-programming prompts [S1, S2]. After exact string de-duplication on the whitespace-normalized problem statement, this results in approximately 10,168 unique problems [S1], or approximately 10K unique competitive programming problems [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 6.3
+  },
+  {
+   "id": "ssd-q014",
+   "question": "What filtering is applied to SSD's generated samples?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Only a minimal degeneracy filter that removes empty responses and single-line stubs; no correctness signal at all.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Minimal degeneracy filtering is applied to remove clearly unusable outputs, such as empty responses and single-line stubs [S1]. Additionally, minimal syntactic filtering is used to remove empty responses and single line stubs, with absolutely no correctness signal being used [S2]. Furthermore, the solutions in the SSD dataset are not verified in any way, meaning no execution, no test cases, and no filtering by correctness are performed [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    3
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.6
+  },
+  {
+   "id": "ssd-q015",
+   "question": "What are SSD's fine-tuning hyperparameters?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Megatron-LM on 8xB200 GPUs (EP=8 for MoE); AdamW (beta1 0.9, beta2 0.95, weight decay 0.1); cosine LR from 5e-6 to 1e-6; global batch 32; sequence length 65,536; 2,500 iterations for instruct and 300 for thinking models, with 250/50 warmup iterations.",
+   "evidence_status": [
+    "fuzzy-usable",
+    "absent"
+   ],
+   "rank": 4,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "The fine-tuning hyperparameters for SSD involve fine-tuning the model on the simple self-distillation dataset D_SSD, which is formed by sampling N candidate solutions per problem from a frozen pre-trained LLM p_theta and a set of prompts X, where N=1 is often sufficient [S5].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S5]",
+   "citations": [
+    5
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)"
+   ],
+   "seconds": 4.6
+  },
+  {
+   "id": "ssd-q016",
+   "question": "How large are LCB v6 and LCB v5 and what periods do they cover?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "LCB v6: 131 problems, February–May 2025. LCB v5: 374 problems, August 2024–February 2025.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 2,
+   "answer": "LCB v6 covers the period from Feb–May 2025, and LCB v5 covers Aug 2024–Feb 2025 [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 5.5
+  },
+  {
+   "id": "ssd-q017",
+   "question": "How many samples per problem are used to estimate pass@k?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "10 independent samples per problem.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "All pass@k estimates use 10 independent samples per problem [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.3
+  },
+  {
+   "id": "ssd-q018",
+   "question": "What LCB v6 pass@1 gain does each model get from SSD?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Llama-3.1-8B +3.5pp, Qwen3-4B-Instruct +7.5pp, Qwen3-4B-Thinking +3.3pp, Qwen3-30B-Instruct +12.9pp, Qwen3-30B-Thinking +2.1pp, GPT-OSS-20B +5.3pp.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For Qwen3-30B-Instruct on LCB v6, SSD improves the pass@1 score from 42.4% to 55.3%, which is a gain of +12.9pp [S1], and the table shows the corresponding pass@1 values for the base model (42.4%) and the model with SSD (+55.3%) [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    4
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 0.16666666666666666,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 8.7
+  },
+  {
+   "id": "ssd-q019",
+   "question": "How do Qwen3-30B-Instruct's SSD gains break down by difficulty on LCB v6?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "pass@1: easy +6.5, medium +14.2, hard +15.3. pass@5: easy +6.6, medium +19.6, hard +23.0.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "For Qwen3-30B-Instruct on LCB v6, the pass@1 improvement from SSD breaks down as follows: +6.5pp on easy problems, +14.2pp on medium problems, and +15.3pp on hard problems [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 5.2
+  },
+  {
+   "id": "ssd-q020",
+   "question": "What is Qwen3-30B-Instruct's SSD result on LCB v5?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "pass@1 45.8% to 54.3% (+8.5pp); pass@5 gains +12.0pp.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "On LCB v5, Qwen3-30B-Instruct's SSD result is 54.3% pass@1 [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.25,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q021",
+   "question": "What evidence does the paper give that SSD doesn't collapse diversity?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Pass@5 gains exceed pass@1 gains for every Qwen model on LCB v6 (e.g., +18.1 vs +12.9 for Qwen3-30B-Instruct), and even more so on hard problems (+23.0 vs +15.3).",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The paper indicates that SSD does not collapse diversity, as the gains are often larger at pass@5 than at pass@1, which suggests that SSD preserves and even improves generation diversity [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.0
+  },
+  {
+   "id": "ssd-q022",
+   "question": "In Table 2, what is Qwen3-30B-Thinking's LCB v6 hard pass@1 before and after SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "41.5% before, 46.7% after (+5.2).",
+   "evidence_status": [
+    "fuzzy-usable",
+    "absent"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "Qwen3-30B-Thinking's LCB v6 hard pass@1 before SSD is 98.9, and after SSD it is 98.9 [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 4.7
+  },
+  {
+   "id": "ssd-q023",
+   "question": "In Table 2, what is Llama-3.1-8B-Instruct's LCB v6 hard pass@1 before and after SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "0.0% before, 1.6% after.",
+   "evidence_status": [
+    "fuzzy-usable",
+    "fuzzy-usable"
+   ],
+   "rank": 2,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Llama-3.1-8B-Instruct's LCB v6 hard pass@1 before SSD is 15.1 and after SSD is 17.1 [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q024",
+   "question": "How much does temperature tuning alone help the base Qwen3-30B-Instruct?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Very little: pass@1 ranges only from 41.3% to 43.5% across evaluated temperatures (2.2pp spread); other models span 1.5–3.0pp.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Temperature tuning yields only modest gains on the base model, with the pass@1 for Qwen3-30B-Instruct ranging from 41.3% to 43.5% across the evaluated temperatures, which is a spread of only 2.2 pp [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.8,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD"
+   ],
+   "seconds": 5.2
+  },
+  {
+   "id": "ssd-q025",
+   "question": "By how much does SSD beat the best decode-tuned base model for each model?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "pass@1: +11.8 (Qwen3-30B-Instruct), +5.8 (Qwen3-4B-Instruct), +2.2 (Qwen3-4B-Thinking), +1.1 (Qwen3-30B-Thinking). For Qwen3-30B-Instruct hard problems: +13.3 pass@1 and +19.4 pass@5.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "SSD outperforms the best-tuned base model in pass@1 with advantages of +11.8 pp for Qwen3-30B-Instruct, +5.8 pp for Qwen3-4B-Instruct, +2.2 pp for Qwen3-4B-Thinking, and +1.1 pp for Qwen3-30B-Thinking [S1]. For hard problems, the advantage for Qwen3-30B-Instruct is +13.3 pp on hard pass@1 and +19.4 pp on hard pass@5 [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 6.5
+  },
+  {
+   "id": "ssd-q026",
+   "question": "What is effective temperature T_eff and what does it predict?",
+   "kind": "definition",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "T_eff = T_train x T_eval. Without truncation it governs performance (R^2 = 0.75) with a quadratic peak near T_eff ≈ 1.2.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Effective temperature is defined as _T_ eff = _T_ train _· T_ eval, and it governs performance [S1, S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.2
+  },
+  {
+   "id": "ssd-q027",
+   "question": "What was the best truncated configuration in the Section 3.4 hyperparameter sweep?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "T_train = 2.0, T_eval = 1.1, training-time top-k = 10, reaching 49.7% pass@1 (+7.3pp).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The best observed setting among the truncated runs used _T_ train=2 _._ 0, _T_ eval=1 _._ 1, and training-time top-k = 10, which achieved a pass@1 of 49.7% (+7.3 pp), surpassing all no-truncation results [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.4
+  },
+  {
+   "id": "ssd-q028",
+   "question": "How does training-time truncation change the optimal effective temperature?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "The optimal T_eff generally shifts higher with more stringent truncation, and truncated runs stay above baseline over a wider T_eff range.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "When a nontrivial training-time truncation configuration $\\rho_{train}$ is used during SSD data generation, the optimal effective temperature ($\\text{T}_{\\text{eff}}$) generally shifts towards a higher temperature with more stringent truncation [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.6
+  },
+  {
+   "id": "ssd-q029",
+   "question": "Why can't a single evaluation temperature fix the precision-exploration conflict?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Temperature scales the whole distribution: lowering it protects locks but starves forks; raising it helps forks but lets the lock distractor tail regain mass.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "A single evaluation temperature cannot fix the precision-exploration conflict because different positions in the generation process have contradictory demands on the decoding configuration. Specifically, locks require precision (committing to the dominant token and suppressing the tail), while forks require exploration (spreading mass across viable alternatives to avoid missing good paths) [S3]. Lowering the temperature secures locks but starves forks of diversity, whereas raising the temperature enables exploration at forks but allows distractors to return at locks [S5].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3,
+    5
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction"
+   ],
+   "seconds": 6.2
+  },
+  {
+   "id": "ssd-q030",
+   "question": "How is the toy simulation structured?",
+   "kind": "mechanism",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "A finite-state machine with vocabulary 16; the root branches into two symmetric paths, each through one fork state then three lock states to PASS; any wrong token leads to FAIL.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The toy simulation is structured around a finite-state machine with a vocabulary of $V = 16$ tokens [S3]. The root branches into two symmetric successful paths, each path involves traversing one fork state followed by three lock states before reaching PASS [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis"
+   ],
+   "seconds": 5.1
+  },
+  {
+   "id": "ssd-q031",
+   "question": "According to the paper, why are training and decoding complementary in SSD?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Training makes locks safer but doesn't solve the fork; decode-only tuning can't clean up locks. Gains come only when training makes locks robust and decoding uses the freed room to explore forks.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Training and decoding are complementary in SSD because training makes the locks less fragile, and decoding uses the resulting extra room to explore the fork. Specifically, training changes the distribution so the locks are safer, and decoding then utilizes that space to explore the fork [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD"
+   ],
+   "seconds": 5.1
+  },
+  {
+   "id": "ssd-q032",
+   "question": "What did the real-model analysis of Qwen3-30B-Instruct show?",
+   "kind": "list",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "After SSD, cumulative mass rises faster over top ranks (cleaner head, weaker tail); as T_eval rises more tokens survive truncation and post-truncation entropy rises much more; this persists even at similar top-20 mass. The base model's surviving set stays near a singleton.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The real-model analysis of Qwen3-30B-Instruct showed that SSD results in reaching decoding with a cleaner head and a weaker distractor tail compared to the base model [S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    4
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.9
+  },
+  {
+   "id": "ssd-q033",
+   "question": "What are the three terms of the SSD loss decomposition (Equation 4)?",
+   "kind": "mechanism",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "-log KeptMass (support compression, via rho_train); (1-T) times the Rényi entropy H_{1/T} of the model restricted to the retained set (within-support reshaping, via T_train); and T times KL(q || tempered model on S) (alignment to the base model).",
+   "evidence_status": [
+    "absent",
+    "fuzzy-usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 3,
+   "answer": "The three-term decomposition of the SSD loss involves the KL anchor term, the constant $T \bullet H(q_s)$, and the Rényi-shaping term, which is derived from the free-energy identity [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 0.0,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.3 A Theoretical View of SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.5
+  },
+  {
+   "id": "ssd-q034",
+   "question": "How can SSD lower total entropy yet preserve exploration?",
+   "kind": "mechanism",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Entropy splits into gate, head and tail terms: SSD lowers gate and tail by concentrating mass on the retained set, while the conditional head stays broad at forks for T_eval to diversify.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD can lower total entropy while preserving exploration because total entropy and useful exploration concern different objects [S1, S3]. Specifically, SSD can lower full-vocabulary entropy by concentrating probability mass onto the retained support and suppressing diffuse outside-support mass [S2]. Simultaneously, it can preserve or increase conditional head entropy at contexts where several plausible continuations survive truncation, and evaluation-time temperature acts on this conditional head, not the discarded tail [S2, S3, S4].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "n_verified": 5,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.3 A Theoretical View of SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 7.4
+  },
+  {
+   "id": "ssd-q035",
+   "question": "What happens when SSD trains on near-gibberish data?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "With T_train = 2.0 and no truncation, ~62% of samples have no extractable code, yet the model still reaches 48.1% pass@1 and 64.0% pass@5 (+5.7 / +10.5pp), with hard gains of +7.3 / +13.8pp.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Even when the synthesized outputs devolve into gibberish, the resulting fine-tuned model still improves substantially [S1, S2, S3]. For instance, the fine-tuned model improves to 48.1% pass@1 and 64.0% pass@5, showing gains of +5.7 pp and +10.5 pp respectively [S1, S2]. The base model pass@1/pass@5 is surpassed by the SSD-trained model [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2,
+    3
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5714285714285714,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 6.3
+  },
+  {
+   "id": "ssd-q036",
+   "question": "Why are the stress-test gains smaller than the headline setting?",
+   "kind": "reasoning",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Without training-time truncation, distractor tails aren't suppressed during training and must be cleaned up by evaluation-time truncation, so gains are smaller and more fragile.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The gains in the stress test are smaller than those in the headline setting because, in the present case, the distractor tails are not suppressed during training and must instead be cleaned up at evaluation time by top-k /top-p truncation, making the gains smaller and more fragile [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 5.0
+  },
+  {
+   "id": "ssd-q037",
+   "question": "In the high-temperature stress test, how many checkpoint/temperature configurations beat the baseline, and what was the training loss?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "62 of 100 configurations exceed the 42.4% baseline; final training loss rose to 11.29.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "62 checkpoint/temperature configurations exceeded the 42.4% frozen-base pass@1 baseline in the high-temperature stress test [S1]. The sources do not provide information about the training loss.",
+   "refused": false,
+   "grounded": false,
+   "reason": "Unsupported sentence in answer (3 of 5 words not in the source)",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.3333333333333333,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.8
+  },
+  {
+   "id": "ssd-q038",
+   "question": "In what evaluation-temperature range does the stress-test model work?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Roughly T_eval in [0.6, 1.1]; it falls below baseline at T_eval = 1.3 and drops further at 1.5.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The performance remains competitive for _T_ eval roughly in the range [0 _._ 6 _,_ 1 _._ 1], but it degrades quickly once the evaluation-time temperature becomes too high, falling below the baseline at _T_ eval=1 _._ 3 and dropping further at _T_ eval=1 _._ 5 [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 6.0
+  },
+  {
+   "id": "ssd-q039",
+   "question": "In what order does vLLM apply decoding operations in this paper?",
+   "kind": "mechanism",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Temperature scaling, then top-k, then top-p, then sampling via the Gumbel-max trick (vLLM v0.11.0).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The vLLM decoding pipeline applies four steps in sequence: (1) temperature scaling, (2) top-k filtering, (3) top-p filtering, and (4) Gumbel-max sampling [S1, S2, S3].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S2]",
+   "citations": [
+    1,
+    2,
+    3
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 7.5
+  },
+  {
+   "id": "ssd-q040",
+   "question": "When does vLLM switch to greedy decoding?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "When temperature is below 10^-5.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "vLLM switches to greedy decoding when the temperature is below $10^{-5}$, at which point it bypasses all subsequent steps [S1].",
+   "refused": false,
+   "grounded": false,
+   "reason": "Unsupported number in answer: [10]",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.6
+  },
+  {
+   "id": "ssd-q041",
+   "question": "What generation and evaluation decoding settings are used for Qwen3-30B-Instruct with SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Generation: T_train 1.6, top-k 20, top-p 0.8. Evaluation: T_eval 0.9, top-k 20, top-p 0.8.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The evaluation and decoding settings for Qwen3-30B-Instruct with SSD are detailed in Table 3 [S4]. Table 3 shows the performance metrics for the base model and the model with SSD applied.",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    4
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction"
+   ],
+   "seconds": 5.8
+  },
+  {
+   "id": "ssd-q042",
+   "question": "What decoding settings were used for the base Qwen3-30B-Instruct baseline?",
+   "kind": "table",
+   "difficulty": "easy",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "T 0.7, top-k 20, top-p 0.8 (Table 4).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The baseline decoding settings used for Qwen3-30B-Instruct were a temperature of 1.6, top-k of 20, top-p of 0.8, and a temperature of 0.9 with top-k of 20, top-p of 0.8 [S1]. Additionally, the full sweep for Qwen3-30B-Instruct was conducted [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD"
+   ],
+   "seconds": 5.7
+  },
+  {
+   "id": "ssd-q043",
+   "question": "How are thinking models prompted differently from instruct models?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Instruct models get a system message asking for a Python solution in a markdown block; thinking models get the same task presentation but no explicit chain-of-thought instruction, relying on their native template.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For instruct models, each problem is wrapped in a system message requesting a Python solution inside a markdown code block, followed by the problem statement as the user turn. For thinking models, the task presentation is kept the same, but an explicit chain-of-thought instruction is not added; instead, the model's native template is relied upon to trigger its built-in reasoning behavior [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact"
+   ],
+   "seconds": 5.3
+  },
+  {
+   "id": "ssd-q044",
+   "question": "Which out-of-domain benchmarks were used?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "AIME ('24 and '25) for math, HumanEval (Python and Shell) for general code generation, CruxEval for code understanding, and MMLU for general knowledge.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The out-of-domain benchmarks used were AIME to probe mathematical reasoning, HumanEval (Chen et al., 2021) to probe general code generation in Python and Shell, CruxEval to probe code understanding, and MMLU (Hendrycks et al., 2021b) to probe general knowledge [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": 1.0,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation"
+   ],
+   "seconds": 4.7
+  },
+  {
+   "id": "ssd-q045",
+   "question": "Does SSD hurt out-of-domain performance for the 30B models?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No: Qwen3-30B-Instruct stays within about ±2pp on all benchmarks, Qwen3-30B-Thinking shows only small shifts, and both keep MMLU within 0.3pp.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Programming-only SSD training appears to preserve non-competitive-programming performance reasonably well for the 30B models [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 3.8
+  },
+  {
+   "id": "ssd-q046",
+   "question": "Why does Llama-3.1-8B-Instruct's AIME score collapse after SSD?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "It often outputs a code block instead of a final numerical answer, giving near-zero accuracy (AIME '24 4.7 to 0.3).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Llama-3.1-8B-Instruct loses ground on AIME after SSD training, while it improves on HumanEval and CruxEval [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    3
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 4.1
+  },
+  {
+   "id": "ssd-q047",
+   "question": "How does Qwen3-4B-Instruct's HumanEval Shell score change with SSD?",
+   "kind": "table",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Drops from 47.5 to 31.7.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The score for Qwen3-4B-Instruct on HumanEval Shell changes from 44.6 to 87.8 when SSD is applied [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "ssd-q048",
+   "question": "In the toy, what does the SSD student look like at lock, fork and root states?",
+   "kind": "list",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Lock: 2-token support, correct token 94.8%. Fork: 5-token support, tok1 34.4%, correct tok0 16.9%, three near-tied at ~16%. Root: 4 tokens survive, fail token still 40.6%.",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 3,
+   "n_quotes": 3,
+   "answer": "At lock states, the distribution is sharply peaked at the correct token (rank 1) under both teacher and student across all three temperatures, with training time support compression collapsing the student's lock to a 2-token support (94.8% on correct) [S3]. At fork states, the correct token is at rank-2, and four head tokens are near-tied [S2]. At root states, the FAIL token (tok2) dominates, and the two correct paths begin at ranks 2 and 3 [S2].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S3]",
+   "citations": [
+    2,
+    3
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": false,
+   "cites_evidence": true,
+   "fact_score": 0.25,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis"
+   ],
+   "seconds": 7.6
+  },
+  {
+   "id": "ssd-q049",
+   "question": "How does the toy's optimal success probability change after SSD?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Teacher: 8.32% at T = 0.639. Student: 13.77% at T = 2.091, a +5.4pp gain with the optimal temperature shifting about 3x higher.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 3,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "After SSD, the global optimum shifts upward. For example, the student's success probability increases from 5.5% at low temperature to 13.8% at high temperature [S1], and the student reaches 13.77% at _T_ =2 _._ 091, which is a gain of +5.4 pp compared to the teacher's best global success probability of 8.32% at _T_ =0 _._ 639, with the optimal temperature shifting roughly 3 _×_ upward [S3].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    3
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis"
+   ],
+   "seconds": 6.6
+  },
+  {
+   "id": "ssd-q050",
+   "question": "Is the toy student's advantage sensitive to the top-p threshold?",
+   "kind": "numeric",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No: across top-p from 0.65 to 0.90 the student stays ahead, with gaps from +1.4pp (0.90) to +5.4pp (0.80).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Yes, the student's advantage is sensitive to the top-p threshold, as repeating the grid search across top-p values from 0.65 to 0.90 leaves the student ahead, with gaps ranging from +1.4 pp (at top-p = 0.90) to +5.4 pp (at top-p = 0.80) [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.2 How SSD Reshapes a Model: Toy Simulation and Real-Model Analysis"
+   ],
+   "seconds": 6.2
+  },
+  {
+   "id": "ssd-q051",
+   "question": "According to Table 1, which property does on-policy self-distillation lack that SSD has?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No Privileged Info: on-policy self-distillation uses privileged information, SSD does not.",
+   "evidence_status": [
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The provided sources do not contain a Table 1, so it is not possible to determine which property on-policy self-distillation lacks that SSD has.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "ssd-q052",
+   "question": "According to Table 1, how does GRPO compare with SSD?",
+   "kind": "table",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "GRPO lacks a dense signal and requires a verifier; SSD has a dense signal and needs no verifier. Both need no teacher and no privileged info.",
+   "evidence_status": [
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The provided sources do not contain a Table 1 that compares GRPO with SSD.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 3.4
+  },
+  {
+   "id": "ssd-q053",
+   "question": "How does SSD differ from STaR and ReST-EM?",
+   "kind": "comparison",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "STaR and ReST-EM turn self-generated outputs into supervision via correctness-based filtering or external feedback; SSD trains directly on raw, unverified outputs.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "SSD differs from related self-training approaches like STaR and ReST_EM because SSD trains directly on raw, unverified model outputs, whereas STaR and ReST_EM convert self-generated outputs into supervision through correctness-based filtering or external feedback [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.2
+  },
+  {
+   "id": "ssd-q054",
+   "question": "How does SSD differ from unsupervised RLVR / entropy-minimization methods?",
+   "kind": "comparison",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "It is not RL and does not directly minimize a scalar entropy objective; it reshapes distributions context-dependently (support compression plus within-support reshaping), suppressing tails while preserving or increasing useful head entropy at forks.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "SSD differs from unsupervised RLVR or entropy-minimization methods in both method and mechanism [S1]. While methods like unsupervised RLVR or intrinsic-signal learning replace ground-truth rewards with internal signals such as majority vote, entropy, confidence, or self-certainty [S1], SSD is not an RL procedure that directly optimizes a scalar entropy objective or uniformly drives policy entropy downward [S1]. Instead, SSD involves training on temperature-shifted, truncated self-samples, which reshapes the token distribution in a context-dependent manner by suppressing diffuse tail mass while preserving and potentially increasing useful entropy within the retained head [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 7.6
+  },
+  {
+   "id": "ssd-q055",
+   "question": "Section 3.4's best sweep result is 49.7% pass@1, but the headline is 55.3%. Why the difference?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "The sweep runs used fewer training steps than the main experiments (Appendix C.2) and a different configuration; the 55.3% headline uses the Table 3 setting (T_train 1.6, top-k 20, top-p 0.8, T_eval 0.9) with full training.",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 3,
+   "answer": "The best observed setting among the truncated runs reached 49.7% pass@1, which is above all no-truncation results [S1]. The headline figure likely refers to a different metric or configuration, as the text specifies the best observed setting for the truncated runs.",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.3
+  },
+  {
+   "id": "ssd-q056",
+   "question": "Table 2's caption says SSD improves every evaluated model. Does every cell improve?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No. Overall pass@1 improves for every model on both v6 and v5, but some cells drop: GPT-OSS-20B LCB v5 pass@5 falls 83.4 to 82.1 (hard 70.5 to 68.2) and v6 medium pass@1 80.8 to 80.0; Llama v6 easy pass@5 76.7 to 73.3; Qwen3-30B-Thinking v5 easy pass@1 98.6 to 98.4.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 3,
+   "answer": "The caption for Table 2 states that SSD improves every evaluated model on LiveCodeBench [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 4.0
+  },
+  {
+   "id": "ssd-q057",
+   "question": "Does the 'pass@5 gain exceeds pass@1 gain' pattern hold for the non-Qwen models?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "No. The paper states it only for Qwen models. On LCB v6, GPT-OSS-20B gains +1.9 pass@5 vs +5.3 pass@1, and Llama-3.1-8B +1.0 vs +3.5.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 3,
+   "answer": "The pattern where the 'pass@5 gain exceeds pass@1 gain' holds for the Qwen models on LCB v6, with examples such as Qwen3-4B-Instruct (+15.8pp versus +7.5pp), Qwen3-4B-Thinking (+3.9pp versus +3.3pp), Qwen3-30B-Instruct (+18.1pp versus +12.9pp), and Qwen3-30B-Thinking (+3.5pp versus +2.1pp) [S1]. Additionally, for Qwen3-30B-Instruct on the hard subset of LCB v6, the pass@5 gain (+23.0pp) was larger than the pass@1 gain (+15.3pp) [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.4,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 8.6
+  },
+  {
+   "id": "ssd-q058",
+   "question": "What effective temperature does the headline Qwen3-30B-Instruct configuration use, and is that consistent with the paper's account of truncation?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Derived: T_eff = 1.6 x 0.9 = 1.44, above the ~1.2 no-truncation peak; consistent with the claim that the optimal T_eff shifts higher with truncation (headline uses top-k 20 / top-p 0.8).",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 5,
+   "covered": 1,
+   "n_quotes": 3,
+   "answer": "The effective temperature is defined as _T_ eff = _T_ train _· T_ eval [S5]. In the context of Qwen3-30B-Instruct on LCB v6, the performance is organized by this effective temperature [S5]. When considering truncation, the full sweeps show that without training-time truncation, performance is largely organized by the effective temperature, while truncation preserves that broad structure and lifts the achievable ceiling [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    5
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.4 How SSD Hyperparameters Interact"
+   ],
+   "seconds": 6.2
+  },
+  {
+   "id": "ssd-q059",
+   "question": "How much of Qwen3-30B-Instruct's SSD gain could decode-only tuning recover?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Derived: about 1.1pp. SSD beats the default-settings base by +12.9pp but the best-tuned base by +11.8pp.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Temperature tuning yields only modest gains on the base model, as the base-model sweep curves are strikingly flat for Qwen3-30B-Instruct, with pass@1 ranging from 41.3% to 43.5% across evaluated temperatures, a spread of only 2.2 pp [S1]. SSD still outperforms the best-tuned base model, and the advantage for Qwen3-30B-Instruct on pass@1 is +11.8 pp [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.6666666666666666,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction"
+   ],
+   "seconds": 7.3
+  },
+  {
+   "id": "ssd-q060",
+   "question": "Is the base-model pass@5 baseline used in the stress test the same as in Table 2?",
+   "kind": "multi-hop",
+   "difficulty": "medium",
+   "answerable": true,
+   "status": "yes",
+   "ground_truth": "Yes: 53.5% pass@5 for base Qwen3-30B-Instruct on LCB v6 in both.",
+   "evidence_status": [
+    "usable",
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "The base-model pass@5 baseline used in the stress test (Figure 15) is 53.5% [S1, S5]. Table 2 shows the base model results for various models, but it does not explicitly state the pass@5 baseline used in the stress test.",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    5
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.7
+  },
+  {
+   "id": "ssd-q061",
+   "question": "How does SSD perform when sampling more than one solution per prompt (N > 1)?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "The paper only says N=1 already suffices; it reports no results for N > 1.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The provided sources do not state how SSD performs when sampling more than one solution per prompt (N > 1).",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 2 Embarrassingly Simple Self-Distillation (SSD)",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 1 Introduction",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 4.0
+  },
+  {
+   "id": "ssd-q062",
+   "question": "How many GPU-hours does SSD fine-tuning take?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "The paper gives the hardware (8xB200) and iteration counts (2,500 instruct / 300 thinking) but no wall-clock time or GPU-hours.",
+   "evidence_status": [
+    "fuzzy-usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The provided sources do not state how many GPU-hours SSD fine-tuning takes.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation"
+   ],
+   "seconds": 4.5
+  },
+  {
+   "id": "ssd-q063",
+   "question": "How does SSD affect GPT-OSS-20B at low or medium reasoning effort?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "Only the high reasoning-effort setting of GPT-OSS-20B is evaluated.",
+   "evidence_status": [
+    "fuzzy-usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "For GPT-OSS-20B, SSD results in a gain of +5.3pp on pass@1 [S2].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [S2]",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 6.2
+  },
+  {
+   "id": "ssd-q064",
+   "question": "What is the formal proof that SSD sharpens locks while preserving forks?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "The main text states the asymmetry (support compression dominates at locks; within-support reshaping at forks) and defers the formalization to Appendix B.3, which is not in this corpus.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The lock/fork asymmetry arises from what survives into the retained set at each context [S1]. At locks, support compression dominates because only one or a few tokens survive truncation, causing the Rényi-shaping term to have limited room to act since the head entropy of a near-singleton distribution is already close to zero, meaning the learning signal comes primarily from the support-compression term, which pushes probability onto the retained support and suppresses the distractor tail [S2]. At forks, within-support reshaping has room to act because several plausible continuations survive truncation, allowing the Rényi-shaping term to matter. For $T > 1$, the coefficient $(1 - T) < 0$, meaning minimizing the loss maximizes the Rényi entropy, smoothing the distribution among the surviving alternatives, and this smoothing is confined to the retained support, preserving useful diversity while cleaning up the tail elsewhere [S2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.3 A Theoretical View of SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 11.1
+  },
+  {
+   "id": "ssd-q065",
+   "question": "What were the base-model decode-tuning results for GPT-OSS-20B and Llama?",
+   "kind": "partial",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "partial",
+   "ground_truth": "Section 3.3 reports best-tuned-base margins only for the four Qwen models; Figure 2 shows 30B-Instruct, 4B-Instruct and 4B-Thinking. No numbers are given for GPT-OSS-20B or Llama.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 4,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The base-model decode-tuning results for GPT-OSS-20B show a temperature (T) of 1.2, top-k of none, and top-p of 1.0, with a top-k of 20 and top-p of 0.95 for the SSD evaluation [S1]. For Llama-3.1-8B-Instruct, the base model used a temperature (T) of 0.9 and top-k of none, and top-p of 0.8 [S1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup"
+   ],
+   "seconds": 6.5
+  },
+  {
+   "id": "ssd-q066",
+   "question": "How does SSD perform on SWE-bench?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Not evaluated; code results are LiveCodeBench v5/v6 plus HumanEval and CruxEval transfer.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources discuss the performance of SSD on LiveCodeBench, not SWE-bench.",
+   "refused": false,
+   "grounded": false,
+   "reason": "the answer cites no source",
+   "citations": [],
+   "n_verified": 2,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 4.5
+  },
+  {
+   "id": "ssd-q067",
+   "question": "Does SSD help models larger than 30B, such as 70B?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Not tested; the largest models evaluated are 30B.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not contain information about whether SSD helps models larger than 30B, such as 70B.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 5.3
+  },
+  {
+   "id": "ssd-q068",
+   "question": "What is SSD's pass@1 compared head-to-head against GRPO on LiveCodeBench?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "No numeric comparison; Table 1 compares only training properties.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not contain a direct head-to-head comparison of SSD's pass@1 against GRPO on LiveCodeBench.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation"
+   ],
+   "seconds": 4.7
+  },
+  {
+   "id": "ssd-q069",
+   "question": "Does applying SSD repeatedly (multiple rounds) keep improving the model?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Iterated SSD is not studied.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not explicitly state whether applying SSD repeatedly (multiple rounds) keeps improving the model.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.1 The Precision-Exploration Conflict Hypothesis",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.3 Global Decoding Policies Cannot Match SSD",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results"
+   ],
+   "seconds": 4.3
+  },
+  {
+   "id": "ssd-q070",
+   "question": "Does SSD trained on math prompts improve math benchmarks?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "status": "no",
+   "ground_truth": "Not tested; SSD is trained only on competitive-programming prompts.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources do not state whether SSD trained on math prompts improves math benchmarks.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "item_recall": null,
+   "sources": [
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 4 Why SSD Works > 4.4 A Surprising Case: Bad Data, Good Results",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.1 Experimental Setup",
+    "Embarrassingly Simple Self-Distillation Improves Code Generation > 3 Experiments > 3.2 SSD Improves Code Generation Across the Board"
+   ],
+   "seconds": 3.8
+  }
+ ]
+}

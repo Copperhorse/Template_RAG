@@ -1,0 +1,1464 @@
+{
+ "meta": {
+  "label": "live store, json_mode schema",
+  "golden": "evals/gold/pera.jsonl",
+  "store": "/tmp/claude-1000/-home-copper-Git-Template-RAG/24d159d4-229a-4570-887a-d29472273e1a/scratchpad/pera_live_copy",
+  "chunks": 6,
+  "usable": 5,
+  "json_mode": "schema",
+  "policy": "balanced",
+  "k": 5
+ },
+ "records": [
+  {
+   "id": "pera-q001",
+   "question": "What is the short title of Act No. XII of 1992?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "The Protection of Economic Reforms Act, 1992.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The short title of Act No. XII of 1992 is the Protection of Economic Reforms Act, 1992 [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 11.7
+  },
+  {
+   "id": "pera-q002",
+   "question": "What is the act number of the Protection of Economic Reforms Act?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Act No. XII of 1992.",
+   "evidence_status": [
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The act number of the Protection of Economic Reforms Act is ACT NO. XII OF 1992 [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 1.7
+  },
+  {
+   "id": "pera-q003",
+   "question": "On what date did the Protection of Economic Reforms Act receive presidential assent?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "23 July 1992.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The Protection of Economic Reforms Act received the President's assent on July 23, 1992 [2].",
+   "refused": false,
+   "grounded": false,
+   "reason": "Unsupported number in answer: [23]",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 1.8
+  },
+  {
+   "id": "pera-q004",
+   "question": "When was the Act published in the Gazette of Pakistan?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Tuesday, 28 July 1992 (Gazette of Pakistan, Extraordinary, Part I).",
+   "evidence_status": [
+    "rejected"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The Act was published for general information on the 28th of July, 1992 [2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.1
+  },
+  {
+   "id": "pera-q005",
+   "question": "What is the territorial extent of the Protection of Economic Reforms Act, 1992?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "It extends to the whole of Pakistan.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The Protection of Economic Reforms Act, 1992 extends to the whole of Pakistan [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.0
+  },
+  {
+   "id": "pera-q006",
+   "question": "When did the Protection of Economic Reforms Act come into force?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "At once, i.e. immediately upon enactment.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The Protection of Economic Reforms Act, 1992, shall come into force at once [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.0
+  },
+  {
+   "id": "pera-q007",
+   "question": "How does the Act define 'Government'?",
+   "kind": "definition",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "'Government' includes both the Federal Government and any Provincial Government.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The Act defines \"Government\" to include both the Federal Government and any Provincial Government [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 1.6
+  },
+  {
+   "id": "pera-q008",
+   "question": "From what date must a policy have been announced or implemented to count as an 'economic reform' under the Act?",
+   "kind": "definition",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "On and after 7 November 1990.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Economic reforms are defined as economic policies and programmes, laws and regulations announced, promulgated or implemented by the Government on and after the seventh day of November, 1990, relating to privatization of public sector enterprises, and nationalized banks, promotion of savings and investments, introduction of, fiscal incentives for industrialization and deregulation of investment, banking, finance, exchange and payments systems, holding and transfer of currencies [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.5
+  },
+  {
+   "id": "pera-q009",
+   "question": "Which subject areas fall within the definition of 'economic reforms'?",
+   "kind": "definition",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "Privatization of public sector enterprises and nationalized banks; promotion of savings and investments; fiscal incentives for industrialization; and deregulation of investment, banking, finance, exchange and payments systems, and holding and transfer of currencies.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Economic reforms include economic policies and programmes, laws and regulations announced, promulgated or implemented by the Government on and after the seventh day of November, 1990, relating to privatization of public sector enterprises and nationalized banks, promotion of savings and investments, introduction of fiscal incentives for industrialization and deregulation of investment, banking, finance, exchange and payments systems, and holding and transfer of currencies [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.1
+  },
+  {
+   "id": "pera-q010",
+   "question": "Where do expressions not defined in the Act get their meaning?",
+   "kind": "definition",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "From the meanings assigned to them under the relevant laws (section 2(c)).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "All other expressions used in the Act shall have the meaning assigned to them under the relevant laws [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.2
+  },
+  {
+   "id": "pera-q011",
+   "question": "Which law does the Protection of Economic Reforms Act override under section 3?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "The Foreign Currency Accounts (Protection) Ordinance, 2001 (L of 2001); the Act has effect notwithstanding anything in it.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The Protection of Economic Reforms Act overrides the Foreign Currency Accounts (Protection) Ordinance, 2001 (L of 2001) under section 3 [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.4
+  },
+  {
+   "id": "pera-q012",
+   "question": "Who is entitled to bring, hold, sell, transfer and take out foreign exchange under section 4(1)?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "All citizens of Pakistan, whether resident in Pakistan or outside, and all other persons.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "All citizens of Pakistan resident in Pakistan or outside Pakistan and all other persons are entitled and free to bring, hold, sell, transfer and take out foreign exchange within or out of Pakistan in any form under section 4(1) of the Act [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.7
+  },
+  {
+   "id": "pera-q013",
+   "question": "What cash threshold for movement of foreign currency is carved out of the section 4 freedom?",
+   "kind": "numeric",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Cross-border or inland movement of foreign currency in cash exceeding US$10,000 or equivalent, subject to an annual ceiling prescribed by the State Bank of Pakistan.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The cash threshold for cross border or inland movement of foreign currencies is US$ 10,000 or its equivalent, subject to an annual ceiling that may be prescribed by the State Bank of Pakistan [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "pera-q014",
+   "question": "Does the section 4(1) freedom to hold and take out foreign exchange apply to payments received from abroad for exported goods?",
+   "kind": "exception",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "No. Section 4(2)(b) excludes any payment from abroad for goods exported from Pakistan.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "No, the freedom to bring, hold, sell, transfer, and take out foreign exchange as stated in section 4(1) does not apply to any payment from abroad for goods exported from Pakistan [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 1.8
+  },
+  {
+   "id": "pera-q015",
+   "question": "Is foreign exchange earned by the overseas branch of a Pakistani bank covered by the section 4(1) freedom?",
+   "kind": "exception",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "No. Section 4(2)(e) excludes earnings or profits of overseas offices or branches of Pakistani firms and companies, including banks.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The provided sources do not explicitly state whether foreign exchange earned by the overseas branch of a Pakistani bank is covered by the freedom mentioned in section 4(1) of ACT NO. XII OF 1992 [2]. However, section 4(1) grants all citizens of Pakistan resident in Pakistan or outside Pakistan and all other persons the right to bring, hold, sell, transfer and take out foreign exchange within or out of Pakistan in any form [2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 3.2
+  },
+  {
+   "id": "pera-q016",
+   "question": "List all categories excluded from the section 4(1) foreign exchange freedom.",
+   "kind": "list",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "(a) FX borrowed under SBP general permission under s.4(1) of FERA 1947; (b) payments from abroad for exported goods; (c) proceeds of securities issued/sold to non-residents; (d) payments from abroad for services rendered in or from Pakistan; (e) earnings/profits of overseas offices or branches of Pakistani firms incl. banks; (f) FX purchased from an authorized dealer, money changer or exchange company in Pakistan; (g) cash movement of foreign currency exceeding US$10,000 or equivalent subject to SBP annual ceiling.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 2,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The categories excluded from the freedom to bring, hold, sell, transfer, and take out foreign exchange within or out of Pakistan in any form under section 4(1) of ACT NO. XII OF 1992 are any foreign exchange borrowed under any general permission given by the State Bank of Pakistan under sub-section (1) of section 4 of the Foreign Exchange Regulations Act, 1947 (VII of 1947), and any payment from abroad for goods exported from Pakistan [2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    2
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.2857142857142857,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.7
+  },
+  {
+   "id": "pera-q017",
+   "question": "What immunity do foreign currency account holders get under section 5(1)?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Immunity against any inquiry from the Income Tax Department or any other taxation authority as to the source of financing of the foreign currency accounts.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "All citizens of Pakistan resident in Pakistan or outside Pakistan who hold foreign currency accounts in Pakistan, and all other persons who hold such accounts, shall continue to enjoy immunity against any inquiry from the Income Tax Department or any other taxation authority as to the source of financing of the foreign currency accounts [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.9
+  },
+  {
+   "id": "pera-q018",
+   "question": "What is the cut-off date after which new foreign currency accounts of Pakistan residents lose source-of-funds immunity?",
+   "kind": "temporal",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "16 December 1999; new accounts opened, deposits created, or incremental deposits on or after that date are not covered.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The immunity against inquiry from the Income Tax Department or any other taxation authority as to the source of financing of foreign currency accounts shall not be available to citizens of Pakistan residing in Pakistan and to firms, companies and other bodies registered or incorporated in Pakistan in respect of any new foreign currency account opened or deposits created on or after the 16th day of December, 1999 or to any incremental deposits thereafter in an existing foreign currency account [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.9
+  },
+  {
+   "id": "pera-q019",
+   "question": "Which taxes are foreign currency account balances and income exempt from under section 5(2)?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Wealth tax, income tax, and compulsory deduction of Zakat at source.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The balances in the foreign currency accounts and income therefrom are exempt from the levy of wealth tax and income tax and compulsory deduction of Zakat at source under section 5(2) [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "pera-q020",
+   "question": "Under what laws may banks depart from complete secrecy on foreign currency account transactions?",
+   "kind": "exception",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "Where otherwise required under the Foreign Exchange Regulation Act, 1947 or the Income Tax Ordinance, 2001.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Banks may depart from complete secrecy in respect of transactions in the foreign currency accounts if otherwise required under the Foreign Exchange Regulation Act, 1947 (VII of 1947) or the Income Tax Ordinance, 2001 (XLIX of 2001) [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 3.1
+  },
+  {
+   "id": "pera-q021",
+   "question": "Can cash be deposited into the foreign currency account of a Pakistani citizen resident in Pakistan?",
+   "kind": "conditional",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "Only if the account holder is a filer as defined in the Income Tax Ordinance, 2001.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "No, cash shall not be deposited in the account of a citizen of Pakistan resident in Pakistan unless the account holder is a filer as defined in the Income Tax Ordinance, 2001 (XLIX of 2001) [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.8
+  },
+  {
+   "id": "pera-q022",
+   "question": "Can the State Bank of Pakistan restrict withdrawals from foreign currency accounts?",
+   "kind": "conditional",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "Section 5(4) says SBP and other banks shall not impose restrictions on deposits and withdrawals and existing restrictions stand withdrawn, but provisos (added 2018) bar cash deposits by resident non-filers and let the Federal Government make rules governing deposits and withdrawals.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The State Bank of Pakistan or other banks shall not impose any restrictions on deposits in and withdrawals from the foreign currency accounts, and any such restrictions must be withdrawn forthwith [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.3
+  },
+  {
+   "id": "pera-q023",
+   "question": "What protection does section 6 give to fiscal incentives for investment?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Incentives provided through statutory orders listed in the Schedule or otherwise notified continue in force for their specified term and cannot be altered to the investor's disadvantage.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Section 6 protects the fiscal incentives for investment provided by the Government through the statutory orders listed in the Schedule or otherwise notified, ensuring they continue in force for the specified term and are not altered to the disadvantage of the investor [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "pera-q024",
+   "question": "Can the Government compulsorily re-acquire an enterprise it previously transferred to a private person?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "No. Under section 7 it shall not again be compulsorily acquired or taken over by the Government for any reason whatsoever.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "No, the ownership, management and control of any banking, commercial, manufacturing or other company, establishment or enterprise transferred by the Government to any person under any law shall not again be compulsorily acquired or taken over by the Government for any reason whatsoever [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.8
+  },
+  {
+   "id": "pera-q025",
+   "question": "What does section 8 protect from compulsory acquisition by the Government?",
+   "kind": "list",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "Foreign, industrial or commercial enterprises established/owned by foreign or Pakistani investors for private gain in accordance with law; investments in shares or equity of any company, firm or enterprise; and commercial banks or financial institutions established, owned or acquired by foreign or Pakistani investors.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Section 8 protects no foreign, industrial or commercial enterprise established or owned in any form by a foreign or Pakistani investor for private gain in accordance with law, no investment in the share or equity of any company, firm, or enterprise, and no commercial bank or financial institution established, owned or acquired by any foreign or Pakistani investor from compulsory acquisition or takeover by the Government.",
+   "refused": false,
+   "grounded": false,
+   "reason": "the answer cites no source",
+   "citations": [],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": false,
+   "fact_score": 0.6666666666666666,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.3
+  },
+  {
+   "id": "pera-q026",
+   "question": "Which banking transactions must be kept secret under section 9, and by whom?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "Bona fide banking transactions, by all banks and financial institutions regardless of who owns, controls or manages them.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The secrecy of bonafide banking transactions must be strictly observed by all banks and financial institutions, by whosoever owned, controlled or managed [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.2
+  },
+  {
+   "id": "pera-q027",
+   "question": "What does section 10 say about the Government's financial obligations?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "All financial obligations and financial/contractual commitments made by or on behalf of the Government remain in force and cannot be altered to the beneficiaries' disadvantage.",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "Section 10 states that all financial obligations incurred, including those under any instrument, or any financial and contractual commitment made by or on behalf of the Government, shall continue to remain in force and shall not be altered to the disadvantage of the beneficiaries [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.2
+  },
+  {
+   "id": "pera-q028",
+   "question": "Who has the power to make rules under the Protection of Economic Reforms Act?",
+   "kind": "factual",
+   "difficulty": "easy",
+   "answerable": true,
+   "ground_truth": "The Federal Government (section 11).",
+   "evidence_status": [
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 1,
+   "answer": "The Federal Government has the power to make rules for carrying out the purposes of the Protection of Economic Reforms Act [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 1.5
+  },
+  {
+   "id": "pera-q029",
+   "question": "What are the stated objectives of the Act in its preamble?",
+   "kind": "factual",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "To create a liberal environment for savings and investments, and to give legal protection to economic reforms so as to create confidence in the establishment and continuity of that liberal economic environment.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The stated objectives of the Act in its preamble are to create a liberal environment for savings and investments [1], to provide legal protection to economic reforms in order to create confidence in the establishment and continuity of the liberal economic environment created thereby [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.2
+  },
+  {
+   "id": "pera-q030",
+   "question": "Which amending law changed section 4(2)(f) and added clause (g)?",
+   "kind": "amendment",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "The Finance Act, 2018.",
+   "evidence_status": [
+    "absent",
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 2,
+   "answer": "Section 4(2)(f) and clause (g) were inserted vide Finance Act, 2018 [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 1.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.3
+  },
+  {
+   "id": "pera-q031",
+   "question": "Why does a 1992 Act refer to a 2001 Ordinance in section 3?",
+   "kind": "amendment",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "Because the reference in section 3 was substituted by the Finance Act, 2018; the current text points to the Foreign Currency Accounts (Protection) Ordinance, 2001.",
+   "evidence_status": [
+    "usable",
+    "absent"
+   ],
+   "rank": 1,
+   "covered": 1,
+   "n_quotes": 2,
+   "answer": "The 1992 Act, specifically in section 3, refers to the Foreign Currency Accounts (Protection) Ordinance, 2001 (L of 2001) because the 1992 Act is an 'Act to override other laws,' and section 3 states that the 1992 Act shall have effect notwithstanding anything contained in the Foreign Currency Accounts (Protection) Ordinance, 2001 [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 3.2
+  },
+  {
+   "id": "pera-q032",
+   "question": "Which provisions of section 5 were inserted by the Finance Act, 2018?",
+   "kind": "amendment",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "The exception in section 5(3) allowing disclosure under FERA 1947 or the Income Tax Ordinance 2001, and both provisos to section 5(4) (no cash deposits by resident non-filers; Federal Government rule-making for deposits/withdrawals).",
+   "evidence_status": [
+    "absent",
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 2,
+   "answer": "The provisions of section 5 were inserted by the Finance Act, 2018 [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 4,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 5.7
+  },
+  {
+   "id": "pera-q033",
+   "question": "What change did the Finance Act, 2018 make to section 4(1)?",
+   "kind": "amendment",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "It omitted words from the end of section 4(1) (after 'in any form'); the omitted text is not reproduced in the document.",
+   "evidence_status": [
+    "absent"
+   ],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 1,
+   "answer": "The Finance Act, 2018 substituted section 4(1) of ACT NO. XII OF 1992 [1].",
+   "refused": false,
+   "grounded": false,
+   "reason": "Unsupported number in answer: [1992]",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 1.6
+  },
+  {
+   "id": "pera-q034",
+   "question": "A Pakistani resident opened a new foreign currency account in 2005. Is that account immune from tax inquiry into its source and exempt from income tax on its income?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "No on both counts. Section 5(1) and 5(2) provisos deny immunity and exemption to resident citizens for new accounts opened on or after 16 December 1999.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The account is immune from inquiry from the Income Tax Department or any other taxation authority as to the source of financing of the foreign currency accounts because all citizens of Pakistan resident in Pakistan or outside Pakistan who hold such accounts shall continue to enjoy this immunity [1]. However, this immunity is not available to citizens of Pakistan residing in Pakistan and to firms, companies and other bodies registered or incorporated in Pakistan in respect of any new foreign currency account opened or deposits created on or after the 16th day of December, 1999 or to any incremental deposits thereafter in an existing foreign currency account [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 3,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 5.8
+  },
+  {
+   "id": "pera-q035",
+   "question": "Does the 16 December 1999 cut-off for foreign currency account immunity apply to a Pakistani citizen living abroad?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "No. The provisos to sections 5(1) and 5(2) only exclude citizens residing in Pakistan and Pakistan-registered firms, companies and bodies; non-resident citizens are not excluded by the text.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The immunity against inquiry from the Income Tax Department or any other taxation authority as to the source of financing of the foreign currency accounts applies to all citizens of Pakistan resident in Pakistan or outside Pakistan who hold foreign currency accounts in Pakistan [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.8
+  },
+  {
+   "id": "pera-q036",
+   "question": "Could the Government re-nationalize a bank that it privatized in 1995?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "No. Privatization of nationalized banks is an 'economic reform' under section 2(b); section 7 bars compulsory re-acquisition of any enterprise transferred by the Government for any reason, and section 8 bars compulsory acquisition of banks owned or acquired by investors.",
+   "evidence_status": [
+    "usable",
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 3,
+   "n_quotes": 3,
+   "answer": "The provided sources do not contain information regarding whether the Government could re-nationalize a bank that it privatized in 1995.",
+   "refused": true,
+   "grounded": true,
+   "reason": "",
+   "citations": [],
+   "n_verified": 0,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": 0.3333333333333333,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 3.1
+  },
+  {
+   "id": "pera-q037",
+   "question": "A resident Pakistani non-filer wants to carry US$15,000 in cash into Pakistan and deposit it in their foreign currency account. Which provisions restrict this?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "Section 4(2)(g) removes cash movement above US$10,000 from the section 4(1) freedom (subject to SBP's annual ceiling), and the first proviso to section 5(4) bars cash deposits into a resident citizen's FCA unless the holder is a filer.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The provision regarding the cross border or inland movement of foreign currencies in cash restricts movement exceeding US$ 10,000 or its equivalent, subject to an annual ceiling prescribed by the State Bank of Pakistan [1]. Furthermore, a citizen of Pakistan residing in Pakistan who wishes to deposit cash into a foreign currency account must be a filer as defined in the Income Tax Ordinance, 2001 (XLIX of 2001) [2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.0,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 3.6
+  },
+  {
+   "id": "pera-q038",
+   "question": "Which two different sections of the Act impose banking secrecy, and how do they differ in scope?",
+   "kind": "multi-hop",
+   "difficulty": "hard",
+   "answerable": true,
+   "ground_truth": "Section 5(3) requires complete secrecy for foreign currency account transactions, subject to FERA 1947 and Income Tax Ordinance 2001 exceptions; section 9 requires secrecy of all bona fide banking transactions by all banks and financial institutions however owned.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "Two different sections impose banking secrecy: section (3) of ACT NO. XII OF 1992, which states that banks must maintain complete secrecy regarding transactions in foreign currency accounts [except as otherwise required under the Foreign Exchange Regulation Act, 1947 (VII of 1947) or the Income Tax Ordinance, 2001 (XLIX of 2001)] [1], and section 9, which mandates that the secrecy of bonafide banking transactions must be strictly observed by all banks and financial institutions, regardless of who owns, controls, or manages them [1]. The difference in scope is that section (3) specifically addresses secrecy concerning transactions in foreign currency accounts, while section 9 covers the general secrecy of bonafide banking transactions across all banks and financial institutions.",
+   "refused": false,
+   "grounded": false,
+   "reason": "Unsupported number in answer: [2, 1992]",
+   "citations": [
+    1
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 4.8
+  },
+  {
+   "id": "pera-q039",
+   "question": "Who can make rules on foreign currency account deposits and withdrawals, and who can make rules under the Act generally?",
+   "kind": "multi-hop",
+   "difficulty": "medium",
+   "answerable": true,
+   "ground_truth": "The Federal Government in both cases: the second proviso to section 5(4) for FCA deposits/withdrawals, and section 11 for the Act generally.",
+   "evidence_status": [
+    "usable",
+    "usable"
+   ],
+   "rank": 1,
+   "covered": 2,
+   "n_quotes": 2,
+   "answer": "The Federal Government may make rules governing deposits in and withdrawals from the foreign currency accounts [1], and the Federal Government may make rules for carrying out the purposes of the Act [2].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1,
+    2
+   ],
+   "n_verified": 2,
+   "verified_from_evidence": true,
+   "cites_evidence": true,
+   "fact_score": 0.5,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.1
+  },
+  {
+   "id": "pera-q040",
+   "question": "What penalty does the Act prescribe for a bank that breaches banking secrecy?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "ground_truth": "The Act does not prescribe any penalty for breach of banking secrecy.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The provided sources state that the secrecy of bonafide banking transactions shall be strictly observed by all banks and financial institutions, by whosoever owned, controlled or managed [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.3
+  },
+  {
+   "id": "pera-q041",
+   "question": "What is the current annual ceiling on cash foreign currency movement set by the State Bank of Pakistan?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "ground_truth": "Not stated. Section 4(2)(g) leaves the annual ceiling to be prescribed by the SBP; the figure is not in the Act.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The annual ceiling on cross border or inland movement of foreign currencies in cash exceeding US$ 10,000 or its equivalent is subject to a ceiling that may be prescribed by the State Bank of Pakistan [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "pera-q042",
+   "question": "Which statutory orders are listed in the Schedule referred to in section 6?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "ground_truth": "The Schedule is referenced but not included in the provided text.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The statutory orders listed in the Schedule referred to in section 6 are those through which the Government provides fiscal incentives for investment [5].",
+   "refused": false,
+   "grounded": false,
+   "reason": "no verified quote from cited source(s) [5]",
+   "citations": [
+    5
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT",
+    "ACT NO. XII OF 1992"
+   ],
+   "seconds": 2.3
+  },
+  {
+   "id": "pera-q043",
+   "question": "How does the Act define a 'filer'?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "ground_truth": "It does not; it adopts the definition in the Income Tax Ordinance, 2001.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The Act defines a 'filer' as defined in the Income Tax Ordinance, 2001 (XLIX of 2001) [1].",
+   "refused": false,
+   "grounded": true,
+   "reason": "",
+   "citations": [
+    1
+   ],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 2.5
+  },
+  {
+   "id": "pera-q044",
+   "question": "What were the exact words omitted from section 4(1) by the Finance Act, 2018?",
+   "kind": "unanswerable",
+   "difficulty": "hard",
+   "answerable": false,
+   "ground_truth": "Not stated; the document only marks the omission.",
+   "evidence_status": [],
+   "rank": null,
+   "covered": 0,
+   "n_quotes": 0,
+   "answer": "The exact words omitted from section 4(1) by the Finance Act, 2018 are not provided in the sources.",
+   "refused": false,
+   "grounded": false,
+   "reason": "the answer cites no source",
+   "citations": [],
+   "n_verified": 1,
+   "verified_from_evidence": false,
+   "cites_evidence": false,
+   "fact_score": null,
+   "sources": [
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "ACT NO. XII OF 1992",
+    "SENATE SECRETARIAT"
+   ],
+   "seconds": 1.7
+  }
+ ]
+}
