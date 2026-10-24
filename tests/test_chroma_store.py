@@ -11,10 +11,16 @@ E = HashingEmbedder()
 
 
 def fill(store):
-    texts = ["retry sleeps with exponential backoff", "cache entries expire after the ttl", "rollbacks redeploy the previous tag"]
+    texts = [
+        "retry sleeps with exponential backoff",
+        "cache entries expire after the ttl",
+        "rollbacks redeploy the previous tag",
+    ]
     docs = ["d1", "d1", "d2"]
     store.upsert(
-        [f"v{i}" for i in range(3)], E.embed_documents(texts), texts,
+        [f"v{i}" for i in range(3)],
+        E.embed_documents(texts),
+        texts,
         [{"doc_id": d, "chunk_id": f"c{i}", "kind": "chunk"} for i, d in enumerate(docs)],
     )
 

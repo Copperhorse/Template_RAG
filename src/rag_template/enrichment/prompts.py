@@ -181,7 +181,7 @@ class PromptSet:
             summary_rule = "Write exactly 2 complete sentences. Sentence 1: what the code does. Sentence 2: the notable inputs, outputs, side effects or error handling. Never start with 'The code', 'This chunk' or 'This function'."
             triplet_rule = 'Subject-predicate-object triples where BOTH subject and object are names from the code (e.g. {"subject": "retry", "predicate": "calls", "object": "time.sleep"}).'
         else:
-            tag_rule = "2-5 noun phrases that appear explicitly in the TEXT CHUNK. Use lowercase_with_underscores. Do not use generic tags like \"data\" or \"overview\"."
+            tag_rule = '2-5 noun phrases that appear explicitly in the TEXT CHUNK. Use lowercase_with_underscores. Do not use generic tags like "data" or "overview".'
             summary_rule = "Write exactly 2 complete sentences. Sentence 1: state the core concept or claim. Sentence 2: name the specific methods, techniques, or entities mentioned. Never start with 'The text', 'This chunk', or 'This section'."
             triplet_rule = 'Subject-predicate-object triples where BOTH subject and object appear in the TEXT CHUNK. The predicate is one verb or short verb phrase (e.g. "uses", "generates", "specializes_for").'
         user = f"""
@@ -209,7 +209,15 @@ Analyse ONLY the TEXT CHUNK and return EXACTLY this JSON structure.
 
     # ---- stage 2: question candidates
 
-    def questions(self, chunk_content: str, context: str, difficulty: str, instruction: str, per_diff: int, content_type: str = "prose") -> Prompt:
+    def questions(
+        self,
+        chunk_content: str,
+        context: str,
+        difficulty: str,
+        instruction: str,
+        per_diff: int,
+        content_type: str = "prose",
+    ) -> Prompt:
         q_rules, _ = self._rules(content_type)
         system = "You are an expert who writes precise questions from a source text. Output ONLY valid JSON."
         user = f"""\

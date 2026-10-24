@@ -20,11 +20,32 @@ ChunkerFn = Callable[[str, str, ChunkConfig], List[Chunk]]
 
 PROSE_EXTENSIONS = {".md", ".markdown", ".mdx", ".txt", ".rst", ".text"}
 CODE_LANGUAGES = {
-    ".js": "javascript", ".jsx": "javascript", ".mjs": "javascript", ".cjs": "javascript",
-    ".ts": "typescript", ".tsx": "typescript", ".go": "go", ".rs": "rust", ".java": "java",
-    ".kt": "kotlin", ".scala": "scala", ".c": "c", ".h": "c", ".cc": "cpp", ".cpp": "cpp",
-    ".hpp": "cpp", ".cs": "csharp", ".rb": "ruby", ".php": "php", ".swift": "swift",
-    ".lua": "lua", ".sh": "shell", ".bash": "shell", ".sql": "sql", ".r": "r", ".jl": "julia",
+    ".js": "javascript",
+    ".jsx": "javascript",
+    ".mjs": "javascript",
+    ".cjs": "javascript",
+    ".ts": "typescript",
+    ".tsx": "typescript",
+    ".go": "go",
+    ".rs": "rust",
+    ".java": "java",
+    ".kt": "kotlin",
+    ".scala": "scala",
+    ".c": "c",
+    ".h": "c",
+    ".cc": "cpp",
+    ".cpp": "cpp",
+    ".hpp": "cpp",
+    ".cs": "csharp",
+    ".rb": "ruby",
+    ".php": "php",
+    ".swift": "swift",
+    ".lua": "lua",
+    ".sh": "shell",
+    ".bash": "shell",
+    ".sql": "sql",
+    ".r": "r",
+    ".jl": "julia",
 }
 
 _registry: Dict[str, ChunkerFn] = {}

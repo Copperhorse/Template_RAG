@@ -40,7 +40,9 @@ def test_nothing_is_lost_or_duplicated():
         body = "\n".join(c["content"] for c in cs)
         for line in (ln.strip() for ln in SAMPLE_PY.splitlines() if ln.strip()):
             assert line in body, f"lost at budget {budget}: {line!r}"
-        spans = sorted((c["metadata"]["start_line"], c["metadata"]["end_line"]) for c in cs if "part" not in c["metadata"])
+        spans = sorted(
+            (c["metadata"]["start_line"], c["metadata"]["end_line"]) for c in cs if "part" not in c["metadata"]
+        )
         for (_, e1), (s2, _) in zip(spans, spans[1:]):
             assert s2 > e1, f"chunks overlap at budget {budget}: ends {e1}, next starts {s2}"
         assert all(a <= b for a, b in spans)
@@ -80,7 +82,7 @@ def test_oversized_function_is_cut_between_statements_and_labelled():
 
 
 def test_decorators_and_leading_comments_travel_with_the_function():
-    src = textwrap.dedent('''
+    src = textwrap.dedent("""
         import functools
 
         # Cache results for the lifetime of the process.
@@ -92,7 +94,7 @@ def test_decorators_and_leading_comments_travel_with_the_function():
 
         def other():
             return 1
-    ''').lstrip()
+    """).lstrip()
     cs = chunks_of(src, max_chunk_tokens=400, min_chunk_tokens=1)
     slow = by_name(cs)["slow"]
     assert slow["content"].startswith("# Cache results")
@@ -166,8 +168,12 @@ def test_one_giant_constant_is_still_bounded():
 def test_router_sends_python_to_ast_and_other_languages_to_the_line_chunker():
     py = chunk_file("pkg/a.py", SAMPLE_PY, ChunkConfig(max_chunk_tokens=400, min_chunk_tokens=1))
     assert py[0]["metadata"]["language"] == "python" and "qualname" in py[0]["metadata"]
-    ts = chunk_file("web/app.ts", "export function greet(name: string) {\n  return `hi ${name}`;\n}\n\nexport class Box {\n  size = 1;\n}\n",
-                    ChunkConfig(max_chunk_tokens=400, min_chunk_tokens=1, merge_short_chunks=False), source="web/app.ts")
+    ts = chunk_file(
+        "web/app.ts",
+        "export function greet(name: string) {\n  return `hi ${name}`;\n}\n\nexport class Box {\n  size = 1;\n}\n",
+        ChunkConfig(max_chunk_tokens=400, min_chunk_tokens=1, merge_short_chunks=False),
+        source="web/app.ts",
+    )
     assert [c["metadata"]["symbols"] for c in ts] == [["greet"], ["Box"]]
     assert ts[0]["metadata"]["language"] == "typescript" and ts[0]["metadata"]["kind"] == "block"
     md = chunk_file("README.md", "# T\n\nSome prose that is long enough to be a chunk of its own here.\n")
@@ -177,10 +183,18 @@ def test_router_sends_python_to_ast_and_other_languages_to_the_line_chunker():
 def test_a_small_function_header_is_never_left_as_an_orphan_chunk():
     """Regression (found by the corpus eval): a long function whose first statement is huge used to yield a
     chunk holding only `def main():` and a comment."""
-    body = "\n".join(f"        step_{i} = compute_something({i}) + other_function_call({i}, {i * 2})" for i in range(80))
+    body = "\n".join(
+        f"        step_{i} = compute_something({i}) + other_function_call({i}, {i * 2})" for i in range(80)
+    )
     src = f"def main():\n    # terminal setup\n    for item in items:\n{body}\n    return 1\n"
     cs = chunks_of(src, max_chunk_tokens=120, min_chunk_tokens=40)
     assert len(cs) > 2
-    assert not any(c["content"].strip().splitlines()[-1].strip() in ("def main():", "# terminal setup") for c in cs)  # no chunk ends at the header
-    assert cs[0]["content"].startswith("def main():") and "for item in items" in cs[0]["content"] and "step_0 =" in cs[0]["content"]
+    assert not any(
+        c["content"].strip().splitlines()[-1].strip() in ("def main():", "# terminal setup") for c in cs
+    )  # no chunk ends at the header
+    assert (
+        cs[0]["content"].startswith("def main():")
+        and "for item in items" in cs[0]["content"]
+        and "step_0 =" in cs[0]["content"]
+    )
     assert all(c["estimated_tokens"] <= 120 for c in cs)

@@ -34,11 +34,25 @@ class ChunkEvaluator:
     def __init__(self, min_chars: int = 30):
         self.min_chars = min_chars
         self.metadata_excludes: Set[str] = {
-            "table of contents", "contents", "references", "reference", "bibliography", "bibliographic",
-            "further reading", "acknowledgment", "acknowledgement", "appendix", "author", "authors", "index",
-            "funding", "glossary",
+            "table of contents",
+            "contents",
+            "references",
+            "reference",
+            "bibliography",
+            "bibliographic",
+            "further reading",
+            "acknowledgment",
+            "acknowledgement",
+            "appendix",
+            "author",
+            "authors",
+            "index",
+            "funding",
+            "glossary",
         }
-        self._back_matter = re.compile(r"\b(?:" + "|".join(re.escape(x) for x in sorted(self.metadata_excludes, key=len, reverse=True)) + r")\b")
+        self._back_matter = re.compile(
+            r"\b(?:" + "|".join(re.escape(x) for x in sorted(self.metadata_excludes, key=len, reverse=True)) + r")\b"
+        )
         self._contents_header = re.compile(r"\bcontents\b")
         self.content_prefix_excludes = ["[removed: corrupted latex content]"]
         # A caption is the only text a figure contributes to retrieval, so it is kept (and is the text half of
@@ -113,7 +127,9 @@ class ChunkEvaluator:
         for r in rows:
             cells = [c.strip() for c in r.strip("|").split("|") if c.strip()] or [r]
             first, last = cls._CONTENTS_FIRST.match(cells[0]), re.search(r"(?:^|\s)(\d{1,4})$", cells[-1])
-            if first and last and sum(1 for ch in r if ch.isalpha()) >= 12:  # a contents entry has a title, not just numbers
+            if (
+                first and last and sum(1 for ch in r if ch.isalpha()) >= 12
+            ):  # a contents entry has a title, not just numbers
                 pairs.append((int(first.group(1)), int(last.group(1))))
         if len(pairs) < max(4, 0.7 * len(rows)):
             return False
@@ -181,7 +197,9 @@ class ChunkEvaluator:
             return self._result(True, "Figure caption", "caption", 55)
         if len(text) < 150 and (self.patterns["url"].search(text_lower) or self.patterns["doi"].search(text_lower)):
             return self._result(False, "Citation/Link chunk", "metadata", 0)
-        if any(ex in text_lower[:400] for ex in self.content_anywhere_excludes) or self.copyright_line.search(text[:400]):
+        if any(ex in text_lower[:400] for ex in self.content_anywhere_excludes) or self.copyright_line.search(
+            text[:400]
+        ):
             return self._result(False, "Metadata keyword detected", "metadata", 0)
         if self._is_table_of_contents(text, header_text):
             return self._result(False, "Detected Table of Contents", "toc", 0)

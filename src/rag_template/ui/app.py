@@ -46,23 +46,47 @@ with st.sidebar:
     use_dense = st.toggle("Dense (bi-encoder)", True)
     use_lexical = st.toggle("BM25", True)
     can_rerank = rag.reranker is not None
-    use_rerank = st.toggle("Rerank (second-stage reranker)", can_rerank, disabled=not can_rerank, help=None if can_rerank else "No reranker loaded (RAG_RERANK=off, or sentence-transformers missing).")
+    use_rerank = st.toggle(
+        "Rerank (second-stage reranker)",
+        can_rerank,
+        disabled=not can_rerank,
+        help=None if can_rerank else "No reranker loaded (RAG_RERANK=off, or sentence-transformers missing).",
+    )
     _mode = default_rerank_mode(S.rerank_model) if S.rerank_mode == "auto" else S.rerank_mode
-    rerank_mode = st.radio("Rerank mode", ["fuse", "replace"], index=0 if _mode == "fuse" else 1, horizontal=True, disabled=not (can_rerank and use_rerank), help="replace: order by the reranker alone. fuse: the reranker is a third voter next to dense and BM25. Default depends on the model (replace for Jina, fuse for others).")
-    min_rerank = st.number_input("Min rerank score", value=None, placeholder="off", disabled=not (can_rerank and use_rerank))
+    rerank_mode = st.radio(
+        "Rerank mode",
+        ["fuse", "replace"],
+        index=0 if _mode == "fuse" else 1,
+        horizontal=True,
+        disabled=not (can_rerank and use_rerank),
+        help="replace: order by the reranker alone. fuse: the reranker is a third voter next to dense and BM25. Default depends on the model (replace for Jina, fuse for others).",
+    )
+    min_rerank = st.number_input(
+        "Min rerank score", value=None, placeholder="off", disabled=not (can_rerank and use_rerank)
+    )
     st.divider()
     st.header("Answer gate")
-    policy = st.selectbox("Policy", ["balanced", "strict", "tolerant", "lenient"], index=["balanced", "strict", "tolerant", "lenient"].index(S.answer_policy) if S.answer_policy in ("balanced", "strict", "tolerant", "lenient") else 0,
-                          help="strict: quotes verbatim, answer supported by the quotes. tolerant: also accepts a quote one word off. balanced: quotes verified, support checked against the cited chunk. lenient: a missing quote is replaced by the chunk's best-matching span (attribution is no longer verified).")
+    policy = st.selectbox(
+        "Policy",
+        ["balanced", "strict", "tolerant", "lenient"],
+        index=["balanced", "strict", "tolerant", "lenient"].index(S.answer_policy)
+        if S.answer_policy in ("balanced", "strict", "tolerant", "lenient")
+        else 0,
+        help="strict: quotes verbatim, answer supported by the quotes. tolerant: also accepts a quote one word off. balanced: quotes verified, support checked against the cited chunk. lenient: a missing quote is replaced by the chunk's best-matching span (attribution is no longer verified).",
+    )
     st.divider()
-    st.caption(f"Embedder: `{S.embed_model}`  \nStore: `{S.vector_store}`  \nReranker: `{S.rerank_model if can_rerank else 'off'}`")
+    st.caption(
+        f"Embedder: `{S.embed_model}`  \nStore: `{S.vector_store}`  \nReranker: `{S.rerank_model if can_rerank else 'off'}`"
+    )
     ok, info = llm_status(rag)
     st.caption(("🟢 LLM " if ok else "🔴 LLM unreachable ") + f"`{info}`")
     if st.button("Reload models / settings"):
         get_rag.clear()
         st.rerun()
 
-search_kw = dict(dense=use_dense, lexical=use_lexical, rerank=use_rerank, rerank_mode=rerank_mode, min_rerank_score=min_rerank)
+search_kw = dict(
+    dense=use_dense, lexical=use_lexical, rerank=use_rerank, rerank_mode=rerank_mode, min_rerank_score=min_rerank
+)
 tab_ask, tab_search, tab_lib, tab_evals, tab_status = st.tabs(["Ask", "Search", "Library", "Evals", "Status"])
 
 # ------------------------------------------------------------------------------------------- Ask
@@ -79,12 +103,18 @@ with tab_ask:
             st.markdown(f"### {ans.text}")
             getattr(st, level)(text)
             if ans.missing_terms:
-                st.caption("Words from your question that appear in none of the sources: " + ", ".join(f"`{t}`" for t in ans.missing_terms))
+                st.caption(
+                    "Words from your question that appear in none of the sources: "
+                    + ", ".join(f"`{t}`" for t in ans.missing_terms)
+                )
             if ans.quotes:
                 st.subheader("Verified quotes")
                 for qs in ans.quotes:
                     with st.container(border=True):
-                        badge = {"loose": " · approximate match", "extracted": " · extracted (the model gave no quote)"}.get(qs.how, "")
+                        badge = {
+                            "loose": " · approximate match",
+                            "extracted": " · extracted (the model gave no quote)",
+                        }.get(qs.how, "")
                         st.markdown(f"**[{source_id(qs.source)}] {qs.hit.located}**{badge}")
                         if qs.hit.content_type == "code":
                             st.code(qs.text, language=qs.hit.metadata.get("language") or None)
@@ -122,8 +152,13 @@ with tab_search:
                         st.caption(f"matched the generated question: {h.matched_question}")
                     if h.quote:
                         st.markdown("**Best span**")
-                        st.code(h.quote.text, language=h.metadata.get("language") or None) if (h.content_type == "code" or logic.looks_tabular(h.quote.text)) else st.markdown(f"> {h.quote.text}")
-                    st.code(h.content, language=h.metadata.get("language") or None, line_numbers=h.content_type == "code")
+                        if h.content_type == "code" or logic.looks_tabular(h.quote.text):
+                            st.code(h.quote.text, language=h.metadata.get("language") or None)
+                        else:
+                            st.markdown(f"> {h.quote.text}")
+                    st.code(
+                        h.content, language=h.metadata.get("language") or None, line_numbers=h.content_type == "code"
+                    )
 
 # --------------------------------------------------------------------------------------- Library
 with tab_lib:
@@ -137,8 +172,26 @@ with tab_lib:
             if not p.exists():
                 st.error("No such path.")
             else:
-                results = rag.ingest_directory(p, replace=replace) if p.is_dir() else {str(p): rag.ingest_path(p, replace=replace)}
-                st.dataframe(pd.DataFrame([{"file": n, "status": r.status, "usable/total": f"{r.usable_chunks}/{r.chunks}" if r.ok else "", "conversion": (r.conversion or {}).get("verdict", ""), "message": r.message} for n, r in results.items()]), hide_index=True)
+                results = (
+                    rag.ingest_directory(p, replace=replace)
+                    if p.is_dir()
+                    else {str(p): rag.ingest_path(p, replace=replace)}
+                )
+                st.dataframe(
+                    pd.DataFrame(
+                        [
+                            {
+                                "file": n,
+                                "status": r.status,
+                                "usable/total": f"{r.usable_chunks}/{r.chunks}" if r.ok else "",
+                                "conversion": (r.conversion or {}).get("verdict", ""),
+                                "message": r.message,
+                            }
+                            for n, r in results.items()
+                        ]
+                    ),
+                    hide_index=True,
+                )
         up = st.file_uploader("…or upload files", accept_multiple_files=True)
         if up and st.button("Ingest uploads"):
             with tempfile.TemporaryDirectory() as tmp:
@@ -146,7 +199,10 @@ with tab_lib:
                     dest = Path(tmp) / f.name
                     dest.write_bytes(f.getvalue())
                     r = rag.ingest_path(dest, source=f.name, replace=replace)
-                    st.write(f"`{f.name}`: {r.status}" + (f" ({r.usable_chunks}/{r.chunks} chunks usable)" if r.ok else f" – {r.message}"))
+                    st.write(
+                        f"`{f.name}`: {r.status}"
+                        + (f" ({r.usable_chunks}/{r.chunks} chunks usable)" if r.ok else f" – {r.message}")
+                    )
         if st.button("Index new documents"):
             with st.spinner("Embedding…"):
                 st.success(f"{rag.index()} new vectors")
@@ -154,7 +210,21 @@ with tab_lib:
         st.subheader("Documents")
         docs = rag.db.list_documents()
         if docs:
-            st.dataframe(pd.DataFrame([{"source": d["source"], "chunks": d["chunks"], "usable": d["usable_chunks"], "doc_id": d["doc_id"][:8]} for d in docs]), hide_index=True, width="stretch")
+            st.dataframe(
+                pd.DataFrame(
+                    [
+                        {
+                            "source": d["source"],
+                            "chunks": d["chunks"],
+                            "usable": d["usable_chunks"],
+                            "doc_id": d["doc_id"][:8],
+                        }
+                        for d in docs
+                    ]
+                ),
+                hide_index=True,
+                width="stretch",
+            )
         else:
             st.info("The library is empty.")
     if docs:
@@ -164,7 +234,9 @@ with tab_lib:
             rep = ConversionReport.from_dict(json.loads(chosen["conversion_json"]))
             icon = {"ok": "✅", "warn": "⚠️", "bad": "❌", "not-run": "➖"}[rep.verdict]
             with st.expander(f"{icon} How this file was converted: {rep.verdict}", expanded=rep.flagged):
-                st.caption("Compared with the PDF's own text (Poppler `pdftotext`). It reports; it does not change what is indexed.")
+                st.caption(
+                    "Compared with the PDF's own text (Poppler `pdftotext`). It reports; it does not change what is indexed."
+                )
                 if rep.reason:
                     st.write(rep.reason)
                 for w in rep.warnings:
@@ -173,11 +245,31 @@ with tab_lib:
                     for e in rep.examples.get(kind, [])[:3]:
                         st.caption(kind)
                         st.code(str(e), language=None)
-                st.json({k: v for k, v in rep.metrics.items() if k in ("word_recall", "run6_recall", "fused_numeric", "dropped_numeric_ratio", "tables", "ragged_tables", "flattened_code_blocks")}, expanded=False)
+                st.json(
+                    {
+                        k: v
+                        for k, v in rep.metrics.items()
+                        if k
+                        in (
+                            "word_recall",
+                            "run6_recall",
+                            "fused_numeric",
+                            "dropped_numeric_ratio",
+                            "tables",
+                            "ragged_tables",
+                            "flattened_code_blocks",
+                        )
+                    },
+                    expanded=False,
+                )
         only_rejected = st.checkbox("Only chunks the quality gate rejected", False)
         full = rag.db.get_chunks(rag.db.get_chunk_ids_for_document(chosen["doc_id"]))
         table = logic.chunk_rows(sorted(full.values(), key=lambda c: c["chunk_index"]), only_rejected)
-        st.dataframe(pd.DataFrame(table).drop(columns=["chunk_id"]) if table else pd.DataFrame(), hide_index=True, width="stretch")
+        st.dataframe(
+            pd.DataFrame(table).drop(columns=["chunk_id"]) if table else pd.DataFrame(),
+            hide_index=True,
+            width="stretch",
+        )
         if table:
             pick = st.selectbox("Show chunk", table, format_func=lambda r: f"#{r['#']} {r['section']}")
             c = full[pick["chunk_id"]]
@@ -191,7 +283,9 @@ with tab_evals:
     results_dir = Path(os.environ.get("RAG_RESULTS_DIR", "evals/results"))
     files = logic.result_files(results_dir)
     if not files:
-        st.info(f"No results in `{results_dir}`. Run `python -m rag_template.evals retrieval` (and `ablations`, `gates`, `answers`).")
+        st.info(
+            f"No results in `{results_dir}`. Run `python -m rag_template.evals retrieval` (and `ablations`, `gates`, `answers`)."
+        )
     else:
         pick = st.selectbox("Report", files, format_func=lambda p: p.stem)
         js = pick.with_suffix(".json")
@@ -217,6 +311,8 @@ with tab_status:
         import torch
 
         if torch.cuda.is_available():
-            st.caption(f"GPU {torch.cuda.get_device_name(0)}: {torch.cuda.memory_allocated() // 2**20} MB allocated by this process")
+            st.caption(
+                f"GPU {torch.cuda.get_device_name(0)}: {torch.cuda.memory_allocated() // 2**20} MB allocated by this process"
+            )
     except ImportError:
         pass

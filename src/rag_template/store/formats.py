@@ -41,7 +41,9 @@ BGE = EmbedFormat(
     query=lambda text, task: f"Represent this sentence for searching relevant passages: {text}",
     document=_plain_document,
 )
-E5 = EmbedFormat(query=lambda text, task: f"query: {text}", document=lambda text, title: f"passage: {_plain_document(text, title)}")
+E5 = EmbedFormat(
+    query=lambda text, task: f"query: {text}", document=lambda text, title: f"passage: {_plain_document(text, title)}"
+)
 
 _FORMATS: List[Tuple[re.Pattern, EmbedFormat]] = [
     (re.compile(r"embeddinggemma", re.I), EMBEDDING_GEMMA),

@@ -1,4 +1,5 @@
 """convcheck: each check on synthetic reference/output text, plus one integration test with a built PDF."""
+
 import itertools
 import shutil
 
@@ -55,7 +56,9 @@ def test_a_number_the_pdf_never_contained_is_novel_not_fused():
 def test_dropped_numbers_are_reported_when_many_vanish():
     nums = " ".join(f"row {n} value {n * 3 + 1}" for n in range(10, 40))
     r = check([ref_page(filler(0, 100), nums)], ref_page(filler(0, 100)))
-    assert r.metrics["dropped_numeric_ratio"] > 0.5 and any("missing" in w for w in r.warnings) and r.examples["dropped"]
+    assert (
+        r.metrics["dropped_numeric_ratio"] > 0.5 and any("missing" in w for w in r.warnings) and r.examples["dropped"]
+    )
 
 
 def test_page_numbers_and_running_headers_are_not_counted_as_dropped():
@@ -89,7 +92,10 @@ def test_ragged_table_flattened_code_and_unbalanced_fence_are_reported():
     table = "| a | b | c |\n|---|---|---|\n| 1 | 2 |\n| 3 | 4 | 5 | 6 |\n| 7 |\n"
     r = check([BASE], BASE + "\n\n" + table)
     assert r.metrics["ragged_tables"] == 1
-    long_line = "from typing import Annotated, Literal from pydantic import Field def search( query: str, limit: int = 10, order: str = 'a') " * 3
+    long_line = (
+        "from typing import Annotated, Literal from pydantic import Field def search( query: str, limit: int = 10, order: str = 'a') "
+        * 3
+    )
     r = check([BASE], BASE + f"\n\n```\n{long_line}\n```\n\n```\n{long_line}\n```\n")
     assert r.metrics["flattened_code_blocks"] == 2 and any("one line" in w for w in r.warnings)
     assert check([BASE], BASE + "\n```\nx = 1\n").metrics["unbalanced_fences"] == 1

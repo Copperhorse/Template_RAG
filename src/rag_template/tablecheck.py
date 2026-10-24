@@ -22,7 +22,9 @@ from typing import Dict, List, Sequence, Set, Tuple
 from rag_template.tables import LABEL_JOINER, inherit_row_labels
 
 # a number as a reader sees it: 46.7, 1,000, 5.2%, +12.9pp; not the 30 of "30B" or the 3 of "Qwen3"
-_NUMBER = re.compile(r"(?<![A-Za-z0-9.@])(?<![A-Za-z]-)[-+]?\d+(?:[.,]\d+)*(?:%|pp|x)?(?![A-Za-z0-9])")  # not the 1 of "ARC-AGI-1"
+_NUMBER = re.compile(
+    r"(?<![A-Za-z0-9.@])(?<![A-Za-z]-)[-+]?\d+(?:[.,]\d+)*(?:%|pp|x)?(?![A-Za-z0-9])"
+)  # not the 1 of "ARC-AGI-1"
 # a word-like token, keeping `pass@1`, `qwen3`, `30b`, `v6`
 _TOKEN = re.compile(r"[a-z][a-z0-9]*(?:@\d+)?|\d+[a-z][a-z0-9]*")
 _KIND = re.compile(r"^([a-z]+@?)(\d+)$")  # pass@1 -> ("pass@", "1"); v6 -> ("v", "6"); qwen3 -> ("qwen", "3")
@@ -38,7 +40,9 @@ class Cell:
     row_label: str
     column: str  # the header cell above it ("" when the header and the row disagree on the column count)
     row: str
-    own_is_distinctive: bool = False  # the row's own label (after any inherited parent) has a word no other row's label has
+    own_is_distinctive: bool = (
+        False  # the row's own label (after any inherited parent) has a word no other row's label has
+    )
 
 
 def normalise_number(raw: str) -> str:
@@ -109,7 +113,9 @@ def _conflicts(sentence: Set[str], header: Set[str]) -> bool:
 
 
 def _label_words(part: str) -> Set[str]:
-    return {t for t in _bag(part) if len(t) >= 2 or t.isdigit()}  # the "n" and "t" of `n=2, T=2` say nothing, its 2 and 2 do
+    return {
+        t for t in _bag(part) if len(t) >= 2 or t.isdigit()
+    }  # the "n" and "t" of `n=2, T=2` say nothing, its 2 and 2 do
 
 
 def _own_words(label: str) -> Set[str]:
@@ -128,7 +134,9 @@ def _fits(cell: Cell, sentence: Set[str], context: Set[str]) -> bool:
 
 
 def _sentences(text: str) -> List[str]:
-    return [s for s in re.split(r"(?<=[.!?])\s+|\n+", text) if s.strip()]  # not on ";": "delete the file; 207 if one fails" is one statement
+    return [
+        s for s in re.split(r"(?<=[.!?])\s+|\n+", text) if s.strip()
+    ]  # not on ";": "delete the file; 207 if one fails" is one statement
 
 
 def check_table_numbers(answer: str, evidence: Sequence[str], question: str = "") -> Tuple[bool, str]:
@@ -137,7 +145,9 @@ def check_table_numbers(answer: str, evidence: Sequence[str], question: str = ""
     tables = [t for text in evidence for t in parse_tables(text)]
     if not tables:
         return True, ""
-    prose = {n for text in evidence for line in text.split("\n") if not line.lstrip().startswith("|") for n in numbers(line)}
+    prose = {
+        n for text in evidence for line in text.split("\n") if not line.lstrip().startswith("|") for n in numbers(line)
+    }
     by_number: Dict[str, List[Cell]] = {}
     for table in tables:
         for cell in table:
@@ -153,5 +163,8 @@ def check_table_numbers(answer: str, evidence: Sequence[str], question: str = ""
         for n in [n for n in numbers(sentence) if n in by_number]:
             if not any(_fits(c, toks, context) for c in by_number[n]):
                 seen = by_number[n][0]
-                return False, f"Number {n} is in the sources, but not in a cell that fits this answer (found under row '{seen.row_label[:50]}', column '{seen.column[-50:]}')"
+                return (
+                    False,
+                    f"Number {n} is in the sources, but not in a cell that fits this answer (found under row '{seen.row_label[:50]}', column '{seen.column[-50:]}')",
+                )
     return True, ""

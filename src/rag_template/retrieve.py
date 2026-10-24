@@ -64,7 +64,9 @@ class Hit:
     dense_score: Optional[float] = None  # best cosine similarity among this chunk's vectors
     matched_question: Optional[str] = None  # set when a generated-question vector was the best match
     quote: Optional[evidence.Quote] = None  # best supporting span (search(quotes=True))
-    section_of: Optional[str] = None  # set on a chunk added by `section_neighbors`: the chunk id of the retrieved hit it continues
+    section_of: Optional[str] = (
+        None  # set on a chunk added by `section_neighbors`: the chunk id of the retrieved hit it continues
+    )
 
     @property
     def label(self) -> str:
@@ -88,7 +90,9 @@ class Hit:
         return out
 
 
-def route_to_document(order: List[str], rows: Dict[str, Dict[str, Any]], scores: Dict[str, float], margin: float) -> List[str]:
+def route_to_document(
+    order: List[str], rows: Dict[str, Dict[str, Any]], scores: Dict[str, float], margin: float
+) -> List[str]:
     """Automatic document routing. A document's score is the best reranker score among its chunks; when the leading document beats the
     runner-up by `margin` or more, only its chunks stay (in their current order), so answers are not built from a neighbouring
     document that merely looks similar. With one document, or a close call, `order` is returned unchanged. Measured: other-document
@@ -128,8 +132,15 @@ def zscore_fusion(signals: Sequence[Tuple[Dict[str, float], float]]) -> Dict[str
 
 class Retriever:
     def __init__(
-        self, db: Database, store: VectorStore, embedder: Embedder, reranker: Optional[Reranker] = None,
-        query_task: Optional[str] = None, rerank_mode: str = "replace", rerank_top: Optional[int] = None, scope: str = "default",
+        self,
+        db: Database,
+        store: VectorStore,
+        embedder: Embedder,
+        reranker: Optional[Reranker] = None,
+        query_task: Optional[str] = None,
+        rerank_mode: str = "replace",
+        rerank_top: Optional[int] = None,
+        scope: str = "default",
         route_margin: Optional[float] = None,
     ):
         """`query_task` is passed to task-aware embedders ("search result", "code retrieval", ...).
@@ -137,7 +148,14 @@ class Retriever:
         `rerank_top` is how many fused candidates the reranker reads (Settings.rerank_top).
         `route_margin`: (RAG passes Settings.route_margin, default 0.10; a Retriever built directly defaults to off) when several documents are indexed, keep only the best-scoring document's chunks if its best reranker score
         leads the next document's by at least this much (None = off); with a close call the mix is kept. Needs the reranker."""
-        self.db, self.store, self.embedder, self.reranker, self.query_task, self.rerank_mode = db, store, embedder, reranker, query_task, rerank_mode
+        self.db, self.store, self.embedder, self.reranker, self.query_task, self.rerank_mode = (
+            db,
+            store,
+            embedder,
+            reranker,
+            query_task,
+            rerank_mode,
+        )
         self.rerank_top = rerank_top
         self.route_margin = route_margin
         if hasattr(db, "get_meta"):
@@ -159,15 +177,28 @@ class Retriever:
             if h.chunk_id not in ids:
                 continue
             i = ids.index(h.chunk_id)
-            near = [ids[j] for j in [*range(i + 1, i + window + 1), *range(i - 1, i - window - 1, -1)] if 0 <= j < len(ids)]
+            near = [
+                ids[j] for j in [*range(i + 1, i + window + 1), *range(i - 1, i - window - 1, -1)] if 0 <= j < len(ids)
+            ]
             rows = self.db.get_chunks(near)
             for cid in near:
                 r = rows.get(cid)
                 if r is None or cid in have or (r.get("breadcrumb") or "") != h.breadcrumb or len(extra) >= limit:
                     continue
                 have.add(cid)
-                extra.append(Hit(chunk_id=cid, doc_id=r["doc_id"], source=r.get("source", ""), score=0.0, content=r["content"],
-                                 breadcrumb=r.get("breadcrumb") or "", content_type=r["content_type"], metadata=r["metadata"], section_of=h.chunk_id))
+                extra.append(
+                    Hit(
+                        chunk_id=cid,
+                        doc_id=r["doc_id"],
+                        source=r.get("source", ""),
+                        score=0.0,
+                        content=r["content"],
+                        breadcrumb=r.get("breadcrumb") or "",
+                        content_type=r["content_type"],
+                        metadata=r["metadata"],
+                        section_of=h.chunk_id,
+                    )
+                )
         return extra
 
     def span_scorer(self) -> evidence.Scorer:
@@ -210,7 +241,9 @@ class Retriever:
         matched_q: Dict[str, str] = {}
         if dense:
             where = {"doc_id": doc_id} if doc_id else None
-            for vh in self.store.query(self.embedder.embed_query(query, query_task or self.query_task), n_results=n, where=where):
+            for vh in self.store.query(
+                self.embedder.embed_query(query, query_task or self.query_task), n_results=n, where=where
+            ):
                 cid = vh.metadata.get("chunk_id")
                 if not cid or cid in dense_rank:
                     continue  # hits come best-first, so the first vector of a chunk is its best
@@ -252,10 +285,10 @@ class Retriever:
                 first_stage = {c: i + 1 for i, c in enumerate(head)}
                 second_stage = {c: i + 1 for i, c in enumerate(by_rerank)}
                 final.update({c: 1.0 / (rrf_k + first_stage[c]) + 1.0 / (rrf_k + second_stage[c]) for c in head})
-                order = sorted(head, key=lambda c: final[c], reverse=True) + order[len(head):]
+                order = sorted(head, key=lambda c: final[c], reverse=True) + order[len(head) :]
             elif rerank_mode == "replace":
                 final.update(rerank_scores)
-                order = by_rerank + order[len(head):]
+                order = by_rerank + order[len(head) :]
             else:
                 raise ValueError(f"unknown rerank_mode '{rerank_mode}'; choose replace or fuse")
 
@@ -266,19 +299,29 @@ class Retriever:
         if min_dense_score is not None:  # a chunk BM25 also found is kept; a weak dense match alone is not
             order = [c for c in order if c in lexical_rank or dense_score.get(c, 0.0) >= min_dense_score]
         if min_rerank_score is not None and rerank_scores:
-            order = [c for c in order if c in rerank_scores and rerank_scores[c] >= min_rerank_score]  # the unscored tail ranks below scored chunks and cannot be judged
+            order = [
+                c for c in order if c in rerank_scores and rerank_scores[c] >= min_rerank_score
+            ]  # the unscored tail ranks below scored chunks and cannot be judged
 
         hits = []
         for cid in order[:k]:
             r = rows[cid]
             hits.append(
                 Hit(
-                    chunk_id=cid, doc_id=r["doc_id"], source=r.get("source", ""),
-                    score=final[cid], content=r["content"],
-                    breadcrumb=r.get("breadcrumb") or "", content_type=r["content_type"], metadata=r["metadata"],
-                    rrf_score=fused[cid], rerank_score=rerank_scores.get(cid),
-                    dense_rank=dense_rank.get(cid), lexical_rank=lexical_rank.get(cid),
-                    dense_score=dense_score.get(cid), matched_question=matched_q.get(cid),
+                    chunk_id=cid,
+                    doc_id=r["doc_id"],
+                    source=r.get("source", ""),
+                    score=final[cid],
+                    content=r["content"],
+                    breadcrumb=r.get("breadcrumb") or "",
+                    content_type=r["content_type"],
+                    metadata=r["metadata"],
+                    rrf_score=fused[cid],
+                    rerank_score=rerank_scores.get(cid),
+                    dense_rank=dense_rank.get(cid),
+                    lexical_rank=lexical_rank.get(cid),
+                    dense_score=dense_score.get(cid),
+                    matched_question=matched_q.get(cid),
                 )
             )
 
@@ -310,8 +353,12 @@ class Answer:
     refused: bool = False
     citations: List[int] = field(default_factory=list)
     quotes: List[QuotedSource] = field(default_factory=list)  # verified, verbatim
-    unverified_quotes: List[Tuple[int, str]] = field(default_factory=list)  # claimed but not found in their chunk (source 0: no usable number)
-    missing_terms: List[str] = field(default_factory=list)  # question words found in none of the sources (a hint, not a verdict)
+    unverified_quotes: List[Tuple[int, str]] = field(
+        default_factory=list
+    )  # claimed but not found in their chunk (source 0: no usable number)
+    missing_terms: List[str] = field(
+        default_factory=list
+    )  # question words found in none of the sources (a hint, not a verdict)
 
 
 @dataclass(frozen=True)
@@ -340,8 +387,12 @@ class AnswerPolicy:
 POLICIES = {
     "strict": AnswerPolicy("quotes", False, False),  # quotes verbatim, answer supported by the quotes alone
     "tolerant": AnswerPolicy("quotes", True, False),  # + accepts a quote that is one word off
-    "balanced": AnswerPolicy("sources", True, False),  # quotes still required and verified; support checked against the cited chunk
-    "lenient": AnswerPolicy("sources", True, True, check_table_cells=False),  # + a missing/invalid quote is replaced by the chunk's best-matching span
+    "balanced": AnswerPolicy(
+        "sources", True, False
+    ),  # quotes still required and verified; support checked against the cited chunk
+    "lenient": AnswerPolicy(
+        "sources", True, True, check_table_cells=False
+    ),  # + a missing/invalid quote is replaced by the chunk's best-matching span
 }
 
 
@@ -364,14 +415,29 @@ def _ids(numbers: Sequence[int]) -> str:
     """For messages: [22, 3] -> "[S22, S3]"."""
     return "[" + ", ".join(source_id(n) for n in numbers) + "]"
 
+
 def answer_schema(quotes_first: bool = False, n_sources: Optional[int] = None) -> dict:
     """JSON schema of the reply. In "quotes_first" order the model must write its evidence before its answer. With `n_sources` the
     `source` of a quote can only be one of the ids shown (S1..Sn), so a server that enforces the schema cannot produce a source that does not exist."""
-    source = {"type": "string", "enum": [source_id(i) for i in range(1, n_sources + 1)]} if n_sources else {"type": "string", "pattern": "^S[0-9]+$"}
-    quote = {"type": "object", "properties": {"source": source, "quote": {"type": "string"}}, "required": ["source", "quote"], "additionalProperties": False}
+    source = (
+        {"type": "string", "enum": [source_id(i) for i in range(1, n_sources + 1)]}
+        if n_sources
+        else {"type": "string", "pattern": "^S[0-9]+$"}
+    )
+    quote = {
+        "type": "object",
+        "properties": {"source": source, "quote": {"type": "string"}},
+        "required": ["source", "quote"],
+        "additionalProperties": False,
+    }
     props = {"answer": {"type": "string"}, "quotes": {"type": "array", "items": quote}}
     order = ["quotes", "answer"] if quotes_first else ["answer", "quotes"]
-    return {"type": "object", "properties": {k: props[k] for k in order}, "required": order, "additionalProperties": False}
+    return {
+        "type": "object",
+        "properties": {k: props[k] for k in order},
+        "required": order,
+        "additionalProperties": False,
+    }
 
 
 def system_prompt(quotes_first: bool = False) -> str:
@@ -410,7 +476,9 @@ def is_refusal(text: str) -> bool:
     """True for the exact sentinel and for the ways a model words "the sources do not say". Only the opening of
     the reply is inspected, and only when the reply cites no source (a cited answer is an answer)."""
     t = text.strip()
-    return t.rstrip(".").strip().lower() == REFUSAL.rstrip(".").lower() or (not _CITATION.search(t) and bool(_REFUSAL_WORDING.match(t)))
+    return t.rstrip(".").strip().lower() == REFUSAL.rstrip(".").lower() or (
+        not _CITATION.search(t) and bool(_REFUSAL_WORDING.match(t))
+    )
 
 
 class Answerer:
@@ -455,7 +523,15 @@ class Answerer:
             blocks.append(block)
         return "SOURCES:\n\n" + "\n\n".join(blocks) + f"\n\nQUESTION: {question}\n\nJSON:", len(blocks)
 
-    def ask(self, question: str, k: int = 5, doc_id: Optional[str] = None, strict: bool = False, hits: Optional[Sequence[Hit]] = None, **search_kwargs) -> Answer:
+    def ask(
+        self,
+        question: str,
+        k: int = 5,
+        doc_id: Optional[str] = None,
+        strict: bool = False,
+        hits: Optional[Sequence[Hit]] = None,
+        **search_kwargs,
+    ) -> Answer:
         """`hits`: already retrieved sources for this question (skips the search; a caller that needs the hits too searches once)."""
         hits = list(hits) if hits is not None else self.retriever.search(question, k=k, doc_id=doc_id, **search_kwargs)
         if not hits:
@@ -467,7 +543,9 @@ class Answerer:
             hits = hits + self.retriever.section_neighbors(hits, limit=self.expand_section)
         prompt, shown = self.build_prompt(question, hits)
         hits = hits[:shown]
-        parsed = self.llm.chat_json(self.system, prompt, self.answer_tokens, schema=answer_schema(self.quotes_first, shown))
+        parsed = self.llm.chat_json(
+            self.system, prompt, self.answer_tokens, schema=answer_schema(self.quotes_first, shown)
+        )
         return self.judge(parsed, hits, question, strict=strict)
 
     def relevance_refusal(self, hits: Sequence[Hit]) -> Optional[Answer]:
@@ -477,14 +555,28 @@ class Answerer:
             return None
         scores = [h.rerank_score for h in hits if h.rerank_score is not None]
         if not scores:
-            logger.warning("min_relevance is set but the retrieved hits have no reranker scores (is reranking off?): the relevance gate is inactive")
+            logger.warning(
+                "min_relevance is set but the retrieved hits have no reranker scores (is reranking off?): the relevance gate is inactive"
+            )
             return None
         best = max(scores)
         if best >= self.min_relevance:
             return None
-        return Answer(REFUSAL, list(hits), reason=f"no retrieved source looks relevant (best reranker score {best:.3f} < {self.min_relevance:g})", refused=True)
+        return Answer(
+            REFUSAL,
+            list(hits),
+            reason=f"no retrieved source looks relevant (best reranker score {best:.3f} < {self.min_relevance:g})",
+            refused=True,
+        )
 
-    def judge(self, parsed: dict, hits: Sequence[Hit], question: str, strict: bool = False, policy: Optional[AnswerPolicy] = None) -> Answer:
+    def judge(
+        self,
+        parsed: dict,
+        hits: Sequence[Hit],
+        question: str,
+        strict: bool = False,
+        policy: Optional[AnswerPolicy] = None,
+    ) -> Answer:
         """Gate a model reply. Pure (no LLM call), so a recorded reply can be re-judged under another policy."""
         policy = policy or self.policy
         hits = list(hits)
@@ -492,23 +584,34 @@ class Answerer:
         if not text:
             return Answer(REFUSAL, hits, False, "the model returned no parsable answer", True)
         if is_refusal(text):
-            return Answer(REFUSAL if text.rstrip(".").strip().lower() == REFUSAL.rstrip(".").lower() else text, hits, refused=True)
+            return Answer(
+                REFUSAL if text.rstrip(".").strip().lower() == REFUSAL.rstrip(".").lower() else text, hits, refused=True
+            )
 
         raw_quotes = parsed.get("quotes") if isinstance(parsed.get("quotes"), list) else []
         claimed = [  # source 0 = the model gave no usable source id: located by its text below, else reported as dropped
             (evidence.parse_source(q.get("source")) or 0, str(q.get("quote", ""))) if isinstance(q, dict) else (0, q)
-            for q in raw_quotes if isinstance(q, (dict, str))
+            for q in raw_quotes
+            if isinstance(q, (dict, str))
         ]
         claimed, remap = self._reattribute(claimed, hits, policy.loose_quotes)
         if remap:
             text = _CITATION.sub(lambda m: _ids([remap.get(n, n) for n in _cite_numbers(m.group(1))]), text)
         cited = sorted({n for group in _CITATION.findall(text) for n in _cite_numbers(group)})
-        ok, bad = evidence.verify_quotes(claimed, [(h.content, h.content_type) for h in hits], loose=policy.loose_quotes)
+        ok, bad = evidence.verify_quotes(
+            claimed, [(h.content, h.content_type) for h in hits], loose=policy.loose_quotes
+        )
         quotes = [QuotedSource(n, hits[n - 1], t, how) for n, t, how in ok]
         if policy.extract_missing:
             quotes += self._extract_missing(text, hits, cited, quotes)
-        ans = Answer(text, hits, citations=cited, quotes=quotes, unverified_quotes=bad,
-                     missing_terms=verify.missing_question_terms(question, [f"{h.label}\n{h.content}" for h in hits]))
+        ans = Answer(
+            text,
+            hits,
+            citations=cited,
+            quotes=quotes,
+            unverified_quotes=bad,
+            missing_terms=verify.missing_question_terms(question, [f"{h.label}\n{h.content}" for h in hits]),
+        )
 
         reason = self._gate(text, question, hits, cited, quotes, policy)
         if reason:
@@ -518,7 +621,9 @@ class Answerer:
         return ans
 
     @staticmethod
-    def _reattribute(claimed: List[Tuple[int, str]], hits: Sequence[Hit], loose: bool) -> Tuple[List[Tuple[int, str]], Dict[int, int]]:
+    def _reattribute(
+        claimed: List[Tuple[int, str]], hits: Sequence[Hit], loose: bool
+    ) -> Tuple[List[Tuple[int, str]], Dict[int, int]]:
         """The id a model writes is a hint; the quote's text is the evidence. A quote with no usable id (missing, unparseable, or an id
         that names no source) is attributed to the retrieved chunk that holds it verbatim when exactly one does. Returns the corrected
         claims and {nonexistent id: the id it was resolved to}, used to rewrite the matching citations in the answer. An id that names
@@ -529,7 +634,11 @@ class Answerer:
             if 1 <= n <= len(hits) or not quote.strip():  # a real id (right or wrong), or nothing to locate
                 where: List[int] = []
             else:
-                where = [i + 1 for i, h in enumerate(hits) if evidence.verify_quotes([(1, quote)], [(h.content, h.content_type)], loose=loose)[0]]
+                where = [
+                    i + 1
+                    for i, h in enumerate(hits)
+                    if evidence.verify_quotes([(1, quote)], [(h.content, h.content_type)], loose=loose)[0]
+                ]
             if len(where) == 1:
                 if n:
                     targets.setdefault(n, set()).add(where[0])
@@ -538,7 +647,9 @@ class Answerer:
                 fixed.append((n, quote))
         return fixed, {n: next(iter(t)) for n, t in targets.items() if len(t) == 1}
 
-    def _extract_missing(self, text: str, hits: Sequence[Hit], cited: List[int], quotes: List[QuotedSource]) -> List[QuotedSource]:
+    def _extract_missing(
+        self, text: str, hits: Sequence[Hit], cited: List[int], quotes: List[QuotedSource]
+    ) -> List[QuotedSource]:
         """For each cited source without a verified quote: its span that best matches the answer (verbatim by construction)."""
         scorer = self.retriever.span_scorer() if hasattr(self.retriever, "span_scorer") else None
         if scorer is None:
@@ -553,7 +664,15 @@ class Answerer:
                 out.append(QuotedSource(n, hits[n - 1], span.text, "extracted"))
         return out
 
-    def _gate(self, text: str, question: str, hits: Sequence[Hit], cited: List[int], quotes: List[QuotedSource], policy: AnswerPolicy) -> str:
+    def _gate(
+        self,
+        text: str,
+        question: str,
+        hits: Sequence[Hit],
+        cited: List[int],
+        quotes: List[QuotedSource],
+        policy: AnswerPolicy,
+    ) -> str:
         if not cited:
             return "the answer cites no source"
         bad = [n for n in cited if not 1 <= n <= len(hits)]
@@ -573,8 +692,17 @@ class Answerer:
             ok, why = verify.check_code_support(body, evidence_text, context=labels)
         else:
             cfg = verify.VerifyConfig(**{**self.cfg.__dict__, "support_scope": "chunk"})
-            labels = "\n".join(q.hit.breadcrumb for q in used if q.hit.breadcrumb)  # the heading the model was shown ("ACT NO. XII OF 1992") is evidence too
-            ok, why = verify.check_support(body, f"{evidence_text}\n{labels}" if labels else evidence_text, evidence_text, question, cfg, trusted_question=True)
+            labels = "\n".join(
+                q.hit.breadcrumb for q in used if q.hit.breadcrumb
+            )  # the heading the model was shown ("ACT NO. XII OF 1992") is evidence too
+            ok, why = verify.check_support(
+                body,
+                f"{evidence_text}\n{labels}" if labels else evidence_text,
+                evidence_text,
+                question,
+                cfg,
+                trusted_question=True,
+            )
         if ok and policy.check_table_cells:
             tables = [hits[n - 1].content for n in cited if hits[n - 1].content_type == "table"]
             ok, why = check_table_numbers(body, tables, question)

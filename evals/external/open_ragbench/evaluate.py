@@ -1,13 +1,17 @@
 """Retrieval-only evaluation on the Open RAG Benchmark slice. Document level (any top-k chunk from the gold paper) and a section-level
 proxy (a chunk from the gold paper whose words are >= THRESH covered by the gold section's text; the benchmark's section ids refer to
 its own parse, not to our chunks)."""
+
 import json, os, re, sys, time
 from pathlib import Path
+
 orb, store, out, variant = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3]), sys.argv[4]
 os.environ["RAG_DATA_DIR"] = str(store)
-if variant == "no_routing": os.environ["RAG_ROUTE_MARGIN"] = "off"
+if variant == "no_routing":
+    os.environ["RAG_ROUTE_MARGIN"] = "off"
 from rag_template.config import Settings
 from rag_template.rag import RAG
+
 rag = RAG(Settings.from_env())
 s = json.load(open(orb / "meta" / "slice.json"))
 W = lambda t: re.findall(r"[a-z0-9]+", t.lower())
@@ -26,8 +30,22 @@ for n, (qid, q) in enumerate((k, v) for k, v in s["queries"].items() if v["doc_i
     cov = []
     for h in hits:
         w = set(W(h.content))
-        cov.append(len(w & sections[gold][sec]) / len(w) if h.source == f"{gold}.pdf" and len(w) >= 15 and sec < len(sections[gold]) else 0.0)
-    rows.append({"id": qid, "type": q["type"], "source": q["source"], "doc": doc, "cov": cov, "sources": [h.source for h in hits]})
-    if n % 50 == 0: print(n, f"{time.time()-t0:.0f}s", flush=True)
+        cov.append(
+            len(w & sections[gold][sec]) / len(w)
+            if h.source == f"{gold}.pdf" and len(w) >= 15 and sec < len(sections[gold])
+            else 0.0
+        )
+    rows.append(
+        {
+            "id": qid,
+            "type": q["type"],
+            "source": q["source"],
+            "doc": doc,
+            "cov": cov,
+            "sources": [h.source for h in hits],
+        }
+    )
+    if n % 50 == 0:
+        print(n, f"{time.time() - t0:.0f}s", flush=True)
 json.dump(rows, open(out, "w"))
-print("done", len(rows), f"{time.time()-t0:.0f}s")
+print("done", len(rows), f"{time.time() - t0:.0f}s")

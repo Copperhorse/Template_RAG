@@ -81,11 +81,7 @@ def _first_doc_line(node: ast.AST) -> str:
 
 
 def _is_docstring(stmt: ast.stmt) -> bool:
-    return (
-        isinstance(stmt, ast.Expr)
-        and isinstance(stmt.value, ast.Constant)
-        and isinstance(stmt.value.value, str)
-    )
+    return isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Constant) and isinstance(stmt.value.value, str)
 
 
 class PythonASTChunker:
@@ -218,8 +214,19 @@ class PythonASTChunker:
             if i > 0:
                 body_text = f"# ... continued: {unit.signature}\n{body_text}"
             parts.append(
-                _Unit(lo, hi, unit.kind, unit.qualname, unit.scope, body_text, unit.signature, unit.docstring,
-                      unit.decorators, [unit.qualname], part=(i + 1, len(windows)))
+                _Unit(
+                    lo,
+                    hi,
+                    unit.kind,
+                    unit.qualname,
+                    unit.scope,
+                    body_text,
+                    unit.signature,
+                    unit.docstring,
+                    unit.decorators,
+                    [unit.qualname],
+                    part=(i + 1, len(windows)),
+                )
             )
         return self._cap(parts)
 
@@ -242,8 +249,19 @@ class PythonASTChunker:
         for i, piece in enumerate(pieces):
             text = piece if i == 0 else f"# ... continued: {unit.signature or unit.qualname}\n{piece}"
             out.append(
-                _Unit(unit.lo, unit.hi, unit.kind, unit.qualname, unit.scope, text, unit.signature,
-                      unit.docstring, unit.decorators, unit.symbols, part=(i + 1, len(pieces)))
+                _Unit(
+                    unit.lo,
+                    unit.hi,
+                    unit.kind,
+                    unit.qualname,
+                    unit.scope,
+                    text,
+                    unit.signature,
+                    unit.docstring,
+                    unit.decorators,
+                    unit.symbols,
+                    part=(i + 1, len(pieces)),
+                )
             )
         return out
 
@@ -281,7 +299,11 @@ class PythonASTChunker:
 
     def _to_chunk(self, u: _Unit, source: str) -> Chunk:
         symbols = list(dict.fromkeys(u.symbols))
-        header = u.qualname if len(symbols) <= 1 else ", ".join(symbols[:3]) + (f" (+{len(symbols) - 3})" if len(symbols) > 3 else "")
+        header = (
+            u.qualname
+            if len(symbols) <= 1
+            else ", ".join(symbols[:3]) + (f" (+{len(symbols) - 3})" if len(symbols) > 3 else "")
+        )
         meta: Dict[str, Any] = {
             "section_header": header,
             "parent_section": u.scope or source or None,
@@ -346,8 +368,16 @@ class LineCodeChunker:
             if tokens > budget:
                 pieces = pack_lines(block, budget)
                 for i, piece in enumerate(pieces):
-                    groups.append({"text": piece, "lo": a + 1, "hi": b + 1, "symbols": [sym] if sym else [],
-                                   "part": f"{i + 1}/{len(pieces)}", "full": True})
+                    groups.append(
+                        {
+                            "text": piece,
+                            "lo": a + 1,
+                            "hi": b + 1,
+                            "symbols": [sym] if sym else [],
+                            "part": f"{i + 1}/{len(pieces)}",
+                            "full": True,
+                        }
+                    )
                 continue
             last = groups[-1] if groups else None
             if (
@@ -360,11 +390,22 @@ class LineCodeChunker:
                 last["hi"] = b + 1
                 last["symbols"] += [sym] if sym else []
             else:
-                groups.append({"text": block, "lo": a + 1, "hi": b + 1, "symbols": [sym] if sym else [], "part": None, "full": False})
+                groups.append(
+                    {
+                        "text": block,
+                        "lo": a + 1,
+                        "hi": b + 1,
+                        "symbols": [sym] if sym else [],
+                        "part": None,
+                        "full": False,
+                    }
+                )
 
         chunks = []
         for g in groups:
-            header = ", ".join(g["symbols"][:3]) or (f"{source}:{g['lo']}-{g['hi']}" if source else f"lines {g['lo']}-{g['hi']}")
+            header = ", ".join(g["symbols"][:3]) or (
+                f"{source}:{g['lo']}-{g['hi']}" if source else f"lines {g['lo']}-{g['hi']}"
+            )
             meta: Dict[str, Any] = {
                 "section_header": header,
                 "parent_section": source or None,

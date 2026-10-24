@@ -41,9 +41,25 @@ logger = logging.getLogger("rag_template.verify")
 # "first" and "second" are left out on purpose: in ordinary prose they are sequencing words ("Chroma first, then
 # SQLite"), or a unit of time, not claims about a quantity. Higher ordinals ("third phase") still count.
 _NUMBER_WORDS = {
-    "two": 2, "three": 3, "third": 3, "four": 4, "fourth": 4,
-    "five": 5, "fifth": 5, "six": 6, "sixth": 6, "seven": 7, "seventh": 7, "eight": 8, "eighth": 8,
-    "nine": 9, "ninth": 9, "ten": 10, "tenth": 10, "twelve": 12, "twelfth": 12,
+    "two": 2,
+    "three": 3,
+    "third": 3,
+    "four": 4,
+    "fourth": 4,
+    "five": 5,
+    "fifth": 5,
+    "six": 6,
+    "sixth": 6,
+    "seven": 7,
+    "seventh": 7,
+    "eight": 8,
+    "eighth": 8,
+    "nine": 9,
+    "ninth": 9,
+    "ten": 10,
+    "tenth": 10,
+    "twelve": 12,
+    "twelfth": 12,
 }
 # Words that talk about the source rather than about its content, plus LaTeX debris from PDF extraction.
 _META = frozenset(
@@ -64,7 +80,9 @@ _STOP = frozenset(
     "should also each every both such more most some only very just about after before between during "
     "through without within against upon under above below".split()
 )
-_SHORT_STOP = frozenset("the and for are was has had not but can its who how why did does you our out any all may per via too her him his she".split())
+_SHORT_STOP = frozenset(
+    "the and for are was has had not but can its who how why did does you our out any all may per via too her him his she".split()
+)
 
 
 @dataclass(frozen=True)
@@ -182,10 +200,16 @@ def _quote_words(text: str) -> List[str]:
 
 
 def _locate_loose(quote: str, chunk: str, cfg: VerifyConfig, code: bool) -> Optional[str]:
-    span = _align(quote, chunk, replace(cfg, fuzzy_quote_min=LOOSE_MIN_SCORE, min_quote_chars=max(cfg.min_quote_chars, LOOSE_MIN_CHARS)))
+    span = _align(
+        quote,
+        chunk,
+        replace(cfg, fuzzy_quote_min=LOOSE_MIN_SCORE, min_quote_chars=max(cfg.min_quote_chars, LOOSE_MIN_CHARS)),
+    )
     if span is None:
         return None
-    text = _snap_lines(chunk, span[0], span[1]) if code else _snap_best(chunk, span[0], span[1], cfg.max_quote_sentences)
+    text = (
+        _snap_lines(chunk, span[0], span[1]) if code else _snap_best(chunk, span[0], span[1], cfg.max_quote_sentences)
+    )
     words = _quote_words(quote)
     have = set(_quote_words(text))
     if not words or sum(w in have for w in words) / len(words) < LOOSE_MIN_WORD_COVERAGE:
@@ -193,7 +217,9 @@ def _locate_loose(quote: str, chunk: str, cfg: VerifyConfig, code: bool) -> Opti
     return text
 
 
-def locate_quote_ex(quote: str, chunk: str, cfg: VerifyConfig = VerifyConfig(), code: bool = False, loose: bool = False) -> Optional[Tuple[str, str]]:
+def locate_quote_ex(
+    quote: str, chunk: str, cfg: VerifyConfig = VerifyConfig(), code: bool = False, loose: bool = False
+) -> Optional[Tuple[str, str]]:
     """(chunk text, how) where how is "exact" (alphanumeric match), "fuzzy" (>= 85) or "loose" (>= 75 with word
     coverage; only when `loose`). None if the quote is not in the chunk."""
     text = locate_code_quote(quote, chunk, cfg) if code else locate_quote(quote, chunk, cfg)
@@ -322,7 +348,11 @@ def check_addresses_question(question: str, answer: str) -> Tuple[bool, str]:
         return False, "Answer only restates the question"
     if _QUANTITY_Q.search(question):
         words = set(re.findall(r"[a-z]+", answer.lower()))
-        has_quantity = re.search(r"\d", answer) or words & _CARDINALS or re.search(r"(?<![A-Za-z])[b-hj-zB-HJ-Z](?![A-Za-z])", answer)
+        has_quantity = (
+            re.search(r"\d", answer)
+            or words & _CARDINALS
+            or re.search(r"(?<![A-Za-z])[b-hj-zB-HJ-Z](?![A-Za-z])", answer)
+        )
         if not has_quantity:
             return False, "Question asks for a number; the answer gives none"
     if _PURPOSE_Q.search(question) and not _PURPOSE_MARK.search(answer):
@@ -355,7 +385,11 @@ def verify(
     if similarity is not None and len(_content_words(answer)) >= cfg.min_words_for_similarity:
         sim = similarity(answer, span)
         if sim < cfg.min_quote_similarity:
-            return Verdict(False, f"Answer does not follow from the quote (similarity {sim:.2f} < {cfg.min_quote_similarity})", span)
+            return Verdict(
+                False,
+                f"Answer does not follow from the quote (similarity {sim:.2f} < {cfg.min_quote_similarity})",
+                span,
+            )
     return Verdict(True, "", span)
 
 
@@ -364,7 +398,11 @@ def verify(
 _BACKTICKED = re.compile(r"`([^`\n]{1,80})`")
 _IDENT = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 # Names an answer may use without them appearing in the chunk ("returns `None`", "raises `ValueError`").
-_ALWAYS_OK = frozenset(dir(builtins)) | frozenset(keyword.kwlist) | {"null", "undefined", "true", "false", "this", "void", "string", "number", "boolean"}
+_ALWAYS_OK = (
+    frozenset(dir(builtins))
+    | frozenset(keyword.kwlist)
+    | {"null", "undefined", "true", "false", "this", "void", "string", "number", "boolean"}
+)
 
 
 _PUNCT_ONLY = re.compile(r"^[^\w]+$")
@@ -449,7 +487,12 @@ class PairVerifier:
     """`verify()` for prose, with the embedding layers loaded on first use. Without the `local`
     extra it degrades to the text-only layers (and says so once)."""
 
-    def __init__(self, cfg: VerifyConfig = VerifyConfig(), helpers: Optional[EmbeddingHelpers] = None, use_embeddings: bool = True):
+    def __init__(
+        self,
+        cfg: VerifyConfig = VerifyConfig(),
+        helpers: Optional[EmbeddingHelpers] = None,
+        use_embeddings: bool = True,
+    ):
         self.cfg = cfg
         self._helpers = helpers
         self._use_embeddings = use_embeddings
@@ -459,13 +502,17 @@ class PairVerifier:
             try:
                 self._helpers = EmbeddingHelpers()
             except ImportError:
-                logger.warning("sentence-transformers is not installed: PairVerifier runs without its similarity and rare-word layers")
+                logger.warning(
+                    "sentence-transformers is not installed: PairVerifier runs without its similarity and rare-word layers"
+                )
                 self._use_embeddings = False
         return self._helpers
 
     def validate(self, question: str, answer: str, chunk: str, source_quote: str) -> Tuple[bool, str]:
         h = self._get_helpers()
-        v = verify(question, answer, chunk, source_quote, self.cfg, h.is_rare if h else None, h.similarity if h else None)
+        v = verify(
+            question, answer, chunk, source_quote, self.cfg, h.is_rare if h else None, h.similarity if h else None
+        )
         return v.ok, v.reason
 
 

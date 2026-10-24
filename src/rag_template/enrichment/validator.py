@@ -29,7 +29,18 @@ class AnswerValidator:
     CONTRADICTION_THRESHOLD = 0.60
     MIN_SENTENCES = 1
     MAX_SENTENCES = 5
-    CAUSAL = {"because", "due to", "as a result", "therefore", "leads to", "causes", "through", "allows", "enables", "since"}
+    CAUSAL = {
+        "because",
+        "due to",
+        "as a result",
+        "therefore",
+        "leads to",
+        "causes",
+        "through",
+        "allows",
+        "enables",
+        "since",
+    }
 
     def __init__(self, bi_model_name: str = models.BI_ENCODER_NAME, ce_model_name: str = models.NLI_CROSS_ENCODER_NAME):
         self.bi_encoder = models.get_bi_encoder(bi_model_name)
@@ -70,7 +81,10 @@ class AnswerValidator:
         else:
             adjusted = bi_score * (0.50 + 0.50 * p_entail)
             if adjusted < self.SIMILARITY_THRESHOLD:
-                return False, f"Neutral NLI ({p_neutral:.2f}) dragged down bi-score: {adjusted:.2f} < {self.SIMILARITY_THRESHOLD}"
+                return (
+                    False,
+                    f"Neutral NLI ({p_neutral:.2f}) dragged down bi-score: {adjusted:.2f} < {self.SIMILARITY_THRESHOLD}",
+                )
 
         # GATE 4: question heuristics
         if question.strip().lower().startswith(("why", "how")):

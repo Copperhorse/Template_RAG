@@ -110,7 +110,10 @@ class StubLLM:
         if reasoning is not None:
             message["reasoning_content"] = reasoning
         return {
-            "id": "x", "object": "chat.completion", "created": 0, "model": "stub",
+            "id": "x",
+            "object": "chat.completion",
+            "created": 0,
+            "model": "stub",
             "choices": [{"index": 0, "message": message, "finish_reason": finish}],
             "usage": {"prompt_tokens": 100, "completion_tokens": 50, "total_tokens": 150},
         }
@@ -120,19 +123,32 @@ class StubLLM:
         if kind == "metadata":
             chunk = _chunk_of(user)
             ids = _identifiers(chunk)[:3]
-            return json.dumps({
-                "summary": "Handles one concern of the module. It is used by the surrounding code paths.",
-                "tags": ids,
-                "triplets": [{"subject": ids[0], "predicate": "uses", "object": ids[1]}] if len(ids) > 1 else [],
-            })
+            return json.dumps(
+                {
+                    "summary": "Handles one concern of the module. It is used by the surrounding code paths.",
+                    "tags": ids,
+                    "triplets": [{"subject": ids[0], "predicate": "uses", "object": ids[1]}] if len(ids) > 1 else [],
+                }
+            )
         if kind == "questions":
             chunk = _chunk_of(user)
             q = _quote(chunk)
             ident = next(iter(_identifiers(q)), "this")
             level = re.search(r"Write up to \d+ '(\w+)'", user)
             level = level.group(1) if level else "Easy"
-            return json.dumps({"qa_pairs": [{"question": f"What does {ident} do when {level.lower()} cases occur?" if level != "Easy" else f"What does {ident} do?",
-                                              "source_quote": q, "difficulty": level}]})
+            return json.dumps(
+                {
+                    "qa_pairs": [
+                        {
+                            "question": f"What does {ident} do when {level.lower()} cases occur?"
+                            if level != "Easy"
+                            else f"What does {ident} do?",
+                            "source_quote": q,
+                            "difficulty": level,
+                        }
+                    ]
+                }
+            )
         if kind == "answer":
             if self.answer_override is not None:
                 return self.answer_override

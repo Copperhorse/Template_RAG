@@ -16,10 +16,14 @@ from typing import List, Tuple
 from rag_template.pages import PAGE_LINE
 
 FENCE = re.compile(r"^\s*(```|~~~)")
-_SUP = re.compile(r"<sup>\s*([^<\s]{1,3})\s*</sup>", re.I)  # footnote calls and exponents: kept as ^N so the link to "N. Inserted vide ..." survives
+_SUP = re.compile(
+    r"<sup>\s*([^<\s]{1,3})\s*</sup>", re.I
+)  # footnote calls and exponents: kept as ^N so the link to "N. Inserted vide ..." survives
 TAGS = re.compile(r"</?(?:sup|sub|u|i|b|em|strong|span|mark|small|ins|del|br)(?:\s[^>]*)?>", re.I)
 _BR = re.compile(r"<br\s*/?>", re.I)
-_PLACEHOLDER = re.compile(r"^\s*(?:<!--\s*image\s*-->|\*{0,2}={2,}>\s*picture.*?<={2,}\*{0,2}|!\[[^\]]*\]\([^)]*\))\s*$", re.I)
+_PLACEHOLDER = re.compile(
+    r"^\s*(?:<!--\s*image\s*-->|\*{0,2}={2,}>\s*picture.*?<={2,}\*{0,2}|!\[[^\]]*\]\([^)]*\))\s*$", re.I
+)
 _BOLD = re.compile(r"\*\*(?=\S)(.+?)(?<=\S)\*\*")  # `**` only: `__init__` and snake__case are text, not markup
 _HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
 _BLOCK_START = re.compile(r"^\s*(#{1,6}\s|[-*+]\s|\d+[.)]\s|>|\||```|~~~|<)")
@@ -66,7 +70,9 @@ def clean_markdown(md: str) -> str:
             line = _BOLD.sub(r"\1", line)
             if is_row:
                 line = re.sub(r"[ \t]{2,}", " ", line)
-                if _SEPARATOR.match(line):  # converters pad the separator to the column width; it carries only the column count
+                if _SEPARATOR.match(
+                    line
+                ):  # converters pad the separator to the column width; it carries only the column count
                     line = "|" + "---|" * (line.strip().strip("|").count("|") + 1)
         out.extend(line.rstrip().split("\n"))
 
@@ -118,8 +124,15 @@ def _join_broken_paragraphs(md: str) -> str:
         if kind == "prose" and PAGE_LINE.match(block.strip()):
             marks.append(block.strip())
             continue
-        if (kind == "prose" and merged and kinds[-1] == "prose" and plain(merged[-1]) and plain(block)
-                and not _TERMINAL.search(merged[-1]) and block.lstrip()[:1].islower()):
+        if (
+            kind == "prose"
+            and merged
+            and kinds[-1] == "prose"
+            and plain(merged[-1])
+            and plain(block)
+            and not _TERMINAL.search(merged[-1])
+            and block.lstrip()[:1].islower()
+        ):
             merged[-1] = merged[-1].rstrip() + ("\n" + "\n".join(marks) + "\n" if marks else " ") + block.lstrip()
         else:
             merged.extend(marks)

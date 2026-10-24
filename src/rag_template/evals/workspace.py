@@ -33,7 +33,15 @@ CHUNKERS: Dict[str, Optional[Callable]] = {"ast": None, "naive": naive_chunk_fil
 
 
 class Workspace:
-    def __init__(self, corpus_dir: str | Path, chunker: str = "ast", max_tokens: int = 500, min_tokens: int = 50, work_dir: Optional[str | Path] = None, breadcrumb: bool = True):
+    def __init__(
+        self,
+        corpus_dir: str | Path,
+        chunker: str = "ast",
+        max_tokens: int = 500,
+        min_tokens: int = 50,
+        work_dir: Optional[str | Path] = None,
+        breadcrumb: bool = True,
+    ):
         """`breadcrumb=False` blanks every chunk's breadcrumb (so neither the embedder's document title nor the
         BM25 text carries the symbol path): the control that separates what chunk *boundaries* buy from
         what *metadata* buys."""
@@ -59,7 +67,9 @@ class Workspace:
         evaluator = ChunkEvaluator()
         for p in self.files():
             rel = str(p.relative_to(self.corpus_dir))
-            self.results[rel] = ingest(p, self.db, dedupe, self.config, evaluator, source=rel, chunk_fn=self._chunk_fn())
+            self.results[rel] = ingest(
+                p, self.db, dedupe, self.config, evaluator, source=rel, chunk_fn=self._chunk_fn()
+            )
         self.ingest_seconds = time.monotonic() - started
         return self.results
 
@@ -91,6 +101,8 @@ class Workspace:
         chunks = self.db.iter_chunks()
         usable = [c for c in chunks if c["should_use"]]
         return {
-            "files": len(self.results), "chunks": len(chunks), "usable": len(usable),
+            "files": len(self.results),
+            "chunks": len(chunks),
+            "usable": len(usable),
             "mean_chars": sum(len(c["content"]) for c in usable) / max(1, len(usable)),
         }

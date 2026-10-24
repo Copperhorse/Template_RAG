@@ -54,7 +54,13 @@ def average_precision_at_k(rel: Sequence[bool], k: int, n_relevant: int) -> floa
     return total / denom if denom else 0.0
 
 
-def query_metrics(rel: Sequence[bool], covered: Sequence[Set[int]], n_gold: int, n_relevant: int, ks: Sequence[int] = (1, 3, 5, 10, 20)) -> Dict[str, float]:
+def query_metrics(
+    rel: Sequence[bool],
+    covered: Sequence[Set[int]],
+    n_gold: int,
+    n_relevant: int,
+    ks: Sequence[int] = (1, 3, 5, 10, 20),
+) -> Dict[str, float]:
     m = {f"recall@{k}": recall_at_k(covered, n_gold, k) for k in ks}
     m["mrr@10"] = mrr_at_k(rel, 10)
     m["ndcg@10"] = ndcg_at_k(rel, 10, n_relevant)
@@ -66,17 +72,25 @@ def mean(values: Sequence[float]) -> float:
     return sum(values) / len(values) if values else 0.0
 
 
-def bootstrap_ci(values: Sequence[float], n_resamples: int = 2000, alpha: float = 0.05, seed: int = 0) -> Tuple[float, float, float]:
+def bootstrap_ci(
+    values: Sequence[float], n_resamples: int = 2000, alpha: float = 0.05, seed: int = 0
+) -> Tuple[float, float, float]:
     """(mean, lower, upper) percentile bootstrap interval of the mean."""
     if not values:
         return 0.0, 0.0, 0.0
     rng = random.Random(seed)
     n = len(values)
     means = sorted(mean([values[rng.randrange(n)] for _ in range(n)]) for _ in range(n_resamples))
-    return mean(values), means[int(n_resamples * alpha / 2)], means[min(n_resamples - 1, int(n_resamples * (1 - alpha / 2)))]
+    return (
+        mean(values),
+        means[int(n_resamples * alpha / 2)],
+        means[min(n_resamples - 1, int(n_resamples * (1 - alpha / 2)))],
+    )
 
 
-def paired_bootstrap(a: Sequence[float], b: Sequence[float], n_resamples: int = 5000, alpha: float = 0.05, seed: int = 0) -> Dict[str, float]:
+def paired_bootstrap(
+    a: Sequence[float], b: Sequence[float], n_resamples: int = 5000, alpha: float = 0.05, seed: int = 0
+) -> Dict[str, float]:
     """Compare two systems on the same queries. Returns the mean difference a - b, its percentile interval
     and `p`, the share of resamples in which a is not better than b (a small p supports "a beats b")."""
     assert len(a) == len(b), "paired comparison needs one value per query for both systems"

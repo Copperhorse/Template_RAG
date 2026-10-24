@@ -82,7 +82,9 @@ def stub():
 
 
 def make_llm(stub, timeout=2.0, retries=0, **llm_kwargs):
-    return LLMClient(LLMSettings(base_url=stub.url, timeout_s=timeout, max_retries=retries, reasoning_budget=0, **llm_kwargs))
+    return LLMClient(
+        LLMSettings(base_url=stub.url, timeout_s=timeout, max_retries=retries, reasoning_budget=0, **llm_kwargs)
+    )
 
 
 @pytest.fixture
@@ -90,7 +92,15 @@ def make_rag(tmp_path):
     from rag_template.rag import RAG
 
     def build(stub=None, **kwargs):
-        settings = Settings(data_dir=tmp_path / "data", vector_store="memory", embedder="hash", rerank="off", max_chunk_tokens=200, min_chunk_tokens=30, route_margin=None)  # routing is tested on its own
+        settings = Settings(
+            data_dir=tmp_path / "data",
+            vector_store="memory",
+            embedder="hash",
+            rerank="off",
+            max_chunk_tokens=200,
+            min_chunk_tokens=30,
+            route_margin=None,
+        )  # routing is tested on its own
         llm = make_llm(stub) if stub is not None else None
         return RAG(settings, store=InMemoryVectorStore(), embedder=HashingEmbedder(), llm=llm, **kwargs)
 

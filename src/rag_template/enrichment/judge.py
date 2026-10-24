@@ -45,7 +45,9 @@ class LLMJudge:
 
     def check(self, question: str, answer: str, source: str) -> Tuple[bool, str]:
         try:
-            verdict = self.llm.chat_json(self.SYSTEM, self.USER.format(source=source, question=question, answer=answer), 200)
+            verdict = self.llm.chat_json(
+                self.SYSTEM, self.USER.format(source=source, question=question, answer=answer), 200
+            )
         except LLMUnavailable as e:
             raise JudgeUnavailable(str(e)) from e
         if not verdict:  # unparsable: keep the deterministic verdict rather than guess

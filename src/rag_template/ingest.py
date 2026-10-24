@@ -92,7 +92,9 @@ def ingest(
     check = dedupe.check(text)
     if check.is_duplicate:
         logger.warning(f"Near-duplicate: {path} ~ {check.duplicate_ids[0]}")
-        return IngestResult("duplicate", duplicate_of=check.duplicate_ids[0], message="Near-duplicate of an existing document")
+        return IngestResult(
+            "duplicate", duplicate_of=check.duplicate_ids[0], message="Near-duplicate of an existing document"
+        )
 
     conversion = metadata.get("conversion_check")
     chunks = (chunk_fn or chunk_file)(str(path), text, chunk_config, source=source)
@@ -106,8 +108,13 @@ def ingest(
     doc_id = str(uuid.uuid4())
     try:
         db.save_document(
-            doc_id, source, check.simhash, len(text), digest,
-            kind=metadata.get("format", ""), title=metadata.get("title", ""),
+            doc_id,
+            source,
+            check.simhash,
+            len(text),
+            digest,
+            kind=metadata.get("format", ""),
+            title=metadata.get("title", ""),
             conversion_json=json.dumps(conversion) if conversion else None,
         )
         db.save_chunks(doc_id, stats["evaluated_chunks"])
@@ -122,6 +129,10 @@ def ingest(
     dedupe.add(doc_id, check.simhash)
     logger.info(f"Ingested {source}: {stats['accepted_chunks']}/{stats['total_chunks']} chunks usable")
     return IngestResult(
-        "ok", doc_id=doc_id, chunks=stats["total_chunks"], usable_chunks=stats["accepted_chunks"],
-        rejection_reasons=stats["rejection_reasons"], conversion=conversion,
+        "ok",
+        doc_id=doc_id,
+        chunks=stats["total_chunks"],
+        usable_chunks=stats["accepted_chunks"],
+        rejection_reasons=stats["rejection_reasons"],
+        conversion=conversion,
     )

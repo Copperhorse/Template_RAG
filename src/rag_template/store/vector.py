@@ -28,10 +28,16 @@ class VectorHit:
 
 class VectorStore(Protocol):
     def upsert(
-        self, ids: Sequence[str], embeddings: Sequence[Sequence[float]], documents: Sequence[str], metadatas: Sequence[Dict[str, Any]]
+        self,
+        ids: Sequence[str],
+        embeddings: Sequence[Sequence[float]],
+        documents: Sequence[str],
+        metadatas: Sequence[Dict[str, Any]],
     ) -> None: ...
 
-    def query(self, embedding: Sequence[float], n_results: int = 5, where: Optional[Dict[str, Any]] = None) -> List[VectorHit]: ...
+    def query(
+        self, embedding: Sequence[float], n_results: int = 5, where: Optional[Dict[str, Any]] = None
+    ) -> List[VectorHit]: ...
 
     def delete(self, ids: Sequence[str]) -> None: ...
 
@@ -124,7 +130,12 @@ class ChromaVectorStore:
 
     def upsert(self, ids, embeddings, documents, metadatas) -> None:
         if ids:
-            self._collection.upsert(ids=list(ids), embeddings=[list(e) for e in embeddings], documents=list(documents), metadatas=list(metadatas))
+            self._collection.upsert(
+                ids=list(ids),
+                embeddings=[list(e) for e in embeddings],
+                documents=list(documents),
+                metadatas=list(metadatas),
+            )
 
     def query(self, embedding, n_results=5, where=None) -> List[VectorHit]:
         total = self._collection.count()

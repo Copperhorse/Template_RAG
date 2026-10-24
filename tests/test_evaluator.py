@@ -26,7 +26,11 @@ def test_good_prose_is_accepted_with_a_score():
         ("[removed: corrupted latex content] \\frac{a}{b} more text follows here to be long.", {}, "Forbidden prefix"),
         ("See https://example.com/some/page for the full details of this thing.", {}, "Citation/Link"),
         ("Copyright 2024 Example Corp. All rights reserved. Do not copy this document at all.", {}, "Metadata keyword"),
-        ("1 Introduction ........ 3\n2 Methods ........ 9\n3 Results ........ 14\n4 Discussion ........ 20\n5 Notes ........ 25", {}, "Table of Contents"),
+        (
+            "1 Introduction ........ 3\n2 Methods ........ 9\n3 Results ........ 14\n4 Discussion ........ 20\n5 Notes ........ 25",
+            {},
+            "Table of Contents",
+        ),
         ("12 34 56 78 90 12 34 56 78 90 12 34 56 78 90 12 34 56", {}, "Low alpha"),
     ],
 )
@@ -43,13 +47,23 @@ def test_real_data_table_is_kept_but_a_toc_table_is_not():
 
 
 def test_prose_that_contains_code_is_classified_as_code():
-    r = judge("Use it like this:\n\ndef main():\n    run()\n\nThen call main from your script when needed.", section_header="Usage")
+    r = judge(
+        "Use it like this:\n\ndef main():\n    run()\n\nThen call main from your script when needed.",
+        section_header="Usage",
+    )
     assert r["should_use"] and r["content_type"] == "code"
     # the old pattern fired on any "import <word>" in prose
-    assert judge("We decided to import data from the legacy system, which took a long time overall.", section_header="Migration")["content_type"] == "main_content"
+    assert (
+        judge(
+            "We decided to import data from the legacy system, which took a long time overall.",
+            section_header="Migration",
+        )["content_type"]
+        == "main_content"
+    )
 
 
 # ----------------------------------------------------------------------------------- code
+
 
 def code_meta(**kw):
     return {"content_type": "code", "language": "python", "kind": "function", **kw}
@@ -87,13 +101,20 @@ def test_a_documented_function_outscores_a_bare_one():
 
 def test_licence_header_module_chunk_is_dropped_but_the_functions_below_it_are_kept():
     src = "# Copyright 2024 Example. All rights reserved.\n# Licensed under MIT.\n\n\n" + SAMPLE_PY
-    stats = ev.evaluate_chunks(chunk_file("a.py", src, ChunkConfig(max_chunk_tokens=400, min_chunk_tokens=1), source="a.py"))
+    stats = ev.evaluate_chunks(
+        chunk_file("a.py", src, ChunkConfig(max_chunk_tokens=400, min_chunk_tokens=1), source="a.py")
+    )
     kept = {s for c in stats["evaluated_chunks"] if c["evaluation"]["should_use"] for s in c["metadata"]["symbols"]}
     assert {"retry", "Cache"} <= kept
 
 
 def test_fenced_code_blocks_from_markdown_are_judged_as_code():
-    r = judge("```bash\npip install rag-template && rag ingest ./docs\n```", content_type="code", language="bash", section_header="Install")
+    r = judge(
+        "```bash\npip install rag-template && rag ingest ./docs\n```",
+        content_type="code",
+        language="bash",
+        section_header="Install",
+    )
     assert r["should_use"] and r["content_type"] == "code"
 
 
@@ -114,8 +135,11 @@ def test_batch_report_and_filter():
 def test_the_word_copyright_in_a_sentence_is_content_but_a_notice_is_boilerplate():
     readme_row = "| Module | Purpose |\n|---|---|\n| `ChunkEvaluator.py` | Flags unusable chunks (TOC, references, copyright, links, low text ratio) and scores quality. |\n| `ingester.py` | Runs the whole ingest pipeline for one file and reports the outcome. |"
     assert judge(readme_row, section_header="Modules")["should_use"]
-    for notice in ("Copyright (c) 2024 Example Corp. Licensed under the MIT licence for any purpose.", "Intro text here that is long enough.\n© 2024 Example Corp, some other words follow here.",
-                   "Published by Example Press. All rights reserved. No part of this book may be copied."):
+    for notice in (
+        "Copyright (c) 2024 Example Corp. Licensed under the MIT licence for any purpose.",
+        "Intro text here that is long enough.\n© 2024 Example Corp, some other words follow here.",
+        "Published by Example Press. All rights reserved. No part of this book may be copied.",
+    ):
         assert not judge(notice, section_header="Front matter")["should_use"], notice
 
 
@@ -126,9 +150,17 @@ def test_decorative_banner_comments_are_dropped_as_code():
 
 
 def test_figure_captions_are_kept_as_captions_not_discarded():
-    r = judge("Figure 3: The architecture of the ingestion pipeline, from upload to indexed chunks.", section_header="Architecture")
+    r = judge(
+        "Figure 3: The architecture of the ingestion pipeline, from upload to indexed chunks.",
+        section_header="Architecture",
+    )
     assert r["should_use"] and r["content_type"] == "caption" and r["reason"] == "Figure caption"
-    assert judge("Fig. 1: A high level research landscape of data collection for machine learning.", section_header="Intro")["content_type"] == "caption"
+    assert (
+        judge(
+            "Fig. 1: A high level research landscape of data collection for machine learning.", section_header="Intro"
+        )["content_type"]
+        == "caption"
+    )
     assert not judge("Fig. 2", section_header="Intro")["should_use"]  # a bare label says nothing
 
 
@@ -188,7 +220,10 @@ def test_form_blanks_do_not_reject_a_form():
 
 # ---- header filters match whole words ------------------------------------------------------------------------------
 
-@pytest.mark.parametrize("header", ["EXTRAORDINARY PUBLISHED BY AUTHORITY", "Authority of the regulator", "Indexed columns", "Preferences"])
+
+@pytest.mark.parametrize(
+    "header", ["EXTRAORDINARY PUBLISHED BY AUTHORITY", "Authority of the regulator", "Indexed columns", "Preferences"]
+)
 def test_a_header_that_merely_contains_a_filter_word_is_kept(header):
     assert judge(PROSE, section_header=header, content_type="prose")["should_use"]
 

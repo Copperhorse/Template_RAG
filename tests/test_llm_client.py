@@ -80,10 +80,15 @@ def test_health_check_fails_while_the_model_is_loading():
         make_llm(stub).check_health()
 
 
-@pytest.mark.parametrize("mode, expect_json", [("garbage", False), ("reasoning", False), ("inline_think", True), ("truncated_think", False), ("length", False)])
+@pytest.mark.parametrize(
+    "mode, expect_json",
+    [("garbage", False), ("reasoning", False), ("inline_think", True), ("truncated_think", False), ("length", False)],
+)
 def test_odd_model_output_never_crashes(mode, expect_json):
     with StubLLM(mode=mode) as stub:
-        out = make_llm(stub).generate_metadata("The retry function sleeps between attempts. " * 5, "ctx", estimated_tokens=100)
+        out = make_llm(stub).generate_metadata(
+            "The retry function sleeps between attempts. " * 5, "ctx", estimated_tokens=100
+        )
         assert bool(out) is expect_json
 
 
@@ -112,9 +117,16 @@ def test_strip_thinking_and_helpers():
     assert strip_thinking("<think>hmm</think> answer") == "answer"
     assert strip_thinking("<think>never ends") == ""
     assert [questions_per_level(t) for t in (10, 100, 500)] == [1, 2, 3]
-    assert LLMClient.normalize_tags(["Weak Labels", "weak_labels", "GanTraining", "", 5]) == ["weak_labels", "gan_training"]
+    assert LLMClient.normalize_tags(["Weak Labels", "weak_labels", "GanTraining", "", 5]) == [
+        "weak_labels",
+        "gan_training",
+    ]
     assert LLMClient.verify_tags_grounded(["weak_labels", "invented_tag"], "We use weak labels.") == ["weak_labels"]
-    trip = [{"subject": "Retry", "predicate": "calls", "object": "sleep"}, {"subject": "Retry", "predicate": "calls", "object": "kafka"}, "junk"]
+    trip = [
+        {"subject": "Retry", "predicate": "calls", "object": "sleep"},
+        {"subject": "Retry", "predicate": "calls", "object": "kafka"},
+        "junk",
+    ]
     assert LLMClient.verify_triplets_grounded(trip, "retry calls sleep") == trip[:1]
 
 
@@ -139,8 +151,10 @@ SCHEMA = {"type": "object", "properties": {"answer": {"type": "string"}}, "requi
 @pytest.mark.parametrize(
     "mode, with_schema, expected",
     [
-        ("off", True, None), (False, True, None),
-        ("json_object", True, {"type": "json_object"}), (True, False, {"type": "json_object"}),
+        ("off", True, None),
+        (False, True, None),
+        ("json_object", True, {"type": "json_object"}),
+        (True, False, {"type": "json_object"}),
         ("schema", False, {"type": "json_object"}),  # a caller without a schema still gets valid JSON
         ("schema", True, {"type": "json_schema", "json_schema": {"name": "reply", "strict": True, "schema": SCHEMA}}),
     ],
@@ -152,11 +166,17 @@ def test_response_format_follows_the_json_mode_setting(mode, with_schema, expect
 
 def test_the_schema_reaches_the_server_only_in_schema_mode():
     with StubLLM() as stub:
-        LLMClient(LLMSettings(base_url=stub.url, reasoning_budget=0, json_mode="schema")).chat_json("s", "u", 50, schema=SCHEMA)
+        LLMClient(LLMSettings(base_url=stub.url, reasoning_budget=0, json_mode="schema")).chat_json(
+            "s", "u", 50, schema=SCHEMA
+        )
         assert stub.requests[-1]["response_format"]["json_schema"]["schema"] == SCHEMA
-        LLMClient(LLMSettings(base_url=stub.url, reasoning_budget=0, json_mode="off")).chat_json("s", "u", 50, schema=SCHEMA)
+        LLMClient(LLMSettings(base_url=stub.url, reasoning_budget=0, json_mode="off")).chat_json(
+            "s", "u", 50, schema=SCHEMA
+        )
         assert "response_format" not in stub.requests[-1]
-        LLMClient(LLMSettings(base_url=stub.url, reasoning_budget=0, json_mode="json_object")).chat("plain text call", "u", 50)
+        LLMClient(LLMSettings(base_url=stub.url, reasoning_budget=0, json_mode="json_object")).chat(
+            "plain text call", "u", 50
+        )
         assert "response_format" not in stub.requests[-1]  # only structured calls are constrained; free text never is
 
 
@@ -172,6 +192,14 @@ def test_json_mode_defaults_to_schema_and_off_is_an_explicit_choice(monkeypatch)
 def test_llm_json_mode_environment_values(monkeypatch):
     from rag_template.config import Settings
 
-    for raw, want in (("schema", "schema"), ("1", "json_object"), ("true", "json_object"), ("json_object", "json_object"), ("0", "off"), ("", "off"), ("nonsense", "off")):
+    for raw, want in (
+        ("schema", "schema"),
+        ("1", "json_object"),
+        ("true", "json_object"),
+        ("json_object", "json_object"),
+        ("0", "off"),
+        ("", "off"),
+        ("nonsense", "off"),
+    ):
         monkeypatch.setenv("LLM_JSON_MODE", raw)
         assert Settings.from_env().llm.json_mode == want, raw

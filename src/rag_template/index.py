@@ -41,7 +41,9 @@ def verify_embedder(db: Database, embedder: Embedder, scope: str = "default", re
 
 
 class Indexer:
-    def __init__(self, db: Database, store: VectorStore, embedder: Embedder, batch_size: int = 64, scope: str = "default"):
+    def __init__(
+        self, db: Database, store: VectorStore, embedder: Embedder, batch_size: int = 64, scope: str = "default"
+    ):
         self.db, self.store, self.embedder, self.batch_size, self.scope = db, store, embedder, batch_size, scope
 
     def index_document(self, doc_id: str) -> int:
@@ -61,7 +63,9 @@ class Indexer:
                 ids.append(qa["qa_id"])
                 texts.append(f"Question: {qa['question_text']}\nAnswer: {qa['answer_text']}")
                 titles.append(None)
-                metas.append({"doc_id": doc_id, "chunk_id": c["chunk_id"], "kind": "qa", "difficulty": qa["difficulty"] or ""})
+                metas.append(
+                    {"doc_id": doc_id, "chunk_id": c["chunk_id"], "kind": "qa", "difficulty": qa["difficulty"] or ""}
+                )
 
         for i in range(0, len(ids), self.batch_size):
             sl = slice(i, i + self.batch_size)

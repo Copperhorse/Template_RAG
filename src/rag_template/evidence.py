@@ -50,7 +50,9 @@ def _code_units(content: str, window: int = 4) -> List[Tuple[int, int]]:
 def extract_quote(query: str, content: str, content_type: str, scorer: Scorer, min_chars: int = 20) -> Optional[Quote]:
     """The span of `content` that best answers `query`, or None if the chunk has no usable span."""
     units = _code_units(content) if content_type == "code" else _prose_units(content)
-    units = [(a, b) for a, b in units if len(content[a:b].strip()) >= min_chars] or ([(0, len(content))] if content.strip() else [])
+    units = [(a, b) for a, b in units if len(content[a:b].strip()) >= min_chars] or (
+        [(0, len(content))] if content.strip() else []
+    )
     if not units:
         return None
     scores = scorer(query, [content[a:b] for a, b in units])

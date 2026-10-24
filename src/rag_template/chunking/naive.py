@@ -13,7 +13,9 @@ from rag_template.chunking.router import is_code_file
 from rag_template.tokens import count_tokens
 
 
-def naive_chunk_file(path: str, text: str, config: Optional[ChunkConfig] = None, source: Optional[str] = None) -> List[Chunk]:
+def naive_chunk_file(
+    path: str, text: str, config: Optional[ChunkConfig] = None, source: Optional[str] = None
+) -> List[Chunk]:
     config = config or ChunkConfig()
     source = source if source is not None else path
     ctype = ContentType.CODE if is_code_file(path) else ContentType.PROSE
@@ -34,7 +36,13 @@ def naive_chunk_file(path: str, text: str, config: Optional[ChunkConfig] = None,
 
 def _make(lines: List[str], lo: int, hi: int, source: str, ctype: ContentType) -> Chunk:
     return make_chunk(
-        "\n".join(lines).strip("\n"), ctype,
-        section_header=f"{source}:{lo}-{hi}", parent_section=source, top_header=source,
-        breadcrumb=breadcrumb(source), source=source, start_line=lo, end_line=hi,
+        "\n".join(lines).strip("\n"),
+        ctype,
+        section_header=f"{source}:{lo}-{hi}",
+        parent_section=source,
+        top_header=source,
+        breadcrumb=breadcrumb(source),
+        source=source,
+        start_line=lo,
+        end_line=hi,
     )

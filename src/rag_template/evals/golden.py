@@ -59,12 +59,23 @@ def load_golden(path: str | Path) -> List[Row]:
             continue
         d = json.loads(line)
         status = _status(d.get("answerable", True))
-        rows.append(Row(
-            d["id"], d["question"], d.get("ground_truth", ""), status != "no",
-            d.get("evidence_verbatim") or [e["quote"] for e in d.get("evidence", []) if e.get("quote")], d.get("facts", []), d.get("polarity", ""),
-            d.get("question_type", ""), d.get("difficulty", ""), d.get("near_miss_chunk_ids", []),
-            status, [i["item"] for i in d.get("answer_items", []) if i.get("item")], d.get("expected_behavior", ""),
-        ))
+        rows.append(
+            Row(
+                d["id"],
+                d["question"],
+                d.get("ground_truth", ""),
+                status != "no",
+                d.get("evidence_verbatim") or [e["quote"] for e in d.get("evidence", []) if e.get("quote")],
+                d.get("facts", []),
+                d.get("polarity", ""),
+                d.get("question_type", ""),
+                d.get("difficulty", ""),
+                d.get("near_miss_chunk_ids", []),
+                status,
+                [i["item"] for i in d.get("answer_items", []) if i.get("item")],
+                d.get("expected_behavior", ""),
+            )
+        )
     return rows
 
 
@@ -81,16 +92,24 @@ def holds(quote: str, text: str, fuzzy: bool = False) -> bool:
     if not fuzzy:
         return False
     qt = set(_TOKEN.findall(quote.lower()))
-    numeric = {t for t in qt if len(t) >= 2 and any(c.isdigit() for c in t)}  # a lone digit ("pass@1") is rendering noise
-    wanted = numeric if len(numeric) >= 3 else qt  # a rendered table row or equation: its numbers and names are what a converter keeps
+    numeric = {
+        t for t in qt if len(t) >= 2 and any(c.isdigit() for c in t)
+    }  # a lone digit ("pass@1") is rendering noise
+    wanted = (
+        numeric if len(numeric) >= 3 else qt
+    )  # a rendered table row or equation: its numbers and names are what a converter keeps
     return len(wanted) >= 4 and len(wanted & set(_TOKEN.findall(text.lower()))) / len(wanted) >= FUZZY_COVERAGE
 
 
-def audit_evidence(chunks: Sequence[Dict[str, Any]], rows: List[Row], fuzzy: bool = False) -> Dict[str, List[Dict[str, Any]]]:
+def audit_evidence(
+    chunks: Sequence[Dict[str, Any]], rows: List[Row], fuzzy: bool = False
+) -> Dict[str, List[Dict[str, Any]]]:
     """Per question, per evidence quote: where it lives in the store. status = usable | rejected | split | absent (| fuzzy-usable when
     only the fuzzy match found it). `chunks`: dicts with content, should_use, reject_reason (`Database.iter_chunks()`)."""
     normed = [(norm(c["content"]), bool(c["should_use"]), c.get("reject_reason") or "") for c in chunks]
-    joined = "".join(text for text, _, _ in normed)  # norm() only filters characters, so this is norm("".join(contents))
+    joined = "".join(
+        text for text, _, _ in normed
+    )  # norm() only filters characters, so this is norm("".join(contents))
     out: Dict[str, List[Dict[str, Any]]] = {}
     for r in rows:
         items = []
@@ -140,7 +159,16 @@ def evidence_hit(text: str, quotes: List[str], fuzzy: bool = False) -> bool:
     return any(holds(q, text, fuzzy) for q in quotes)
 
 
-def run(rag, rows: List[Row], audit: Dict[str, List[Dict[str, Any]]], k: int = 5, policy: Optional[str] = None, fuzzy: bool = False, max_context_tokens: Optional[int] = None, expand_section: int = 0) -> List[Dict[str, Any]]:
+def run(
+    rag,
+    rows: List[Row],
+    audit: Dict[str, List[Dict[str, Any]]],
+    k: int = 5,
+    policy: Optional[str] = None,
+    fuzzy: bool = False,
+    max_context_tokens: Optional[int] = None,
+    expand_section: int = 0,
+) -> List[Dict[str, Any]]:
     out = []
     answerer = rag.answerer(policy)
     if max_context_tokens:
@@ -153,16 +181,38 @@ def run(rag, rows: List[Row], audit: Dict[str, List[Dict[str, Any]]], k: int = 5
         covered = sum(1 for q in r.quotes if any(holds(q, h.content, fuzzy) for h in hits))
         ans = answerer.ask(r.question, k=k, hits=hits)  # the answer is built from the hits just scored
         verified_from_evidence = any(evidence_hit(q.hit.content, r.quotes, fuzzy) for q in ans.quotes)
-        cites_evidence = any(1 <= n <= len(ans.sources) and evidence_hit(ans.sources[n - 1].content, r.quotes, fuzzy) for n in ans.citations)
-        out.append({
-            "id": r.id, "question": r.question, "kind": r.kind, "difficulty": r.difficulty, "answerable": r.status == "yes", "status": r.status,
-            "ground_truth": r.ground_truth, "evidence_status": [e["status"] for e in audit[r.id]],
-            "rank": rank, "covered": covered, "n_quotes": len(r.quotes),
-            "answer": ans.text, "refused": ans.refused, "grounded": ans.grounded, "reason": ans.reason,
-            "citations": ans.citations, "n_verified": len(ans.quotes), "verified_from_evidence": verified_from_evidence,
-            "cites_evidence": cites_evidence, "fact_score": fact_score(ans.text, r.facts, r.polarity) if r.answerable else None, "item_recall": item_recall(ans.text, r.items),
-            "sources": [h.breadcrumb for h in ans.sources], "source_content": [h.content for h in ans.sources], "seconds": round(time.time() - t, 1),
-        })
+        cites_evidence = any(
+            1 <= n <= len(ans.sources) and evidence_hit(ans.sources[n - 1].content, r.quotes, fuzzy)
+            for n in ans.citations
+        )
+        out.append(
+            {
+                "id": r.id,
+                "question": r.question,
+                "kind": r.kind,
+                "difficulty": r.difficulty,
+                "answerable": r.status == "yes",
+                "status": r.status,
+                "ground_truth": r.ground_truth,
+                "evidence_status": [e["status"] for e in audit[r.id]],
+                "rank": rank,
+                "covered": covered,
+                "n_quotes": len(r.quotes),
+                "answer": ans.text,
+                "refused": ans.refused,
+                "grounded": ans.grounded,
+                "reason": ans.reason,
+                "citations": ans.citations,
+                "n_verified": len(ans.quotes),
+                "verified_from_evidence": verified_from_evidence,
+                "cites_evidence": cites_evidence,
+                "fact_score": fact_score(ans.text, r.facts, r.polarity) if r.answerable else None,
+                "item_recall": item_recall(ans.text, r.items),
+                "sources": [h.breadcrumb for h in ans.sources],
+                "source_content": [h.content for h in ans.sources],
+                "seconds": round(time.time() - t, 1),
+            }
+        )
         print(f"[{i}/{len(rows)}] {r.id} rank={rank} refused={ans.refused} grounded={ans.grounded}", flush=True)
     return out
 
@@ -186,50 +236,106 @@ def render(records: List[Dict[str, Any]], meta: Dict[str, Any]) -> str:
     with_facts = [r for r in ans if r["fact_score"] is not None]
     k = meta["k"]
     evidence = [s for r in scored for s in r["evidence_status"]]
-    unreachable = [r["id"][-3:] for r in scored if any(s not in ("usable", "fuzzy-usable") for s in r["evidence_status"])]
-    p = [f"# Golden QA evaluation: {meta['label']}", "",
-         f"Golden file `{meta['golden']}` ({len(records)} questions: {len(ans)} answerable, {len(una)} unanswerable"
-         + (f", {len(part)} partially answerable" if part else "") + f"). Store: `{meta['store']}` "
-         f"({meta['chunks']} chunks, {meta['usable']} usable). LLM json_mode=`{meta['json_mode']}`, policy=`{meta['policy']}`, k={k}. "
-         "'Correct' = the answer contains the facts listed in the gold sidecar: a lower bound, read the answers below.", "",
-         "## 1. Ingestion: is the evidence in a usable chunk?", ""]
-    p += [f"- {s}: {_pct(evidence.count(s), len(evidence))}" for s in ("usable", "fuzzy-usable", "rejected", "split", "absent") if s != "fuzzy-usable" or evidence.count(s)]
+    unreachable = [
+        r["id"][-3:] for r in scored if any(s not in ("usable", "fuzzy-usable") for s in r["evidence_status"])
+    ]
+    p = [
+        f"# Golden QA evaluation: {meta['label']}",
+        "",
+        f"Golden file `{meta['golden']}` ({len(records)} questions: {len(ans)} answerable, {len(una)} unanswerable"
+        + (f", {len(part)} partially answerable" if part else "")
+        + f"). Store: `{meta['store']}` "
+        f"({meta['chunks']} chunks, {meta['usable']} usable). LLM json_mode=`{meta['json_mode']}`, policy=`{meta['policy']}`, k={k}. "
+        "'Correct' = the answer contains the facts listed in the gold sidecar: a lower bound, read the answers below.",
+        "",
+        "## 1. Ingestion: is the evidence in a usable chunk?",
+        "",
+    ]
+    p += [
+        f"- {s}: {_pct(evidence.count(s), len(evidence))}"
+        for s in ("usable", "fuzzy-usable", "rejected", "split", "absent")
+        if s != "fuzzy-usable" or evidence.count(s)
+    ]
     if "fuzzy-usable" in evidence:
-        p.append(f"- (fuzzy-usable: no exact match, but a chunk holds at least {int(FUZZY_COVERAGE * 100)}% of the quote's tokens; relevance below uses the same rule)")
+        p.append(
+            f"- (fuzzy-usable: no exact match, but a chunk holds at least {int(FUZZY_COVERAGE * 100)}% of the quote's tokens; relevance below uses the same rule)"
+        )
     if unreachable:
         p.append(f"- questions with unreachable evidence: {', '.join(unreachable)}")
-    p += ["", "## 2. Retrieval (answerable questions" + (" and partially answerable ones)" if part else ")"), "",
-          f"- an evidence chunk in the top {k}: {share(scored, lambda r: r['rank'])}",
-          f"- evidence chunk ranked first: {share(scored, lambda r: r['rank'] == 1)}",
-          f"- all of a question's evidence quotes covered by the top {k}: {share(scored, lambda r: r['covered'] == r['n_quotes'])}",
-          *([f"- note: the store has only {meta['usable']} usable chunks, so the top {k} is most of the store; retrieval is easy here by construction."] if meta["usable"] <= 2 * k else []),
-          "", "## 3. Answers", "",
-          f"- answered (did not refuse): {share(ans, lambda r: not r['refused'])}",
-          f"- delivered (answered and passed the gates): {share(ans, delivered)}",
-          f"- contains every required fact: {share(ans, full)}",
-          f"- contains every required fact **and** delivered: {share(ans, lambda r: full(r) and delivered(r))}",
-          f"- mean share of required facts present: {sum(r['fact_score'] for r in with_facts) / max(len(with_facts), 1):.2f}"
-          + (f" (over the {len(with_facts)} questions that list facts)" if len(with_facts) != len(ans) else ""),
-          *([f"- mean item recall over the {len(listed)} list questions that name their items: {sum(r['item_recall'] for r in listed) / len(listed):.2f}"] if listed else []),
-          f"- a verified quote comes from an evidence chunk: {share(ans, lambda r: r['verified_from_evidence'])}",
-          f"- correct among flagged answers (false alarms): {_pct(count(ans, lambda r: flagged(r) and full(r)), count(ans, flagged))}",
-          "", "## 4. Unanswerable questions (right behaviour: refuse)", "",
-          f"- refused: {share(una, lambda r: r['refused'])}",
-          f"- answered but flagged: {share(una, flagged)}",
-          f"- answered and passed the gates (the dangerous case): {share(una, delivered)}",
-          *(["", "## 4b. Partially answerable (the right reply cites what exists and says what the source does not give)", "",
-             f"- refused outright (a fail: the part that exists should be given): {share(part, lambda r: r['refused'])}",
-             f"- answered and passed the gates: {share(part, delivered)}",
-             f"- answered and flagged: {share(part, flagged)}",
-             "- whether a reply states what is missing needs reading; see section 6."] if part else []),
-          "", "## 5. By question type (answerable)", "", "| type | n | evidence in top-k | delivered | every fact | delivered and every fact |", "|---|---:|---:|---:|---:|---:|"]
+    p += [
+        "",
+        "## 2. Retrieval (answerable questions" + (" and partially answerable ones)" if part else ")"),
+        "",
+        f"- an evidence chunk in the top {k}: {share(scored, lambda r: r['rank'])}",
+        f"- evidence chunk ranked first: {share(scored, lambda r: r['rank'] == 1)}",
+        f"- all of a question's evidence quotes covered by the top {k}: {share(scored, lambda r: r['covered'] == r['n_quotes'])}",
+        *(
+            [
+                f"- note: the store has only {meta['usable']} usable chunks, so the top {k} is most of the store; retrieval is easy here by construction."
+            ]
+            if meta["usable"] <= 2 * k
+            else []
+        ),
+        "",
+        "## 3. Answers",
+        "",
+        f"- answered (did not refuse): {share(ans, lambda r: not r['refused'])}",
+        f"- delivered (answered and passed the gates): {share(ans, delivered)}",
+        f"- contains every required fact: {share(ans, full)}",
+        f"- contains every required fact **and** delivered: {share(ans, lambda r: full(r) and delivered(r))}",
+        f"- mean share of required facts present: {sum(r['fact_score'] for r in with_facts) / max(len(with_facts), 1):.2f}"
+        + (f" (over the {len(with_facts)} questions that list facts)" if len(with_facts) != len(ans) else ""),
+        *(
+            [
+                f"- mean item recall over the {len(listed)} list questions that name their items: {sum(r['item_recall'] for r in listed) / len(listed):.2f}"
+            ]
+            if listed
+            else []
+        ),
+        f"- a verified quote comes from an evidence chunk: {share(ans, lambda r: r['verified_from_evidence'])}",
+        f"- correct among flagged answers (false alarms): {_pct(count(ans, lambda r: flagged(r) and full(r)), count(ans, flagged))}",
+        "",
+        "## 4. Unanswerable questions (right behaviour: refuse)",
+        "",
+        f"- refused: {share(una, lambda r: r['refused'])}",
+        f"- answered but flagged: {share(una, flagged)}",
+        f"- answered and passed the gates (the dangerous case): {share(una, delivered)}",
+        *(
+            [
+                "",
+                "## 4b. Partially answerable (the right reply cites what exists and says what the source does not give)",
+                "",
+                f"- refused outright (a fail: the part that exists should be given): {share(part, lambda r: r['refused'])}",
+                f"- answered and passed the gates: {share(part, delivered)}",
+                f"- answered and flagged: {share(part, flagged)}",
+                "- whether a reply states what is missing needs reading; see section 6.",
+            ]
+            if part
+            else []
+        ),
+        "",
+        "## 5. By question type (answerable)",
+        "",
+        "| type | n | evidence in top-k | delivered | every fact | delivered and every fact |",
+        "|---|---:|---:|---:|---:|---:|",
+    ]
     for kind in sorted({r["kind"] for r in ans}):
         g = [r for r in ans if r["kind"] == kind]
-        p.append(f"| {kind} | {len(g)} | {count(g, lambda r: r['rank'])} | {count(g, delivered)} | {count(g, full)} | {count(g, lambda r: full(r) and delivered(r))} |")
-    p += ["", "## 6. Every question", "", "| id | type | ev. | rank | outcome | facts | answer |", "|---|---|---|---|---|---|---|"]
+        p.append(
+            f"| {kind} | {len(g)} | {count(g, lambda r: r['rank'])} | {count(g, delivered)} | {count(g, full)} | {count(g, lambda r: full(r) and delivered(r))} |"
+        )
+    p += [
+        "",
+        "## 6. Every question",
+        "",
+        "| id | type | ev. | rank | outcome | facts | answer |",
+        "|---|---|---|---|---|---|---|",
+    ]
     for r in records:
         outcome = "refused" if r["refused"] else ("pass" if r["grounded"] else "flag: " + r["reason"][:40])
         facts = "-" if r["fact_score"] is None else f"{r['fact_score']:.2f}"
-        p.append(f"| {r['id'][-3:]} | {r['kind'][:8]} | {','.join(s[0] for s in r['evidence_status']) or '-'} | {r['rank'] or '-'} | {outcome} | {facts} | "
-                 f"{r['answer'][:150].replace('|', '/').replace(chr(10), ' ')} |")
+        p.append(
+            f"| {r['id'][-3:]} | {r['kind'][:8]} | {','.join(s[0] for s in r['evidence_status']) or '-'} | {r['rank'] or '-'} | {outcome} | {facts} | "
+            f"{r['answer'][:150].replace('|', '/').replace(chr(10), ' ')} |"
+        )
     return "\n".join(p) + "\n"

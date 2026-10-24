@@ -34,7 +34,9 @@ CORPORA: Dict[str, Tuple[str, str, str]] = {
 class Pool:
     queries: List[Query] = field(default_factory=list)
     corpus_of: Dict[str, str] = field(default_factory=dict)  # query id -> corpus label
-    unreachable: Dict[str, int] = field(default_factory=dict)  # corpus -> golden questions dropped (no verbatim evidence in a usable chunk)
+    unreachable: Dict[str, int] = field(
+        default_factory=dict
+    )  # corpus -> golden questions dropped (no verbatim evidence in a usable chunk)
     unanswerable: Dict[str, int] = field(default_factory=dict)
 
 
@@ -64,7 +66,9 @@ def build_pool_dir(labels: Sequence[str], root: Path, dest: Path) -> Tuple[Path,
     return dest, alias, corpus_of_file
 
 
-def load_pool(labels: Sequence[str], root: Path, chunks: Optional[Sequence[Dict]] = None, alias: Optional[Dict[str, str]] = None) -> Pool:
+def load_pool(
+    labels: Sequence[str], root: Path, chunks: Optional[Sequence[Dict]] = None, alias: Optional[Dict[str, str]] = None
+) -> Pool:
     """All gold queries of `labels`, ids prefixed with the corpus. `chunks` (Database.iter_chunks of the pooled index) is needed to
     resolve the quotes of golden-format files; without it only {file, snippet} golds are loaded."""
     pool = Pool()
@@ -89,7 +93,9 @@ def load_pool(labels: Sequence[str], root: Path, chunks: Optional[Sequence[Dict]
             if row.status != "yes":  # partial and unanswerable questions have no single gold passage
                 pool.unanswerable[label] = pool.unanswerable.get(label, 0) + 1
                 continue
-            items = [GoldItem(pdf, q) for q in row.quotes if any(src == pdf and norm(q) in text for src, text in usable)]
+            items = [
+                GoldItem(pdf, q) for q in row.quotes if any(src == pdf and norm(q) in text for src, text in usable)
+            ]
             if not items:
                 pool.unreachable[label] = pool.unreachable.get(label, 0) + 1
                 continue
@@ -103,7 +109,9 @@ def wrong_document(ranked: Sequence[Dict], gold_files: set, k: int = 1) -> bool:
     return not any(r["source"] in gold_files for r in ranked[:k])
 
 
-def temp_pool(labels: Sequence[str], root: Path) -> Tuple[tempfile.TemporaryDirectory, Path, Dict[str, str], Dict[str, str]]:
+def temp_pool(
+    labels: Sequence[str], root: Path
+) -> Tuple[tempfile.TemporaryDirectory, Path, Dict[str, str], Dict[str, str]]:
     tmp = tempfile.TemporaryDirectory(prefix="rag-pool-")
     dest, alias, corpus_of_file = build_pool_dir(labels, root, Path(tmp.name))
     return tmp, dest, alias, corpus_of_file

@@ -207,7 +207,9 @@ class EnrichmentManager:
         quote = cand["source_quote"] = located  # the stored quote is chunk text, never the paraphrase
 
         # combined prompt sets already return the answer with the question
-        answer = (cand.get("answer") or "").strip() or self.llm.generate_reference_answer(question, content, quote, ctype)
+        answer = (cand.get("answer") or "").strip() or self.llm.generate_reference_answer(
+            question, content, quote, ctype
+        )
         if not answer or "NOT ENOUGH INFORMATION" in answer.replace("_", " ").upper():
             return False, _reject(level, question, answer, "Pass 2 refused")
         if DEFLECTION_PATTERN.search(answer):

@@ -70,7 +70,9 @@ class SynthStats:
         self.rejected[why] = self.rejected.get(why, 0) + 1
 
 
-def sample_chunks(chunks: Sequence[Dict], n: int, seed: int = 0, min_tokens: int = 80, max_tokens: int = 400) -> List[Dict]:
+def sample_chunks(
+    chunks: Sequence[Dict], n: int, seed: int = 0, min_tokens: int = 80, max_tokens: int = 400
+) -> List[Dict]:
     """Usable chunks of a useful size, half code and half documentation when both exist."""
     pool = [c for c in chunks if c["should_use"] and min_tokens <= count_tokens(c["content"]) <= max_tokens]
     rng = random.Random(seed)
@@ -79,12 +81,16 @@ def sample_chunks(chunks: Sequence[Dict], n: int, seed: int = 0, min_tokens: int
     rng.shuffle(code), rng.shuffle(docs)
     half = n // 2
     picked = code[:half] + docs[: n - min(half, len(code))]
-    picked += [c for c in (code[half:] + docs[n - min(half, len(code)) :]) if c not in picked][: max(0, n - len(picked))]
+    picked += [c for c in (code[half:] + docs[n - min(half, len(code)) :]) if c not in picked][
+        : max(0, n - len(picked))
+    ]
     rng.shuffle(picked)
     return picked[:n]
 
 
-def accept(raw: dict, chunk: Dict, seen_q: List[str], seen_ev: set, stats: SynthStats, max_shared_words: int = 4) -> Optional[Query]:
+def accept(
+    raw: dict, chunk: Dict, seen_q: List[str], seen_ev: set, stats: SynthStats, max_shared_words: int = 4
+) -> Optional[Query]:
     q = str(raw.get("question") or "").strip()
     ev = str(raw.get("evidence") or "").strip()
     if not q or not ev:
@@ -113,10 +119,21 @@ def accept(raw: dict, chunk: Dict, seen_q: List[str], seen_ev: set, stats: Synth
     seen_q.append(q.lower())
     seen_ev.add(norm(exact))
     stats.kept += 1
-    return Query("", q, "code" if chunk["content_type"] == "code" else "doc", "synthetic", True, [GoldItem(chunk["source"], exact)], [], "synthetic")
+    return Query(
+        "",
+        q,
+        "code" if chunk["content_type"] == "code" else "doc",
+        "synthetic",
+        True,
+        [GoldItem(chunk["source"], exact)],
+        [],
+        "synthetic",
+    )
 
 
-def generate_queries(chunks: Sequence[Dict], llm, n: int = 150, seed: int = 0, max_shared_words: int = 4, on_progress=None) -> tuple:
+def generate_queries(
+    chunks: Sequence[Dict], llm, n: int = 150, seed: int = 0, max_shared_words: int = 4, on_progress=None
+) -> tuple:
     """Returns (queries, stats). `llm` needs `.chat_json(system, user, tokens)`."""
     stats, seen_q, seen_ev, out = SynthStats(), [], set(), []
     for i, chunk in enumerate(sample_chunks(chunks, int(n * 1.6), seed)):
@@ -125,7 +142,11 @@ def generate_queries(chunks: Sequence[Dict], llm, n: int = 150, seed: int = 0, m
         stats.attempted += 1
         kind = "source code" if chunk["content_type"] == "code" else "documentation"
         raw = llm.chat_json(SYSTEM, USER.format(kind=kind, passage=chunk["content"][:3000], n=max_shared_words), 400)
-        q = accept(raw, chunk, seen_q, seen_ev, stats, max_shared_words) if raw else (stats.reject("no parsable JSON") or None)
+        q = (
+            accept(raw, chunk, seen_q, seen_ev, stats, max_shared_words)
+            if raw
+            else (stats.reject("no parsable JSON") or None)
+        )
         if q:
             q.id = f"s{len(out) + 1:03d}"
             out.append(q)

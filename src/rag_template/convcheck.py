@@ -38,7 +38,9 @@ from rag_template.mdclean import FENCE, TAGS
 from rag_template.pdf_profile import MATH_PAGES_THRESHOLD, profile_pdf
 
 _TOKEN = re.compile(r"\d+(?:[.,]\d+)+%?|[A-Za-z0-9]+%?")
-_NUMBER_LIKE = re.compile(r"\d+(?:[.,]\d+)*(?:%|[a-z]{1,2})?$")  # a number, optionally with a unit ("5m", "87.4", "20%"); not "the1"
+_NUMBER_LIKE = re.compile(
+    r"\d+(?:[.,]\d+)*(?:%|[a-z]{1,2})?$"
+)  # a number, optionally with a unit ("5m", "87.4", "20%"); not "the1"
 _ORDINAL = re.compile(r"(\d)\s*\^?\s*(?:st|nd|rd|th)\b", re.I)  # "23rd", "23 rd", "23^rd" are one thing
 _SPACED_LETTERS = re.compile(r"(?:(?<![A-Za-z0-9])[A-Za-z](?![A-Za-z0-9]) ){6,}[A-Za-z](?![A-Za-z0-9])")
 _PAGE_NUMBER_LINE = re.compile(r"^\s*\d{1,4}\s*$")
@@ -67,7 +69,13 @@ class ConversionReport:
 
     @classmethod
     def from_dict(cls, d: Dict[str, Any]) -> "ConversionReport":
-        return cls(d.get("verdict", "not-run"), d.get("reason", ""), d.get("metrics", {}), d.get("warnings", []), d.get("examples", {}))
+        return cls(
+            d.get("verdict", "not-run"),
+            d.get("reason", ""),
+            d.get("metrics", {}),
+            d.get("warnings", []),
+            d.get("examples", {}),
+        )
 
     @property
     def flagged(self) -> bool:
@@ -90,7 +98,9 @@ def reference_pages(pdf: str | Path, timeout: float = 120.0) -> Tuple[Optional[L
     if not exe:
         return None, "pdftotext (Poppler) is not installed"
     try:
-        out = subprocess.run([exe, "-enc", "UTF-8", str(pdf), "-"], capture_output=True, text=True, timeout=timeout, check=True).stdout
+        out = subprocess.run(
+            [exe, "-enc", "UTF-8", str(pdf), "-"], capture_output=True, text=True, timeout=timeout, check=True
+        ).stdout
     except (subprocess.SubprocessError, OSError) as e:
         return None, f"pdftotext failed: {e}"
     pages = out.split("\f")
@@ -165,18 +175,24 @@ def _numeric(f: _Findings, ref_c, ref_all: Sequence[str], out_c, md_norm: str, r
     if fused:
         f.examples["fused"] = [_snippet(md_norm, t) for t in fused[:5]]
         if report:
-            f.warnings.append(f"{len(fused)} numeric token(s) fused from two words of the PDF, e.g. '{fused[0]}' (a footnote marker or label glued to a value)")
+            f.warnings.append(
+                f"{len(fused)} numeric token(s) fused from two words of the PDF, e.g. '{fused[0]}' (a footnote marker or label glued to a value)"
+            )
     if other:
         f.examples["novel"] = [_snippet(md_norm, t) for t in other[:5]]
 
-    ref_nums = [t for t in ref_c if _NUMBER_LIKE.match(t)]  # pdftotext itself glues markers to words ("thursday2"); those are not numbers the converter lost
+    ref_nums = [
+        t for t in ref_c if _NUMBER_LIKE.match(t)
+    ]  # pdftotext itself glues markers to words ("thursday2"); those are not numbers the converter lost
     dropped = [t for t in ref_nums if out_c.get(t, 0) == 0]
     ratio = len(dropped) / max(len(ref_nums), 1)
     f.metrics["dropped_numeric_ratio"] = round(ratio, 4)
     if dropped:
         f.examples["dropped"] = dropped[:8]
     if report and ratio > DROPPED_RATIO_WARN:
-        f.warnings.append(f"{100 * ratio:.0f}% of the PDF's distinct numbers are missing from the output (lost table cells, equations or figures)")
+        f.warnings.append(
+            f"{100 * ratio:.0f}% of the PDF's distinct numbers are missing from the output (lost table cells, equations or figures)"
+        )
 
 
 def _coverage_and_order(f: _Findings, ref: Sequence[str], out: Sequence[str], ref_c, out_c) -> None:
@@ -189,7 +205,9 @@ def _coverage_and_order(f: _Findings, ref: Sequence[str], out: Sequence[str], re
     if cover < COVERAGE_WARN:
         f.warnings.append(f"only {100 * cover:.0f}% of the PDF's words appear in the output (dropped text)")
     if gap > ORDER_GAP_WARN:
-        f.warnings.append(f"words are present but {100 * gap:.0f} points of 6-word runs are broken (reordered or interleaved text)")
+        f.warnings.append(
+            f"words are present but {100 * gap:.0f} points of 6-word runs are broken (reordered or interleaved text)"
+        )
 
 
 def _junk(f: _Findings, ref_text: str, markdown: str) -> None:
@@ -202,7 +220,9 @@ def _junk(f: _Findings, ref_text: str, markdown: str) -> None:
     f.metrics["replacement_chars"] = markdown.count("\ufffd")
     f.metrics["leftover_tags"] = len(TAGS.findall(markdown))
     if f.metrics["replacement_chars"] or f.metrics["leftover_tags"]:
-        f.warnings.append(f"{int(f.metrics['replacement_chars'])} replacement character(s), {int(f.metrics['leftover_tags'])} leftover HTML tag(s)")
+        f.warnings.append(
+            f"{int(f.metrics['replacement_chars'])} replacement character(s), {int(f.metrics['leftover_tags'])} leftover HTML tag(s)"
+        )
 
 
 def _structure(f: _Findings, markdown: str) -> None:
@@ -234,8 +254,14 @@ def compare(reference_pages_: Sequence[str], markdown: str, numeric_checks: bool
     _structure(f, markdown)
 
     m = f.metrics
-    bad = (numeric_checks and m["fused_numeric"] >= FUSED_BAD) or m["flattened_code_blocks"] >= FLAT_CODE_BAD or m["word_recall"] < BAD_COVERAGE
-    return ConversionReport("bad" if bad else "warn" if f.warnings else "ok", metrics=m, warnings=f.warnings, examples=f.examples)
+    bad = (
+        (numeric_checks and m["fused_numeric"] >= FUSED_BAD)
+        or m["flattened_code_blocks"] >= FLAT_CODE_BAD
+        or m["word_recall"] < BAD_COVERAGE
+    )
+    return ConversionReport(
+        "bad" if bad else "warn" if f.warnings else "ok", metrics=m, warnings=f.warnings, examples=f.examples
+    )
 
 
 def _ragged_tables(md: str) -> Tuple[int, int]:

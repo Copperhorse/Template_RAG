@@ -4,7 +4,7 @@ import textwrap
 from rag_template.chunking import ChunkConfig, MarkdownChunker, chunk_markdown
 from rag_template.tokens import count_tokens
 
-DOC = textwrap.dedent('''
+DOC = textwrap.dedent("""
     # Guide
 
     Intro paragraph that explains what the guide covers and why it exists in the first place.
@@ -29,7 +29,7 @@ DOC = textwrap.dedent('''
     |------|-------|
     | a    | 1     |
     | b    | 2     |
-''').lstrip()
+""").lstrip()
 
 
 def test_header_hierarchy_and_protected_blocks():
@@ -89,10 +89,14 @@ def test_other_languages_in_a_fence_are_cut_at_blank_lines_and_refenced():
 
 
 def test_short_adjacent_prose_in_one_section_is_merged_and_ids_are_linked():
-    cs = chunk_markdown("# T\n\nFirst short paragraph here.\n\nSecond short paragraph here.\n\n## U\n\nOther section text.\n")
+    cs = chunk_markdown(
+        "# T\n\nFirst short paragraph here.\n\nSecond short paragraph here.\n\n## U\n\nOther section text.\n"
+    )
     assert len(cs) == 2 and "First" in cs[0]["content"] and "Second" in cs[0]["content"]
     assert cs[0]["next_chunk_id"] == cs[1]["chunk_id"] and cs[1]["prev_chunk_id"] == cs[0]["chunk_id"]
-    off = chunk_markdown("# T\n\nFirst short paragraph here.\n\nSecond short paragraph here.\n", merge_short_chunks=False)
+    off = chunk_markdown(
+        "# T\n\nFirst short paragraph here.\n\nSecond short paragraph here.\n", merge_short_chunks=False
+    )
     assert len(off) == 1  # one paragraph block per split; merging only matters across splitter pieces
 
 
@@ -127,10 +131,18 @@ def _chunks(md):
 
 
 def test_caption_above_a_table_is_attached_to_it():
-    md = "# Results\n\nSome intro text about the experiments that is long enough to be a paragraph of its own.\n\n_Table 1._ Ablation of the model on Sudoku comparing accuracy.\n\n" + TABLE + "\n\nAfter the table."
+    md = (
+        "# Results\n\nSome intro text about the experiments that is long enough to be a paragraph of its own.\n\n_Table 1._ Ablation of the model on Sudoku comparing accuracy.\n\n"
+        + TABLE
+        + "\n\nAfter the table."
+    )
     tables = [c for c in _chunks(md) if c["metadata"]["content_type"] == "table"]
-    assert len(tables) == 1 and tables[0]["content"].startswith("_Table 1._ Ablation") and "87.4" in tables[0]["content"]
-    assert not any("Ablation of the model" in c["content"] for c in _chunks(md) if c["metadata"]["content_type"] != "table")
+    assert (
+        len(tables) == 1 and tables[0]["content"].startswith("_Table 1._ Ablation") and "87.4" in tables[0]["content"]
+    )
+    assert not any(
+        "Ablation of the model" in c["content"] for c in _chunks(md) if c["metadata"]["content_type"] != "table"
+    )
 
 
 def test_caption_below_a_table_is_attached_when_there_is_none_above():
@@ -151,7 +163,10 @@ def test_every_part_of_an_oversize_table_repeats_the_header_and_carries_the_capt
     chunks = _chunks(md)
     tables = [c for c in chunks if c["metadata"]["content_type"] == "table"]
     assert len(tables) > 1
-    assert all(c["content"].startswith("_Table 9._ A very long table of values.") and "|Name|Value|" in c["content"] for c in tables)
+    assert all(
+        c["content"].startswith("_Table 9._ A very long table of values.") and "|Name|Value|" in c["content"]
+        for c in tables
+    )
     assert not any("A very long table" in c["content"] for c in chunks if c["metadata"]["content_type"] != "table")
     assert sum(c["content"].count("|row ") for c in tables) == 400  # no row lost or duplicated
 
@@ -159,19 +174,35 @@ def test_every_part_of_an_oversize_table_repeats_the_header_and_carries_the_capt
 def test_a_continuation_row_inherits_the_label_of_the_row_it_continues():
     from rag_template.tables import inherit_row_labels as _inherit_row_labels
 
-    rows = ["| Qwen3-30B-Thinking | 66.1 | 41.5 |", "| + SSD | 68.2 | 46.7 |", "| Llama-3.1-8B | 12.7 | 0.0 |", "| w/ ACT | 86.1 | 5 |", "| + SSD (ours) | 1 | 2 |"]
+    rows = [
+        "| Qwen3-30B-Thinking | 66.1 | 41.5 |",
+        "| + SSD | 68.2 | 46.7 |",
+        "| Llama-3.1-8B | 12.7 | 0.0 |",
+        "| w/ ACT | 86.1 | 5 |",
+        "| + SSD (ours) | 1 | 2 |",
+    ]
     out = _inherit_row_labels(rows)
     assert out[0] == rows[0] and out[2] == rows[2]
     assert out[1] == "| Qwen3-30B-Thinking / + SSD | 68.2 | 46.7 |"
-    assert out[3] == "| Llama-3.1-8B / w/ ACT | 86.1 | 5 |" and out[4] == "| Llama-3.1-8B / + SSD (ours) | 1 | 2 |"  # the parent stays the last ordinary label
+    assert (
+        out[3] == "| Llama-3.1-8B / w/ ACT | 86.1 | 5 |" and out[4] == "| Llama-3.1-8B / + SSD (ours) | 1 | 2 |"
+    )  # the parent stays the last ordinary label
 
 
 def test_split_table_rows_name_their_parent_in_the_chunk_that_holds_them():
     wide = " | ".join(f"Column heading number {i} with a long descriptive name here" for i in range(40))
-    md = f"# R\n\n_Table 2._ Per-model results.\n\n| Model | {wide} |\n|---|{'---|' * 40}\n| Qwen3-30B-Thinking | " + " | ".join(["1.0"] * 40) + " |\n| + SSD | " + " | ".join(["2.0"] * 40) + " |\n"
+    md = (
+        f"# R\n\n_Table 2._ Per-model results.\n\n| Model | {wide} |\n|---|{'---|' * 40}\n| Qwen3-30B-Thinking | "
+        + " | ".join(["1.0"] * 40)
+        + " |\n| + SSD | "
+        + " | ".join(["2.0"] * 40)
+        + " |\n"
+    )
     tables = [c for c in _chunks(md) if c["metadata"]["content_type"] == "table"]
     holder = next(c for c in tables if "2.0" in c["content"])
-    assert "Qwen3-30B-Thinking / + SSD" in holder["content"] and holder["content"].startswith("_Table 2._ Per-model results.")
+    assert "Qwen3-30B-Thinking / + SSD" in holder["content"] and holder["content"].startswith(
+        "_Table 2._ Per-model results."
+    )
 
 
 def test_ordinary_row_labels_are_never_rewritten():
@@ -181,11 +212,18 @@ def test_ordinary_row_labels_are_never_rewritten():
     assert _inherit_row_labels(rows) == rows
 
 
-@pytest.mark.parametrize("line,is_caption", [
-    ("Table 3 Generation-time and evaluation-time decoding settings.", True),
-    ("Table 1: Ablation of the model.", True), ("_Table 2._ Per-model results.", True), ("**Table IV.** Results", True),
-    ("Table 3 shows that the method works.", False), ("Table 3, which compares the methods, is below.", False), ("Table of contents", False),
-])
+@pytest.mark.parametrize(
+    "line,is_caption",
+    [
+        ("Table 3 Generation-time and evaluation-time decoding settings.", True),
+        ("Table 1: Ablation of the model.", True),
+        ("_Table 2._ Per-model results.", True),
+        ("**Table IV.** Results", True),
+        ("Table 3 shows that the method works.", False),
+        ("Table 3, which compares the methods, is below.", False),
+        ("Table of contents", False),
+    ],
+)
 def test_what_counts_as_a_table_caption(line, is_caption):
     from rag_template.chunking.markdown import _TABLE_CAPTION
 
@@ -195,6 +233,8 @@ def test_what_counts_as_a_table_caption(line, is_caption):
 def test_a_caption_between_two_tables_goes_to_the_second_one():
     t1 = "| a | b |\n|---|---|\n| 1 | 2 |"
     t2 = "| c | d |\n|---|---|\n| 3 | 4 |"
-    chunks = chunk_markdown(f"# S\n\n{t1}\n\nTable 2. Second thing\n\n{t2}\n", min_chunk_tokens=1, merge_short_chunks=False)
+    chunks = chunk_markdown(
+        f"# S\n\n{t1}\n\nTable 2. Second thing\n\n{t2}\n", min_chunk_tokens=1, merge_short_chunks=False
+    )
     tables = [c["content"] for c in chunks if c["metadata"]["content_type"] == "table"]
     assert len(tables) == 2 and "Second thing" not in tables[0] and "Second thing" in tables[1]

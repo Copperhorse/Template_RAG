@@ -39,7 +39,11 @@ def highlight_html(content: str, quotes: Sequence[str], content_type: str = "pro
         out.append(f"<mark>{html.escape(content[a:b])}</mark>")
         pos = b
     out.append(html.escape(content[pos:]))
-    return "<div style='white-space:pre-wrap;font-family:var(--font-mono,monospace);font-size:0.85rem'>" + "".join(out) + "</div>"
+    return (
+        "<div style='white-space:pre-wrap;font-family:var(--font-mono,monospace);font-size:0.85rem'>"
+        + "".join(out)
+        + "</div>"
+    )
 
 
 def looks_tabular(text: str) -> bool:
@@ -60,9 +64,15 @@ def hit_rows(hits: Sequence[Any]) -> List[Dict[str, Any]]:
     """One table row per hit, showing what each retrieval stage thought of it."""
     return [
         {
-            "#": i, "chunk": h.label, "type": h.content_type, "dense #": h.dense_rank, "BM25 #": h.lexical_rank,
-            "RRF": round(h.rrf_score, 4), "rerank": None if h.rerank_score is None else round(h.rerank_score, 2),
-            "final": round(h.score, 4), "found by": "+".join(h.via),
+            "#": i,
+            "chunk": h.label,
+            "type": h.content_type,
+            "dense #": h.dense_rank,
+            "BM25 #": h.lexical_rank,
+            "RRF": round(h.rrf_score, 4),
+            "rerank": None if h.rerank_score is None else round(h.rerank_score, 2),
+            "final": round(h.score, 4),
+            "found by": "+".join(h.via),
         }
         for i, h in enumerate(hits, 1)
     ]
@@ -73,11 +83,18 @@ def chunk_rows(rows: Sequence[Dict[str, Any]], rejected_only: bool = False) -> L
     for r in rows:
         if rejected_only and r["should_use"]:
             continue
-        out.append({
-            "#": r["chunk_index"], "usable": bool(r["should_use"]), "type": r["content_type"], "tokens": r["estimated_tokens"],
-            "quality": round(r.get("quality_score") or 0), "section": r["section_header"][:60], "why rejected": r.get("reject_reason") or "",
-            "chunk_id": r["chunk_id"],
-        })
+        out.append(
+            {
+                "#": r["chunk_index"],
+                "usable": bool(r["should_use"]),
+                "type": r["content_type"],
+                "tokens": r["estimated_tokens"],
+                "quality": round(r.get("quality_score") or 0),
+                "section": r["section_header"][:60],
+                "why rejected": r.get("reject_reason") or "",
+                "chunk_id": r["chunk_id"],
+            }
+        )
     return out
 
 
@@ -88,7 +105,10 @@ def verdict(answer: Any) -> Tuple[str, str]:
             return "info", f"No answer was generated: {answer.reason}."
         return "info", "The model declined: the sources do not contain the answer."
     if answer.grounded:
-        return "success", f"Passed every gate: {len(answer.quotes)} verified quote(s), {len(answer.citations)} citation(s)."
+        return (
+            "success",
+            f"Passed every gate: {len(answer.quotes)} verified quote(s), {len(answer.citations)} citation(s).",
+        )
     return "warning", f"Flagged: {answer.reason}"
 
 
@@ -105,4 +125,8 @@ def recall_frame(json_path: str | Path) -> Optional[List[Dict[str, Any]]]:
     except (OSError, ValueError, KeyError):
         return None
     ks = ("recall@1", "recall@5", "recall@10")
-    return [{"system": name, **{k: round(100 * s["summary"][k]["mean"], 1) for k in ks}} for name, s in systems.items() if "summary" in s]
+    return [
+        {"system": name, **{k: round(100 * s["summary"][k]["mean"], 1) for k in ks}}
+        for name, s in systems.items()
+        if "summary" in s
+    ]

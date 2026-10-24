@@ -8,7 +8,13 @@ import pytest
 from rag_template.config import Settings
 from rag_template.evals.rerank_stability import kendall_tau, order_sensitivity
 from rag_template.rerankers import (
-    FALLBACK_RERANK_MODEL, JINA_ID, JINA_SHA, TRUSTED_REMOTE_CODE, CrossEncoderReranker, JinaListwiseReranker, make_reranker,
+    FALLBACK_RERANK_MODEL,
+    JINA_ID,
+    JINA_SHA,
+    TRUSTED_REMOTE_CODE,
+    CrossEncoderReranker,
+    JinaListwiseReranker,
+    make_reranker,
 )
 
 
@@ -23,7 +29,10 @@ class FakeListwise:
         self.calls.append(len(documents))
         if self.fail_over is not None and len(documents) > self.fail_over:
             raise RuntimeError("CUDA out of memory. Tried to allocate 2.00 GiB")
-        scored = [{"document": d, "relevance_score": self.scorer(query, d), "index": i, "embedding": None} for i, d in enumerate(documents)]
+        scored = [
+            {"document": d, "relevance_score": self.scorer(query, d), "index": i, "embedding": None}
+            for i, d in enumerate(documents)
+        ]
         return sorted(scored, key=lambda r: r["relevance_score"], reverse=True)
 
 
@@ -53,7 +62,11 @@ def test_an_out_of_memory_error_splits_the_list_and_keeps_every_score_in_place(c
     with caplog.at_level(logging.WARNING, logger="rag_template.rerankers"):
         scores = jina(model).rerank("cache", docs)
     assert scores == [float(i) for i in range(8)]  # input order preserved across the sub-passes
-    assert model.calls[0] == 8 and max(model.calls[1:]) <= 4 and any("not strictly comparable" in r.message for r in caplog.records)
+    assert (
+        model.calls[0] == 8
+        and max(model.calls[1:]) <= 4
+        and any("not strictly comparable" in r.message for r in caplog.records)
+    )
 
 
 def test_other_errors_are_not_swallowed_and_a_single_doc_oom_is_raised():
@@ -72,16 +85,23 @@ def test_the_audited_model_and_commit_are_pinned_and_trusted():
     assert jina(FakeListwise()).revision == JINA_SHA  # the default revision is the audited commit, never "main"
 
 
-@pytest.mark.parametrize("model, revision, trust, allowed", [
-    (JINA_ID, "", False, True),  # the audited pair needs no flag
-    (JINA_ID, JINA_SHA, False, True),
-    (JINA_ID, "0123456789abcdef", False, False),  # same model, different commit: not audited
-    ("jinaai/jina-reranker-v3", "", False, False),  # a sibling model: not audited
-    ("jinaai/jina-reranker-v3", "", True, True),  # explicit opt-in
-])
-def test_remote_code_is_only_trusted_for_the_audited_pair_unless_the_user_opts_in(monkeypatch, model, revision, trust, allowed):
+@pytest.mark.parametrize(
+    "model, revision, trust, allowed",
+    [
+        (JINA_ID, "", False, True),  # the audited pair needs no flag
+        (JINA_ID, JINA_SHA, False, True),
+        (JINA_ID, "0123456789abcdef", False, False),  # same model, different commit: not audited
+        ("jinaai/jina-reranker-v3", "", False, False),  # a sibling model: not audited
+        ("jinaai/jina-reranker-v3", "", True, True),  # explicit opt-in
+    ],
+)
+def test_remote_code_is_only_trusted_for_the_audited_pair_unless_the_user_opts_in(
+    monkeypatch, model, revision, trust, allowed
+):
     loaded = []
-    monkeypatch.setattr(JinaListwiseReranker, "_load", lambda self, dtype: loaded.append((self.name, self.revision)) or FakeListwise())
+    monkeypatch.setattr(
+        JinaListwiseReranker, "_load", lambda self, dtype: loaded.append((self.name, self.revision)) or FakeListwise()
+    )
     if allowed:
         JinaListwiseReranker(model, revision, trust)
         assert loaded == [(model, revision or (JINA_SHA if model == JINA_ID else "main"))]
@@ -93,7 +113,9 @@ def test_remote_code_is_only_trusted_for_the_audited_pair_unless_the_user_opts_i
 
 def test_the_factory_picks_the_adapter_by_model_id(monkeypatch):
     monkeypatch.setattr(JinaListwiseReranker, "_load", lambda self, dtype: FakeListwise())
-    monkeypatch.setattr("rag_template.rerankers.CrossEncoderReranker.__init__", lambda self, name=None: setattr(self, "name", name))
+    monkeypatch.setattr(
+        "rag_template.rerankers.CrossEncoderReranker.__init__", lambda self, name=None: setattr(self, "name", name)
+    )
     assert isinstance(make_reranker(JINA_ID), JinaListwiseReranker)
     assert isinstance(make_reranker("cross-encoder/ms-marco-MiniLM-L-6-v2"), CrossEncoderReranker)
     assert make_reranker("BAAI/some-other-ranker").name == "BAAI/some-other-ranker"
@@ -101,16 +123,27 @@ def test_the_factory_picks_the_adapter_by_model_id(monkeypatch):
 
 def test_settings_defaults_and_environment(monkeypatch):
     s = Settings()
-    assert s.rerank_model == JINA_ID and s.rerank_revision == "" and s.rerank_top == 20 and s.rerank_trust_remote_code is False
+    assert (
+        s.rerank_model == JINA_ID
+        and s.rerank_revision == ""
+        and s.rerank_top == 20
+        and s.rerank_trust_remote_code is False
+    )
     monkeypatch.setenv("RAG_RERANK_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2")
     monkeypatch.setenv("RAG_RERANK_REVISION", "abc123")
     monkeypatch.setenv("RAG_TRUST_REMOTE_CODE", "1")
     monkeypatch.setenv("RAG_RERANK_TOP", "40")
     s = Settings.from_env()
-    assert (s.rerank_model, s.rerank_revision, s.rerank_trust_remote_code, s.rerank_top) == ("cross-encoder/ms-marco-MiniLM-L-6-v2", "abc123", True, 40)
+    assert (s.rerank_model, s.rerank_revision, s.rerank_trust_remote_code, s.rerank_top) == (
+        "cross-encoder/ms-marco-MiniLM-L-6-v2",
+        "abc123",
+        True,
+        40,
+    )
 
 
 # ------------------------------------------------------- the facade: fallback must be loud and "on" must be strict
+
 
 def make_rag(tmp_path, **settings_kw):
     from rag_template.rag import RAG
@@ -138,7 +171,9 @@ def test_auto_falls_back_to_the_small_cross_encoder_with_a_warning(tmp_path, mon
     with caplog.at_level(logging.WARNING, logger="rag_template"):
         r = make_rag(tmp_path, rerank="auto").reranker
     assert isinstance(r, FakeCE) and r.name == FALLBACK_RERANK_MODEL
-    assert any("falling back" in m.message and JINA_ID in m.message and "RAG_RERANK=on" in m.message for m in caplog.records)
+    assert any(
+        "falling back" in m.message and JINA_ID in m.message and "RAG_RERANK=on" in m.message for m in caplog.records
+    )
 
 
 def test_on_mode_raises_instead_of_falling_back_and_off_disables(tmp_path, monkeypatch):
@@ -172,12 +207,17 @@ def test_the_configured_candidate_count_reaches_the_retriever(tmp_path):
 
 # -------------------------------------------------------------------------------- order stability metrics
 
+
 def test_kendall_tau_known_values():
     assert kendall_tau([1, 2, 3], [10, 20, 30]) == 1.0
     assert kendall_tau([1, 2, 3], [3, 2, 1]) == -1.0
     assert kendall_tau([1, 2, 3, 4], [1, 3, 2, 4]) == pytest.approx((5 - 1) / 6)
-    assert kendall_tau([1, 1, 1], [1, 2, 3]) == 0.0 and kendall_tau([1], [1]) == 1.0  # one list constant: undefined, reported as 0
-    assert kendall_tau([1, 1, 2], [1, 1, 2]) == 1.0 and kendall_tau([5, 5, 5], [7, 7, 7]) == 1.0  # identical lists with ties agree
+    assert (
+        kendall_tau([1, 1, 1], [1, 2, 3]) == 0.0 and kendall_tau([1], [1]) == 1.0
+    )  # one list constant: undefined, reported as 0
+    assert (
+        kendall_tau([1, 1, 2], [1, 1, 2]) == 1.0 and kendall_tau([5, 5, 5], [7, 7, 7]) == 1.0
+    )  # identical lists with ties agree
     assert kendall_tau([1, 2, 2, 3], [1, 2, 3, 3]) == pytest.approx(0.8)  # hand-computed tau-b: (4 - 0) / sqrt(5 * 5)
 
 

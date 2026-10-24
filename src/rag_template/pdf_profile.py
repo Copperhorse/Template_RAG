@@ -25,7 +25,10 @@ _MATH_FONT = re.compile(
     re.I,
 )
 _SYMBOL_FONT = re.compile(r"^symbol", re.I)
-_MONO_FONT = re.compile(r"(courier|mono|consolas|menlo|inconsolata|lucidaconsole|source ?code|fira ?code|cmtt|dejavusansmono|jetbrains)", re.I)
+_MONO_FONT = re.compile(
+    r"(courier|mono|consolas|menlo|inconsolata|lucidaconsole|source ?code|fira ?code|cmtt|dejavusansmono|jetbrains)",
+    re.I,
+)
 # Greek, mathematical operators, arrows, super/subscripts and the n-ary/relations blocks
 _MATH_CHAR = re.compile(r"[Ͱ-Ͽ⁰-₟←-⇿∀-⋿⨀-⫿⟀-⟯⦀-⧿]")
 
@@ -74,7 +77,9 @@ def _profile(path: str, size: int, mtime_ns: int, sample_pages: int) -> PdfProfi
                             continue
                         page_chars += k
                         font = span["font"].split("+")[-1]
-                        is_math_font = bool(_MATH_FONT.search(font)) and not (k == 1 and _SYMBOL_FONT.match(font))  # Word/PowerPoint bullets are one Symbol glyph
+                        is_math_font = bool(_MATH_FONT.search(font)) and not (
+                            k == 1 and _SYMBOL_FONT.match(font)
+                        )  # Word/PowerPoint bullets are one Symbol glyph
                         if is_math_font:
                             math_font += k
                             page_math += k
@@ -90,7 +95,8 @@ def _profile(path: str, size: int, mtime_ns: int, sample_pages: int) -> PdfProfi
                 math_pages += 1
     total = max(chars, 1)
     return PdfProfile(
-        pages=n, sampled=len(idx),
+        pages=n,
+        sampled=len(idx),
         scanned_share=scanned / max(len(idx), 1),
         math_font_share=math_font / total,
         math_char_share=math_chars / total,
@@ -100,11 +106,13 @@ def _profile(path: str, size: int, mtime_ns: int, sample_pages: int) -> PdfProfi
 
 
 SCANNED_THRESHOLD = 0.5  # share of sampled pages with no text layer
-MATH_PAGES_THRESHOLD = 0.2  # measured gap: math-heavy books 0.33-0.65, everything else <= 0.10 (see evals/results/pdf_backends.md)
+MATH_PAGES_THRESHOLD = (
+    0.2  # measured gap: math-heavy books 0.33-0.65, everything else <= 0.10 (see evals/results/pdf_backends.md)
+)
 
 
 def choose_backend(profile: PdfProfile) -> str:
-    """"docling" for scans and formula-heavy documents, otherwise "pymupdf4llm". Thresholds come from 13 documents
+    """ "docling" for scans and formula-heavy documents, otherwise "pymupdf4llm". Thresholds come from 13 documents
     of which only 4 had a known better backend; treat them as a starting point, not a result. A book that mixes
     heavy math and code goes to docling, which keeps its equations but may flatten code (unresolved)."""
     if profile.scanned_share >= SCANNED_THRESHOLD:

@@ -35,7 +35,13 @@ def kendall_tau(a: Sequence[float], b: Sequence[float]) -> float:
     return (concordant - discordant) / denom if denom else 0.0
 
 
-def order_sensitivity(rerank: Callable[[str, List[str]], List[float]], query: str, texts: Sequence[str], n_shuffles: int = 5, seed: int = 0) -> Dict[str, float]:
+def order_sensitivity(
+    rerank: Callable[[str, List[str]], List[float]],
+    query: str,
+    texts: Sequence[str],
+    n_shuffles: int = 5,
+    seed: int = 0,
+) -> Dict[str, float]:
     """Scores of the original order are the reference. For each shuffle: tau against the reference, whether the top-1 item
     is the same, and the largest absolute change of any item's score."""
     base = rerank(query, list(texts))

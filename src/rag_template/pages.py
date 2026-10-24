@@ -71,7 +71,7 @@ def assign_pages(chunks: Sequence[Dict[str, Any]], text: str, marks: Sequence[Se
 
 
 def page_label(metadata: Dict[str, Any]) -> str:
-    """"p. 5", "pp. 5-6" or "" for a chunk without a page."""
+    """ "p. 5", "pp. 5-6" or "" for a chunk without a page."""
     page, end = metadata.get("page"), metadata.get("page_end")
     if not page:
         return ""

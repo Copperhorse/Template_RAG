@@ -40,6 +40,7 @@ def counts(db, doc_id):
 
 # ---------------------------------------------------------------------------- end to end
 
+
 def test_code_and_prose_documents_are_enriched_and_gated(db, tmp_path, stub):
     code = load(db, tmp_path, "retry.py", SAMPLE_PY)
     prose = load(db, tmp_path, "deploy.md", SAMPLE_MD)
@@ -79,16 +80,22 @@ def test_combined_prompt_set_asks_for_answers_in_one_call(db, tmp_path, stub):
     llm.prompts = get_prompt_set("combined_fewshot")
     EnrichmentManager(db, llm, real_gates()).run()
     assert db.get_qa_for_document(doc)
-    assert any("Write up to" in r["messages"][-1]["content"] and "EACH level" in r["messages"][-1]["content"] for r in stub.chat_requests("questions"))
+    assert any(
+        "Write up to" in r["messages"][-1]["content"] and "EACH level" in r["messages"][-1]["content"]
+        for r in stub.chat_requests("questions")
+    )
 
 
 # ------------------------------------------------------------------------- failure model
+
 
 def test_unparsable_metadata_is_a_rejection_not_a_crash(db, tmp_path):
     with StubLLM(chat_modes={"metadata": "garbage"}) as stub:
         doc = load(db, tmp_path, "deploy.md", SAMPLE_MD)
         EnrichmentManager(db, make_llm(stub), AcceptAll_gates()).run()
-    assert db.rejection_summary() == {"Metadata generation failed": len(db.get_chunk_ids_for_document(doc, usable_only=True))}
+    assert db.rejection_summary() == {
+        "Metadata generation failed": len(db.get_chunk_ids_for_document(doc, usable_only=True))
+    }
     assert counts(db, doc)["qa"] == 0 and not counts(db, doc)["pending"]
 
 
@@ -144,6 +151,7 @@ def test_a_run_that_dies_halfway_resumes_without_redoing_finished_chunks(db, tmp
 
 # ------------------------------------------------------------------------------- the gates
 
+
 class FakeLLM:
     def __init__(self, answer="", prompts=None):
         self.answer, self.asked = answer, []
@@ -174,7 +182,11 @@ def test_gate_order_and_reasons(db):
     cases = [
         (good, cand(question=""), "Invalid Pass 1"),
         (good, cand(quote="too short"), "Invalid Pass 1"),
-        (good, cand(quote="A quote that was invented by the model and is not in the chunk."), "Weak quote: not found in chunk"),
+        (
+            good,
+            cand(quote="A quote that was invented by the model and is not in the chunk."),
+            "Weak quote: not found in chunk",
+        ),
         ("NOT_ENOUGH_INFORMATION", cand(), "Pass 2 refused"),
         ("", cand(), "Pass 2 refused"),
         ("The text does not specify where the tag is stored.", cand(), "Deflection"),
@@ -212,7 +224,9 @@ def test_maths_quotes_must_be_verbatim_and_use_the_math_checker(db):
             return False, "NLI Contradiction (0.9 > 0.6)"
 
     gates = Gates(prose=AcceptAll(), math=Math())
-    ok, rej = gate(db, "It is the mean squared error over the batch.", cand("What is the loss?", quote), chunk, "math", gates)
+    ok, rej = gate(
+        db, "It is the mean squared error over the batch.", cand("What is the loss?", quote), chunk, "math", gates
+    )
     assert not ok and rej["reason"].startswith("NLI") and seen == [quote]
     ok, rej = gate(db, "x", cand("What is the loss?", quote.replace("frac", "dfrac")), chunk, "math", gates)
     assert not ok and rej["reason"] == "Math quote not verbatim"
@@ -223,17 +237,29 @@ def test_code_candidates_use_the_code_checker_and_line_snapped_quotes(db):
     c = cand("What does retry raise when every attempt fails?", "raise RuntimeError('gave up')")
     ok, _ = gate(db, "It raises `RuntimeError`.", c, chunk, "code")
     assert ok and c["source_quote"] == "    raise RuntimeError('gave up')"
-    ok, rej = gate(db, "It raises `GiveUpError`.", cand("What does retry raise when every attempt fails?", "raise RuntimeError('gave up')"), chunk, "code")
+    ok, rej = gate(
+        db,
+        "It raises `GiveUpError`.",
+        cand("What does retry raise when every attempt fails?", "raise RuntimeError('gave up')"),
+        chunk,
+        "code",
+    )
     assert not ok and "Unsupported identifier" in rej["reason"]
 
 
 def test_deflection_pattern():
-    for s in ("The text does not specify the value.", "The code does not show a default.", "This is not mentioned in the text.", "It cannot be determined from the passage."):
+    for s in (
+        "The text does not specify the value.",
+        "The code does not show a default.",
+        "This is not mentioned in the text.",
+        "It cannot be determined from the passage.",
+    ):
         assert DEFLECTION_PATTERN.search(s), s
     assert not DEFLECTION_PATTERN.search("The manifest stores the previous tag.")
 
 
 # ------------------------------------------------------------------------------- judge
+
 
 class Judge:
     name = "test-judge"
@@ -265,9 +291,25 @@ def test_a_judge_outage_is_an_outage_not_a_rejection(db, tmp_path, stub):
 def test_judge_is_skipped_for_maths(db):
     judge = Judge(lambda item: (False, "veto"))
     mgr = EnrichmentManager(db, FakeLLM(), Gates.uniform(AcceptAll()), judge=judge)
-    chunk = {"chunk_id": "c1", "content": "The loss is $L = (y - p)^2$ summed over the whole batch of examples.", "estimated_tokens": 100, "content_type": "math"}
+    chunk = {
+        "chunk_id": "c1",
+        "content": "The loss is $L = (y - p)^2$ summed over the whole batch of examples.",
+        "estimated_tokens": 100,
+        "content_type": "math",
+    }
     db.save_document("d", "d.md", None, 1)
-    db.save_chunks("d", [{"chunk_id": "c1", "chunk_index": 0, "content": chunk["content"], "metadata": {"content_type": "math"}, "estimated_tokens": 100}])
+    db.save_chunks(
+        "d",
+        [
+            {
+                "chunk_id": "c1",
+                "chunk_index": 0,
+                "content": chunk["content"],
+                "metadata": {"content_type": "math"},
+                "estimated_tokens": 100,
+            }
+        ],
+    )
     with StubLLM() as stub:
         mgr.llm = make_llm(stub)
         mgr.process_chunk(chunk, "ctx")

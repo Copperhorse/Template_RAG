@@ -9,8 +9,24 @@ import pytest
 from rag_template.enrichment.llm import LLMClient
 from rag_template.retrieve import REFUSAL, Answerer, Hit
 
-PROSE = Hit("c1", "d1", "deploy.md", 1.0, "A rollback redeploys the previous image tag. The tag is stored in the release manifest and completes in under two minutes.", "deploy.md > Rollbacks")
-CODE = Hit("c2", "d1", "retry.py", 0.9, "def retry(fn, attempts=3):\n    for i in range(attempts):\n        try:\n            return fn()\n        except OSError:\n            time.sleep(2 ** i)", "retry.py > retry", "code", {"language": "python"})
+PROSE = Hit(
+    "c1",
+    "d1",
+    "deploy.md",
+    1.0,
+    "A rollback redeploys the previous image tag. The tag is stored in the release manifest and completes in under two minutes.",
+    "deploy.md > Rollbacks",
+)
+CODE = Hit(
+    "c2",
+    "d1",
+    "retry.py",
+    0.9,
+    "def retry(fn, attempts=3):\n    for i in range(attempts):\n        try:\n            return fn()\n        except OSError:\n            time.sleep(2 ** i)",
+    "retry.py > retry",
+    "code",
+    {"language": "python"},
+)
 Q1 = "A rollback redeploys the previous image tag."
 Q2 = "The tag is stored in the release manifest and completes in under two minutes."
 
@@ -21,9 +37,11 @@ class StaticRetriever:
 
     def span_scorer(self):
         """Word overlap with the query: a deterministic stand-in for the cross-encoder."""
+
         def score(query, texts):
             q = set(re.findall(r"\w+", query.lower()))
             return [float(len(q & set(re.findall(r"\w+", t.lower())))) for t in texts]
+
         return score
 
     def search(self, query, k=5, doc_id=None, **kw):
@@ -60,23 +78,38 @@ def test_supported_cited_and_quoted_answer_passes():
 
 
 def test_the_stored_quote_is_the_exact_chunk_text_not_the_models_paraphrase():
-    a, _ = ask(reply("A rollback redeploys the previous image tag [S1].", (1, "rollback redeploys the previous image tag")))
+    a, _ = ask(
+        reply("A rollback redeploys the previous image tag [S1].", (1, "rollback redeploys the previous image tag"))
+    )
     assert a.grounded and a.quotes[0].text == Q1  # snapped to the whole sentence, punctuation restored
 
 
 def test_an_invented_quote_is_dropped_and_leaves_the_citation_unsupported():
-    a, _ = ask(reply("A rollback redeploys the previous image tag [S1].", (1, "Rollbacks are performed by the platform team overnight.")))
+    a, _ = ask(
+        reply(
+            "A rollback redeploys the previous image tag [S1].",
+            (1, "Rollbacks are performed by the platform team overnight."),
+        )
+    )
     assert not a.grounded and "no verified quote" in a.reason
     assert a.unverified_quotes and a.unverified_quotes[0][0] == 1 and not a.quotes
 
 
 def test_one_good_quote_keeps_the_answer_while_a_bad_one_is_reported():
-    a, _ = ask(reply("A rollback redeploys the previous image tag [S1].", (1, Q1), (1, "An invented sentence about something else entirely.")))
+    a, _ = ask(
+        reply(
+            "A rollback redeploys the previous image tag [S1].",
+            (1, Q1),
+            (1, "An invented sentence about something else entirely."),
+        )
+    )
     assert a.grounded and len(a.quotes) == 1 and len(a.unverified_quotes) == 1
 
 
 def test_every_cited_source_needs_its_own_quote():
-    a, _ = ask(reply("A rollback redeploys the previous tag [S1], stored in the manifest [S2].", (1, Q1)), hits=(PROSE, CODE))
+    a, _ = ask(
+        reply("A rollback redeploys the previous tag [S1], stored in the manifest [S2].", (1, Q1)), hits=(PROSE, CODE)
+    )
     assert not a.grounded and "[S2]" in a.reason
 
 
@@ -144,7 +177,9 @@ def test_context_budget_limits_how_many_sources_can_be_cited():
 @pytest.mark.parametrize("source", [1, "1", [1], "[S1]", ["1"], "source 1", "Source [S1]", 1.0])
 def test_models_write_the_source_number_in_many_ways_and_all_are_understood(source):
     """Regression: Gemma 4 E2B wrote "source": [S1]; the answer was correct but was flagged as having no quote."""
-    raw = json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [{"source": source, "quote": Q1}]})
+    raw = json.dumps(
+        {"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [{"source": source, "quote": Q1}]}
+    )
     a, _ = ask(raw)
     assert a.grounded, a.reason
     assert [q.source for q in a.quotes] == [1]
@@ -152,7 +187,9 @@ def test_models_write_the_source_number_in_many_ways_and_all_are_understood(sour
 
 @pytest.mark.parametrize("source", [None, "", "none", [], True, "the first source"])
 def test_a_verbatim_quote_with_no_usable_id_is_attributed_by_its_text(source):
-    raw = json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [{"source": source, "quote": Q1}]})
+    raw = json.dumps(
+        {"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [{"source": source, "quote": Q1}]}
+    )
     a, _ = ask(raw)
     assert a.grounded, a.reason
     assert [(q.source, q.text) for q in a.quotes] == [(1, Q1)] and not a.unverified_quotes
@@ -161,20 +198,31 @@ def test_a_verbatim_quote_with_no_usable_id_is_attributed_by_its_text(source):
 @pytest.mark.parametrize("source", [None, "", "the first source"])
 def test_a_quote_with_no_usable_id_that_is_not_in_any_source_is_dropped_and_reported(source):
     invented = "Rollbacks are performed by the platform team overnight."
-    a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [{"source": source, "quote": invented}]}))
+    a, _ = ask(
+        json.dumps(
+            {
+                "answer": "A rollback redeploys the previous image tag [S1].",
+                "quotes": [{"source": source, "quote": invented}],
+            }
+        )
+    )
     assert not a.grounded and "no verified quote" in a.reason
     assert a.unverified_quotes == [(0, invented)]  # visible to the user, with source 0 meaning "no id given"
 
 
 def test_a_quote_given_as_a_bare_string_is_located_by_its_text():
-    a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag [S2].", "quotes": [Q1]}), hits=(CODE, PROSE))
+    a, _ = ask(
+        json.dumps({"answer": "A rollback redeploys the previous image tag [S2].", "quotes": [Q1]}), hits=(CODE, PROSE)
+    )
     assert a.grounded, a.reason
     assert [(q.source, q.hit) for q in a.quotes] == [(2, PROSE)]
 
 
 def test_a_quote_found_in_two_sources_is_not_guessed_when_it_has_no_id():
     twin = Hit("c3", "d1", "copy.md", 0.8, PROSE.content, "copy.md > Rollbacks")
-    a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [Q1]}), hits=(PROSE, twin))
+    a, _ = ask(
+        json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [Q1]}), hits=(PROSE, twin)
+    )
     assert not a.grounded and a.unverified_quotes == [(0, Q1)]
 
 
@@ -183,14 +231,23 @@ def test_quotes_that_are_not_a_list_of_objects_do_not_crash():
         a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": quotes}))
         assert not a.grounded and a.unverified_quotes == []
     a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag [S1].", "quotes": [1, "x", None]}))
-    assert not a.grounded and a.unverified_quotes == [(0, "x")]  # a string is a quote without an id; numbers and null are ignored
+    assert not a.grounded and a.unverified_quotes == [
+        (0, "x")
+    ]  # a string is a quote without an id; numbers and null are ignored
 
 
-TABLE = ("| Variable | Default | Effect |\n|---|---|---|\n| `QP_TOKEN_TTL_SECONDS` | `604800` (7 days) | Token lifetime. |\n"
-         "| `QP_MAX_UPLOAD_MB` | `50` | Upload size limit. |")
+TABLE = (
+    "| Variable | Default | Effect |\n|---|---|---|\n| `QP_TOKEN_TTL_SECONDS` | `604800` (7 days) | Token lifetime. |\n"
+    "| `QP_MAX_UPLOAD_MB` | `50` | Upload size limit. |"
+)
 TABLE_HIT = Hit("c9", "d", "docs/configuration.md", 1.0, TABLE, "Configuration > Security")
 # What Gemma 4 E2B really wrote for this question: right answer, right chunk, but the quote has a column header spliced in.
-GEMMA_REPLY = json.dumps({"answer": "The default token lifetime is 7 days [S1].", "quotes": [{"source": [1], "quote": "QP_TOKEN_TTL_SECONDS | Default | 604800 (7 days)"}]})
+GEMMA_REPLY = json.dumps(
+    {
+        "answer": "The default token lifetime is 7 days [S1].",
+        "quotes": [{"source": [1], "quote": "QP_TOKEN_TTL_SECONDS | Default | 604800 (7 days)"}],
+    }
+)
 
 
 def test_the_real_gemma_reply_is_dropped_by_the_strict_policy_and_accepted_by_the_tolerant_one():
@@ -200,23 +257,34 @@ def test_the_real_gemma_reply_is_dropped_by_the_strict_policy_and_accepted_by_th
     assert tolerant.grounded, tolerant.reason
     q = tolerant.quotes[0]
     assert q.how == "loose"
-    assert q.text in TABLE and "| `QP_TOKEN_TTL_SECONDS` | `604800` (7 days) | Token lifetime. |" in q.text  # real, contiguous table text containing the row
-    assert "QP_MAX_UPLOAD_MB" not in q.text and "Default | 604800" not in q.text  # not the model's wording, not the unrelated rows
+    assert (
+        q.text in TABLE and "| `QP_TOKEN_TTL_SECONDS` | `604800` (7 days) | Token lifetime. |" in q.text
+    )  # real, contiguous table text containing the row
+    assert (
+        "QP_MAX_UPLOAD_MB" not in q.text and "Default | 604800" not in q.text
+    )  # not the model's wording, not the unrelated rows
     assert not tolerant.unverified_quotes
 
 
 def test_the_tolerant_policy_still_rejects_invented_and_foreign_quotes():
-    for quote in ("Rollbacks are handled by the platform team every night of the week.",
-                  "QP_REFRESH_TOKEN_LIFETIME | Default | 90 days | Refresh lifetime",  # plausible, invented
-                  "def retry(fn, attempts=3):  time.sleep(2 ** i)"):  # real text, from another chunk
-        a, _ = ask(reply("The default token lifetime is 7 days [S1].", (1, quote)), hits=(TABLE_HIT,), policy="tolerant")
+    for quote in (
+        "Rollbacks are handled by the platform team every night of the week.",
+        "QP_REFRESH_TOKEN_LIFETIME | Default | 90 days | Refresh lifetime",  # plausible, invented
+        "def retry(fn, attempts=3):  time.sleep(2 ** i)",
+    ):  # real text, from another chunk
+        a, _ = ask(
+            reply("The default token lifetime is 7 days [S1].", (1, quote)), hits=(TABLE_HIT,), policy="tolerant"
+        )
         assert not a.grounded and a.unverified_quotes, quote
 
 
 def test_how_a_quote_matched_is_recorded():
     a, _ = ask(reply("A rollback redeploys the previous image tag [S1].", (1, Q1)), policy="tolerant")
     assert a.quotes[0].how == "exact"
-    a, _ = ask(reply("A rollback redeploys the previous image tag [S1].", (1, "a rollback redeploys the previous image tag")), policy="tolerant")
+    a, _ = ask(
+        reply("A rollback redeploys the previous image tag [S1].", (1, "a rollback redeploys the previous image tag")),
+        policy="tolerant",
+    )
     assert a.quotes[0].how in ("exact", "fuzzy") and a.quotes[0].text == Q1
 
 
@@ -232,9 +300,16 @@ def test_missing_quotes_are_extracted_only_under_the_lenient_policy_and_labelled
 
 
 def test_extraction_does_not_rescue_an_unsupported_answer():
-    a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag within 9 minutes [S1]."}), policy="lenient")
+    a, _ = ask(
+        json.dumps({"answer": "A rollback redeploys the previous image tag within 9 minutes [S1]."}), policy="lenient"
+    )
     assert not a.grounded and "number" in a.reason
-    a, _ = ask(json.dumps({"answer": "Rollbacks trigger kubernetes autoscaling controllers across multiple datacenters [S1]."}), policy="lenient")
+    a, _ = ask(
+        json.dumps(
+            {"answer": "Rollbacks trigger kubernetes autoscaling controllers across multiple datacenters [S1]."}
+        ),
+        policy="lenient",
+    )
     assert not a.grounded and "Unsupported" in a.reason
     a, _ = ask(json.dumps({"answer": "A rollback redeploys the previous image tag [S9]."}), policy="lenient")
     assert not a.grounded and "do not exist" in a.reason
@@ -243,8 +318,16 @@ def test_extraction_does_not_rescue_an_unsupported_answer():
 
 
 def test_a_fabricated_quote_is_still_reported_even_when_extraction_lets_a_supported_answer_through():
-    a, _ = ask(reply("A rollback redeploys the previous image tag [S1].", (1, "Rollbacks are performed by the platform team overnight.")), policy="lenient")
-    assert a.grounded and a.unverified_quotes and a.quotes[0].how == "extracted"  # visible to the reader, who sees it was not the model's quote
+    a, _ = ask(
+        reply(
+            "A rollback redeploys the previous image tag [S1].",
+            (1, "Rollbacks are performed by the platform team overnight."),
+        ),
+        policy="lenient",
+    )
+    assert (
+        a.grounded and a.unverified_quotes and a.quotes[0].how == "extracted"
+    )  # visible to the reader, who sees it was not the model's quote
 
 
 def test_the_lenient_policy_checks_support_against_the_cited_chunk_not_the_quotes():
@@ -259,12 +342,16 @@ def test_judge_is_pure_so_a_recorded_reply_can_be_regated_under_every_policy():
 
     answerer = Answerer(StaticRetriever([TABLE_HIT]), llm=None)
     parsed = LLMClient.extract_json(GEMMA_REPLY)
-    verdicts = {name: answerer.judge(parsed, [TABLE_HIT], "default token lifetime", policy=p).grounded for name, p in POLICIES.items()}
+    verdicts = {
+        name: answerer.judge(parsed, [TABLE_HIT], "default token lifetime", policy=p).grounded
+        for name, p in POLICIES.items()
+    }
     assert verdicts == {"strict": False, "tolerant": True, "balanced": True, "lenient": True}
     assert parsed == LLMClient.extract_json(GEMMA_REPLY)  # judging never mutates the recorded reply
 
 
 # ------------------------------------------------------------------ answer format and natural-wording refusals
+
 
 @pytest.mark.parametrize(
     "text, refusal",
@@ -276,7 +363,10 @@ def test_judge_is_pure_so_a_recorded_reply_can_be_regated_under_every_policy():
         ("The document does not mention a Postgres connection string.", True),
         ("There is no information about Slack notifications in the context.", True),
         ("Not enough information to answer.", True),
-        ("The sources do not say, but a rollback redeploys the previous tag [S1].", False),  # it cites: an answer, judged as one
+        (
+            "The sources do not say, but a rollback redeploys the previous tag [S1].",
+            False,
+        ),  # it cites: an answer, judged as one
         ("A rollback redeploys the previous image tag [S1].", False),
         ("The context window of the model is large.", False),
         ("Documents are stored in SQLite.", False),
@@ -297,7 +387,10 @@ def test_the_schema_and_prompt_follow_the_requested_order():
     from rag_template.retrieve import answer_schema, system_prompt
 
     first, quotes_first = answer_schema(), answer_schema(quotes_first=True)
-    assert list(first["properties"]) == ["answer", "quotes"] and list(quotes_first["properties"]) == ["quotes", "answer"]
+    assert list(first["properties"]) == ["answer", "quotes"] and list(quotes_first["properties"]) == [
+        "quotes",
+        "answer",
+    ]
     assert first["required"] == ["answer", "quotes"] and quotes_first["additionalProperties"] is False
     assert first["properties"]["quotes"]["items"]["properties"]["source"] == {"type": "string", "pattern": "^S[0-9]+$"}
     assert system_prompt().index('"answer"') < system_prompt().index('"quotes"') < system_prompt(True).index('"answer"')
@@ -327,7 +420,9 @@ def test_the_answerer_sends_its_schema_to_the_client():
             return {"answer": REFUSAL, "quotes": []}
 
     Answerer(StaticRetriever([PROSE]), Spy(), quotes_first=True).ask("q")
-    assert list(seen["schema"]["properties"]) == ["quotes", "answer"] and seen["system"].index('"quotes"') < seen["system"].index('"answer"')
+    assert list(seen["schema"]["properties"]) == ["quotes", "answer"] and seen["system"].index('"quotes"') < seen[
+        "system"
+    ].index('"answer"')
 
 
 def test_the_answer_lists_question_words_that_no_source_contains():
@@ -341,6 +436,7 @@ def test_the_answer_lists_question_words_that_no_source_contains():
 
 # ------------------------------------------------------------------ the optional pre-LLM relevance gate
 
+
 def scored(hit, score):
     from dataclasses import replace
 
@@ -349,16 +445,30 @@ def scored(hit, score):
 
 def test_a_weak_best_score_refuses_without_calling_the_llm():
     llm = FakeLLM(reply("A rollback redeploys the previous image tag [S1].", (1, Q1)))
-    a = Answerer(StaticRetriever([scored(PROSE, 0.05), scored(CODE, 0.10)]), llm, min_relevance=0.2).ask("What is the Slack webhook?")
-    assert a.refused and a.grounded and a.text == REFUSAL and "no retrieved source looks relevant" in a.reason and "0.1" in a.reason
+    a = Answerer(StaticRetriever([scored(PROSE, 0.05), scored(CODE, 0.10)]), llm, min_relevance=0.2).ask(
+        "What is the Slack webhook?"
+    )
+    assert (
+        a.refused
+        and a.grounded
+        and a.text == REFUSAL
+        and "no retrieved source looks relevant" in a.reason
+        and "0.1" in a.reason
+    )
     assert llm.prompts == []  # the whole point: no model call
 
 
 def test_one_good_source_is_enough_and_the_gate_does_not_touch_the_answer_checks():
     llm = FakeLLM(reply("A rollback redeploys the previous image tag [S1].", (1, Q1)))
-    a = Answerer(StaticRetriever([scored(PROSE, 0.40), scored(CODE, 0.01)]), llm, min_relevance=0.2).ask("What happens on rollback?")
+    a = Answerer(StaticRetriever([scored(PROSE, 0.40), scored(CODE, 0.01)]), llm, min_relevance=0.2).ask(
+        "What happens on rollback?"
+    )
     assert not a.refused and a.grounded and llm.prompts
-    bad = Answerer(StaticRetriever([scored(PROSE, 0.40)]), FakeLLM(reply("A rollback redeploys the previous image tag within 9 minutes [S1].", (1, Q1))), min_relevance=0.2).ask("q")
+    bad = Answerer(
+        StaticRetriever([scored(PROSE, 0.40)]),
+        FakeLLM(reply("A rollback redeploys the previous image tag within 9 minutes [S1].", (1, Q1))),
+        min_relevance=0.2,
+    ).ask("q")
     assert not bad.grounded and "number" in bad.reason  # the content checks still run after the gate
 
 
@@ -366,7 +476,9 @@ def test_the_gate_is_off_by_default_and_inactive_without_reranker_scores(caplog)
     import logging
 
     llm = FakeLLM(reply("A rollback redeploys the previous image tag [S1].", (1, Q1)))
-    assert not Answerer(StaticRetriever([scored(PROSE, -5.0)]), llm).ask("q").refused  # default: off, even for a terrible score
+    assert (
+        not Answerer(StaticRetriever([scored(PROSE, -5.0)]), llm).ask("q").refused
+    )  # default: off, even for a terrible score
     with caplog.at_level(logging.WARNING, logger="rag_template.retrieve"):
         a = Answerer(StaticRetriever([PROSE]), llm, min_relevance=0.2).ask("q")  # PROSE has rerank_score None
     assert not a.refused and any("relevance gate is inactive" in r.message for r in caplog.records)
@@ -384,6 +496,7 @@ def test_the_gate_threshold_comes_from_the_settings(monkeypatch):
 
 # ---- a model that cites the document's own numbering ("[22]" for section 22) instead of the source number ----
 
+
 def test_an_out_of_range_source_number_is_resolved_from_the_verbatim_quote():
     a, _ = ask(reply("A rollback redeploys the previous image tag [S22].", (22, Q1)), hits=(CODE, PROSE))
     assert a.grounded and a.citations == [2] and a.text.endswith("[S2].")
@@ -391,7 +504,13 @@ def test_an_out_of_range_source_number_is_resolved_from_the_verbatim_quote():
 
 
 def test_an_out_of_range_number_with_an_invented_quote_is_still_flagged():
-    a, _ = ask(reply("A rollback redeploys the previous image tag [S22].", (22, "Rollbacks are performed overnight by the platform team.")), hits=(CODE, PROSE))
+    a, _ = ask(
+        reply(
+            "A rollback redeploys the previous image tag [S22].",
+            (22, "Rollbacks are performed overnight by the platform team."),
+        ),
+        hits=(CODE, PROSE),
+    )
     assert not a.grounded and "do not exist" in a.reason
 
 
@@ -425,7 +544,7 @@ def test_ask_with_hits_does_not_search_again():
 
 # ---- a number from the wrong cell of a table ----------------------------------------------------------------------
 
-RESULTS = ("Table 2 Per-model results.\n\n| Model | V6 pass@1 HARD | V6 pass@5 HARD |\n|---|---|---|\n| Qwen3-30B-Thinking | 41.5 | 59.7 |\n| + SSD | 46.7 +5.2 | 65.8 +6.1 |\n")
+RESULTS = "Table 2 Per-model results.\n\n| Model | V6 pass@1 HARD | V6 pass@5 HARD |\n|---|---|---|\n| Qwen3-30B-Thinking | 41.5 | 59.7 |\n| + SSD | 46.7 +5.2 | 65.8 +6.1 |\n"
 TABLE_SRC = Hit("t1", "d1", "paper.pdf", 1.0, RESULTS, "Results", "table")
 CELL_Q = "What is Qwen3-30B-Thinking's V6 hard pass@1 before and after SSD?"
 
@@ -441,7 +560,10 @@ def test_a_number_from_the_wrong_column_of_a_table_is_flagged_although_it_occurs
 
 
 def test_the_right_cells_pass_the_gate():
-    a = ask_table("Qwen3-30B-Thinking's V6 hard pass@1 was 41.5 before SSD and 46.7 after [S1].", quote="| + SSD | 46.7 +5.2 | 65.8 +6.1 |")
+    a = ask_table(
+        "Qwen3-30B-Thinking's V6 hard pass@1 was 41.5 before SSD and 46.7 after [S1].",
+        quote="| + SSD | 46.7 +5.2 | 65.8 +6.1 |",
+    )
     assert a.grounded, a.reason
 
 

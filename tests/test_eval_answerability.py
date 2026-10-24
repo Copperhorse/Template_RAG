@@ -33,7 +33,9 @@ def test_operating_points_use_the_tuning_set_for_the_threshold_only():
     pts = A.operating_points(tune, heldout, neg, keeps=(0.9,))
     t = A.keep_threshold(tune, 0.9)
     assert pts[0]["threshold"] == t == A.keep_threshold(tune, 0.9)
-    assert pts[0]["heldout_refused"]["k"] == sum(x < t for x in heldout) and pts[0]["unanswerable_refused"]["k"] == sum(x < t for x in neg)
+    assert pts[0]["heldout_refused"]["k"] == sum(x < t for x in heldout) and pts[0]["unanswerable_refused"]["k"] == sum(
+        x < t for x in neg
+    )
     other = A.operating_points(tune, [1, 2, 3], neg, keeps=(0.9,))
     assert other[0]["threshold"] == t  # changing the held-out data cannot move the threshold
 

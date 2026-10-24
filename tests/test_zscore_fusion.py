@@ -19,5 +19,11 @@ def test_a_chunk_a_signal_did_not_return_gets_that_signals_lowest_z():
 
 def test_weights_scale_each_signal_and_an_empty_signal_is_ignored():
     dense, lexical = {"a": 1.0, "b": 0.0}, {"a": 0.0, "b": 1.0}
-    assert max(zscore_fusion([(dense, 2.0), (lexical, 1.0)]), key=lambda c: zscore_fusion([(dense, 2.0), (lexical, 1.0)])[c]) == "a"
+    assert (
+        max(
+            zscore_fusion([(dense, 2.0), (lexical, 1.0)]),
+            key=lambda c: zscore_fusion([(dense, 2.0), (lexical, 1.0)])[c],
+        )
+        == "a"
+    )
     assert zscore_fusion([(dense, 1.0), ({}, 1.0)]).keys() == {"a", "b"}

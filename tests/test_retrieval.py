@@ -43,7 +43,9 @@ def test_rrf_scores_are_the_sum_of_reciprocal_ranks(make_rag, tmp_path):
     for h in rag.search("rollback previous image tag release manifest", k=5):
         expect = sum(1 / (RRF_K + r) for r in (h.dense_rank, h.lexical_rank) if r)
         assert abs(h.rrf_score - expect) < 1e-12 and h.score == h.rrf_score and h.rerank_score is None
-    both = [h for h in rag.search("rollback previous image tag release manifest", k=5) if h.dense_rank and h.lexical_rank]
+    both = [
+        h for h in rag.search("rollback previous image tag release manifest", k=5) if h.dense_rank and h.lexical_rank
+    ]
     assert both and both[0].rrf_score > 1 / (RRF_K + 1)  # a chunk both rankers found outranks any single-ranker rank 1
 
 
@@ -114,7 +116,11 @@ def test_extractive_evidence_is_a_verbatim_span_of_the_hit(make_rag, tmp_path):
     assert top.content[top.quote.start : top.quote.end].strip() == top.quote.text
     assert "rebuild" in top.quote.text and "A rollback redeploys" not in top.quote.text
 
-    code = next(h for h in rag.search("when does Cache.get return None because the ttl passed", k=3, quotes=True) if h.content_type == "code")
+    code = next(
+        h
+        for h in rag.search("when does Cache.get return None because the ttl passed", k=3, quotes=True)
+        if h.content_type == "code"
+    )
     assert code.quote.text in code.content and "ttl" in code.quote.text
 
 
@@ -145,7 +151,14 @@ def test_fuse_mode_makes_the_cross_encoder_a_third_voter_not_the_only_one(make_r
     plain = rag.search(q, k=6, rerank=False)
     head = [h.chunk_id for h in plain]  # all candidates were read by the reranker
     first = {c: i + 1 for i, c in enumerate(head)}
-    second = {h.chunk_id: i + 1 for i, h in enumerate(sorted(plain, key=lambda h: next(x.rerank_score for x in replaced if x.chunk_id == h.chunk_id), reverse=True))}
+    second = {
+        h.chunk_id: i + 1
+        for i, h in enumerate(
+            sorted(
+                plain, key=lambda h: next(x.rerank_score for x in replaced if x.chunk_id == h.chunk_id), reverse=True
+            )
+        )
+    }
     for h in fused:
         assert abs(h.score - (1 / (RRF_K + first[h.chunk_id]) + 1 / (RRF_K + second[h.chunk_id]))) < 1e-12
         assert h.rerank_score is not None  # the raw cross-encoder score is still reported
@@ -166,7 +179,9 @@ def test_the_breadcrumb_control_blanks_titles_everywhere(tmp_path):
     with_crumb.ingest(), without.ingest()
     assert all(c["breadcrumb"] for c in with_crumb.db.get_indexable_chunks(with_crumb.db.list_documents()[0]["doc_id"]))
     assert all(c["breadcrumb"] == "" for c in without.db.get_indexable_chunks(without.db.list_documents()[0]["doc_id"]))
-    assert [c["content"] for c in with_crumb.db.iter_chunks()] == [c["content"] for c in without.db.iter_chunks()]  # same chunks, only the metadata differs
+    assert [c["content"] for c in with_crumb.db.iter_chunks()] == [
+        c["content"] for c in without.db.iter_chunks()
+    ]  # same chunks, only the metadata differs
 
 
 def test_the_default_rerank_mode_depends_on_the_reranker_and_can_be_overridden(make_rag, tmp_path):
@@ -174,7 +189,10 @@ def test_the_default_rerank_mode_depends_on_the_reranker_and_can_be_overridden(m
     from rag_template.rerankers import default_rerank_mode
 
     assert default_rerank_mode("jinaai/jina-reranker-v3.5") == "replace"
-    assert default_rerank_mode("cross-encoder/ms-marco-MiniLM-L-6-v2") == "fuse" and default_rerank_mode("anything/else") == "fuse"
+    assert (
+        default_rerank_mode("cross-encoder/ms-marco-MiniLM-L-6-v2") == "fuse"
+        and default_rerank_mode("anything/else") == "fuse"
+    )
     assert Settings().rerank_mode == "auto"
     rr = ReverseReranker()
     rag = build(make_rag, tmp_path, FILES)
@@ -184,7 +202,9 @@ def test_the_default_rerank_mode_depends_on_the_reranker_and_can_be_overridden(m
     assert rag.retriever.rerank_mode == "fuse"
     rag.settings.rerank_model = "jinaai/jina-reranker-v3.5"
     assert rag.retriever.rerank_mode == "replace"
-    assert [h.score for h in rag.search(q, k=5)] == [h.rerank_score for h in rag.search(q, k=5)]  # replace: the score is the reranker's
+    assert [h.score for h in rag.search(q, k=5)] == [
+        h.rerank_score for h in rag.search(q, k=5)
+    ]  # replace: the score is the reranker's
     rag.settings.rerank_mode = "fuse"  # an explicit setting always wins
     assert rag.retriever.rerank_mode == "fuse"
     assert [h.chunk_id for h in rag.search(q, k=5)] == [h.chunk_id for h in rag.search(q, k=5, rerank_mode="fuse")]
@@ -195,7 +215,9 @@ def test_a_score_threshold_also_drops_candidates_the_reranker_never_scored(make_
     rag = build(make_rag, tmp_path, FILES)
     rag._reranker, rag._reranker_set = rr, True
     q = "rollback previous image tag"
-    hits = rag.search(q, k=10, rerank_top=1, min_rerank_score=1e9, rerank_mode="replace")  # one scored candidate, below the threshold
+    hits = rag.search(
+        q, k=10, rerank_top=1, min_rerank_score=1e9, rerank_mode="replace"
+    )  # one scored candidate, below the threshold
     assert hits == []  # the unscored tail used to survive and become the answer
 
 
@@ -210,7 +232,10 @@ def test_routing_keeps_only_the_leading_document_when_it_leads_by_the_margin(mak
     rag._reranker, rag._reranker_set = ReverseReranker(), True
     r = rag.retriever
     q = "rollback previous image tag"
-    assert {h.source for h in r.search(q, k=5, rerank_mode="replace")} == {"deploy.md", "notes.md"}  # off by default: a mix
+    assert {h.source for h in r.search(q, k=5, rerank_mode="replace")} == {
+        "deploy.md",
+        "notes.md",
+    }  # off by default: a mix
     r.route_margin = 1.0
     routed = r.search(q, k=5, rerank_mode="replace")
     assert routed and {h.source for h in routed} == {"deploy.md"}
@@ -221,6 +246,12 @@ def test_routing_keeps_the_mix_on_a_close_call_or_without_a_reranker(make_rag, t
     rag._reranker, rag._reranker_set = ReverseReranker(), True
     r = rag.retriever
     r.route_margin = 100.0  # the leader never leads by this much
-    assert {h.source for h in r.search("rollback previous image tag", k=5, rerank_mode="replace")} == {"deploy.md", "notes.md"}
+    assert {h.source for h in r.search("rollback previous image tag", k=5, rerank_mode="replace")} == {
+        "deploy.md",
+        "notes.md",
+    }
     r.route_margin = 1.0
-    assert {h.source for h in r.search("rollback previous image tag", k=5, rerank=False)} == {"deploy.md", "notes.md"}  # no reranker scores: nothing to route on
+    assert {h.source for h in r.search("rollback previous image tag", k=5, rerank=False)} == {
+        "deploy.md",
+        "notes.md",
+    }  # no reranker scores: nothing to route on

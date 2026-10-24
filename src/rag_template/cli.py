@@ -57,7 +57,9 @@ def cmd_chunks(rag: RAG, file: str, as_json: bool) -> None:
         mark = "+" if ev["should_use"] else "-"
         lines = f"L{m['start_line']}-{m['end_line']} " if "start_line" in m else ""
         why = "" if ev["should_use"] else f"  [{ev['reason']}]"
-        print(f"{mark} {c['chunk_index']:>3} {m['content_type']:<5} {c['estimated_tokens']:>4}t {lines}{m['section_header'][:60]}{why}")
+        print(
+            f"{mark} {c['chunk_index']:>3} {m['content_type']:<5} {c['estimated_tokens']:>4}t {lines}{m['section_header'][:60]}{why}"
+        )
     print(f"\n{stats['accepted_chunks']}/{stats['total_chunks']} usable, mean quality {stats['average_quality_score']}")
     for reason, n in stats["rejection_reasons"].items():
         print(f"  rejected x{n}: {reason}")
@@ -77,18 +79,29 @@ def main(argv=None) -> int:
     sub.add_parser("enrich")
     p = sub.add_parser("index")
     p.add_argument("--all", action="store_true", help="re-embed every document, not only those without vectors")
-    p.add_argument("--reset-embedder", action="store_true", help="forget which embedder built the vectors (after you emptied the vector store to switch models)")
+    p.add_argument(
+        "--reset-embedder",
+        action="store_true",
+        help="forget which embedder built the vectors (after you emptied the vector store to switch models)",
+    )
     for name in ("search", "ask"):
         p = sub.add_parser(name)
         p.add_argument("query")
         p.add_argument("-k", type=int, default=5)
         p.add_argument("--no-rerank", action="store_true", help="skip the cross-encoder")
-        p.add_argument("--min-rerank-score", type=float, default=None, help="drop hits the cross-encoder scores below this")
+        p.add_argument(
+            "--min-rerank-score", type=float, default=None, help="drop hits the cross-encoder scores below this"
+        )
         if name == "search":
             p.add_argument("--quotes", action="store_true", help="show the best supporting span of each hit")
         if name == "ask":
             p.add_argument("--strict", action="store_true", help="replace a flagged answer with a refusal")
-            p.add_argument("--policy", choices=["strict", "tolerant", "balanced", "lenient"], default=None, help="how strict the answer gate is (default: RAG_ANSWER_POLICY)")
+            p.add_argument(
+                "--policy",
+                choices=["strict", "tolerant", "balanced", "lenient"],
+                default=None,
+                help="how strict the answer gate is (default: RAG_ANSWER_POLICY)",
+            )
     p = sub.add_parser("chunks")
     p.add_argument("file")
     p.add_argument("--json", action="store_true")
@@ -101,22 +114,43 @@ def main(argv=None) -> int:
     p.add_argument("--host", default="127.0.0.1")
 
     args = ap.parse_args(argv)
-    logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, format="%(levelname)s %(name)s: %(message)s")
+    logging.basicConfig(
+        level=logging.INFO if args.verbose else logging.WARNING, format="%(levelname)s %(name)s: %(message)s"
+    )
     if args.cmd == "ui":
         import os
 
         app = Path(__file__).parent / "ui" / "app.py"
         print(f"RAG template UI: http://{args.host}:{args.port}", flush=True)
         # --server.headless also skips Streamlit's first-run "enter your email" prompt, which blocks forever without a terminal
-        os.execvp(sys.executable, [sys.executable, "-m", "streamlit", "run", str(app), "--server.headless", "true", "--server.port", str(args.port),
-                                   "--server.address", args.host, "--browser.gatherUsageStats", "false"])
+        os.execvp(
+            sys.executable,
+            [
+                sys.executable,
+                "-m",
+                "streamlit",
+                "run",
+                str(app),
+                "--server.headless",
+                "true",
+                "--server.port",
+                str(args.port),
+                "--server.address",
+                args.host,
+                "--browser.gatherUsageStats",
+                "false",
+            ],
+        )
     rag = RAG()
 
     if args.cmd == "ingest":
         cmd_ingest(rag, args.paths, args.replace)
     elif args.cmd == "enrich":
         report = rag.enrich()
-        print(f"enriched {report.documents} document(s)" + ("; LLM server went away, rerun to resume" if report.server_down else ""))
+        print(
+            f"enriched {report.documents} document(s)"
+            + ("; LLM server went away, rerun to resume" if report.server_down else "")
+        )
         return 1 if report.server_down else 0
     elif args.cmd == "index":
         if args.reset_embedder:
@@ -135,17 +169,29 @@ def main(argv=None) -> int:
         kw = dict(rerank=not args.no_rerank, min_rerank_score=args.min_rerank_score)
         for i, h in enumerate(rag.search(args.query, k=args.k, quotes=args.quotes, **kw), 1):
             q = f"  (matches: {h.matched_question})" if h.matched_question else ""
-            ranks = f"dense#{h.dense_rank or '-'} bm25#{h.lexical_rank or '-'}" + (f" rerank={h.rerank_score:.2f}" if h.rerank_score is not None else "")
+            ranks = f"dense#{h.dense_rank or '-'} bm25#{h.lexical_rank or '-'}" + (
+                f" rerank={h.rerank_score:.2f}" if h.rerank_score is not None else ""
+            )
             print(f"[{i}] {h.located}  ({ranks}){q}")
             shown = h.quote.text if h.quote else h.content[:200]
             print("    " + ("> " if h.quote else "") + shown.replace("\n", "\n    "))
     elif args.cmd == "ask":
-        a = rag.ask(args.query, k=args.k, strict=args.strict, policy=args.policy, rerank=not args.no_rerank, min_rerank_score=args.min_rerank_score)
+        a = rag.ask(
+            args.query,
+            k=args.k,
+            strict=args.strict,
+            policy=args.policy,
+            rerank=not args.no_rerank,
+            min_rerank_score=args.min_rerank_score,
+        )
         print(a.text)
         for i, h in enumerate(a.sources, 1):
             print(f"  [{source_id(i)}] {h.located}")
         for q in a.quotes:
-            note = {"loose": " (approximate: the model's quote was one word off)", "extracted": " (extracted: the model gave no quote)"}.get(q.how, "")
+            note = {
+                "loose": " (approximate: the model's quote was one word off)",
+                "extracted": " (extracted: the model gave no quote)",
+            }.get(q.how, "")
             print(f"  quote from [{source_id(q.source)}]{note}: {q.text[:160]!r}")
         if a.missing_terms:
             print(f"  not in any source: {', '.join(a.missing_terms)}")

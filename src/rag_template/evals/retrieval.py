@@ -64,12 +64,21 @@ class SystemResult:
         return out
 
 
-def evaluate_system(ws: Workspace, system: System, queries: Sequence[Query], reranker: Optional[Reranker] = None, k: int = 20, rerankers: Optional[Dict[str, Reranker]] = None) -> SystemResult:
+def evaluate_system(
+    ws: Workspace,
+    system: System,
+    queries: Sequence[Query],
+    reranker: Optional[Reranker] = None,
+    k: int = 20,
+    rerankers: Optional[Dict[str, Reranker]] = None,
+) -> SystemResult:
     if system.reranker and rerankers:
         reranker = rerankers[system.reranker]
     chunks = ws.db.iter_chunks()
     normed = [(c["chunk_id"], c["source"], norm(c["content"]), c["should_use"]) for c in chunks]
-    retriever = ws.retriever(system.embedder, reranker if system.rerank else None, system.query_task) if system.dense else None
+    retriever = (
+        ws.retriever(system.embedder, reranker if system.rerank else None, system.query_task) if system.dense else None
+    )
     if retriever is None:  # lexical only: any workspace store will do, the dense stage is off
         key = next(iter(ws.stores))
         retriever = ws.retriever(key, reranker if system.rerank else None)
@@ -80,34 +89,72 @@ def evaluate_system(ws: Workspace, system: System, queries: Sequence[Query], rer
             continue
         started = time.monotonic()
         hits = retriever.search(
-            q.query, k=k, dense=system.dense, lexical=system.lexical, rerank=system.rerank,
-            weights=system.weights, rerank_top=system.rerank_top, rerank_mode=system.rerank_mode, fusion=system.fusion,
+            q.query,
+            k=k,
+            dense=system.dense,
+            lexical=system.lexical,
+            rerank=system.rerank,
+            weights=system.weights,
+            rerank_top=system.rerank_top,
+            rerank_mode=system.rerank_mode,
+            fusion=system.fusion,
         )
         latency = (time.monotonic() - started) * 1000
         ranked, rel, covered = [], [], []
         for h in hits:
             cov = covered_items(q, h.source, h.content)
-            ranked.append({
-                "chunk_id": h.chunk_id, "source": h.source, "label": h.label, "rel": sorted(cov),
-                "dense_rank": h.dense_rank, "lexical_rank": h.lexical_rank, "rerank_score": h.rerank_score, "rrf": h.rrf_score,
-            })
+            ranked.append(
+                {
+                    "chunk_id": h.chunk_id,
+                    "source": h.source,
+                    "label": h.label,
+                    "rel": sorted(cov),
+                    "dense_rank": h.dense_rank,
+                    "lexical_rank": h.lexical_rank,
+                    "rerank_score": h.rerank_score,
+                    "rrf": h.rrf_score,
+                }
+            )
             rel.append(bool(cov))
             covered.append(cov)
         n_rel = sum(1 for cid, src, c, use in normed if use and any(g.covered_by(src, c) for g in q.gold))
         result.queries.append(
-            QueryResult(q.id, q.type, q.style, ranked, len(q.gold), n_rel, M.query_metrics(rel, covered, len(q.gold), n_rel, KS), latency)
+            QueryResult(
+                q.id,
+                q.type,
+                q.style,
+                ranked,
+                len(q.gold),
+                n_rel,
+                M.query_metrics(rel, covered, len(q.gold), n_rel, KS),
+                latency,
+            )
         )
     return result
 
 
-def compare(a: SystemResult, b: SystemResult, metric: str = "recall@5", where: Optional[Callable[[QueryResult], bool]] = None) -> Dict[str, float]:
+def compare(
+    a: SystemResult, b: SystemResult, metric: str = "recall@5", where: Optional[Callable[[QueryResult], bool]] = None
+) -> Dict[str, float]:
     """Paired bootstrap of a - b on the queries both systems answered."""
     by_id = {q.id: q for q in b.queries}
-    pairs = [(q.metrics[metric], by_id[q.id].metrics[metric]) for q in a.queries if q.id in by_id and (where is None or where(q))]
+    pairs = [
+        (q.metrics[metric], by_id[q.id].metrics[metric])
+        for q in a.queries
+        if q.id in by_id and (where is None or where(q))
+    ]
     return M.paired_bootstrap([x for x, _ in pairs], [y for _, y in pairs])
 
 
 def to_json(res: SystemResult) -> Dict[str, Any]:
-    return {"system": asdict(res.system), "summary": res.summary(), "by_type": {t: res.summary(lambda q, t=t: q.type == t) for t in sorted({"doc", "code"} | {q.type for q in res.queries})},
-            "by_style": {s: res.summary(lambda q, s=s: q.style == s, with_ci=False) for s in ("natural", "keyword", "paraphrase")},
-            "queries": [asdict(q) for q in res.queries]}
+    return {
+        "system": asdict(res.system),
+        "summary": res.summary(),
+        "by_type": {
+            t: res.summary(lambda q, t=t: q.type == t) for t in sorted({"doc", "code"} | {q.type for q in res.queries})
+        },
+        "by_style": {
+            s: res.summary(lambda q, s=s: q.style == s, with_ci=False) for s in ("natural", "keyword", "paraphrase")
+        },
+        "queries": [asdict(q) for q in res.queries],
+    }

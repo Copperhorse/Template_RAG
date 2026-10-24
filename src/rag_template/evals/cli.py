@@ -60,7 +60,14 @@ def systems_for(chunker: str, full: bool, top: Optional[int] = None) -> List[Sys
         System(f"{c}/bm25+rerank", lexical=True, dense=False, rerank=True, rerank_top=top, chunker=c),
         System(f"{c}/gemma dense+rerank", "gemma", lexical=False, rerank=True, rerank_top=top, chunker=c),
         System(f"{c}/gemma(code task) dense", "gemma", lexical=False, query_task="code retrieval", chunker=c),
-        System(f"{c}/gemma(code task) RRF+rerank", "gemma", rerank=True, rerank_top=top, query_task="code retrieval", chunker=c),
+        System(
+            f"{c}/gemma(code task) RRF+rerank",
+            "gemma",
+            rerank=True,
+            rerank_top=top,
+            query_task="code retrieval",
+            chunker=c,
+        ),
         System(f"{c}/gemma@256 dense", "gemma256", lexical=False, chunker=c),
         System(f"{c}/gemma@256 RRF", "gemma256", chunker=c),
         System(f"{c}/bge dense", "bge", lexical=False, chunker=c),
@@ -83,7 +90,14 @@ def cmd_retrieval(args) -> int:
     by_id = {q.id: q for q in queries}
     reranker = _reranker(settings)
     results: Dict[str, SystemResult] = {}
-    meta: Dict[str, dict] = {"gold": {"file": str(args.gold), "answerable": len(answerable), "doc": sum(q.type == "doc" for q in answerable), "code": sum(q.type == "code" for q in answerable)}}
+    meta: Dict[str, dict] = {
+        "gold": {
+            "file": str(args.gold),
+            "answerable": len(answerable),
+            "doc": sum(q.type == "doc" for q in answerable),
+            "code": sum(q.type == "code" for q in answerable),
+        }
+    }
     sections: List[str] = []
 
     for chunker, budget, full in (("ast", 500, True), ("naive", 500, False), ("naive", 250, False)):
@@ -103,16 +117,31 @@ def cmd_retrieval(args) -> int:
             meta[label][f"embed_s_{key}"] = round(secs, 1)
             log.info("%s: embedded with %s in %.1fs", label, key, secs)
         for system in systems_for(label, full, args.rerank_top):
-            system = System(**{**system.__dict__, "name": system.name.replace(chunker + "/", label + "/", 1) if label != chunker else system.name})
+            system = System(
+                **{
+                    **system.__dict__,
+                    "name": system.name.replace(chunker + "/", label + "/", 1) if label != chunker else system.name,
+                }
+            )
             t = time.monotonic()
             res = evaluate_system(ws, system, queries, reranker)
             results[system.name] = res
             s = res.summary(with_ci=False)
-            log.info("%-36s r@1 %.3f r@5 %.3f r@10 %.3f mrr %.3f (%.0fs)", system.name, s["recall@1"]["mean"], s["recall@5"]["mean"], s["recall@10"]["mean"], s["mrr@10"]["mean"], time.monotonic() - t)
+            log.info(
+                "%-36s r@1 %.3f r@5 %.3f r@10 %.3f mrr %.3f (%.0fs)",
+                system.name,
+                s["recall@1"]["mean"],
+                s["recall@5"]["mean"],
+                s["recall@10"]["mean"],
+                s["mrr@10"]["mean"],
+                time.monotonic() - t,
+            )
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.with_suffix(".json").write_text(json.dumps({"meta": meta, "systems": {n: to_json(r) for n, r in results.items()}}, indent=1))
+    out.with_suffix(".json").write_text(
+        json.dumps({"meta": meta, "systems": {n: to_json(r) for n, r in results.items()}}, indent=1)
+    )
     out.with_suffix(".md").write_text(render_retrieval(results, meta, by_id))
     print(f"wrote {out.with_suffix('.md')} and .json")
     return 0
@@ -121,12 +150,18 @@ def cmd_retrieval(args) -> int:
 def render_retrieval(results: Dict[str, SystemResult], meta: dict, by_id: Dict[str, Query]) -> str:
     g = lambda n: results[n]  # noqa: E731
     has = lambda *ns: all(n in results for n in ns)  # noqa: E731
-    parts = [f"# Retrieval evaluation\n\nGold: `{meta['gold']['file']}`: {meta['gold']['answerable']} answerable queries ({meta['gold']['doc']} documentation, {meta['gold']['code']} code, {meta['gold']['answerable'] - meta['gold']['doc'] - meta['gold']['code']} other kinds). "
-             "Values are percentages with a 95% bootstrap half-width (±). Relevance = the retrieved chunk is from the gold file and contains the gold snippet.\n"]
-    parts.append("## Index\n\n| chunker | files | chunks | usable | mean chars | gold reachable / gated out / split |\n|---|---:|---:|---:|---:|---|")
+    parts = [
+        f"# Retrieval evaluation\n\nGold: `{meta['gold']['file']}`: {meta['gold']['answerable']} answerable queries ({meta['gold']['doc']} documentation, {meta['gold']['code']} code, {meta['gold']['answerable'] - meta['gold']['doc'] - meta['gold']['code']} other kinds). "
+        "Values are percentages with a 95% bootstrap half-width (±). Relevance = the retrieved chunk is from the gold file and contains the gold snippet.\n"
+    ]
+    parts.append(
+        "## Index\n\n| chunker | files | chunks | usable | mean chars | gold reachable / gated out / split |\n|---|---:|---:|---:|---:|---|"
+    )
     for label in [k for k in meta if k != "gold"]:
         m = meta[label]
-        parts.append(f"| {label} | {m['files']} | {m['chunks']} | {m['usable']} | {m['mean_chars']:.0f} | {m['gold_reachable']} / {m['gold_gated_out']} / {m['gold_split']} |")
+        parts.append(
+            f"| {label} | {m['files']} | {m['chunks']} | {m['usable']} | {m['mean_chars']:.0f} | {m['gold_reachable']} / {m['gold_gated_out']} / {m['gold_split']} |"
+        )
     parts.append("\n## All systems\n\n" + R.metrics_table(list(results.values())))
     ast = [r for n, r in results.items() if n.startswith("ast/")]
     if ast:
@@ -136,9 +171,11 @@ def render_retrieval(results: Dict[str, SystemResult], meta: dict, by_id: Dict[s
         for kind in kinds:  # gold files that label queries by document kind (statute, tables, math, scan, ...)
             parts.append(f"\n## `{kind}` queries only\n\n" + R.metrics_table(ast, lambda q, kind=kind: q.type == kind))
     pairs = []
+
     def add(label, a, b):
         if has(a, b):
             pairs.append((label, g(a), g(b)))
+
     add("hybrid RRF vs dense only (gemma)", "ast/gemma RRF", "ast/gemma dense")
     add("hybrid RRF vs BM25 only", "ast/gemma RRF", "ast/bm25")
     add("dense only vs BM25 only (gemma)", "ast/gemma dense", "ast/bm25")
@@ -152,10 +189,19 @@ def render_retrieval(results: Dict[str, SystemResult], meta: dict, by_id: Dict[s
     add("AST chunks vs fixed 250-token windows (RRF+rerank)", "ast/gemma RRF+rerank", "naive250/gemma RRF+rerank")
     add("AST chunks vs fixed 250-token windows (dense)", "ast/gemma dense", "naive250/gemma dense")
     if pairs:
-        parts.append("\n## Paired comparisons (percentage points; bold = 95% interval excludes 0)\n\n" + R.comparisons_table(pairs))
+        parts.append(
+            "\n## Paired comparisons (percentage points; bold = 95% interval excludes 0)\n\n"
+            + R.comparisons_table(pairs)
+        )
         code_pairs = [p for p in pairs if "AST" in p[0] or "code task" in p[0] or "rerank" in p[0]]
-        parts.append("\n### Same comparisons, code queries only\n\n" + R.comparisons_table(code_pairs, where=lambda q: q.type == "code"))
-        parts.append("\n### Same comparisons, documentation queries only\n\n" + R.comparisons_table(code_pairs, where=lambda q: q.type == "doc"))
+        parts.append(
+            "\n### Same comparisons, code queries only\n\n"
+            + R.comparisons_table(code_pairs, where=lambda q: q.type == "code")
+        )
+        parts.append(
+            "\n### Same comparisons, documentation queries only\n\n"
+            + R.comparisons_table(code_pairs, where=lambda q: q.type == "doc")
+        )
     best = "ast/gemma RRF+rerank" if "ast/gemma RRF+rerank" in results else next(iter(results))
     parts.append(f"\n## Error analysis: `{best}`\n\n" + R.failures(results[best], by_id))
     return "\n".join(parts) + "\n"
@@ -175,7 +221,13 @@ def cmd_ablations(args) -> int:
             res = evaluate_system(ws, sys_, queries)
             results[sys_.name] = res
             s = res.summary(with_ci=False)
-            log.info("%-44s r@5 %.3f r@10 %.3f mrr %.3f", sys_.name, s["recall@5"]["mean"], s["recall@10"]["mean"], s["mrr@10"]["mean"])
+            log.info(
+                "%-44s r@5 %.3f r@10 %.3f mrr %.3f",
+                sys_.name,
+                s["recall@5"]["mean"],
+                s["recall@10"]["mean"],
+                s["mrr@10"]["mean"],
+            )
 
     def workspace(label: str, **kw) -> Workspace:
         ws = Workspace(args.corpus, **kw)
@@ -186,18 +238,37 @@ def cmd_ablations(args) -> int:
         return ws
 
     base = workspace("ast (default: max 500, merge < 50 tokens)")
-    run(base, [System("BM25", lexical=True, dense=False), System("dense", "gemma", lexical=False), System("RRF", "gemma")])
+    run(
+        base,
+        [System("BM25", lexical=True, dense=False), System("dense", "gemma", lexical=False), System("RRF", "gemma")],
+    )
     nocrumb = workspace("ast, breadcrumb removed", breadcrumb=False)
-    run(nocrumb, [System("nocrumb BM25", lexical=True, dense=False), System("nocrumb dense", "gemma", lexical=False), System("nocrumb RRF", "gemma")])
+    run(
+        nocrumb,
+        [
+            System("nocrumb BM25", lexical=True, dense=False),
+            System("nocrumb dense", "gemma", lexical=False),
+            System("nocrumb RRF", "gemma"),
+        ],
+    )
     naive = workspace("fixed 250-token windows", chunker="naive", max_tokens=250)
-    run(naive, [System("naive250 BM25", lexical=True, dense=False), System("naive250 dense", "gemma", lexical=False), System("naive250 RRF", "gemma")])
+    run(
+        naive,
+        [
+            System("naive250 BM25", lexical=True, dense=False),
+            System("naive250 dense", "gemma", lexical=False),
+            System("naive250 RRF", "gemma"),
+        ],
+    )
     for mt in (0, 25, 100, 200):
         ws = workspace(f"ast, merge threshold {mt}", min_tokens=mt)
         run(ws, [System(f"merge<{mt} dense", "gemma", lexical=False), System(f"merge<{mt} RRF", "gemma")])
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.with_suffix(".json").write_text(json.dumps({"meta": meta, "systems": {n: to_json(r) for n, r in results.items()}}, indent=1))
+    out.with_suffix(".json").write_text(
+        json.dumps({"meta": meta, "systems": {n: to_json(r) for n, r in results.items()}}, indent=1)
+    )
     out.with_suffix(".md").write_text(render_ablations(results, meta, [], by_id))
     print(f"wrote {out.with_suffix('.md')}")
     return 0
@@ -245,7 +316,13 @@ def cmd_rerankers(args) -> int:
         key = _short(model)
         try:
             before = torch.cuda.memory_allocated() / 2**20 if cuda else 0.0
-            rerankers[key] = _MemoReranker(make_reranker(model, settings.rerank_revision if model == settings.rerank_model else "", settings.rerank_trust_remote_code))
+            rerankers[key] = _MemoReranker(
+                make_reranker(
+                    model,
+                    settings.rerank_revision if model == settings.rerank_model else "",
+                    settings.rerank_trust_remote_code,
+                )
+            )
             vram[key] = (torch.cuda.memory_allocated() / 2**20 - before) if cuda else 0.0
         except Exception as e:  # noqa: BLE001 - reported in the report, not silently skipped
             notes.append(f"reranker `{model}` could not be loaded: {type(e).__name__}: {str(e)[:160]}")
@@ -254,7 +331,16 @@ def cmd_rerankers(args) -> int:
     for key in rerankers:
         for mode in ("replace", "fuse"):
             for top in args.tops:
-                systems.append(System(f"RRF + {key} ({mode}, top {top})", "gemma", rerank=True, rerank_mode=mode, rerank_top=top, reranker=key))
+                systems.append(
+                    System(
+                        f"RRF + {key} ({mode}, top {top})",
+                        "gemma",
+                        rerank=True,
+                        rerank_mode=mode,
+                        rerank_top=top,
+                        reranker=key,
+                    )
+                )
     results: Dict[str, SystemResult] = {}
     peak: Dict[str, float] = {}
     for sys_ in systems:
@@ -264,7 +350,14 @@ def cmd_rerankers(args) -> int:
         results[sys_.name] = res
         peak[sys_.name] = torch.cuda.max_memory_allocated() / 2**20 if cuda else 0.0
         s = res.summary(with_ci=False)
-        log.info("%-48s r@5 %.3f mrr %.3f  %4.0f ms  peak %5.0f MB", sys_.name, s["recall@5"]["mean"], s["mrr@10"]["mean"], s["latency_ms"]["mean"], peak[sys_.name])
+        log.info(
+            "%-48s r@5 %.3f mrr %.3f  %4.0f ms  peak %5.0f MB",
+            sys_.name,
+            s["recall@5"]["mean"],
+            s["mrr@10"]["mean"],
+            s["latency_ms"]["mean"],
+            peak[sys_.name],
+        )
 
     stability: Dict[str, dict] = {}
     retriever = ws.retriever("gemma")
@@ -274,13 +367,31 @@ def cmd_rerankers(args) -> int:
         for q in sample:
             hits = retriever.search(q.query, k=args.tops[-1] if args.tops else 20)
             if len(hits) >= 3:
-                per_query.append(order_sensitivity(rr.inner.rerank, q.query, [h.content for h in hits[: max(args.tops)]], n_shuffles=args.shuffles))
+                per_query.append(
+                    order_sensitivity(
+                        rr.inner.rerank, q.query, [h.content for h in hits[: max(args.tops)]], n_shuffles=args.shuffles
+                    )
+                )
         if per_query:
-            stability[key] = {m: sum(p[m] for p in per_query) / len(per_query) for m in ("tau", "top1_agree")} | {"max_score_delta": max(p["max_score_delta"] for p in per_query), "queries": len(per_query)}
+            stability[key] = {m: sum(p[m] for p in per_query) / len(per_query) for m in ("tau", "top1_agree")} | {
+                "max_score_delta": max(p["max_score_delta"] for p in per_query),
+                "queries": len(per_query),
+            }
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.with_suffix(".json").write_text(json.dumps({"notes": notes, "vram_load_mb": vram, "peak_mb": peak, "stability": stability, "systems": {n: to_json(r) for n, r in results.items()}}, indent=1))
+    out.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "notes": notes,
+                "vram_load_mb": vram,
+                "peak_mb": peak,
+                "stability": stability,
+                "systems": {n: to_json(r) for n, r in results.items()},
+            },
+            indent=1,
+        )
+    )
     out.with_suffix(".md").write_text(render_rerankers(results, notes, vram, peak, stability, by_id, list(rerankers)))
     print(f"wrote {out.with_suffix('.md')}")
     return 0
@@ -288,24 +399,56 @@ def cmd_rerankers(args) -> int:
 
 def render_rerankers(results, notes, vram, peak, stability, by_id, keys) -> str:
     n_ans = sum(q.answerable for q in by_id.values())
-    parts = ["# Reranker comparison\n", f"{n_ans} answerable queries; relevance = the chunk holds the gold snippet; ± = 95% bootstrap half-width; every system is hybrid RRF (EmbeddingGemma 2 + BM25) plus the named reranker. "
-             "`replace` orders candidates by the reranker alone, `fuse` makes it a third voter next to dense and BM25, `top N` is how many fused candidates it reads.\n"]
+    parts = [
+        "# Reranker comparison\n",
+        f"{n_ans} answerable queries; relevance = the chunk holds the gold snippet; ± = 95% bootstrap half-width; every system is hybrid RRF (EmbeddingGemma 2 + BM25) plus the named reranker. "
+        "`replace` orders candidates by the reranker alone, `fuse` makes it a third voter next to dense and BM25, `top N` is how many fused candidates it reads.\n",
+    ]
     parts += [f"> {n}\n" for n in notes]
-    parts.append("## Memory\n\n| reranker | GPU memory to load (MB) |\n|---|---:|\n" + "\n".join(f"| {k} | {v:.0f} |" for k, v in vram.items()))
+    parts.append(
+        "## Memory\n\n| reranker | GPU memory to load (MB) |\n|---|---:|\n"
+        + "\n".join(f"| {k} | {v:.0f} |" for k, v in vram.items())
+    )
     parts.append("\n## All systems\n\n" + R.metrics_table(list(results.values())))
-    parts.append("\n**Reading the `ms/query` column:** scores were cached within the run, because `replace` and `fuse` read identical candidates, so the "
-                 "`fuse` rows show only retrieval plus fusion (~21 ms) and exclude the reranker. The cost of a reranker is the `replace` row's latency at the same `top N`.")
-    parts.append("\nPeak GPU memory per system (MB, includes the embedder and the LLM-free eval process): " + ", ".join(f"{n}: {v:.0f}" for n, v in peak.items() if n != "RRF"))
+    parts.append(
+        "\n**Reading the `ms/query` column:** scores were cached within the run, because `replace` and `fuse` read identical candidates, so the "
+        "`fuse` rows show only retrieval plus fusion (~21 ms) and exclude the reranker. The cost of a reranker is the `replace` row's latency at the same `top N`."
+    )
+    parts.append(
+        "\nPeak GPU memory per system (MB, includes the embedder and the LLM-free eval process): "
+        + ", ".join(f"{n}: {v:.0f}" for n, v in peak.items() if n != "RRF")
+    )
     pairs = [(f"{n} vs RRF", r, results["RRF"]) for n, r in results.items() if n != "RRF"]
-    for title, where in (("all queries", None), ("code queries", lambda q: q.type == "code"), ("documentation queries", lambda q: q.type == "doc")):
-        parts.append(f"\n## Paired differences vs plain RRF, {title} (points; bold = 95% interval excludes 0)\n\n" + R.comparisons_table(pairs, ("recall@1", "recall@5", "mrr@10"), where))
+    for title, where in (
+        ("all queries", None),
+        ("code queries", lambda q: q.type == "code"),
+        ("documentation queries", lambda q: q.type == "doc"),
+    ):
+        parts.append(
+            f"\n## Paired differences vs plain RRF, {title} (points; bold = 95% interval excludes 0)\n\n"
+            + R.comparisons_table(pairs, ("recall@1", "recall@5", "mrr@10"), where)
+        )
     if len(keys) >= 2:
         a, b = keys[0], keys[1]
-        head = [(f"{a} vs {b} ({m}, top {t})", results[f"RRF + {a} ({m}, top {t})"], results[f"RRF + {b} ({m}, top {t})"]) for m in ("replace", "fuse") for t in sorted({int(n.rsplit('top ', 1)[1].rstrip(')')) for n in results if n != "RRF"}) if f"RRF + {a} ({m}, top {t})" in results and f"RRF + {b} ({m}, top {t})" in results]
+        head = [
+            (f"{a} vs {b} ({m}, top {t})", results[f"RRF + {a} ({m}, top {t})"], results[f"RRF + {b} ({m}, top {t})"])
+            for m in ("replace", "fuse")
+            for t in sorted({int(n.rsplit("top ", 1)[1].rstrip(")")) for n in results if n != "RRF"})
+            if f"RRF + {a} ({m}, top {t})" in results and f"RRF + {b} ({m}, top {t})" in results
+        ]
         if head:
-            parts.append(f"\n## {a} vs {b}, head to head (points)\n\n" + R.comparisons_table(head, ("recall@1", "recall@5", "mrr@10")))
+            parts.append(
+                f"\n## {a} vs {b}, head to head (points)\n\n"
+                + R.comparisons_table(head, ("recall@1", "recall@5", "mrr@10"))
+            )
     if stability:
-        parts.append("\n## Candidate-order stability\n\nThe same candidates scored again in shuffled order. tau = Kendall rank correlation with the original order (1.0 = identical ranking), top-1 = share of shuffles with the same best candidate.\n\n| reranker | queries | mean tau | top-1 unchanged | largest score change |\n|---|---:|---:|---:|---:|\n" + "\n".join(f"| {k} | {v['queries']} | {v['tau']:.3f} | {100 * v['top1_agree']:.0f}% | {v['max_score_delta']:.3g} |" for k, v in stability.items()))
+        parts.append(
+            "\n## Candidate-order stability\n\nThe same candidates scored again in shuffled order. tau = Kendall rank correlation with the original order (1.0 = identical ranking), top-1 = share of shuffles with the same best candidate.\n\n| reranker | queries | mean tau | top-1 unchanged | largest score change |\n|---|---:|---:|---:|---:|\n"
+            + "\n".join(
+                f"| {k} | {v['queries']} | {v['tau']:.3f} | {100 * v['top1_agree']:.0f}% | {v['max_score_delta']:.3g} |"
+                for k, v in stability.items()
+            )
+        )
     return "\n".join(parts) + "\n"
 
 
@@ -357,7 +500,11 @@ def cmd_answerability(args) -> int:
     for model in args.models:
         short = _short(model)
         try:
-            rr = make_reranker(model, settings.rerank_revision if model == settings.rerank_model else "", settings.rerank_trust_remote_code)
+            rr = make_reranker(
+                model,
+                settings.rerank_revision if model == settings.rerank_model else "",
+                settings.rerank_trust_remote_code,
+            )
         except Exception as e:  # noqa: BLE001 - reported, not silently skipped
             print(f"skipping {model}: {type(e).__name__}: {str(e)[:120]}")
             continue
@@ -380,13 +527,22 @@ def cmd_answerability(args) -> int:
             by_kind: Dict[str, List[float]] = {}
             for q, r in zip(negatives, sig["neg"]):
                 by_kind.setdefault(q.kind, []).append(r[name])
-            reports.append(AB.signal_report(label, [r[name] for r in sig["tune"]], [r[name] for r in sig["heldout"]], by_kind))
+            reports.append(
+                AB.signal_report(label, [r[name] for r in sig["tune"]], [r[name] for r in sig["heldout"]], by_kind)
+            )
         del rr
-    counts = {"tune": len(tune), "heldout": len(heldout), "neg": len(negatives), "by_kind": {k: sum(q.kind == k for q in negatives) for k in sorted({q.kind for q in negatives})}}
+    counts = {
+        "tune": len(tune),
+        "heldout": len(heldout),
+        "neg": len(negatives),
+        "by_kind": {k: sum(q.kind == k for q in negatives) for k in sorted({q.kind for q in negatives})},
+    }
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.with_suffix(".md").write_text(AB.markdown(reports, counts) + "\n")
-    out.with_suffix(".json").write_text(json.dumps({"counts": counts, "reports": reports, "per_query": per_query}, indent=1, default=str))
+    out.with_suffix(".json").write_text(
+        json.dumps({"counts": counts, "reports": reports, "per_query": per_query}, indent=1, default=str)
+    )
     print(AB.markdown(reports, counts)[:2500])
     return 0
 
@@ -434,19 +590,38 @@ def cmd_gate_stability(args) -> int:
     mean_k = lambda g, k: [sum(s[:k]) / len(s[:k]) for s in groups[g]]  # noqa: E731
     aucs = {"natural order (one pass)": AB.bootstrap_auc(natural("answerable"), natural("unanswerable"))}
     for k in (2, 3, len(groups["answerable"][0]) if groups["answerable"] else 6):
-        aucs[f"mean over {k} orders ({k} passes)"] = AB.bootstrap_auc(mean_k("answerable", k), mean_k("unanswerable", k))
+        aucs[f"mean over {k} orders ({k} passes)"] = AB.bootstrap_auc(
+            mean_k("answerable", k), mean_k("unanswerable", k)
+        )
     aucs["dense cosine top-1 (order-free, no reranker)"] = AB.bootstrap_auc(dense["answerable"], dense["unanswerable"])
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    md = ["# Does candidate order change the relevance gate's decision?", "",
-          f"{settings.rerank_model}, {args.top} candidates, {len(groups['answerable'])} answerable and {len(groups['unanswerable'])} unanswerable questions. The best score is re-computed "
-          f"under {args.shuffles} random candidate orders; the first is the natural fused order the system uses. A query is *unstable* when some order lands on the other side of the threshold.", "",
-          "| threshold | group | queries | unstable | largest score spread | mean spread |", "|---:|---|---:|---:|---:|---:|"]
-    md += [f"| {r['threshold']:g} | {r['group']} | {r['queries']} | {100 * r['unstable']:.0f}% ({r['unstable_k']}) | {r['max_spread']:.3f} | {r['mean_spread']:.3f} |" for r in rows]
-    md += ["", "## Does averaging over candidate orders help?", "", "ROC-AUC for separating answerable from unanswerable questions, 95% bootstrap interval. More passes cost proportionally more latency.", "",
-           "| signal | AUC (95% CI) |", "|---|---:|"] + [f"| {k} | {a:.3f} ({lo:.3f}-{hi:.3f}) |" for k, (a, lo, hi) in aucs.items()]
+    md = [
+        "# Does candidate order change the relevance gate's decision?",
+        "",
+        f"{settings.rerank_model}, {args.top} candidates, {len(groups['answerable'])} answerable and {len(groups['unanswerable'])} unanswerable questions. The best score is re-computed "
+        f"under {args.shuffles} random candidate orders; the first is the natural fused order the system uses. A query is *unstable* when some order lands on the other side of the threshold.",
+        "",
+        "| threshold | group | queries | unstable | largest score spread | mean spread |",
+        "|---:|---|---:|---:|---:|---:|",
+    ]
+    md += [
+        f"| {r['threshold']:g} | {r['group']} | {r['queries']} | {100 * r['unstable']:.0f}% ({r['unstable_k']}) | {r['max_spread']:.3f} | {r['mean_spread']:.3f} |"
+        for r in rows
+    ]
+    md += [
+        "",
+        "## Does averaging over candidate orders help?",
+        "",
+        "ROC-AUC for separating answerable from unanswerable questions, 95% bootstrap interval. More passes cost proportionally more latency.",
+        "",
+        "| signal | AUC (95% CI) |",
+        "|---|---:|",
+    ] + [f"| {k} | {a:.3f} ({lo:.3f}-{hi:.3f}) |" for k, (a, lo, hi) in aucs.items()]
     out.with_suffix(".md").write_text("\n".join(md) + "\n")
-    out.with_suffix(".json").write_text(json.dumps({"rows": rows, "auc": {k: v for k, v in aucs.items()}, "scores": groups, "dense": dense}, indent=1))
+    out.with_suffix(".json").write_text(
+        json.dumps({"rows": rows, "auc": {k: v for k, v in aucs.items()}, "scores": groups, "dense": dense}, indent=1)
+    )
     print("\n".join(md))
     return 0
 
@@ -460,9 +635,11 @@ def cmd_gates(args) -> int:
     rep = run_gate_eval(scenarios)
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    body = (f"# Answer-gate adversarial evaluation\n\n{len(scenarios)} scenarios (one per answerable gold query: gold chunk + 2 distractors). Each row corrupts the same clean answer in one way; "
-            f"each column is a gate policy (`retrieve.POLICIES`: strict = quotes must be verbatim, support checked against the quotes; tolerant = also accepts a quote that is one word off; "
-            f"lenient = support checked against the cited chunk, and a missing quote is replaced by the chunk's best-matching span).\n\n{rep.markdown()}\n")
+    body = (
+        f"# Answer-gate adversarial evaluation\n\n{len(scenarios)} scenarios (one per answerable gold query: gold chunk + 2 distractors). Each row corrupts the same clean answer in one way; "
+        f"each column is a gate policy (`retrieve.POLICIES`: strict = quotes must be verbatim, support checked against the quotes; tolerant = also accepts a quote that is one word off; "
+        f"lenient = support checked against the cited chunk, and a missing quote is replaced by the chunk's best-matching span).\n\n{rep.markdown()}\n"
+    )
     missed = "\n".join(f"- **{k}**: " + "; ".join(v) for k, v in rep.examples.items() if v)
     if missed:
         body += f"\n## Examples where the gate did not behave as expected\n\n{missed}\n"
@@ -478,8 +655,12 @@ def cmd_quotes(args) -> int:
     ws = Workspace(args.corpus)
     ws.ingest()
     rows = Q.run_quote_tolerance(load_gold(args.gold), ws.db.iter_chunks())
-    body = ("# Quote-matching tolerance\n\nReal gold snippets, damaged the way a small model slips (`slip`) or the way a fabrication looks (`fabrication`); "
-            "does the locator find the quote in its chunk? Good = slips accepted, fabrications rejected.\n\n" + Q.markdown(rows) + "\n")
+    body = (
+        "# Quote-matching tolerance\n\nReal gold snippets, damaged the way a small model slips (`slip`) or the way a fabrication looks (`fabrication`); "
+        "does the locator find the quote in its chunk? Good = slips accepted, fabrications rejected.\n\n"
+        + Q.markdown(rows)
+        + "\n"
+    )
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.with_suffix(".md").write_text(body)
@@ -500,7 +681,9 @@ def cmd_summarize(args) -> int:
 
     class _Span:  # replaying needs a span scorer only for the lenient policy's extraction
         def span_scorer(self):
-            return lambda q, ts: [float(len(set(_re.findall(r"\w+", q.lower())) & set(_re.findall(r"\w+", t.lower())))) for t in ts]
+            return lambda q, ts: [
+                float(len(set(_re.findall(r"\w+", q.lower())) & set(_re.findall(r"\w+", t.lower())))) for t in ts
+            ]
 
     def table(name: str, queries):
         path = res / f"{name}.json"
@@ -516,10 +699,20 @@ def cmd_summarize(args) -> int:
             return f"_(missing: {path.name})_"
         import json as _json
 
-        return A.policy_markdown(_json.load(open(path))["policies"]) if "policies" in _json.load(open(path)) else "_(no policy table in this file)_"
+        return (
+            A.policy_markdown(_json.load(open(path))["policies"])
+            if "policies" in _json.load(open(path))
+            else "_(no policy table in this file)_"
+        )
 
-    gates = (res / "gates.md").read_text().split("\n\n", 2)[-1] if (res / "gates.md").exists() else "_(run `evals gates`)_"
-    quotes = (res / "quote_tolerance.md").read_text().split("\n\n", 2)[-1] if (res / "quote_tolerance.md").exists() else "_(run `evals quotes`)_"
+    gates = (
+        (res / "gates.md").read_text().split("\n\n", 2)[-1] if (res / "gates.md").exists() else "_(run `evals gates`)_"
+    )
+    quotes = (
+        (res / "quote_tolerance.md").read_text().split("\n\n", 2)[-1]
+        if (res / "quote_tolerance.md").exists()
+        else "_(run `evals quotes`)_"
+    )
     body = f"""# Answer gate: formats, policies and what they cost
 
 Generated by `python -m rag_template.evals summarize` from the saved replies of **Gemma 4 E2B** (llama.cpp, temperature 0.1) on
@@ -593,15 +786,28 @@ def cmd_synth(args) -> int:
     ws = Workspace(args.corpus)
     ws.ingest()
     log_every = lambda i, kept, st: print(f"\r  {i} chunks tried, {kept} queries kept", end="", flush=True)  # noqa: E731
-    queries, stats = generate_queries(ws.db.iter_chunks(), llm, n=args.n, seed=args.seed, max_shared_words=args.max_shared_words, on_progress=log_every)
+    queries, stats = generate_queries(
+        ws.db.iter_chunks(),
+        llm,
+        n=args.n,
+        seed=args.seed,
+        max_shared_words=args.max_shared_words,
+        on_progress=log_every,
+    )
     save_gold(queries, args.out)
     print(f"\nwrote {len(queries)} queries to {args.out}; attempted {stats.attempted}; rejected: {stats.rejected}")
     return 0
 
 
 _CONVERSION_COLUMNS = [
-    ("fused #", "fused_numeric"), ("novel #", "novel_numeric"), ("dropped nums", "dropped_numeric_ratio"), ("word recall", "word_recall"),
-    ("6-run recall", "run6_recall"), ("order gap", "order_gap"), ("spaced runs", "spaced_letter_runs"), ("ragged tables", "ragged_tables"),
+    ("fused #", "fused_numeric"),
+    ("novel #", "novel_numeric"),
+    ("dropped nums", "dropped_numeric_ratio"),
+    ("word recall", "word_recall"),
+    ("6-run recall", "run6_recall"),
+    ("order gap", "order_gap"),
+    ("spaced runs", "spaced_letter_runs"),
+    ("ragged tables", "ragged_tables"),
     ("flat code", "flattened_code_blocks"),
 ]
 
@@ -618,17 +824,32 @@ def cmd_conversion(args) -> int:
             t = time.time()
             info, md = converters.convert_pdf(pdf, dataclasses.replace(PdfSettings.from_env(), backend=backend))
             secs = time.time() - t
-            rep = convcheck.ConversionReport.from_dict(info["conversion_check"]) if "conversion_check" in info else convcheck.check_conversion(pdf, md)
+            rep = (
+                convcheck.ConversionReport.from_dict(info["conversion_check"])
+                if "conversion_check" in info
+                else convcheck.check_conversion(pdf, md)
+            )
             detail.append({"pdf": pdf.name, "backend": backend, "seconds": round(secs, 1), **rep.as_dict()})
-            print(f"{pdf.name:36s} {backend:12s} {rep.verdict:7s} " + ("; ".join(rep.warnings)[:140] if rep.warnings else rep.reason), flush=True)
+            print(
+                f"{pdf.name:36s} {backend:12s} {rep.verdict:7s} "
+                + ("; ".join(rep.warnings)[:140] if rep.warnings else rep.reason),
+                flush=True,
+            )
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    lines = ["# Conversion check", "", "Each PDF converted by each backend, then compared with Poppler's `pdftotext` text (see `convcheck.py`).", "",
-             "| pdf | backend | verdict | " + " | ".join(c for c, _ in _CONVERSION_COLUMNS) + " | convert s |",
-             "|---|---|---|" + "---:|" * (len(_CONVERSION_COLUMNS) + 1)]
+    lines = [
+        "# Conversion check",
+        "",
+        "Each PDF converted by each backend, then compared with Poppler's `pdftotext` text (see `convcheck.py`).",
+        "",
+        "| pdf | backend | verdict | " + " | ".join(c for c, _ in _CONVERSION_COLUMNS) + " | convert s |",
+        "|---|---|---|" + "---:|" * (len(_CONVERSION_COLUMNS) + 1),
+    ]
     for d in detail:
         cells = [d["metrics"].get(key, "-") for _, key in _CONVERSION_COLUMNS]
-        lines.append("| " + " | ".join(str(c) for c in [d["pdf"], d["backend"], d["verdict"], *cells, d["seconds"]]) + " |")
+        lines.append(
+            "| " + " | ".join(str(c) for c in [d["pdf"], d["backend"], d["verdict"], *cells, d["seconds"]]) + " |"
+        )
     lines += ["", "## Warnings and examples", ""]
     for d in detail:
         if d["warnings"]:
@@ -655,7 +876,14 @@ def cmd_golden(args) -> int:
     rag = RAG(settings)
     if args.ingest:
         res = rag.ingest_path(args.ingest, replace=True)
-        print("ingest:", res.status, res.message, f"{res.chunks} chunks, {res.usable_chunks} usable", dict(res.rejection_reasons or {}), flush=True)
+        print(
+            "ingest:",
+            res.status,
+            res.message,
+            f"{res.chunks} chunks, {res.usable_chunks} usable",
+            dict(res.rejection_reasons or {}),
+            flush=True,
+        )
         rag.index()
     rows = G.load_golden(args.golden)
     if args.split != "all":  # evals/split.py: tune on dev, judge on test
@@ -664,13 +892,35 @@ def cmd_golden(args) -> int:
         rows = select(rows, lambda r: r.question, args.split)
     rows = rows[: args.limit or None]
     audit = G.audit_evidence(rag.db.iter_chunks(), rows, fuzzy=args.fuzzy_evidence)
-    records = G.run(rag, rows, audit, k=args.k, policy=args.policy, fuzzy=args.fuzzy_evidence, max_context_tokens=args.max_context_tokens, expand_section=args.expand_section)
+    records = G.run(
+        rag,
+        rows,
+        audit,
+        k=args.k,
+        policy=args.policy,
+        fuzzy=args.fuzzy_evidence,
+        max_context_tokens=args.max_context_tokens,
+        expand_section=args.expand_section,
+    )
     stats = rag.db.stats()
-    meta = {"label": args.label or Path(args.out).name, "golden": str(args.golden), "store": str(args.data_dir), "chunks": stats["chunks"], "usable": stats["usable_chunks"],
-            "json_mode": str(settings.llm.json_mode), "policy": args.policy or settings.answer_policy, "k": args.k, "split": args.split, "max_context_tokens": args.max_context_tokens or 3000, "expand_section": args.expand_section}
+    meta = {
+        "label": args.label or Path(args.out).name,
+        "golden": str(args.golden),
+        "store": str(args.data_dir),
+        "chunks": stats["chunks"],
+        "usable": stats["usable_chunks"],
+        "json_mode": str(settings.llm.json_mode),
+        "policy": args.policy or settings.answer_policy,
+        "k": args.k,
+        "split": args.split,
+        "max_context_tokens": args.max_context_tokens or 3000,
+        "expand_section": args.expand_section,
+    }
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.with_suffix(".json").write_text(json.dumps({"meta": meta, "records": records}, ensure_ascii=False, indent=1))  # first: the run is expensive, the report is not
+    out.with_suffix(".json").write_text(
+        json.dumps({"meta": meta, "records": records}, ensure_ascii=False, indent=1)
+    )  # first: the run is expensive, the report is not
     out.with_suffix(".md").write_text(G.render(records, meta))
     print("wrote", out.with_suffix(".md"))
     return 0
@@ -689,7 +939,9 @@ def cmd_answers(args) -> int:
     ws.add_embedder("gemma", SentenceTransformerEmbedder(settings.embed_model, dtype=settings.embed_dtype))
     reranker = _reranker(settings)
     retriever = ws.retriever("gemma", reranker, settings.query_task)
-    retriever.rerank_mode = default_rerank_mode(settings.rerank_model) if settings.rerank_mode == "auto" else settings.rerank_mode
+    retriever.rerank_mode = (
+        default_rerank_mode(settings.rerank_model) if settings.rerank_mode == "auto" else settings.rerank_mode
+    )
     queries = load_gold(args.gold)[: args.limit or None]
     for extra in args.extra_gold:
         queries += load_gold(extra)
@@ -703,16 +955,30 @@ def cmd_answers(args) -> int:
 
         with open(stream, "a") as f:
             f.write(json.dumps(asdict(r), ensure_ascii=False) + "\n")
-        print(f"  {r.id}: {'refused' if r.refused else ('pass' if r.grounded else 'flag: ' + r.reason[:70])} {r.latency_s:.1f}s", flush=True)
+        print(
+            f"  {r.id}: {'refused' if r.refused else ('pass' if r.grounded else 'flag: ' + r.reason[:70])} {r.latency_s:.1f}s",
+            flush=True,
+        )
 
-    recs = A.run_answer_eval(retriever, llm, queries, k=args.k, on_record=on_record, policy="strict", quotes_first=quotes_first)
+    recs = A.run_answer_eval(
+        retriever, llm, queries, k=args.k, on_record=on_record, policy="strict", quotes_first=quotes_first
+    )
     runs = {name: A.regate(recs, queries, retriever, p) for name, p in POLICIES.items()}
     for t in args.relevance_thresholds:  # the optional pre-LLM gate on top of the default policy, same replies
-        runs[f"balanced + relevance gate {t:g}"] = A.regate(recs, queries, retriever, POLICIES["balanced"], min_relevance=t)
+        runs[f"balanced + relevance gate {t:g}"] = A.regate(
+            recs, queries, retriever, POLICIES["balanced"], min_relevance=t
+        )
     rows = A.policy_table(runs)
     summary = A.summarize(runs["strict"])
-    out.with_suffix(".md").write_text(A.markdown(summary, runs["strict"]) + "\n## Gate policies, same replies re-judged\n\n" + A.policy_markdown(rows) + "\n")
-    out.with_suffix(".json").write_text(json.dumps({"policies": rows, **A.to_json(summary, recs)}, indent=1, default=str))
+    out.with_suffix(".md").write_text(
+        A.markdown(summary, runs["strict"])
+        + "\n## Gate policies, same replies re-judged\n\n"
+        + A.policy_markdown(rows)
+        + "\n"
+    )
+    out.with_suffix(".json").write_text(
+        json.dumps({"policies": rows, **A.to_json(summary, recs)}, indent=1, default=str)
+    )
     print("\n" + A.policy_markdown(rows))
     print(f"wrote {out.with_suffix('.md')}")
     return 0
@@ -724,11 +990,26 @@ def cmd_pool(args) -> int:
     settings = Settings.from_env()
     root, labels = Path.cwd(), args.corpora
     tmp, pool_dir, alias, corpus_of_file = P.temp_pool(labels, root)
-    systems = [System("pool/bm25", lexical=True, dense=False), System("pool/gemma RRF", "gemma"), System("pool/gemma RRF+rerank", "gemma", rerank=True, rerank_top=args.rerank_top)]
-    if args.fusion:  # per-query z-score fusion against RRF: candidate quality (recall@20) and the final result after the reranker
+    systems = [
+        System("pool/bm25", lexical=True, dense=False),
+        System("pool/gemma RRF", "gemma"),
+        System("pool/gemma RRF+rerank", "gemma", rerank=True, rerank_top=args.rerank_top),
+    ]
+    if (
+        args.fusion
+    ):  # per-query z-score fusion against RRF: candidate quality (recall@20) and the final result after the reranker
         for label, weights in (("z(1,1)", (1.0, 1.0)), ("z(dense x2)", (2.0, 1.0)), ("z(lexical x2)", (1.0, 2.0))):
             systems.append(System(f"pool/gemma {label}", "gemma", fusion="zscore", weights=weights))
-            systems.append(System(f"pool/gemma {label}+rerank", "gemma", rerank=True, rerank_top=args.rerank_top, fusion="zscore", weights=weights))
+            systems.append(
+                System(
+                    f"pool/gemma {label}+rerank",
+                    "gemma",
+                    rerank=True,
+                    rerank_top=args.rerank_top,
+                    fusion="zscore",
+                    weights=weights,
+                )
+            )
     ws = Workspace(pool_dir)
     t0 = time.monotonic()
     ws.ingest()
@@ -739,36 +1020,65 @@ def cmd_pool(args) -> int:
     results = {s.name: evaluate_system(ws, s, pool.queries, reranker) for s in systems}
     best = results["pool/gemma RRF+rerank"]
     by_id = {q.id: q for q in pool.queries}
-    where = lambda c: (lambda q: pool.corpus_of[q.id] == c)  # noqa: E731
+    where = lambda c: lambda q: pool.corpus_of[q.id] == c  # noqa: E731
 
-    parts = [f"# Pooled retrieval evaluation\n\nOne index over {len(ws.results)} files ({', '.join(labels)}), {len(pool.queries)} answerable queries from every corpus's gold file. "
-             "Relevance = the chunk is from the gold file and contains the gold snippet. Values are percentages with a 95% bootstrap half-width.\n"]
+    parts = [
+        f"# Pooled retrieval evaluation\n\nOne index over {len(ws.results)} files ({', '.join(labels)}), {len(pool.queries)} answerable queries from every corpus's gold file. "
+        "Relevance = the chunk is from the gold file and contains the gold snippet. Values are percentages with a 95% bootstrap half-width.\n"
+    ]
     drop = ", ".join(f"{c}: {n} unreachable" for c, n in pool.unreachable.items()) or "none"
-    parts.append(f"Golden-format questions dropped because no usable chunk holds their evidence verbatim: {drop}. Partial/unanswerable golden rows are not retrieval queries.\n")
+    parts.append(
+        f"Golden-format questions dropped because no usable chunk holds their evidence verbatim: {drop}. Partial/unanswerable golden rows are not retrieval queries.\n"
+    )
     parts.append("## Pooled\n\n" + R.metrics_table(list(results.values())))
     for label in labels:
-        parts.append(f"\n## {label} ({sum(1 for q in pool.queries if pool.corpus_of[q.id] == label)} queries)\n\n" + R.metrics_table(list(results.values()), where(label)))
+        parts.append(
+            f"\n## {label} ({sum(1 for q in pool.queries if pool.corpus_of[q.id] == label)} queries)\n\n"
+            + R.metrics_table(list(results.values()), where(label))
+        )
     dup = "; ".join(f"`{a}` = `{b}`" for a, b in alias.items()) or "none"
     parts.append(f"Byte-identical files indexed once (gold names mapped to the kept copy): {dup}.\n")
     if args.fusion:
-        pairs = [(f"{lab} vs RRF", results[f"pool/gemma {lab}"], results["pool/gemma RRF"]) for lab in ("z(1,1)", "z(dense x2)", "z(lexical x2)")]
-        pairs += [(f"{lab}+rerank vs RRF+rerank", results[f"pool/gemma {lab}+rerank"], best) for lab in ("z(1,1)", "z(dense x2)", "z(lexical x2)")]
-        parts.append("\n## Score fusion against RRF (paired bootstrap, A - B, points; bold = interval excludes 0)\n\n" + R.comparisons_table(pairs, metrics=("recall@20", "recall@5", "mrr@10")))
+        pairs = [
+            (f"{lab} vs RRF", results[f"pool/gemma {lab}"], results["pool/gemma RRF"])
+            for lab in ("z(1,1)", "z(dense x2)", "z(lexical x2)")
+        ]
+        pairs += [
+            (f"{lab}+rerank vs RRF+rerank", results[f"pool/gemma {lab}+rerank"], best)
+            for lab in ("z(1,1)", "z(dense x2)", "z(lexical x2)")
+        ]
+        parts.append(
+            "\n## Score fusion against RRF (paired bootstrap, A - B, points; bold = interval excludes 0)\n\n"
+            + R.comparisons_table(pairs, metrics=("recall@20", "recall@5", "mrr@10"))
+        )
         for lab in ("z(1,1)", "z(dense x2)", "z(lexical x2)"):
             for c in labels:
                 d = compare(results[f"pool/gemma {lab}+rerank"], best, "recall@5", where(c))
-                parts.append(f"- {lab}+rerank vs RRF+rerank, {c}: recall@5 {100 * d['diff']:+.1f} [{100 * d['lo']:+.1f}, {100 * d['hi']:+.1f}]")
-    rows = ["| corpus | queries | top-1 from another corpus | top-1 not from a gold file | no gold-file hit in the top 5 |", "|---|---:|---:|---:|---:|"]
+                parts.append(
+                    f"- {lab}+rerank vs RRF+rerank, {c}: recall@5 {100 * d['diff']:+.1f} [{100 * d['lo']:+.1f}, {100 * d['hi']:+.1f}]"
+                )
+    rows = [
+        "| corpus | queries | top-1 from another corpus | top-1 not from a gold file | no gold-file hit in the top 5 |",
+        "|---|---:|---:|---:|---:|",
+    ]
     wrong = {}
     for label in labels + ["all"]:
         qs = [q for q in best.queries if label == "all" or pool.corpus_of[q.id] == label]
         w1 = [P.wrong_document(q.ranked, {g.file for g in by_id[q.id].gold}, 1) for q in qs]
         w5 = [P.wrong_document(q.ranked, {g.file for g in by_id[q.id].gold}, 5) for q in qs]
-        x1 = [bool(q.ranked) and q.ranked[0]["source"] not in {g.file for g in by_id[q.id].gold} and corpus_of_file.get(q.ranked[0]["source"]) != pool.corpus_of[q.id] for q in qs]  # a shared file is the answer for both corpora that hold it
+        x1 = [
+            bool(q.ranked)
+            and q.ranked[0]["source"] not in {g.file for g in by_id[q.id].gold}
+            and corpus_of_file.get(q.ranked[0]["source"]) != pool.corpus_of[q.id]
+            for q in qs
+        ]  # a shared file is the answer for both corpora that hold it
         wrong[label] = (len(qs), sum(x1), sum(w1), sum(w5))
         pc = lambda n: f"{n} ({100 * n / max(1, len(qs)):.1f}%)"  # noqa: E731
         rows.append(f"| {label} | {len(qs)} | {pc(sum(x1))} | {pc(sum(w1))} | {pc(sum(w5))} |")
-    parts.append("\n## Wrong-document rates (`pool/gemma RRF+rerank`; inside one corpus another file is often a legitimate neighbour topic, another corpus never is)\n\n" + "\n".join(rows))
+    parts.append(
+        "\n## Wrong-document rates (`pool/gemma RRF+rerank`; inside one corpus another file is often a legitimate neighbour topic, another corpus never is)\n\n"
+        + "\n".join(rows)
+    )
     isolated = {}
     if args.isolated:
         iso_rows = ["| corpus | isolated recall@5 | pooled recall@5 | difference |", "|---|---:|---:|---:|"]
@@ -786,16 +1096,41 @@ def cmd_pool(args) -> int:
                 sub_tmp.cleanup()
             a = list(iso.values("recall@5"))
             ids = {q.id.split(":", 1)[1] for q in iso.queries}
-            b = [q.metrics["recall@5"] for q in best.queries if pool.corpus_of[q.id] == label and q.id.split(":", 1)[1] in ids]
+            b = [
+                q.metrics["recall@5"]
+                for q in best.queries
+                if pool.corpus_of[q.id] == label and q.id.split(":", 1)[1] in ids
+            ]
             isolated[label] = (sum(a) / len(a), sum(b) / max(1, len(b)))
-            iso_rows.append(f"| {label} | {100 * isolated[label][0]:.1f} | {100 * isolated[label][1]:.1f} | {100 * (isolated[label][1] - isolated[label][0]):+.1f} |")
-        parts.append("\n## Cost of sharing the index (same queries, same system, one corpus alone vs all together)\n\n" + "\n".join(iso_rows))
-    parts.append("\n## Misses (`pool/gemma RRF+rerank`, no relevant chunk in the top 10)\n\n" + R.failures(best, by_id, 10, 25))
+            iso_rows.append(
+                f"| {label} | {100 * isolated[label][0]:.1f} | {100 * isolated[label][1]:.1f} | {100 * (isolated[label][1] - isolated[label][0]):+.1f} |"
+            )
+        parts.append(
+            "\n## Cost of sharing the index (same queries, same system, one corpus alone vs all together)\n\n"
+            + "\n".join(iso_rows)
+        )
+    parts.append(
+        "\n## Misses (`pool/gemma RRF+rerank`, no relevant chunk in the top 10)\n\n" + R.failures(best, by_id, 10, 25)
+    )
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.with_suffix(".md").write_text("\n".join(parts) + "\n")
-    out.with_suffix(".json").write_text(json.dumps({"corpora": labels, "queries": len(pool.queries), "unreachable": pool.unreachable, "wrong_document": wrong, "isolated": isolated,
-                                                    "systems": {n: {"all": r.summary(with_ci=False), **{c: r.summary(where(c), with_ci=False) for c in labels}} for n, r in results.items()}}, indent=1))
+    out.with_suffix(".json").write_text(
+        json.dumps(
+            {
+                "corpora": labels,
+                "queries": len(pool.queries),
+                "unreachable": pool.unreachable,
+                "wrong_document": wrong,
+                "isolated": isolated,
+                "systems": {
+                    n: {"all": r.summary(with_ci=False), **{c: r.summary(where(c), with_ci=False) for c in labels}}
+                    for n, r in results.items()
+                },
+            },
+            indent=1,
+        )
+    )
     print("\n".join(parts[:3]))
     print(f"wrote {out.with_suffix('.md')}")
     tmp.cleanup()
@@ -804,16 +1139,27 @@ def cmd_pool(args) -> int:
 
 def main(argv=None) -> int:
     env.load_dotenv()
-    ap = argparse.ArgumentParser(prog="python -m rag_template.evals", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        prog="python -m rag_template.evals", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     ap.add_argument("-v", "--verbose", action="store_true")
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("retrieval")
     p.add_argument("--corpus", default="evals/corpus/questionprep")
     p.add_argument("--gold", default="evals/gold/handwritten.jsonl")
     p.add_argument("--out", default="evals/results/retrieval")
-    p.add_argument("--no-baselines", dest="baselines", action="store_false", help="skip the fixed-window chunker baselines")
-    p.add_argument("--rerank-top", type=int, default=20, help="how many fused candidates the reranker reads (the earlier ms-marco results used 60)")
-    p.add_argument("--only-origin", default=None, help="restrict to gold queries of one origin (handwritten | synthetic)")
+    p.add_argument(
+        "--no-baselines", dest="baselines", action="store_false", help="skip the fixed-window chunker baselines"
+    )
+    p.add_argument(
+        "--rerank-top",
+        type=int,
+        default=20,
+        help="how many fused candidates the reranker reads (the earlier ms-marco results used 60)",
+    )
+    p.add_argument(
+        "--only-origin", default=None, help="restrict to gold queries of one origin (handwritten | synthetic)"
+    )
     p = sub.add_parser("ablations")
     p.add_argument("--corpus", default="evals/corpus/questionprep")
     p.add_argument("--gold", default="evals/gold/handwritten.jsonl")
@@ -824,7 +1170,12 @@ def main(argv=None) -> int:
     p.add_argument("--synthetic-gold", default="evals/gold/synthetic.jsonl")
     p.add_argument("--unanswerable", default="evals/gold/unanswerable.jsonl")
     p.add_argument("--out", default="evals/results/answerability")
-    p.add_argument("--models", nargs="+", default=["jinaai/jina-reranker-v3.5", "cross-encoder/ms-marco-MiniLM-L-6-v2"], help="rerankers whose scores are tested as signals")
+    p.add_argument(
+        "--models",
+        nargs="+",
+        default=["jinaai/jina-reranker-v3.5", "cross-encoder/ms-marco-MiniLM-L-6-v2"],
+        help="rerankers whose scores are tested as signals",
+    )
     p.add_argument("--rerank-top", type=int, default=20)
     p = sub.add_parser("gate-stability")
     p.add_argument("--corpus", default="evals/corpus/questionprep")
@@ -839,7 +1190,12 @@ def main(argv=None) -> int:
     p.add_argument("--corpus", default="evals/corpus/questionprep")
     p.add_argument("--gold", default="evals/gold/handwritten.jsonl")
     p.add_argument("--out", default="evals/results/rerankers")
-    p.add_argument("--models", nargs="+", default=["jinaai/jina-reranker-v3.5", "cross-encoder/ms-marco-MiniLM-L-6-v2"], help="Hugging Face ids, each loaded only if you list it here")
+    p.add_argument(
+        "--models",
+        nargs="+",
+        default=["jinaai/jina-reranker-v3.5", "cross-encoder/ms-marco-MiniLM-L-6-v2"],
+        help="Hugging Face ids, each loaded only if you list it here",
+    )
     p.add_argument("--tops", nargs="+", type=int, default=[20], help="how many fused candidates the reranker reads")
     p.add_argument("--shuffles", type=int, default=5)
     p.add_argument("--stability-queries", type=int, default=30)
@@ -851,8 +1207,14 @@ def main(argv=None) -> int:
     p.add_argument("--corpora", nargs="+", default=["questionprep", "pdfs", "banking", "pera", "trm", "ssd"])
     p.add_argument("--out", default="evals/results/pooled")
     p.add_argument("--rerank-top", type=int, default=20)
-    p.add_argument("--isolated", action="store_true", help="also run each corpus alone, to measure what sharing the index costs")
-    p.add_argument("--fusion", action="store_true", help="also run per-query z-score fusion in place of RRF (three weightings, with and without the reranker)")
+    p.add_argument(
+        "--isolated", action="store_true", help="also run each corpus alone, to measure what sharing the index costs"
+    )
+    p.add_argument(
+        "--fusion",
+        action="store_true",
+        help="also run per-query z-score fusion in place of RRF (three weightings, with and without the reranker)",
+    )
     p = sub.add_parser("quotes")
     p.add_argument("--corpus", default="evals/corpus/questionprep")
     p.add_argument("--gold", default="evals/gold/handwritten.jsonl")
@@ -873,7 +1235,9 @@ def main(argv=None) -> int:
     p.add_argument("--out", default="evals/results/conversion_check")
     p = sub.add_parser("golden", help="score an ingested store against an external golden QA jsonl")
     p.add_argument("--golden", required=True)
-    p.add_argument("--data-dir", default="data", help="the store to evaluate (copy the live one first if the app is running)")
+    p.add_argument(
+        "--data-dir", default="data", help="the store to evaluate (copy the live one first if the app is running)"
+    )
     p.add_argument("--ingest", default=None, help="ingest this file into --data-dir before evaluating")
     p.add_argument("--out", default="evals/results/golden")
     p.add_argument("--label", default="")
@@ -881,23 +1245,77 @@ def main(argv=None) -> int:
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--policy", default=None)
     p.add_argument("--json-mode", choices=["off", "json_object", "schema"], default=None)
-    p.add_argument("--split", choices=["dev", "test", "all"], default="all", help="only the dev (60%%) or test (40%%) questions of evals/split.py")
-    p.add_argument("--expand-section", type=int, default=0, help="add up to N chunks that continue a retrieved chunk in the same section")
-    p.add_argument("--max-context-tokens", type=int, default=None, help="token budget for the sources in the prompt (Answerer default 3000)")
-    p.add_argument("--fuzzy-evidence", action="store_true", help="count a chunk as holding an evidence quote when it contains >= 80%% of the quote's tokens (for golden files whose quotes are renderings of the source)")
+    p.add_argument(
+        "--split",
+        choices=["dev", "test", "all"],
+        default="all",
+        help="only the dev (60%%) or test (40%%) questions of evals/split.py",
+    )
+    p.add_argument(
+        "--expand-section",
+        type=int,
+        default=0,
+        help="add up to N chunks that continue a retrieved chunk in the same section",
+    )
+    p.add_argument(
+        "--max-context-tokens",
+        type=int,
+        default=None,
+        help="token budget for the sources in the prompt (Answerer default 3000)",
+    )
+    p.add_argument(
+        "--fuzzy-evidence",
+        action="store_true",
+        help="count a chunk as holding an evidence quote when it contains >= 80%% of the quote's tokens (for golden files whose quotes are renderings of the source)",
+    )
     p = sub.add_parser("answers")
     p.add_argument("--corpus", default="evals/corpus/questionprep")
     p.add_argument("--gold", default="evals/gold/handwritten.jsonl")
     p.add_argument("--out", default="evals/results/answers")
     p.add_argument("-k", type=int, default=5)
     p.add_argument("--limit", type=int, default=0)
-    p.add_argument("--extra-gold", nargs="*", default=[], help="more gold files (e.g. evals/gold/unanswerable.jsonl) asked after --gold")
-    p.add_argument("--relevance-thresholds", nargs="*", type=float, default=[0.183, 0.211, 0.304], help="pre-LLM relevance gate values to replay (reranker score)")
-    p.add_argument("--json-mode", choices=["off", "json_object", "schema"], default=None, help="constrain the reply format (default: LLM_JSON_MODE)")
-    p.add_argument("--quotes-first", action=argparse.BooleanOptionalAction, default=None, help="ask for the evidence before the answer (default: RAG_ANSWER_QUOTES_FIRST)")
+    p.add_argument(
+        "--extra-gold",
+        nargs="*",
+        default=[],
+        help="more gold files (e.g. evals/gold/unanswerable.jsonl) asked after --gold",
+    )
+    p.add_argument(
+        "--relevance-thresholds",
+        nargs="*",
+        type=float,
+        default=[0.183, 0.211, 0.304],
+        help="pre-LLM relevance gate values to replay (reranker score)",
+    )
+    p.add_argument(
+        "--json-mode",
+        choices=["off", "json_object", "schema"],
+        default=None,
+        help="constrain the reply format (default: LLM_JSON_MODE)",
+    )
+    p.add_argument(
+        "--quotes-first",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="ask for the evidence before the answer (default: RAG_ANSWER_QUOTES_FIRST)",
+    )
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, format="%(message)s")
-    return {"retrieval": cmd_retrieval, "gates": cmd_gates, "gate-stability": cmd_gate_stability, "answerability": cmd_answerability, "rerankers": cmd_rerankers, "quotes": cmd_quotes, "summarize": cmd_summarize, "ablations": cmd_ablations, "synth": cmd_synth, "answers": cmd_answers, "golden": cmd_golden, "conversion": cmd_conversion, "pool": cmd_pool}[args.cmd](args)
+    return {
+        "retrieval": cmd_retrieval,
+        "gates": cmd_gates,
+        "gate-stability": cmd_gate_stability,
+        "answerability": cmd_answerability,
+        "rerankers": cmd_rerankers,
+        "quotes": cmd_quotes,
+        "summarize": cmd_summarize,
+        "ablations": cmd_ablations,
+        "synth": cmd_synth,
+        "answers": cmd_answers,
+        "golden": cmd_golden,
+        "conversion": cmd_conversion,
+        "pool": cmd_pool,
+    }[args.cmd](args)
 
 
 if __name__ == "__main__":

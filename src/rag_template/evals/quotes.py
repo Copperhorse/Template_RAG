@@ -45,7 +45,10 @@ def mutations(vocab: Sequence[str], rng: random.Random) -> Dict[str, Dict]:
         "two words swapped": {"kind": "slip", "fn": swap},
         "last 25% cut off": {"kind": "slip", "fn": lambda w: w[: max(3, int(len(w) * 0.75))]},
         "one word dropped": {"kind": "slip", "fn": lambda w: w[: len(w) // 2] + w[len(w) // 2 + 1 :]},
-        "one word replaced": {"kind": "slip", "fn": lambda w: w[: len(w) // 2] + [rng.choice(vocab)] + w[len(w) // 2 + 1 :]},
+        "one word replaced": {
+            "kind": "slip",
+            "fn": lambda w: w[: len(w) // 2] + [rng.choice(vocab)] + w[len(w) // 2 + 1 :],
+        },
         "30% of words replaced": {"kind": "fabrication", "fn": replace_fraction(0.3)},
         "50% of words replaced": {"kind": "fabrication", "fn": replace_fraction(0.5)},
         "text of another chunk": {"kind": "fabrication", "fn": None},
@@ -81,16 +84,27 @@ def run_quote_tolerance(queries: Sequence[Query], chunks: Sequence[Dict], seed: 
             accepted_strict += verify.locate_quote_ex(text, home["content"], code=code) is not None
             accepted_loose += verify.locate_quote_ex(text, home["content"], code=code, loose=True) is not None
         scores.sort()
-        rows.append({
-            "damage": name, "kind": m["kind"], "n": n,
-            "median_score": scores[len(scores) // 2] if scores else 0.0, "max_score": scores[-1] if scores else 0.0,
-            "strict_accepts": accepted_strict / n if n else 0.0, "loose_accepts": accepted_loose / n if n else 0.0,
-        })
+        rows.append(
+            {
+                "damage": name,
+                "kind": m["kind"],
+                "n": n,
+                "median_score": scores[len(scores) // 2] if scores else 0.0,
+                "max_score": scores[-1] if scores else 0.0,
+                "strict_accepts": accepted_strict / n if n else 0.0,
+                "loose_accepts": accepted_loose / n if n else 0.0,
+            }
+        )
     return rows
 
 
 def markdown(rows: Sequence[Dict]) -> str:
-    out = ["| damage | kind | n | median match score | max | strict accepts | loose accepts |", "|---|---|---:|---:|---:|---:|---:|"]
+    out = [
+        "| damage | kind | n | median match score | max | strict accepts | loose accepts |",
+        "|---|---|---:|---:|---:|---:|---:|",
+    ]
     for r in rows:
-        out.append(f"| {r['damage']} | {r['kind']} | {r['n']} | {r['median_score']:.0f} | {r['max_score']:.0f} | {100 * r['strict_accepts']:.0f}% | {100 * r['loose_accepts']:.0f}% |")
+        out.append(
+            f"| {r['damage']} | {r['kind']} | {r['n']} | {r['median_score']:.0f} | {r['max_score']:.0f} | {100 * r['strict_accepts']:.0f}% | {100 * r['loose_accepts']:.0f}% |"
+        )
     return "\n".join(out)

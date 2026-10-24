@@ -41,7 +41,10 @@ def test_the_tail_of_a_list_cut_by_a_table_is_found_in_the_same_section(make_rag
 def test_expansion_is_off_by_default_and_appends_after_the_retrieved_sources(make_rag, tmp_path):
     rag, r = retriever(make_rag, tmp_path)
     q = "What improvements does the method add?"
-    llm_off, llm_on = FakeLLM(reply("x [S1].", ("S1", "Dynamic Sampling"))), FakeLLM(reply("x [S1].", ("S1", "Dynamic Sampling")))
+    llm_off, llm_on = (
+        FakeLLM(reply("x [S1].", ("S1", "Dynamic Sampling"))),
+        FakeLLM(reply("x [S1].", ("S1", "Dynamic Sampling"))),
+    )
     Answerer(r, llm_off).ask(q, k=1, rerank=False)
     Answerer(r, llm_on, expand_section=3).ask(q, k=1, rerank=False)
     assert llm_on.prompts[0].count("[S") > llm_off.prompts[0].count("[S") and "[S1]" in llm_on.prompts[0]

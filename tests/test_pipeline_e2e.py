@@ -47,7 +47,9 @@ def test_replace_swaps_a_changed_file_and_removes_the_old_vectors(make_rag, stub
     rag, results = built(make_rag, stub, sample_repo)
     old = results["pkg/retry.py"].doc_id
     path = sample_repo / "pkg" / "retry.py"
-    path.write_text(SAMPLE_PY.replace("DEFAULT_ATTEMPTS = 3", "DEFAULT_ATTEMPTS = 5").replace("tiny time-to-live", "small expiring"))
+    path.write_text(
+        SAMPLE_PY.replace("DEFAULT_ATTEMPTS = 3", "DEFAULT_ATTEMPTS = 5").replace("tiny time-to-live", "small expiring")
+    )
     new = rag.ingest_path(path, replace=True, source="pkg/retry.py")
     assert new.ok and new.doc_id != old
     assert rag.db.get_document(old) is None and old not in set(rag.store.doc_ids().values())
@@ -63,7 +65,9 @@ def test_search_finds_the_right_code_by_identifier_and_by_question(make_rag, stu
     hits = rag.search("rollback previous image tag", k=3)
     assert hits[0].source == "docs/deploy.md" and "Rollback" in hits[0].breadcrumb
 
-    scoped = rag.search("rollback previous image tag", k=3, doc_id=rag.db.get_document_by_source("pkg/retry.py")["doc_id"])
+    scoped = rag.search(
+        "rollback previous image tag", k=3, doc_id=rag.db.get_document_by_source("pkg/retry.py")["doc_id"]
+    )
     assert all(h.source == "pkg/retry.py" for h in scoped)
 
 
@@ -80,7 +84,9 @@ def test_qa_vectors_are_indexed_and_resolve_to_their_chunk(make_rag, stub, sampl
 
 def test_rejected_chunks_are_never_retrievable(make_rag, tmp_path):
     rag = make_rag()
-    (tmp_path / "toc.md").write_text("# Contents\n\n1 Intro ........ 1\n2 Methods ........ 5\n3 Results ........ 9\n4 Discussion ........ 12\n5 Notes ........ 20\n")
+    (tmp_path / "toc.md").write_text(
+        "# Contents\n\n1 Intro ........ 1\n2 Methods ........ 5\n3 Results ........ 9\n4 Discussion ........ 12\n5 Notes ........ 20\n"
+    )
     r = rag.ingest_path(tmp_path / "toc.md")
     assert r.ok and r.usable_chunks == 0 and r.rejection_reasons
     rag.index()
@@ -124,7 +130,9 @@ def test_a_failed_vector_delete_keeps_the_document_intact(make_rag, stub, sample
 
 def test_reconcile_reports_orphans_and_unindexed_documents(make_rag, stub, sample_repo):
     rag, results = built(make_rag, stub, sample_repo)
-    rag.store.upsert(["ghost"], [[0.1] * 512], ["text of a deleted file"], [{"doc_id": "gone", "chunk_id": "x", "kind": "chunk"}])
+    rag.store.upsert(
+        ["ghost"], [[0.1] * 512], ["text of a deleted file"], [{"doc_id": "gone", "chunk_id": "x", "kind": "chunk"}]
+    )
     rag.store.delete_document(results["pkg/retry.py"].doc_id)
     rep = reconcile(rag.db, rag.store)
     assert rep["orphan_vectors"] == ["ghost"] and rep["unindexed_docs"] == [results["pkg/retry.py"].doc_id]
@@ -140,6 +148,7 @@ def test_status_summarises_the_run(make_rag, stub, sample_repo):
 
 
 # ----------------------------------------------------------------------------- settings + cli
+
 
 def test_settings_read_the_environment(monkeypatch, tmp_path):
     monkeypatch.setenv("RAG_DATA_DIR", str(tmp_path / "d"))

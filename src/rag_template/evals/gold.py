@@ -43,7 +43,9 @@ class Query:
     answer_contains: List[str] = field(default_factory=list)  # any of these (case-insensitive) in a correct answer
     origin: str = "handwritten"
     kind: str = ""  # unanswerable queries only: far (unrelated) | near (adjacent topic) | premise (a real component, a feature it lacks)
-    absent_terms: List[str] = field(default_factory=list)  # unanswerable queries only: whole words that must occur nowhere in the corpus
+    absent_terms: List[str] = field(
+        default_factory=list
+    )  # unanswerable queries only: whole words that must occur nowhere in the corpus
 
 
 def load_gold(path: str | Path) -> List[Query]:
@@ -54,10 +56,16 @@ def load_gold(path: str | Path) -> List[Query]:
         d = json.loads(line)
         out.append(
             Query(
-                id=d["id"], query=d["query"], type=d.get("type", "doc"), style=d.get("style", "natural"),
-                answerable=d.get("answerable", True), gold=[GoldItem(**g) for g in d.get("gold", [])],
-                answer_contains=d.get("answer_contains", []), origin=d.get("origin", "handwritten"),
-                kind=d.get("kind", ""), absent_terms=d.get("absent_terms", []),
+                id=d["id"],
+                query=d["query"],
+                type=d.get("type", "doc"),
+                style=d.get("style", "natural"),
+                answerable=d.get("answerable", True),
+                gold=[GoldItem(**g) for g in d.get("gold", [])],
+                answer_contains=d.get("answer_contains", []),
+                origin=d.get("origin", "handwritten"),
+                kind=d.get("kind", ""),
+                absent_terms=d.get("absent_terms", []),
             )
         )
     return out
@@ -65,9 +73,18 @@ def load_gold(path: str | Path) -> List[Query]:
 
 def save_gold(queries: Sequence[Query], path: str | Path) -> None:
     rows = [
-        {"id": q.id, "type": q.type, "style": q.style, "query": q.query, "answerable": q.answerable,
-         "gold": [{"file": g.file, "snippet": g.snippet} for g in q.gold], "answer_contains": q.answer_contains, "origin": q.origin,
-         "kind": q.kind, "absent_terms": q.absent_terms}
+        {
+            "id": q.id,
+            "type": q.type,
+            "style": q.style,
+            "query": q.query,
+            "answerable": q.answerable,
+            "gold": [{"file": g.file, "snippet": g.snippet} for g in q.gold],
+            "answer_contains": q.answer_contains,
+            "origin": q.origin,
+            "kind": q.kind,
+            "absent_terms": q.absent_terms,
+        }
         for q in queries
     ]
     Path(path).write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + "\n")

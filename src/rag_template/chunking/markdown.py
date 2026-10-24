@@ -31,7 +31,9 @@ from rag_template.tokens import count_tokens
 _FENCE = re.compile(r"^(```|~~~)[ \t]*([\w+#.-]*)")
 _HEADING = re.compile(r"^(#{1,6})\s+(.*)")
 # "Table 1. Ablation of ...", "_Table 2._ ...", "**TABLE III:** ...": the caption of the table next to it
-_TABLE_CAPTION = re.compile(r"^[\s_*]*table\s+(?:\d+|[ivxlc]+)\b\s*[_*]*\s*(?:[.:\-–—]|(?-i:(?=[A-Z])))", re.IGNORECASE)  # "Table 1. X", "Table 1: X", "Table 3 Generation settings"
+_TABLE_CAPTION = re.compile(
+    r"^[\s_*]*table\s+(?:\d+|[ivxlc]+)\b\s*[_*]*\s*(?:[.:\-–—]|(?-i:(?=[A-Z])))", re.IGNORECASE
+)  # "Table 1. X", "Table 1: X", "Table 3 Generation settings"
 _MASK_LINE = re.compile(r"^__MASK_[0-9a-f]+__$")
 _MASK_SPLIT = re.compile(r"(__MASK_[0-9a-f]+__)")
 
@@ -141,9 +143,7 @@ class MarkdownChunker:
 
             ast_chunks = PythonASTChunker(self.config).process(body, source="", finalize=False)
             if len(ast_chunks) > 1 or ast_chunks[0]["metadata"].get("parse_error") is None:
-                return [
-                    (f"{fence}{lang}\n{c['content']}\n{fence}", _code_meta(c, lang)) for c in ast_chunks
-                ]
+                return [(f"{fence}{lang}\n{c['content']}\n{fence}", _code_meta(c, lang)) for c in ast_chunks]
         parts = pack_lines(body, self.config.max_chunk_tokens - 10)
         return [(f"{fence}{lang}\n{p}\n{fence}", {"language": lang}) for p in parts]
 
@@ -163,13 +163,18 @@ class MarkdownChunker:
             if before and _TABLE_CAPTION.match(before[-1]):
                 j, rest, merged = i - 1, "\n\n".join(before[:-1]).strip(), f"{before[-1].strip()}\n\n{original}"
             elif after and _TABLE_CAPTION.match(after[0]):
-                next_is_table = i + 2 < len(parts) and parts[i + 2] in store and store[parts[i + 2]][1] == ContentType.TABLE
+                next_is_table = (
+                    i + 2 < len(parts) and parts[i + 2] in store and store[parts[i + 2]][1] == ContentType.TABLE
+                )
                 if len(after) == 1 and next_is_table:
                     continue  # the only paragraph between two tables is the second one's caption (captions go above tables)
                 j, rest, merged = i + 1, "\n\n".join(after[1:]).strip(), f"{original}\n\n{after[0].strip()}"
             else:
                 continue
-            store[part], parts[j] = (merged, c_type), rest  # an oversize table is split by rows later and each part keeps the caption
+            store[part], parts[j] = (
+                (merged, c_type),
+                rest,
+            )  # an oversize table is split by rows later and each part keeps the caption
         return parts
 
     def _process_section(self, section: Dict[str, Any], store: MaskStore) -> List[Chunk]:

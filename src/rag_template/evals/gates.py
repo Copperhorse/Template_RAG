@@ -48,9 +48,11 @@ class _Retriever:
 
     def span_scorer(self):
         """Word overlap with the query: a deterministic stand-in for the cross-encoder (used by the extraction fallback)."""
+
         def score(query, texts):
             q = set(re.findall(r"\w+", query.lower()))
             return [float(len(q & set(re.findall(r"\w+", t.lower())))) for t in texts]
+
         return score
 
 
@@ -63,13 +65,25 @@ class _LLM:
 
 
 def _hit(row: Dict) -> Hit:
-    return Hit(row["chunk_id"], row.get("doc_id", ""), row["source"], 1.0, row["content"], row.get("breadcrumb") or row["source"],
-               row["content_type"], row.get("metadata", {}))
+    return Hit(
+        row["chunk_id"],
+        row.get("doc_id", ""),
+        row["source"],
+        1.0,
+        row["content"],
+        row.get("breadcrumb") or row["source"],
+        row["content_type"],
+        row.get("metadata", {}),
+    )
 
 
 def _clean_answer(snippet: str, kind: str) -> str:
     if kind == "code":
-        idents = [i for i in dict.fromkeys(IDENT.findall(snippet)) if i not in ("self", "return", "else", "elif", "None", "True", "False", "import", "from", "class")]
+        idents = [
+            i
+            for i in dict.fromkeys(IDENT.findall(snippet))
+            if i not in ("self", "return", "else", "elif", "None", "True", "False", "import", "from", "class")
+        ]
         picked = " and ".join(f"`{i}`" for i in idents[:2]) or "`value`"
         return f"The code defines {picked} [S1]."
     text = re.sub(r"[`*|]+", " ", snippet)
@@ -93,7 +107,9 @@ def build_scenarios(queries: Sequence[Query], chunks: Sequence[Dict], seed: int 
         others = [c for c in usable if c["source"] != g.file]
         same_kind = [c for c in others if (c["content_type"] == "code") == (kind == "code")]
         # prefer same-kind, substantial chunks; fall back to looser pools so a small corpus still works
-        pool = next((p for p in ([c for c in same_kind if len(c["content"]) > 120], same_kind, others) if len(p) >= 2), None)
+        pool = next(
+            (p for p in ([c for c in same_kind if len(c["content"]) > 120], same_kind, others) if len(p) >= 2), None
+        )
         if pool is None:
             continue
         distractors = rng.sample(pool, 2)
@@ -103,7 +119,11 @@ def build_scenarios(queries: Sequence[Query], chunks: Sequence[Dict], seed: int 
 
 def _sentence_or_line(hit: Hit) -> str:
     """A verbatim, quotable span of a distractor chunk (>= 40 chars)."""
-    lines = [ln.strip() for ln in hit.content.splitlines() if len(ln.strip()) >= 40 and not ln.strip().startswith(("#", "```", "|--"))]
+    lines = [
+        ln.strip()
+        for ln in hit.content.splitlines()
+        if len(ln.strip()) >= 40 and not ln.strip().startswith(("#", "```", "|--"))
+    ]
     if lines:
         return lines[len(lines) // 2]
     return hit.content.strip()[:120]
@@ -119,11 +139,17 @@ def _bump_number(answer: str) -> Optional[str]:
     m = re.search(r"(?<![\w.])\d+(?![\w])", body)
     if not m:
         return None
-    return body[: m.start()] + str(int(m.group()) + 7) + body[m.end():] + (cite or "")
+    return body[: m.start()] + str(int(m.group()) + 7) + body[m.end() :] + (cite or "")
 
 
 def _negate(answer: str) -> Optional[str]:
-    for a, b in ((" is ", " is not "), (" are ", " are not "), (" uses ", " does not use "), (" returns ", " never returns "), (" must ", " must never ")):
+    for a, b in (
+        (" is ", " is not "),
+        (" are ", " are not "),
+        (" uses ", " does not use "),
+        (" returns ", " never returns "),
+        (" must ", " must never "),
+    ):
         if a in answer:
             return answer.replace(a, b, 1)
     return None
@@ -148,7 +174,9 @@ class Corruption:
     name: str
     expect: str  # flag | accept | info
     describe: str
-    make: Callable[[Scenario], Optional[Tuple[str, List[Tuple[int, str]]]]]  # -> (answer, quotes) or None if not applicable
+    make: Callable[
+        [Scenario], Optional[Tuple[str, List[Tuple[int, str]]]]
+    ]  # -> (answer, quotes) or None if not applicable
 
 
 def _lenient(s: str) -> str:
@@ -156,44 +184,124 @@ def _lenient(s: str) -> str:
 
 
 CORRUPTIONS: List[Corruption] = [
-    Corruption("clean", "accept", "answer and quote copied from the gold snippet", lambda s: (s.answer, [(1, s.snippet)])),
-    Corruption("quote_retyped", "accept", "the real quote, lower-cased with punctuation and spacing dropped", lambda s: (s.answer, [(1, _lenient(s.snippet))])),
-    Corruption("fabricated_quote", "flag", "quote replaced by text from an unrelated chunk", lambda s: (s.answer, [(1, _sentence_or_line(s.hits[1]))])),
-    Corruption("quote_from_wrong_source", "flag", "real text, but taken from source 2 while citing source 1", lambda s: (s.answer, [(1, _sentence_or_line(s.hits[1]))])),
+    Corruption(
+        "clean", "accept", "answer and quote copied from the gold snippet", lambda s: (s.answer, [(1, s.snippet)])
+    ),
+    Corruption(
+        "quote_retyped",
+        "accept",
+        "the real quote, lower-cased with punctuation and spacing dropped",
+        lambda s: (s.answer, [(1, _lenient(s.snippet))]),
+    ),
+    Corruption(
+        "fabricated_quote",
+        "flag",
+        "quote replaced by text from an unrelated chunk",
+        lambda s: (s.answer, [(1, _sentence_or_line(s.hits[1]))]),
+    ),
+    Corruption(
+        "quote_from_wrong_source",
+        "flag",
+        "real text, but taken from source 2 while citing source 1",
+        lambda s: (s.answer, [(1, _sentence_or_line(s.hits[1]))]),
+    ),
     Corruption("no_quotes", "flag", "answer cites [S1] but gives no quotes", lambda s: (s.answer, [])),
-    Corruption("no_citation", "flag", "good quote, but the answer cites nothing", lambda s: (s.answer.replace(" [S1]", ""), [(1, s.snippet)])),
-    Corruption("nonexistent_citation", "flag", "answer cites [S9]", lambda s: (s.answer.replace("[S1]", "[S9]"), [(1, s.snippet)])),
-    Corruption("wrong_number", "flag", "a number in the answer changed (+7)", lambda s: (lambda a: (a, [(1, s.snippet)]) if a else None)(_bump_number(s.answer))),
-    Corruption("invented_identifier", "flag", "answer adds a `backticked` name that exists nowhere", lambda s: (s.answer.replace(" [S1]", " It also calls `legacy_sync_worker`. [S1]"), [(1, s.snippet)])),
-    Corruption("answer_from_other_source", "flag", "answer is text from an unrelated chunk, with a real quote for the right one",
-               lambda s: (re.sub(r"\s+", " ", re.sub(r"[`*|]+", " ", _sentence_or_line(s.hits[1]))).strip() + " [S1]" if s.kind == "doc" else f"The code defines `{_foreign_identifier(s)}` [S1].", [(1, s.snippet)])),
-    Corruption("paraphrased_quote", "info", "the real quote with its longest word replaced by 'banana' (fuzzy match tolerance)", lambda s: (s.answer, [(1, _swap_word(s.snippet))])),
-    Corruption("negation", "info", "the answer asserts the opposite (is -> is not); the quote is unchanged", lambda s: (lambda a: (a, [(1, s.snippet)]) if a else None)(_negate(s.answer))),
-    Corruption("fluent_unsupported_claim", "info", "a plausible extra sentence with no numbers or names", lambda s: (s.answer.replace(" [S1]", " This approach is widely considered best practice in modern production systems. [S1]"), [(1, s.snippet)])),
+    Corruption(
+        "no_citation",
+        "flag",
+        "good quote, but the answer cites nothing",
+        lambda s: (s.answer.replace(" [S1]", ""), [(1, s.snippet)]),
+    ),
+    Corruption(
+        "nonexistent_citation",
+        "flag",
+        "answer cites [S9]",
+        lambda s: (s.answer.replace("[S1]", "[S9]"), [(1, s.snippet)]),
+    ),
+    Corruption(
+        "wrong_number",
+        "flag",
+        "a number in the answer changed (+7)",
+        lambda s: (lambda a: (a, [(1, s.snippet)]) if a else None)(_bump_number(s.answer)),
+    ),
+    Corruption(
+        "invented_identifier",
+        "flag",
+        "answer adds a `backticked` name that exists nowhere",
+        lambda s: (s.answer.replace(" [S1]", " It also calls `legacy_sync_worker`. [S1]"), [(1, s.snippet)]),
+    ),
+    Corruption(
+        "answer_from_other_source",
+        "flag",
+        "answer is text from an unrelated chunk, with a real quote for the right one",
+        lambda s: (
+            re.sub(r"\s+", " ", re.sub(r"[`*|]+", " ", _sentence_or_line(s.hits[1]))).strip() + " [S1]"
+            if s.kind == "doc"
+            else f"The code defines `{_foreign_identifier(s)}` [S1].",
+            [(1, s.snippet)],
+        ),
+    ),
+    Corruption(
+        "paraphrased_quote",
+        "info",
+        "the real quote with its longest word replaced by 'banana' (fuzzy match tolerance)",
+        lambda s: (s.answer, [(1, _swap_word(s.snippet))]),
+    ),
+    Corruption(
+        "negation",
+        "info",
+        "the answer asserts the opposite (is -> is not); the quote is unchanged",
+        lambda s: (lambda a: (a, [(1, s.snippet)]) if a else None)(_negate(s.answer)),
+    ),
+    Corruption(
+        "fluent_unsupported_claim",
+        "info",
+        "a plausible extra sentence with no numbers or names",
+        lambda s: (
+            s.answer.replace(
+                " [S1]", " This approach is widely considered best practice in modern production systems. [S1]"
+            ),
+            [(1, s.snippet)],
+        ),
+    ),
 ]
 
 
 @dataclass
 class GateReport:
-    rows: List[Dict] = field(default_factory=list)  # one per corruption; "by_policy" maps policy -> {n, flagged, flag_rate}
+    rows: List[Dict] = field(
+        default_factory=list
+    )  # one per corruption; "by_policy" maps policy -> {n, flagged, flag_rate}
     examples: Dict[str, List[str]] = field(default_factory=dict)
     policies: List[str] = field(default_factory=list)
 
     def markdown(self) -> str:
-        lines = ["| corruption | n | expected | " + " | ".join(f"{p}: flagged" for p in self.policies) + " | what it is |", "|---|---:|---|" + "---:|" * len(self.policies) + "---|"]
+        lines = [
+            "| corruption | n | expected | " + " | ".join(f"{p}: flagged" for p in self.policies) + " | what it is |",
+            "|---|---:|---|" + "---:|" * len(self.policies) + "---|",
+        ]
         for r in self.rows:
             exp = {"flag": "flag", "accept": "accept", "info": "info"}[r["expect"]]
             cells = []
             for p in self.policies:
                 d = r["by_policy"][p]
                 rate = f"{100 * d['flag_rate']:.0f}%"
-                bad = (r["expect"] == "flag" and d["flag_rate"] < 1.0) or (r["expect"] == "accept" and d["flag_rate"] > 0.0)
+                bad = (r["expect"] == "flag" and d["flag_rate"] < 1.0) or (
+                    r["expect"] == "accept" and d["flag_rate"] > 0.0
+                )
                 cells.append(f"**{rate}**" if bad else rate)
             lines.append(f"| {r['name']} | {r['n']} | {exp} | " + " | ".join(cells) + f" | {r['describe']} |")
-        return "\n".join(lines) + "\n\nBold = the gate did not do what that row expects (a `flag` row below 100%, an `accept` row above 0%)."
+        return (
+            "\n".join(lines)
+            + "\n\nBold = the gate did not do what that row expects (a `flag` row below 100%, an `accept` row above 0%)."
+        )
 
 
-def run_gate_eval(scenarios: Sequence[Scenario], policies: Sequence[str] = ("strict", "tolerant", "balanced", "lenient"), **answerer_kw) -> GateReport:
+def run_gate_eval(
+    scenarios: Sequence[Scenario],
+    policies: Sequence[str] = ("strict", "tolerant", "balanced", "lenient"),
+    **answerer_kw,
+) -> GateReport:
     report = GateReport(policies=list(policies))
     for c in CORRUPTIONS:
         by_policy, n = {}, 0
@@ -205,7 +313,9 @@ def run_gate_eval(scenarios: Sequence[Scenario], policies: Sequence[str] = ("str
                 if made is None:
                     continue
                 answer, quotes = made
-                ans = Answerer(_Retriever(s.hits), _LLM(_reply(answer, quotes)), policy=policy, **answerer_kw).ask(s.query.query)
+                ans = Answerer(_Retriever(s.hits), _LLM(_reply(answer, quotes)), policy=policy, **answerer_kw).ask(
+                    s.query.query
+                )
                 n += 1
                 is_flagged = not ans.grounded
                 flagged += is_flagged
@@ -214,6 +324,16 @@ def run_gate_eval(scenarios: Sequence[Scenario], policies: Sequence[str] = ("str
                     missed.append(f"[{policy}] {s.query.id}: {ans.reason or 'accepted'} | answer={answer[:90]!r}")
             by_policy[policy] = {"n": n, "flagged": flagged, "flag_rate": flagged / n if n else 0.0}
         first = by_policy[policies[0]]
-        report.rows.append({"name": c.name, "expect": c.expect, "describe": c.describe, "n": n, "flagged": first["flagged"], "flag_rate": first["flag_rate"], "by_policy": by_policy})
+        report.rows.append(
+            {
+                "name": c.name,
+                "expect": c.expect,
+                "describe": c.describe,
+                "n": n,
+                "flagged": first["flagged"],
+                "flag_rate": first["flag_rate"],
+                "by_policy": by_policy,
+            }
+        )
         report.examples[c.name] = missed
     return report

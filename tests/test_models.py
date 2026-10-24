@@ -44,11 +44,17 @@ def test_the_formatted_inputs_equal_the_models_own_prompts(embedder):
     ours_code = embedder.embed_query("sort a list", task="code retrieval")
     theirs_code = model.encode("sort a list", prompt_name="CodeRetrieval", normalize_embeddings=True)
     ours_d = embedder.embed_documents(["The northern lights are caused by charged particles."])[0]
-    theirs_d = model.encode("title: none | text: The northern lights are caused by charged particles.", normalize_embeddings=True)
+    theirs_d = model.encode(
+        "title: none | text: The northern lights are caused by charged particles.", normalize_embeddings=True
+    )
     for a, b in ((ours_q, theirs_q), (ours_code, theirs_code), (ours_d, theirs_d)):
-        assert sum(x * float(y) for x, y in zip(a, b)) > 0.99  # bfloat16: two code paths round differently, so not 0.9999
+        assert (
+            sum(x * float(y) for x, y in zip(a, b)) > 0.99
+        )  # bfloat16: two code paths round differently, so not 0.9999
     wrong = model.encode("What causes the northern lights?", prompt_name="Classification", normalize_embeddings=True)
-    assert sum(x * float(y) for x, y in zip(ours_q, wrong)) < 0.97  # control: a different task prefix is clearly distinguishable
+    assert (
+        sum(x * float(y) for x, y in zip(ours_q, wrong)) < 0.97
+    )  # control: a different task prefix is clearly distinguishable
 
 
 def test_a_document_title_changes_the_vector_and_a_wrong_task_changes_the_query(embedder):
@@ -60,7 +66,11 @@ def test_a_document_title_changes_the_vector_and_a_wrong_task_changes_the_query(
 
 
 def test_embedder_ranks_the_relevant_passage_first(embedder):
-    docs = ["Cache entries expire after the time-to-live has passed.", "A rollback redeploys the previous image tag.", "retry sleeps with exponential backoff"]
+    docs = [
+        "Cache entries expire after the time-to-live has passed.",
+        "A rollback redeploys the previous image tag.",
+        "retry sleeps with exponential backoff",
+    ]
     d = embedder.embed_documents(docs)
     q = embedder.embed_query("how long do cached values stay valid?")
     sims = [sum(a * b for a, b in zip(q, v)) for v in d]
@@ -74,7 +84,9 @@ def test_float16_is_refused_for_embeddinggemma_because_it_returns_nan():
 
 def test_text_only_loading_leaves_out_the_vision_and_audio_encoders(embedder):
     params = sum(p.numel() for p in embedder._get()._model.parameters()) / 1e6
-    assert 200 < params < 350, f"{params:.0f}M parameters: the vision/audio encoders should not be loaded (full model is ~740M)"
+    assert 200 < params < 350, (
+        f"{params:.0f}M parameters: the vision/audio encoders should not be loaded (full model is ~740M)"
+    )
 
 
 def test_matryoshka_truncation_renormalises():
@@ -90,8 +102,16 @@ def test_matryoshka_truncation_renormalises():
 def test_embedding_helpers_flag_rare_words_and_score_similarity():
     h = need(verify.EmbeddingHelpers)
     assert h.is_rare("kinetochore") and not h.is_rare("cell")
-    assert h.similarity("Mitosis produces two daughter cells.", "The result is two genetically identical daughter cells.") > 0.7
-    assert h.similarity("The stock market closed higher on Tuesday.", "The result is two genetically identical daughter cells.") < 0.5
+    assert (
+        h.similarity("Mitosis produces two daughter cells.", "The result is two genetically identical daughter cells.")
+        > 0.7
+    )
+    assert (
+        h.similarity(
+            "The stock market closed higher on Tuesday.", "The result is two genetically identical daughter cells."
+        )
+        < 0.5
+    )
 
 
 def test_pair_verifier_with_embeddings_accepts_a_faithful_answer_and_ranks_the_rest():
@@ -102,9 +122,19 @@ def test_pair_verifier_with_embeddings_accepts_a_faithful_answer_and_ranks_the_r
     h = need(pv._get_helpers)
     chunk = "Mitosis is cell division. The result is two genetically identical daughter cells. Meiosis produces four different gametes."
     quote = "The result is two genetically identical daughter cells."
-    ok, why = pv.validate("What does mitosis produce?", "It produces two genetically identical daughter cells.", chunk, quote)
+    ok, why = pv.validate(
+        "What does mitosis produce?", "It produces two genetically identical daughter cells.", chunk, quote
+    )
     assert ok, why
-    sims = [h.similarity(a, quote) for a in ("It produces two genetically identical daughter cells.", "Cells split into two copies.", "Meiosis produces four different gametes.", "The stock market closed higher on Tuesday.")]
+    sims = [
+        h.similarity(a, quote)
+        for a in (
+            "It produces two genetically identical daughter cells.",
+            "Cells split into two copies.",
+            "Meiosis produces four different gametes.",
+            "The stock market closed higher on Tuesday.",
+        )
+    ]
     assert sims == sorted(sims, reverse=True) and sims[-1] < pv.cfg.min_quote_similarity < sims[1]
 
 
@@ -119,21 +149,29 @@ def test_nli_validator_for_maths():
     ok, why = val.validate("What is the loss?", "The loss is not the mean squared error over the batch.", chunk, quote)
     assert not ok, "a negated restatement must not pass the NLI gate"
     assert not val.validate("What is the loss?", "", chunk, quote)[0]
-    assert not val.validate("What is the loss?", "Entirely unrelated discussion of federal tax policy.", chunk, quote)[0]
+    assert not val.validate("What is the loss?", "Entirely unrelated discussion of federal tax policy.", chunk, quote)[
+        0
+    ]
 
 
 def test_reranker_prefers_the_passage_that_answers_the_query():
     from rag_template.retrieve import CrossEncoderReranker
 
     rr = need(CrossEncoderReranker)
-    scores = rr.rerank("how long until cache entries expire", ["A rollback redeploys the previous image tag.", "Cache entries expire after the time-to-live has passed."])
+    scores = rr.rerank(
+        "how long until cache entries expire",
+        ["A rollback redeploys the previous image tag.", "Cache entries expire after the time-to-live has passed."],
+    )
     assert scores[1] > scores[0]
 
 
 def test_the_models_registry_loads_each_model_once():
     a = need(models.get_bi_encoder)
     assert models.get_bi_encoder() is a
-    assert any(m["kind"] == "bi-encoder" and m["name"] == models.BI_ENCODER_NAME and m["device"] == models.get_device() for m in models.loaded_models())
+    assert any(
+        m["kind"] == "bi-encoder" and m["name"] == models.BI_ENCODER_NAME and m["device"] == models.get_device()
+        for m in models.loaded_models()
+    )
 
 
 def test_real_embeddings_retrieve_the_right_chunk_in_the_full_pipeline(tmp_path, stub, sample_repo):
@@ -145,8 +183,13 @@ def test_real_embeddings_retrieve_the_right_chunk_in_the_full_pipeline(tmp_path,
 
     emb = SentenceTransformerEmbedder()
     need(emb._get)
-    rag = RAG(Settings(data_dir=tmp_path / "d", max_chunk_tokens=200, min_chunk_tokens=30), store=InMemoryVectorStore(), embedder=emb,
-              llm=make_llm(stub), gates=Gates(prose=verify.PairVerifier(), code=verify.CodeVerifier()))
+    rag = RAG(
+        Settings(data_dir=tmp_path / "d", max_chunk_tokens=200, min_chunk_tokens=30),
+        store=InMemoryVectorStore(),
+        embedder=emb,
+        llm=make_llm(stub),
+        gates=Gates(prose=verify.PairVerifier(), code=verify.CodeVerifier()),
+    )
     rag.ingest_directory(sample_repo)
     assert not rag.enrich().server_down
     rag.index()
@@ -155,6 +198,7 @@ def test_real_embeddings_retrieve_the_right_chunk_in_the_full_pipeline(tmp_path,
 
 
 # ------------------------------------------------------------------------------------ jina-reranker-v3.5 (listwise)
+
 
 @pytest.fixture(scope="module")
 def jina():
@@ -176,7 +220,9 @@ def test_jina_is_loaded_from_the_pinned_audited_commit(jina):
     from rag_template.rerankers import JINA_ID, JINA_SHA
 
     assert (jina.name, jina.revision) == (JINA_ID, JINA_SHA)
-    assert JINA_SHA in str(jina._model.name_or_path), jina._model.name_or_path  # a local snapshot of exactly that commit
+    assert JINA_SHA in str(jina._model.name_or_path), (
+        jina._model.name_or_path
+    )  # a local snapshot of exactly that commit
 
 
 def test_jina_ranks_the_relevant_documents_first_across_languages(jina):
@@ -200,13 +246,22 @@ def test_jina_is_deterministic_and_scores_are_returned_in_input_order(jina):
 
 def test_jina_ranks_code_and_prose_sensibly_for_a_developer_question(jina):
     code = "def retry(fn, attempts=3, delay=0.5):\n    for i in range(attempts):\n        try:\n            return fn()\n        except OSError:\n            time.sleep(delay * 2 ** i)\n    raise RuntimeError('gave up')"
-    docs = [code, "A rollback redeploys the previous image tag stored in the release manifest.", "Tokens expire after 24 hours.", "The nightly cleanup job removes uploaded files after thirty days."]
+    docs = [
+        code,
+        "A rollback redeploys the previous image tag stored in the release manifest.",
+        "Tokens expire after 24 hours.",
+        "The nightly cleanup job removes uploaded files after thirty days.",
+    ]
     scores = jina.rerank("how does the retry function back off between attempts?", docs)
     assert max(range(len(docs)), key=scores.__getitem__) == 0
 
 
 def test_jina_handles_sentence_sized_candidates_for_evidence_spans(jina):
-    sentences = ["The default token lifetime is seven days.", "Uploads larger than fifty megabytes are rejected.", "Passwords are hashed with PBKDF2."]
+    sentences = [
+        "The default token lifetime is seven days.",
+        "Uploads larger than fifty megabytes are rejected.",
+        "Passwords are hashed with PBKDF2.",
+    ]
     scores = jina.rerank("How long do tokens last?", sentences)
     assert max(range(3), key=scores.__getitem__) == 0
 

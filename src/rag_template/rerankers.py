@@ -76,7 +76,9 @@ class JinaListwiseReranker:
             from huggingface_hub import snapshot_download
             from transformers import AutoModel
         except ImportError as e:
-            raise ImportError("the Jina reranker needs `torch` and `transformers` (pip install 'rag-template[local]')") from e
+            raise ImportError(
+                "the Jina reranker needs `torch` and `transformers` (pip install 'rag-template[local]')"
+            ) from e
         from rag_template import models
 
         device = models.get_device()
@@ -127,7 +129,9 @@ def _free_gpu_memory() -> None:
         pass
 
 
-def make_reranker(model_name: str, revision: str = "", trust_remote_code: bool = False, dtype: str = "auto") -> Reranker:
+def make_reranker(
+    model_name: str, revision: str = "", trust_remote_code: bool = False, dtype: str = "auto"
+) -> Reranker:
     """The right adapter for a model id: Jina listwise models get their own, everything else is a CrossEncoder."""
     if model_name.lower().startswith("jinaai/jina-reranker"):
         return JinaListwiseReranker(model_name, revision, trust_remote_code, dtype)
@@ -135,7 +139,7 @@ def make_reranker(model_name: str, revision: str = "", trust_remote_code: bool =
 
 
 def default_rerank_mode(model_name: str) -> str:
-    """"replace" for the Jina listwise model, "fuse" for any other reranker.
+    """ "replace" for the Jina listwise model, "fuse" for any other reranker.
 
     Measured on 70 hand-written queries (evals/results/rerankers_handwritten.md): jina alone beat hybrid RRF by +18.6
     recall@1 / +15.4 MRR (significant) and beat its own fused version, while ms-marco-MiniLM *lost* 4-14 points when it

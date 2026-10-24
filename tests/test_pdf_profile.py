@@ -1,4 +1,5 @@
 """pdf_profile: built from tiny PDFs made with PyMuPDF, so no model and no fixture files are needed."""
+
 import pymupdf
 import pytest
 
@@ -21,13 +22,17 @@ def prose(page):
 
 
 def code(page):
-    page.insert_textbox(pymupdf.Rect(50, 50, 560, 700), "def f(x):\n    return x + 1\n" * 12, fontname="cour", fontsize=10)
+    page.insert_textbox(
+        pymupdf.Rect(50, 50, 560, 700), "def f(x):\n    return x + 1\n" * 12, fontname="cour", fontsize=10
+    )
 
 
 def maths(page):
     page.insert_textbox(pymupdf.Rect(50, 50, 560, 300), PROSE, fontname="helv", fontsize=11)
     # the built-in Symbol font stands in for a math font (its glyphs are not extractable as Unicode, its name is)
-    page.insert_textbox(pymupdf.Rect(50, 320, 560, 700), "ab cd ef gh ij kl mn op qr st " * 6, fontname="symb", fontsize=11)
+    page.insert_textbox(
+        pymupdf.Rect(50, 320, 560, 700), "ab cd ef gh ij kl mn op qr st " * 6, fontname="symb", fontsize=11
+    )
 
 
 def bullets(page):
@@ -72,9 +77,19 @@ def test_a_few_math_pages_in_a_long_text_do_not_flip_the_choice(tmp_path):
     assert 0 < p.math_pages_share < 0.2 and choose_backend(p) == "pymupdf4llm"
 
 
-@pytest.mark.parametrize("scanned_share,math_pages,expected", [(0.5, 0, "docling"), (0.49, 0.19, "pymupdf4llm"), (0, 0.2, "docling")])
+@pytest.mark.parametrize(
+    "scanned_share,math_pages,expected", [(0.5, 0, "docling"), (0.49, 0.19, "pymupdf4llm"), (0, 0.2, "docling")]
+)
 def test_thresholds(scanned_share, math_pages, expected):
-    prof = PdfProfile(pages=10, sampled=10, scanned_share=scanned_share, math_font_share=0, math_char_share=0, mono_share=0, math_pages_share=math_pages)
+    prof = PdfProfile(
+        pages=10,
+        sampled=10,
+        scanned_share=scanned_share,
+        math_font_share=0,
+        math_char_share=0,
+        mono_share=0,
+        math_pages_share=math_pages,
+    )
     assert choose_backend(prof) == expected
 
 
@@ -95,12 +110,16 @@ def test_a_conversion_with_undecoded_formulas_is_not_cached_so_a_re_upload_conve
     doc.save(pdf)
     cache = tmp_path / "cache"
     settings = PdfSettings(backend="pymupdf4llm", cache=str(cache), check=False)  # formulas=True by default
-    outputs = iter(["Equation <!-- formula-not-decoded --> left by a crashed stage.", "Equation y = x repaired on the second run."])
+    outputs = iter(
+        ["Equation <!-- formula-not-decoded --> left by a crashed stage.", "Equation y = x repaired on the second run."]
+    )
     monkeypatch.setattr(converters, "_run_backend", lambda *a, **k: next(outputs))
 
     _, first = converters.convert_pdf(pdf, settings)
     assert "formula-not-decoded" in first and not list(cache.glob("*.md"))  # damaged: nothing was stored
     _, second = converters.convert_pdf(pdf, settings)  # same file, converted again rather than served from the cache
     assert "repaired" in second and len(list(cache.glob("*.md"))) == 1
-    monkeypatch.setattr(converters, "_run_backend", lambda *a, **k: (_ for _ in ()).throw(AssertionError("served from the cache")))
+    monkeypatch.setattr(
+        converters, "_run_backend", lambda *a, **k: (_ for _ in ()).throw(AssertionError("served from the cache"))
+    )
     assert "repaired" in converters.convert_pdf(pdf, settings)[1]

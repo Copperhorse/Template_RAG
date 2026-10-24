@@ -27,7 +27,13 @@ from rag_template.enrichment.prompts import get_prompt_set
 from rag_template.evaluator import ChunkEvaluator
 from rag_template.index import Indexer, reconcile
 from rag_template.ingest import IngestResult, ingest
-from rag_template.rerankers import FALLBACK_RERANK_MODEL, CrossEncoderReranker, Reranker, default_rerank_mode, make_reranker
+from rag_template.rerankers import (
+    FALLBACK_RERANK_MODEL,
+    CrossEncoderReranker,
+    Reranker,
+    default_rerank_mode,
+    make_reranker,
+)
 from rag_template.retrieve import Answer, Answerer, Hit, Retriever
 from rag_template.store.db import Database
 from rag_template.store.dedupe import SimHashIndex
@@ -37,8 +43,23 @@ from rag_template.store.vector import VectorStore, make_vector_store
 logger = logging.getLogger("rag_template")
 
 SKIP_DIRS = {
-    ".git", ".hg", ".svn", ".venv", "venv", "env", "node_modules", "__pycache__", ".mypy_cache",
-    ".pytest_cache", ".ruff_cache", ".tox", "dist", "build", ".idea", ".vscode", "site-packages",
+    ".git",
+    ".hg",
+    ".svn",
+    ".venv",
+    "venv",
+    "env",
+    "node_modules",
+    "__pycache__",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".tox",
+    "dist",
+    "build",
+    ".idea",
+    ".vscode",
+    "site-packages",
 }
 MAX_FILE_BYTES = 1_000_000
 
@@ -61,7 +82,9 @@ class RAG:
             env.load_dotenv()
             settings = Settings.from_env()
         self.settings = settings
-        self.chunk_config = ChunkConfig(max_chunk_tokens=settings.max_chunk_tokens, min_chunk_tokens=settings.min_chunk_tokens)
+        self.chunk_config = ChunkConfig(
+            max_chunk_tokens=settings.max_chunk_tokens, min_chunk_tokens=settings.min_chunk_tokens
+        )
         self.evaluator = ChunkEvaluator()
         self.enrich_config = enrich_config
 
@@ -85,7 +108,9 @@ class RAG:
     def embedder(self) -> Embedder:
         if self._embedder is None:
             s = self.settings
-            self._embedder = make_embedder(s.embedder, s.embed_model, s.llm.base_url, s.llm.api_key, s.embed_dtype, s.embed_dim)
+            self._embedder = make_embedder(
+                s.embedder, s.embed_model, s.llm.base_url, s.llm.api_key, s.embed_dtype, s.embed_dim
+            )
         return self._embedder
 
     @property
@@ -123,13 +148,17 @@ class RAG:
         except Exception as e:  # noqa: BLE001 - import, download, trust or memory problems all end up here
             if s.rerank != "auto":
                 raise
-            logger.warning(f"Could not load the reranker '{s.rerank_model}' ({type(e).__name__}: {str(e)[:160]}); "
-                           f"falling back to '{FALLBACK_RERANK_MODEL}'. Set RAG_RERANK=on to make this an error.")
+            logger.warning(
+                f"Could not load the reranker '{s.rerank_model}' ({type(e).__name__}: {str(e)[:160]}); "
+                f"falling back to '{FALLBACK_RERANK_MODEL}'. Set RAG_RERANK=on to make this an error."
+            )
             try:
                 self._reranker = CrossEncoderReranker(FALLBACK_RERANK_MODEL)
                 self._rerank_model_in_use = FALLBACK_RERANK_MODEL
             except Exception as e2:  # noqa: BLE001
-                logger.warning(f"The fallback reranker could not be loaded either ({type(e2).__name__}); retrieval runs without a rerank stage.")
+                logger.warning(
+                    f"The fallback reranker could not be loaded either ({type(e2).__name__}); retrieval runs without a rerank stage."
+                )
         self._reranker_set = True  # a failure that raised above leaves it unset, so the next access fails again instead of returning None
         return self._reranker
 
@@ -142,7 +171,9 @@ class RAG:
             old = self.db.get_document_by_source(source)
             if old:
                 self.delete(old["doc_id"])
-        return ingest(path, self.db, self.dedupe, self.chunk_config, self.evaluator, source=source, pdf=self.settings.pdf)
+        return ingest(
+            path, self.db, self.dedupe, self.chunk_config, self.evaluator, source=source, pdf=self.settings.pdf
+        )
 
     def iter_files(self, root: str | Path, extensions: Optional[Iterable[str]] = None) -> List[Path]:
         root = Path(root)
@@ -156,7 +187,9 @@ class RAG:
                     files.append(p)
         return files
 
-    def ingest_directory(self, root: str | Path, extensions: Optional[Iterable[str]] = None, replace: bool = False) -> Dict[str, IngestResult]:
+    def ingest_directory(
+        self, root: str | Path, extensions: Optional[Iterable[str]] = None, replace: bool = False
+    ) -> Dict[str, IngestResult]:
         """Ingest every supported file under `root`; chunks cite paths relative to `root`."""
         root = Path(root)
         results: Dict[str, IngestResult] = {}
@@ -188,16 +221,32 @@ class RAG:
     @property
     def retriever(self) -> Retriever:
         reranker = self.reranker  # resolves a fallback first, so the mode below matches the model actually in use
-        model_in_use = getattr(self, "_rerank_model_in_use", self.settings.rerank_model)  # the fallback model has its own (safe) mode
+        model_in_use = getattr(
+            self, "_rerank_model_in_use", self.settings.rerank_model
+        )  # the fallback model has its own (safe) mode
         mode = default_rerank_mode(model_in_use) if self.settings.rerank_mode == "auto" else self.settings.rerank_mode
-        return Retriever(self.db, self.store, self.embedder, reranker, self.settings.query_task, mode, self.settings.rerank_top, route_margin=self.settings.route_margin)
+        return Retriever(
+            self.db,
+            self.store,
+            self.embedder,
+            reranker,
+            self.settings.query_task,
+            mode,
+            self.settings.rerank_top,
+            route_margin=self.settings.route_margin,
+        )
 
     def search(self, query: str, k: int = 5, **kwargs) -> List[Hit]:
         return self.retriever.search(query, k=k, **kwargs)
 
     def answerer(self, policy: Optional[str] = None) -> Answerer:
-        return Answerer(self.retriever, self.llm, policy=policy or self.settings.answer_policy, quotes_first=self.settings.answer_quotes_first,
-                        min_relevance=self.settings.answer_min_relevance)
+        return Answerer(
+            self.retriever,
+            self.llm,
+            policy=policy or self.settings.answer_policy,
+            quotes_first=self.settings.answer_quotes_first,
+            min_relevance=self.settings.answer_min_relevance,
+        )
 
     def ask(self, question: str, k: int = 5, strict: bool = False, policy: Optional[str] = None, **kwargs) -> Answer:
         """`policy`: strict | tolerant | balanced | lenient (default Settings.answer_policy); `strict=True` turns a flagged answer into a refusal."""

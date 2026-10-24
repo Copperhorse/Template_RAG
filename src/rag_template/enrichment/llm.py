@@ -101,7 +101,14 @@ class LLMClient:
         except openai.APIError as e:
             raise LLMUnavailable(f"LLM server is not responding: {e}") from e
 
-    def chat(self, system: str, user: str, answer_tokens: int, json_mode: bool = False, response_format: Optional[Dict[str, Any]] = None) -> str:
+    def chat(
+        self,
+        system: str,
+        user: str,
+        answer_tokens: int,
+        json_mode: bool = False,
+        response_format: Optional[Dict[str, Any]] = None,
+    ) -> str:
         """One chat completion; the text of `message.content` only (`reasoning_content` is never
         parsed); "" when the model produced no usable content."""
         s = self.settings
@@ -113,7 +120,11 @@ class LLMClient:
                 temperature=s.temperature,
                 max_tokens=self._max_tokens(answer_tokens),
                 **({"extra_body": s.extra_body} if s.extra_body else {}),
-                **({"response_format": response_format} if response_format else ({"response_format": {"type": "json_object"}} if json_mode else {})),
+                **(
+                    {"response_format": response_format}
+                    if response_format
+                    else ({"response_format": {"type": "json_object"}} if json_mode else {})
+                ),
             )
         except (openai.APIConnectionError, openai.RateLimitError) as e:  # APITimeoutError is a subclass
             raise LLMUnavailable(f"LLM server unreachable or too slow: {e}") from e
@@ -135,7 +146,9 @@ class LLMClient:
 
         choice = response.choices[0]
         if choice.finish_reason == "length":
-            logger.warning(f"LLM hit max_tokens ({self._max_tokens(answer_tokens)}) after {elapsed:.1f}s; output may be empty or cut off")
+            logger.warning(
+                f"LLM hit max_tokens ({self._max_tokens(answer_tokens)}) after {elapsed:.1f}s; output may be empty or cut off"
+            )
         return strip_thinking(choice.message.content or "")
 
     def response_format_for(self, schema: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
@@ -149,8 +162,12 @@ class LLMClient:
             return {"type": "json_object"}
         return None
 
-    def chat_json(self, system: str, user: str, answer_tokens: int, schema: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        return self.extract_json(self.chat(system, user, answer_tokens, response_format=self.response_format_for(schema)))
+    def chat_json(
+        self, system: str, user: str, answer_tokens: int, schema: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        return self.extract_json(
+            self.chat(system, user, answer_tokens, response_format=self.response_format_for(schema))
+        )
 
     @staticmethod
     def extract_json(text: str) -> Dict[str, Any]:
@@ -232,7 +249,9 @@ class LLMClient:
 
     # ------------------------------------------------------------------ enrichment calls
 
-    def generate_metadata(self, text: str, context: str, estimated_tokens: int = 150, content_type: str = "prose") -> Dict[str, Any]:
+    def generate_metadata(
+        self, text: str, context: str, estimated_tokens: int = 150, content_type: str = "prose"
+    ) -> Dict[str, Any]:
         if estimated_tokens < MIN_TOKENS_FOR_METADATA:
             return {}
         p = self.prompts.metadata(text, context, content_type)
@@ -284,6 +303,8 @@ class LLMClient:
             out.append(item)
         return self.deduplicate_candidates(out)
 
-    def generate_reference_answer(self, question: str, chunk_content: str, source_quote: str = "", content_type: str = "prose") -> str:
+    def generate_reference_answer(
+        self, question: str, chunk_content: str, source_quote: str = "", content_type: str = "prose"
+    ) -> str:
         p = self.prompts.answer(question, chunk_content, source_quote, content_type)
         return self.chat(p.system, p.user, self.settings.reference_answer_tokens)

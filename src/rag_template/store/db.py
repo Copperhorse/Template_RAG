@@ -142,7 +142,10 @@ class Database:
 
     def set_meta(self, key: str, value: str) -> None:
         with self._connection() as con:
-            con.execute("INSERT INTO meta(key, value) VALUES(?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", (key, value))
+            con.execute(
+                "INSERT INTO meta(key, value) VALUES(?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+                (key, value),
+            )
 
     def _init_db(self) -> None:
         with self._connection() as con:
@@ -179,7 +182,18 @@ class Database:
             con.execute(
                 "INSERT OR REPLACE INTO documents (doc_id, source, name, kind, title, simhash, sha256, content_length, processed_at, conversion_json)"
                 " VALUES (?,?,?,?,?,?,?,?,?,?)",
-                (doc_id, source, Path(source).name, kind, title, simhash, sha256, content_length, _now(), conversion_json),
+                (
+                    doc_id,
+                    source,
+                    Path(source).name,
+                    kind,
+                    title,
+                    simhash,
+                    sha256,
+                    content_length,
+                    _now(),
+                    conversion_json,
+                ),
             )
 
     def get_document(self, doc_id: str) -> Optional[Dict[str, Any]]:
@@ -232,12 +246,22 @@ class Database:
             usable = 1 if ev.get("should_use", True) else 0
             rows.append(
                 (
-                    c["chunk_id"], doc_id, c["chunk_index"], c["content"],
-                    meta.get("content_type", "prose"), c.get("estimated_tokens", 0),
-                    meta.get("section_header", ""), meta.get("parent_section") or "", meta.get("top_header", ""),
-                    meta.get("breadcrumb", ""), json.dumps(meta, default=str),
-                    c.get("prev_chunk_id"), c.get("next_chunk_id"),
-                    ev.get("quality_score", 0.0), usable, None if usable else ev.get("reason"),
+                    c["chunk_id"],
+                    doc_id,
+                    c["chunk_index"],
+                    c["content"],
+                    meta.get("content_type", "prose"),
+                    c.get("estimated_tokens", 0),
+                    meta.get("section_header", ""),
+                    meta.get("parent_section") or "",
+                    meta.get("top_header", ""),
+                    meta.get("breadcrumb", ""),
+                    json.dumps(meta, default=str),
+                    c.get("prev_chunk_id"),
+                    c.get("next_chunk_id"),
+                    ev.get("quality_score", 0.0),
+                    usable,
+                    None if usable else ev.get("reason"),
                 )
             )
             if usable:
@@ -288,7 +312,11 @@ class Database:
             return [dict(r) for r in con.execute(sql).fetchall()]
 
     def get_chunk_ids_for_document(self, doc_id: str, usable_only: bool = False) -> List[str]:
-        sql = "SELECT chunk_id FROM chunks WHERE doc_id = ?" + (" AND should_use = 1" if usable_only else "") + " ORDER BY chunk_index"
+        sql = (
+            "SELECT chunk_id FROM chunks WHERE doc_id = ?"
+            + (" AND should_use = 1" if usable_only else "")
+            + " ORDER BY chunk_index"
+        )
         with self._connection() as con:
             return [r["chunk_id"] for r in con.execute(sql, (doc_id,)).fetchall()]
 
@@ -357,7 +385,13 @@ class Database:
         with self._connection() as con:
             con.execute(
                 "INSERT OR REPLACE INTO chunk_enrichments (chunk_id, tags, triplets, summary, processed_at) VALUES (?,?,?,?,?)",
-                (chunk_id, json.dumps(data.get("tags", [])), json.dumps(data.get("triplets", [])), data.get("summary", ""), _now()),
+                (
+                    chunk_id,
+                    json.dumps(data.get("tags", [])),
+                    json.dumps(data.get("triplets", [])),
+                    data.get("summary", ""),
+                    _now(),
+                ),
             )
 
     def delete_enrichment(self, chunk_id: str) -> None:
@@ -380,7 +414,8 @@ class Database:
         for i, qa in enumerate(pairs):
             rows.append(
                 (
-                    f"{chunk_id}_q{i + 1}", chunk_id,
+                    f"{chunk_id}_q{i + 1}",
+                    chunk_id,
                     qa.get("question_text", qa.get("question", "")).strip(),
                     qa.get("answer_text", qa.get("answer", "")).strip(),
                     qa.get("source_quote", "").strip(),
@@ -413,9 +448,13 @@ class Database:
         now = _now()
         rows = [
             (
-                f"{chunk_id}_rej{i + 1}", chunk_id, r.get("level"),
-                (r.get("question") or "")[:500], (r.get("answer") or "")[:1000],
-                r.get("reason", "Unknown"), now,
+                f"{chunk_id}_rej{i + 1}",
+                chunk_id,
+                r.get("level"),
+                (r.get("question") or "")[:500],
+                (r.get("answer") or "")[:1000],
+                r.get("reason", "Unknown"),
+                now,
             )
             for i, r in enumerate(rejections)
         ]
@@ -437,7 +476,9 @@ class Database:
     def rejection_summary(self) -> Dict[str, int]:
         """{reason: count}: which gate rejects the most. The first thing to read when tuning."""
         with self._connection() as con:
-            rows = con.execute("SELECT reason, COUNT(*) n FROM chunk_rejections GROUP BY reason ORDER BY n DESC").fetchall()
+            rows = con.execute(
+                "SELECT reason, COUNT(*) n FROM chunk_rejections GROUP BY reason ORDER BY n DESC"
+            ).fetchall()
         return {r["reason"]: r["n"] for r in rows}
 
     def stats(self) -> Dict[str, int]:

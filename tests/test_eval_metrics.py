@@ -67,6 +67,7 @@ def test_percentile():
 
 # ----------------------------------------------------------------------------------- gold
 
+
 def test_snippet_matching_ignores_case_whitespace_and_punctuation():
     q = Query("q", "x", gold=[GoldItem("a.py", "def  Foo(x):\n    return x+1")])
     assert covered_items(q, "a.py", "class A:\n    def foo(x):\n        return x + 1\n") == {0}
@@ -76,15 +77,24 @@ def test_snippet_matching_ignores_case_whitespace_and_punctuation():
 
 
 def test_gold_round_trips_and_reachability_separates_split_from_gated(tmp_path):
-    qs = [Query("a", "one", gold=[GoldItem("f.md", "alpha beta gamma delta")]), Query("b", "two", gold=[GoldItem("f.md", "epsilon zeta eta theta")]),
-          Query("c", "three", gold=[GoldItem("f.md", "iota kappa lambda mu")]), Query("n", "none", answerable=False)]
+    qs = [
+        Query("a", "one", gold=[GoldItem("f.md", "alpha beta gamma delta")]),
+        Query("b", "two", gold=[GoldItem("f.md", "epsilon zeta eta theta")]),
+        Query("c", "three", gold=[GoldItem("f.md", "iota kappa lambda mu")]),
+        Query("n", "none", answerable=False),
+    ]
     save_gold(qs, tmp_path / "g.jsonl")
     back = load_gold(tmp_path / "g.jsonl")
-    assert [q.id for q in back] == ["a", "b", "c", "n"] and back[0].gold[0].snippet == "alpha beta gamma delta" and not back[3].answerable
+    assert (
+        [q.id for q in back] == ["a", "b", "c", "n"]
+        and back[0].gold[0].snippet == "alpha beta gamma delta"
+        and not back[3].answerable
+    )
     chunks = [
         {"source": "f.md", "content": "intro alpha beta gamma delta outro", "should_use": 1},
         {"source": "f.md", "content": "epsilon zeta eta theta", "should_use": 0, "reject_reason": "Low alpha"},
-        {"source": "f.md", "content": "iota kappa", "should_use": 1}, {"source": "f.md", "content": "lambda mu", "should_use": 1},
+        {"source": "f.md", "content": "iota kappa", "should_use": 1},
+        {"source": "f.md", "content": "lambda mu", "should_use": 1},
     ]
     r = check_reachability(qs, chunks)
     assert (r.reachable, r.gated_out, r.split) == (1, 1, 1)
@@ -93,6 +103,7 @@ def test_gold_round_trips_and_reachability_separates_split_from_gated(tmp_path):
 
 # ---------------------------------------------------------------------- naive baseline chunker
 
+
 def test_naive_chunker_is_structure_blind_but_bounded_and_lossless():
     src = "\n".join(f"def func_{i}(x):\n    return x + {i}\n" for i in range(60))
     cs = naive_chunk_file("m.py", src, ChunkConfig(max_chunk_tokens=100), source="m.py")
@@ -100,31 +111,48 @@ def test_naive_chunker_is_structure_blind_but_bounded_and_lossless():
     assert "\n".join(c["content"] for c in cs).count("def func_") == 60
     assert any(not c["content"].lstrip().startswith("def ") for c in cs)  # windows start mid-function
     assert cs[0]["metadata"]["breadcrumb"] == "m.py" and cs[0]["metadata"]["content_type"] == "code"
-    assert naive_chunk_file("notes.md", "a b c\n" * 50, ChunkConfig(max_chunk_tokens=30))[0]["metadata"]["content_type"] == "prose"
+    assert (
+        naive_chunk_file("notes.md", "a b c\n" * 50, ChunkConfig(max_chunk_tokens=30))[0]["metadata"]["content_type"]
+        == "prose"
+    )
     assert cs[1]["prev_chunk_id"] == cs[0]["chunk_id"]
 
 
 # ------------------------------------------------------------------------- quote tolerance experiment
 
+
 def test_quote_tolerance_experiment_separates_slips_from_fabrications():
     from rag_template.evals import quotes as Q
 
-    para = ("The deployment pipeline builds a container image and pushes it to the registry after every merge to the main branch. "
-            "A rollback redeploys the previous image tag stored in the release manifest, so no rebuild is ever needed afterwards. "
-            "Access tokens expire after twenty four hours and must be refreshed by the client library before the next request is made. "
-            "The nightly cleanup job removes every uploaded file older than thirty days from the bucket and from the search index.")
+    para = (
+        "The deployment pipeline builds a container image and pushes it to the registry after every merge to the main branch. "
+        "A rollback redeploys the previous image tag stored in the release manifest, so no rebuild is ever needed afterwards. "
+        "Access tokens expire after twenty four hours and must be refreshed by the client library before the next request is made. "
+        "The nightly cleanup job removes every uploaded file older than thirty days from the bucket and from the search index."
+    )
     other = "Completely different material about gardening, soil acidity, composting methods and seasonal planting schedules for vegetables."
-    chunks = [{"source": "a.md", "content": para, "content_type": "prose", "should_use": 1}, {"source": "b.md", "content": other * 3, "content_type": "prose", "should_use": 1}]
-    queries = [Query(f"q{i}", "x", gold=[GoldItem("a.md", s)]) for i, s in enumerate([
-        "A rollback redeploys the previous image tag stored in the release manifest, so no rebuild is ever needed afterwards.",
-        "Access tokens expire after twenty four hours and must be refreshed by the client library before the next request is made.",
-        "The nightly cleanup job removes every uploaded file older than thirty days from the bucket and from the search index.",
-        "The deployment pipeline builds a container image and pushes it to the registry after every merge to the main branch.",
-    ])]
+    chunks = [
+        {"source": "a.md", "content": para, "content_type": "prose", "should_use": 1},
+        {"source": "b.md", "content": other * 3, "content_type": "prose", "should_use": 1},
+    ]
+    queries = [
+        Query(f"q{i}", "x", gold=[GoldItem("a.md", s)])
+        for i, s in enumerate(
+            [
+                "A rollback redeploys the previous image tag stored in the release manifest, so no rebuild is ever needed afterwards.",
+                "Access tokens expire after twenty four hours and must be refreshed by the client library before the next request is made.",
+                "The nightly cleanup job removes every uploaded file older than thirty days from the bucket and from the search index.",
+                "The deployment pipeline builds a container image and pushes it to the registry after every merge to the main branch.",
+            ]
+        )
+    ]
     rows = {r["damage"]: r for r in Q.run_quote_tolerance(queries, chunks, seed=3)}
     assert rows["text of another chunk"]["loose_accepts"] == 0 and rows["text of another chunk"]["strict_accepts"] == 0
     for slip in ("one word inserted", "two words swapped", "last 25% cut off"):
-        assert rows[slip]["loose_accepts"] >= rows[slip]["strict_accepts"] and rows[slip]["loose_accepts"] >= 0.75, (slip, rows[slip])
+        assert rows[slip]["loose_accepts"] >= rows[slip]["strict_accepts"] and rows[slip]["loose_accepts"] >= 0.75, (
+            slip,
+            rows[slip],
+        )
     assert rows["50% of words replaced"]["loose_accepts"] <= 0.5
     assert all(r["loose_accepts"] >= r["strict_accepts"] for r in rows.values())  # loosening only ever accepts more
     assert "| damage |" in Q.markdown(list(rows.values()))
@@ -136,7 +164,17 @@ def test_every_evals_subcommand_can_be_imported_and_parsed():
 
     from rag_template.evals import cli
 
-    for cmd in ("retrieval", "ablations", "rerankers", "answerability", "gates", "quotes", "synth", "answers", "summarize"):
+    for cmd in (
+        "retrieval",
+        "ablations",
+        "rerankers",
+        "answerability",
+        "gates",
+        "quotes",
+        "synth",
+        "answers",
+        "summarize",
+    ):
         assert callable(getattr(cli, f"cmd_{cmd}"))
     with _pytest.raises(SystemExit) as e:
         cli.main(["--help"])

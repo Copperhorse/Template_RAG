@@ -45,7 +45,9 @@ class PdfSettings:
 
     backend: str = "auto"  # auto (pdf_profile picks per file) | pymupdf4llm | docling
     formulas: bool = True  # Docling's formula-enrichment model (LaTeX for equations)
-    layout_engine: str = ""  # Docling layout model: "" = onnxruntime when onnxruntime-gpu is installed, else torch | onnxruntime | torch
+    layout_engine: str = (
+        ""  # Docling layout model: "" = onnxruntime when onnxruntime-gpu is installed, else torch | onnxruntime | torch
+    )
     cache: str = ""  # converted-Markdown cache: "" = ~/.cache/rag_template/converted | off | a directory
     check: bool = True  # run the conversion check at ingest (convcheck.py); it only reports
 
@@ -98,7 +100,9 @@ class Settings:
     embedder: str = "sentence-transformers"  # sentence-transformers | openai | hash
     embed_model: str = "google/embeddinggemma-2"
     embed_dtype: str = "auto"  # auto (bfloat16 on GPU) | bfloat16 | float16 | float32
-    embed_modalities: str = "text"  # EmbeddingGemma 2: "text" (270M encoder) or "text,image" (adds the 170M vision encoder)
+    embed_modalities: str = (
+        "text"  # EmbeddingGemma 2: "text" (270M encoder) or "text,image" (adds the 170M vision encoder)
+    )
     embed_dim: Optional[int] = None  # Matryoshka truncation (EmbeddingGemma 2: 128, 256, 512, 768)
     query_task: Optional[str] = None  # task-aware embedders: "search result" (default), "code retrieval", ...
     max_chunk_tokens: int = 500
@@ -109,7 +113,9 @@ class Settings:
     rerank_model: str = "jinaai/jina-reranker-v3.5"
     rerank_revision: str = ""  # "" = the audited commit for the Jina model, else "main"
     rerank_trust_remote_code: bool = False  # only needed for a custom-code model other than the audited Jina pair
-    rerank_top: Optional[int] = 20  # candidates the reranker reads per query (a listwise model reads them all in one pass)
+    rerank_top: Optional[int] = (
+        20  # candidates the reranker reads per query (a listwise model reads them all in one pass)
+    )
     rerank_mode: str = "auto"  # auto (replace for the Jina listwise reranker, fuse for any other) | fuse (the reranker is a third voter) | replace (order by it alone)
     # How strict the answer gate is (retrieve.POLICIES) and whether the model writes its evidence before its answer.
     # Measured on 70 real questions with Gemma 4 E2B (evals/results/answer_policies.md): balanced + quotes-first +
@@ -117,7 +123,9 @@ class Settings:
     # Refuse before calling the LLM when the best reranker score is below this (None = off, the default). The number is specific
     # to the reranker; for jina-reranker-v3.5 see evals/results/answerability.md for the measured cost and benefit of each value.
     answer_min_relevance: Optional[float] = None
-    route_margin: Optional[float] = 0.10  # document routing: keep only the best-scoring document's chunks when it leads the next by this reranker margin (None = off, RAG_ROUTE_MARGIN=off)
+    route_margin: Optional[float] = (
+        0.10  # document routing: keep only the best-scoring document's chunks when it leads the next by this reranker margin (None = off, RAG_ROUTE_MARGIN=off)
+    )
     answer_policy: str = "balanced"
     answer_quotes_first: bool = True
     prompt_set: str = "fewshot"  # only used by the optional enrichment stage

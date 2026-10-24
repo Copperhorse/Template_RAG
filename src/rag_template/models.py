@@ -116,25 +116,37 @@ def is_embedding_gemma2(name: str) -> bool:
 
 
 def get_bi_encoder(
-    name: str = BI_ENCODER_NAME, dtype: str = "auto", truncate_dim: Optional[int] = None, max_seq_length: Optional[int] = None,
+    name: str = BI_ENCODER_NAME,
+    dtype: str = "auto",
+    truncate_dim: Optional[int] = None,
+    max_seq_length: Optional[int] = None,
     modalities: str = "text",
 ):
     """`dtype` auto = bfloat16 on a GPU that supports it (half the memory, same ranking), else float32.
     `modalities` (EmbeddingGemma 2 only): "text" loads just the 270M text encoder; "text,image" also loads
     the 170M vision encoder. The other encoders are separate components, so leaving them out costs nothing."""
     st = _require_sentence_transformers()
-    device = os.environ.get("RAG_EMBED_DEVICE", "").strip().lower() or get_device()  # e.g. cpu, to leave a shared GPU to the reranker
+    device = (
+        os.environ.get("RAG_EMBED_DEVICE", "").strip().lower() or get_device()
+    )  # e.g. cpu, to leave a shared GPU to the reranker
     if is_embedding_gemma2(name) and dtype.lower() in ("float16", "fp16", "half"):
         # Per the model card, float16 overflows its activation range: it returns NaN or silently degraded vectors.
-        raise ValueError("EmbeddingGemma 2 must not run in float16 (silent NaN / degraded embeddings); use bfloat16 or float32")
+        raise ValueError(
+            "EmbeddingGemma 2 must not run in float16 (silent NaN / degraded embeddings); use bfloat16 or float32"
+        )
 
     def load():
         torch_dtype = _resolve_dtype(dtype, device)
         extra = {}
         if is_embedding_gemma2(name):
             mods = {m.strip() for m in modalities.split(",")}
-            extra["config_kwargs"] = {**({} if "image" in mods else {"vision_config": None}), **({} if "audio" in mods else {"audio_config": None})}
-        factory = lambda n, device, **kw: st.SentenceTransformer(n, device=device, truncate_dim=truncate_dim, model_kwargs={"dtype": torch_dtype}, **extra, **kw)  # noqa: E731
+            extra["config_kwargs"] = {
+                **({} if "image" in mods else {"vision_config": None}),
+                **({} if "audio" in mods else {"audio_config": None}),
+            }
+        factory = lambda n, device, **kw: st.SentenceTransformer(
+            n, device=device, truncate_dim=truncate_dim, model_kwargs={"dtype": torch_dtype}, **extra, **kw
+        )  # noqa: E731
         model = _local_first(factory, name, device)
         if max_seq_length:
             model.max_seq_length = max_seq_length
@@ -148,13 +160,15 @@ def get_bi_encoder(
 def get_cross_encoder(name: str = NLI_CROSS_ENCODER_NAME):
     st = _require_sentence_transformers()
     device = get_device()
-    return _get_or_load(("cross-encoder", name, device), lambda: SharedModel(_local_first(st.CrossEncoder, name, device)))
+    return _get_or_load(
+        ("cross-encoder", name, device), lambda: SharedModel(_local_first(st.CrossEncoder, name, device))
+    )
 
 
 def loaded_models() -> list:
     """What is in memory. A bi-encoder's cache key carries its settings ("name|dtype|dim|max_len|modalities")."""
     out = []
-    for (k, n, d) in sorted(_cache):
+    for k, n, d in sorted(_cache):
         name, _, config = n.partition("|")
         out.append({"kind": k, "name": name, "device": d, **({"config": config} if config else {})})
     return out

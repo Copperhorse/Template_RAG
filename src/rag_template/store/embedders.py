@@ -26,7 +26,9 @@ logger = logging.getLogger("rag_template.embedders")
 class Embedder(Protocol):
     name: str
 
-    def embed_documents(self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None) -> List[List[float]]: ...
+    def embed_documents(
+        self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None
+    ) -> List[List[float]]: ...
 
     def embed_query(self, text: str, task: Optional[str] = None) -> List[float]: ...
 
@@ -77,7 +79,13 @@ class SentenceTransformerEmbedder:
         `truncate_dim`: Matryoshka dimension for models trained for it (EmbeddingGemma 2: 128/256/512/768).
         `modalities`: EmbeddingGemma 2 only, "text" (270M, default) or "text,image" (440M)."""
         self.name = model_name
-        self.batch_size, self.dtype, self.truncate_dim, self.max_seq_length, self.modalities = batch_size, dtype, truncate_dim, max_seq_length, modalities
+        self.batch_size, self.dtype, self.truncate_dim, self.max_seq_length, self.modalities = (
+            batch_size,
+            dtype,
+            truncate_dim,
+            max_seq_length,
+            modalities,
+        )
         self.fmt = fmt or format_for(model_name)
         self._model = None
 
@@ -85,7 +93,13 @@ class SentenceTransformerEmbedder:
         if self._model is None:
             from rag_template import models
 
-            self._model = models.get_bi_encoder(self.name, dtype=self.dtype, truncate_dim=self.truncate_dim, max_seq_length=self.max_seq_length, modalities=self.modalities)
+            self._model = models.get_bi_encoder(
+                self.name,
+                dtype=self.dtype,
+                truncate_dim=self.truncate_dim,
+                max_seq_length=self.max_seq_length,
+                modalities=self.modalities,
+            )
         return self._model
 
     def _encode_batched(self, texts: List[str]):
@@ -93,7 +107,13 @@ class SentenceTransformerEmbedder:
         retry with half the batch, down to one text at a time. The usable batch size is remembered."""
         while True:
             try:
-                return self._get().encode(texts, normalize_embeddings=True, batch_size=self.batch_size, show_progress_bar=False, convert_to_numpy=True)
+                return self._get().encode(
+                    texts,
+                    normalize_embeddings=True,
+                    batch_size=self.batch_size,
+                    show_progress_bar=False,
+                    convert_to_numpy=True,
+                )
             except Exception as e:
                 if not _is_oom(e) or self.batch_size <= 1:
                     raise
@@ -110,7 +130,9 @@ class SentenceTransformerEmbedder:
             out.append((v / norm if norm else v).tolist())
         return out
 
-    def embed_documents(self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None) -> List[List[float]]:
+    def embed_documents(
+        self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None
+    ) -> List[List[float]]:
         if not texts:
             return []
         return self._encode([self.fmt.document(t, title) for t, title in zip(texts, _titled(texts, titles))])
@@ -120,7 +142,14 @@ class SentenceTransformerEmbedder:
 
 
 class OpenAICompatEmbedder:
-    def __init__(self, base_url: str, model: str, api_key: str = "no-key", batch_size: int = 64, truncate_dim: Optional[int] = None):
+    def __init__(
+        self,
+        base_url: str,
+        model: str,
+        api_key: str = "no-key",
+        batch_size: int = 64,
+        truncate_dim: Optional[int] = None,
+    ):
         from openai import OpenAI
 
         self.name, self.batch_size, self.truncate_dim = model, batch_size, truncate_dim
@@ -134,7 +163,9 @@ class OpenAICompatEmbedder:
             out.extend(_truncate(d.embedding, self.truncate_dim) for d in sorted(resp.data, key=lambda d: d.index))
         return out
 
-    def embed_documents(self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None) -> List[List[float]]:
+    def embed_documents(
+        self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None
+    ) -> List[List[float]]:
         return self._embed([self.fmt.document(t, title) for t, title in zip(texts, _titled(texts, titles))])
 
     def embed_query(self, text: str, task: Optional[str] = None) -> List[float]:
@@ -159,7 +190,9 @@ class HashingEmbedder:
         norm = math.sqrt(sum(x * x for x in vec)) or 1.0
         return [x / norm for x in vec]
 
-    def embed_documents(self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None) -> List[List[float]]:
+    def embed_documents(
+        self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None
+    ) -> List[List[float]]:
         return [self._embed(f"{title}\n{t}" if title else t) for t, title in zip(texts, _titled(texts, titles))]
 
     def embed_query(self, text: str, task: Optional[str] = None) -> List[float]:
@@ -173,14 +206,23 @@ class TruncatedEmbedder:
     def __init__(self, base: "Embedder", dim: int):
         self.base, self.dim, self.name = base, dim, f"{base.name}@{dim}"
 
-    def embed_documents(self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None) -> List[List[float]]:
+    def embed_documents(
+        self, texts: Sequence[str], titles: Optional[Sequence[Optional[str]]] = None
+    ) -> List[List[float]]:
         return [_truncate(v, self.dim) for v in self.base.embed_documents(texts, titles)]
 
     def embed_query(self, text: str, task: Optional[str] = None) -> List[float]:
         return _truncate(self.base.embed_query(text, task), self.dim)
 
 
-def make_embedder(kind: str, model: str, base_url: str = "", api_key: str = "no-key", dtype: str = "auto", truncate_dim: Optional[int] = None) -> Embedder:
+def make_embedder(
+    kind: str,
+    model: str,
+    base_url: str = "",
+    api_key: str = "no-key",
+    dtype: str = "auto",
+    truncate_dim: Optional[int] = None,
+) -> Embedder:
     if kind in ("sentence-transformers", "st", "local"):
         return SentenceTransformerEmbedder(model, dtype=dtype, truncate_dim=truncate_dim)
     if kind == "openai":

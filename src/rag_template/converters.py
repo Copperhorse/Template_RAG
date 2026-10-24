@@ -100,9 +100,16 @@ def _run_backend(path: Path, backend: str, pdf: PdfSettings) -> str:
                 return mark_pages([(n, doc.export_to_markdown(page_no=n)) for n in sorted(doc.pages)])
             import pymupdf4llm
 
-            return mark_pages([(c["metadata"]["page_number"], c["text"]) for c in pymupdf4llm.to_markdown(str(path), page_chunks=True)])
+            return mark_pages(
+                [
+                    (c["metadata"]["page_number"], c["text"])
+                    for c in pymupdf4llm.to_markdown(str(path), page_chunks=True)
+                ]
+            )
         except ImportError as e:
-            raise ImportError(f"The {backend} PDF backend needs the `pdf` extra: pip install 'rag-template[pdf]'") from e
+            raise ImportError(
+                f"The {backend} PDF backend needs the `pdf` extra: pip install 'rag-template[pdf]'"
+            ) from e
 
 
 def convert_pdf(path: Path, pdf: Optional[PdfSettings] = None) -> Tuple[Dict[str, Any], str]:
@@ -117,17 +124,26 @@ def convert_pdf(path: Path, pdf: Optional[PdfSettings] = None) -> Tuple[Dict[str
     with pymupdf.open(str(path)) as doc:
         meta = dict(doc.metadata or {})
     backend = _pdf_backend(path, pdf)
-    info = {"format": "pdf", "title": meta.get("title") or path.stem, "author": meta.get("author", ""), "backend": backend}
+    info = {
+        "format": "pdf",
+        "title": meta.get("title") or path.stem,
+        "author": meta.get("author", ""),
+        "backend": backend,
+    }
 
     cache = _cache_file(path, backend, pdf)
     if cache is not None and cache.exists():
         markdown = cache.read_text(encoding="utf-8")
     else:
-        markdown = html.unescape(_run_backend(path, backend, pdf))  # Docling escapes & < > as entities; quotes must match the source text
+        markdown = html.unescape(
+            _run_backend(path, backend, pdf)
+        )  # Docling escapes & < > as entities; quotes must match the source text
         if cache is not None and markdown.strip() and pdf.formulas and "<!-- formula-not-decoded -->" in markdown:
             # with the formula model on, an undecoded formula means that stage failed (GPU out of memory); caching it would make every
             # later upload of the same file reuse the damaged text, even after the document was deleted and the GPU freed
-            logger.warning(f"Not caching the conversion of {path.name}: formulas were left undecoded (the formula stage probably failed)")
+            logger.warning(
+                f"Not caching the conversion of {path.name}: formulas were left undecoded (the formula stage probably failed)"
+            )
         elif cache is not None and markdown.strip():
             cache.parent.mkdir(parents=True, exist_ok=True)
             cache.write_text(markdown, encoding="utf-8")
@@ -161,7 +177,9 @@ def _cache_file(path: Path, backend: str, pdf: PdfSettings) -> Optional[Path]:
         docling_version = "?"
     with open(path, "rb") as f:
         file_hash = hashlib.file_digest(f, "sha256").hexdigest()  # streamed, not read into memory
-    key = "|".join([file_hash, backend, _layout_engine(pdf), str(int(pdf.formulas)), docling_version, "pages"])  # "pages": the cached text carries page markers
+    key = "|".join(
+        [file_hash, backend, _layout_engine(pdf), str(int(pdf.formulas)), docling_version, "pages"]
+    )  # "pages": the cached text carries page markers
     return root / (hashlib.sha256(key.encode()).hexdigest()[:24] + ".md")
 
 
